@@ -1,0 +1,36 @@
+# Custom instant ignight tnt
+on place of tnt:
+	if {inGame::%player%} is true:
+		cancel event
+		set event-block to air
+		spawn primed tnt at event-location
+
+# Grappling hook
+on rod cast:
+	if name of player's tool is "&lGrappling Hook":
+		wait 10 ticks # this is to prevent the grappling hook from going off when you are standing in tall/short grass
+		while true:
+			if block below event-position is not air:
+				set {_loc} to location of fishing hook
+				set yaw of {_loc} to player's yaw
+				set pitch of {_loc} to player's pitch
+				push player upwards at speed 2
+				push player (direction from player to {_loc}) at speed 10
+				delete current fish hook of player
+				set {inFlight::%player%} to true
+				stop
+			wait 10 ticks
+# Prevents grappling hook from doing damage to player
+on damage:
+	if damage cause is fall:
+		if {inFlight::%victim%} is true:
+			cancel event
+			delete {inFlight::%victim%}
+
+# Golden Heads
+on right click using player head:
+	if name of player's held item is "&lGolden Head":
+		cancel event
+		heal player by 2 hearts
+		apply speed potion of tier 2 without any particles to {_p} for 15 seconds
+		remove 1 of player's held item from player's inventory

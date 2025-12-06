@@ -1,0 +1,61 @@
+
+# Param - _p: player that is playing
+# Param - _points: the points the player has earned through playing the game, this will be shown on the leaderboard
+# Runs through the leaderboard and checks where to put the player on the leaderboard of 10 slots. Sorts the leaderboard whenever finished
+function updateLeaderboard(p: player, points: number):
+	set {_insertAt} to 0
+
+	loop 10 times:
+		if {_insertAt} is 0:
+			if {_points} > {leaderboardPoints::%loop-value%}:
+				set {_insertAt} to loop-value
+
+	if {_insertAt} is 0:
+		stop
+
+	loop 10 times:
+		set {_i} to 11 - loop-value
+		if {_i} > {_insertAt}:
+			set {leaderboardPoints::%{_i}%} to {leaderboardPoints::%{_i}-1%}
+			set {leaderboardPlayer::%{_i}%} to {leaderboardPlayer::%{_i}-1%}
+
+	set {leaderboardPoints::%{_insertAt}%} to {_points}
+	set {leaderboardPlayer::%{_insertAt}%} to {_p}
+
+
+command /showleaderboard:
+	trigger:
+		send "&6&l----Top 10 Players----" to player
+		loop 10 times:
+			if {leaderboardPoints::%loop-value%} is not 0: # will not show empty slots. set to -1 if you want empty leaderboard slots to be shown
+				send "&e%loop-value%. &b%{leaderboardPlayer::%loop-value%}% &7- &a&l%{leaderboardPoints::%loop-value%}%" to player
+		send "&6&l----------------------" to player
+
+command /clearLeaderboard:
+	trigger:
+		loop 10 times:
+			set {leaderboardPoints::%loop-value%} to 0
+			set {leaderboardPlayer::%loop-value%} to "None"
+		send "LEADERBOARD CLEARED" to player
+
+command /clearStats:
+	trigger:
+		delete {stats::*}
+		send "ALL STATS HAVE BEEN DELETED" to player
+
+command /stats:
+	trigger:
+		send "&6&n&l%player%'s Stats:" to player
+		send " " to player
+		send " &bTimes Extracted &7&l- &a&l%{stats::extracts::%player%}%" to player
+		send " &bTimes Failed Extraction &7&l- &a&l%{stats::unsuccessfulExtracts::%player%}%"
+		send " &bDeaths &7&l- &a&l%{stats::deaths::%player%}%" to player
+		send " &bTotal Points Earned &7&l- &a&l%{stats::overallPoints::%player%}%" to player
+		send " &bPoints Spent At The Shop &7&l- &a&l%{stats::SpentPoints::%player%}%" to player
+		send " &bMobs Killed &7&l- &a&l%{stats::mobKills::%player%}%"
+		send "&6&l---------------------------" to player
+
+on death of mob:
+	if attacker is player:
+		if {inGame::%attacker%} is true:
+			add 1 to {stats::mobKills::%attacker%}
