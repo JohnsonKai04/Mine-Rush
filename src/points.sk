@@ -1,0 +1,13 @@
+# Custom enchants - Vein miner, double points
+
+
+# Rewards the points earned from mining blocks
+on mine:
+	if {inGame::%player%} is true:
+		set {_block} to "%type of event-block%"
+		set {_points} to {pointMultiplier} * {blockValue::%{_block}%}
+		add {_points} to {points::%player%}
+		add {_points} to {totalPoints::%player%}
+		if {_points} is not 0:
+			send action bar "&2&l+%{_points}% Points" to player
+			set bar title of {pointBar::%player%} to "&a&lPoints: %{points::%player%}%"

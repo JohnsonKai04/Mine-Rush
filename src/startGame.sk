@@ -1,0 +1,58 @@
+command /start [<text>]:
+	trigger:
+		if {inGame::%player%} is true:
+			send "Game already started use /stopGame" to player
+		else:
+			set {inGame::%player%} to true
+			#Picks random location and makes sure there is not water below the player (prevents spawning in ocean)
+			while {spawningLocation::X} is not set:
+				set {spawningLocation::X} to a random integer between -100000 and 1000000
+				set {spawningLocation::Z} to a random integer between -100000 and 1000000
+
+				set {_waterCheck} to location at {spawningLocation::X}, 62, {spawningLocation::Z} in world "world"
+				set {_airCheck} to location at {spawningLocation::X}, {spawningHeight}, {spawningLocation::Z} in world "world"
+
+				if block at {_waterCheck} is water:
+					set {spawningLocation::X} to null
+
+				if block at {_airCheck} is not air:
+					set {spawningLocation::X} to null
+
+				#send "&c&lInvalid Location" to player # DEBUG
+
+			wait 1 second # waits for server to catch up before starting count down
+			send action bar "&c&lStarting in 5..." to player
+			wait 1 second
+			send action bar "&c&lStarting in 4..." to player
+			wait 1 second
+			send action bar "&c&lStarting in 3..." to player
+			wait 1 second
+			send action bar "&c&lStarting in 2..." to player
+			wait 1 second
+			send action bar "&c&lStarting in 1..." to player
+			wait 1 second
+			send action bar "&c&lBEGIN" to player
+
+			# Items and effects
+			apply slow falling potion without any particles to the player for 15 seconds
+			teleport player to location({spawningLocation::X}, {spawningHeight}, {spawningLocation::Z})
+			set time of world "world" to 8:00
+			execute console command "/gamerule doTileDrops false"
+			execute console command "/gamerule doDaylightCycle true"
+			set weather to clear
+			heal player
+			feed player
+			clear player's inventory
+			give 16 cooked beef and unbreakable stone pickaxe named {pickaxe::tier::stone} to player
+
+			# Boss bar
+			set {pointBar::%player%} to boss bar with id "01" with title "&a&lPoints: 0" with color green with progress 0
+			set bar style of {pointBar::%player%} to solid_bar
+			set {pointBar::%player%::progress} to 0
+			add player to {pointBar::%player%}
+
+			# Sets upgrades to defaults
+			set {pickaxe::tier::%player%} to "stone"
+
+			# Starts the difficulty timer (see difficulties.sk)
+			difficultyBegin(player)
