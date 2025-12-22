@@ -49,7 +49,8 @@ function endGame(p: player) :: boolean:
 	else:
 		return false
 
-# Once the player right clicks the beacon they gain invulnerability and gain a 1.5x point bonus to their current points. after 6 seconds endGame() runs
+# Once the player right clicks the beacon they gain invulnerability and gain a 1.5x point bonus to their current points.
+# after 6 seconds endGame() runs
 on right click on beacon:
 	if {inGame::%player%} is true:
 		cancel event
