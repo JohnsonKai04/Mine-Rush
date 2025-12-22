@@ -1,7 +1,7 @@
 # TODO list updated 12/22/2025
 
 ## Commands
-- [x] Add a /debug command to give the player 1,000,000 points when starting out
+- [ ] Add a /debug command to give the player 1,000,000 points when starting out
 
 ## On block break
 - [ ] whenever the player mines any block the item of the block should drop in the middle of the block. This block would need to check if Lucky Miner has procced aswell inorder to show the correct ore.
