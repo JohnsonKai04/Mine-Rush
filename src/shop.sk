@@ -2,7 +2,6 @@
 # Param - _item: name of the item that the player is buying, this will be used to match the item with a price
 # Return - bool: returns true if the purcahse was sucessful but false if the buyer does not have enough money
 function chargePlayer(p: player, item: text) :: boolean:
-	# Checks players balance to see if they can afford
 	if {cost::%{_item}%} <= {points::%{_p}%}:
 		# Subtracts cost from balance
 		set {points::%{_p}%} to {points::%{_p}%} - {cost::%{_item}%}
