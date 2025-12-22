@@ -29,8 +29,9 @@ on damage:
 
 # Golden Heads
 on right click using player head:
-	if name of player's held item is "&lGolden Head":
-		cancel event
-		heal player by 2 hearts
-		apply speed potion of tier 2 without any particles to {_p} for 15 seconds
-		remove 1 of player's held item from player's inventory
+	if {inGame::%player%} is true:
+		if name of player's held item is "&lGolden Head":
+			cancel event
+			heal player by 2 hearts
+			apply speed potion of tier 2 without any particles to {_p} for 15 seconds
+			remove 1 of player's held item from player's inventory
