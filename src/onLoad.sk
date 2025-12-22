@@ -38,8 +38,9 @@ on load:
     set {volume} to 5 # Volume of basic sounds like failing to purcase items in the shop
     set {spawningHeight} to 150 # the hight at which the player spawns once entering the game
     set {pointMultiplier} to 1.0 # the base multiplier
-    set {defaultSpeed} to 15 seconds # This is the amount of minutes it takes for each difficulty. ignore the "seconds"
+    set {defaultSpeed} to 15 seconds # This is the amount of minutes it takes for each difficulty. ignore the "seconds" due to how the speed is calculated
     set {goldenSkullPlayerName} to "babyhunter512"
+    delete {inFlight::*}
     # Prices (used by shop.sk)
 
     # General
