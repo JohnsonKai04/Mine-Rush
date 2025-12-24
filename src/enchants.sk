@@ -1,0 +1,41 @@
+# {enchantTier::%{_enchantName}%::%{_p}%}
+
+
+function veinMiner(p: player, b: block):
+	chance of {veinMiner::chance::%{enchantTier::veinMiner::%{_p}%}%}:
+		loop all blocks in radius 1 of {_b}:
+			set {_type} to type of loop-block
+			if type of loop-block is type of {_b}:
+				
+
+function streak(p: player) :: integer:
+	chance of {streak::chance::%{enchantTier::streak::%{_p}%}%}:
+		if {streak::timer::%{_p}%} is less than or equal to 10 seconds ago:
+			if {streak::value::%{_p}%} is less than {streak::max}:
+				add 0.001 to {streak::value::%{_p}%}
+		else:
+			set {streak::value::%{_p}%} to 0.001
+
+		set {streak::timer::%{_p}%} to now
+		return {streak::value::%{_p}%}
+	return 0
+
+function oreDuplicate(p: player, b: block):
+	chance of {oreDuplicate::chance::%{enchantTier::oreDuplicate::%{_p}%}%}:
+
+function luckyMiner(p: player):
+	chance of {luckyMiner::chance::%{enchantTier::luckyMiner::%{_p}%}%}:
+
+function shardFinder(p: player):
+	chance of {shardFinder::chance::%{enchantTier::shardFinder::%{_p}%}%}:
+
+function feed(p: player):
+	chance of {feed::chance::%{enchantTier::feed::%{_p}%}%}:
+		add 1 to {_p}'s food level
+		
+function powerball(p: player):
+	chance of {powerball::chance::%{enchantTier::powerball::%{_p}%}%}:
+
+
+
+
