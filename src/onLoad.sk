@@ -15,6 +15,14 @@ function resetEnchantPrices():
     setPrice("fire aspect", 100)
     setPrice("sweeping edge", 100)
 
+    # custom enchants
+    setPrice("vein miner", 1000)
+    setPrice("streak", 20000)
+    setPrice("ore duplicate", 2000)
+    setPrice("lucky miner", 1000)
+    setPrice("shard finder", 500)
+    setPrice("feed", 5000)
+    setPrice("powerball", 5000)
 
 on load:
     # Pickaxe Names
@@ -41,6 +49,44 @@ on load:
     set {defaultSpeed} to 15 seconds # This is the amount of minutes it takes for each difficulty. ignore the "seconds" due to how the speed is calculated
     set {goldenSkullPlayerName} to "babyhunter512"
     delete {inFlight::*}
+
+    # Enchants
+    set {veinMiner::chance::1} to 100
+    set {veinMiner::chance::2} to 100
+    set {veinMiner::chance::3} to 100
+    set {veinMiner::blocks::1} to 2
+    set {veinMiner::blocks::1} to 4
+    set {veinMiner::blocks::1} to 8
+    
+    set {streak::chance::1} to 100
+    set {streak::max} to 0.25
+    
+    set {oreDuplicate::chance::1} to 0.5
+    set {oreDuplicate::chance::2} to 0.75
+    set {oreDuplicate::chance::3} to 1.0
+    set {oreDuplicate::chance::4} to 1.25
+    set {oreDuplicate::chance::5} to 1.5
+
+    set {luckyMiner::chance::1} to 0.5
+    set {luckyMiner::chance::2} to 1.0
+    set {luckyMiner::chance::3} to 2.0
+    set {luckyMiner::chance::4} to 4.0
+    set {luckyMiner::chance::5} to 5.0
+
+    set {shardFinder::chance::1} to 0.5
+    set {shardFinder::chance::2} to 0.75
+    set {shardFinder::chance::3} to 1.0
+    set {shardFinder::chance::4} to 1.25
+    set {shardFinder::chance::5} to 1.5
+
+    set {feed::hungerPoints} to 1
+    set {feed::chance} to 1
+
+    set {powerball::size::1} to 1
+    set {powerball::size::2} to 2
+    set {powerball::size::3} to 3
+    set {powerball::chance::1} to 100
+
     # Prices (used by shop.sk)
 
     # General
@@ -78,7 +124,7 @@ on load:
     setPrice("grappling hook", 1000)
 
     # Points allocated by blocks in range from 1 - 100. These are the points set BEFORE any multipliers
-    # 🌱 Common blocks
+    # Common blocks
     setPoints("stone", 1)
     setPoints("cobblestone", 1)
     setPoints("dirt", 1)
@@ -93,7 +139,7 @@ on load:
     setPoints("netherrack", 1)
     setPoints("end stone", 4)
 
-    # ⛏️ Basic ores
+    # Basic ores
     setPoints("coal ore", 10)
     setPoints("deepslate coal ore", 12)
     setPoints("iron ore", 20)
@@ -110,7 +156,7 @@ on load:
     setPoints("lapis ore", 35)
     setPoints("deepslate lapis ore", 40)
 
-    # 💎 Rare ores
+    # Rare ores
     setPoints("diamond ore", 70)
     setPoints("deepslate diamond ore", 80)
     setPoints("emerald ore", 60)
@@ -119,7 +165,7 @@ on load:
     setPoints("ancient debris", 600)
     setPoints("quartz ore", 20)
 
-    # ⚙️ Utility / special
+    # Utility / special
     setPoints("obsidian", 40)
     setPoints("amethyst block", 20)
     setPoints("amethyst cluster", 25)
