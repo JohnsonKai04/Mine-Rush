@@ -23,7 +23,7 @@
         - Cost per level starts at 1k will 2x every time (1k, 2k, 4k)
         - when the player mines a block with this enchant if the player has other enchants on the pickaxe those enchants must be able to be procced on the effected blocks. This means the functions to procc other enchants should be called
 
-    - [ ] Streak: As the player breaks more and more ores the streak rewards them with a point multiplier (current mult + streak mult) the streak multiplier will go up to 1.5x points.
+    - [x] Streak: As the player breaks more and more ores the streak rewards them with a point multiplier (current mult + streak mult) the streak multiplier will go up to 1.5x points.
         - lvl 1-1: the point multipler begins at 1.00x after the player has mined 5 ores it begins increasing to +0.01x every consecutive block after that one. After 10 sections the streak will be lost
         - Cost: 20k
         - The streak multiplier should be added next to the base multipler "points earned (base + streak)"
@@ -42,8 +42,7 @@
         - lvl 1-5: 0.5%, 0.75%, 1.0%, 1.25%, 1.5%
         - Cost per level starts at 500 will 2x every time
 
-    - [ ] Feed: Feeds the player 1 hunter point when mining ores
-        - lvl 1: 1%
+    - [ ] Feed: Feeds the player 1 hunger point when mining ores
         - Cost: 5k
 
     - [ ] Powerball: shoots a fireball whenever the player right clicks. cool down is 60 seconds
