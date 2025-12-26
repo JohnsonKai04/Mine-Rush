@@ -25,6 +25,26 @@ function resetEnchantPrices():
     setPrice("powerball", 5000)
 
 on load:
+    set {ores::*} to "coal ore"
+    add "deepslate coal ore" to {ores::*}
+    add "copper ore" to {ores::*}
+    add "deepslate copper ore" to {ores::*}
+    add "iron ore" to {ores::*}
+    add "deepslate iron ore" to {ores::*}
+    add "gold ore" to {ores::*}
+    add "deepslate gold ore" to {ores::*}
+    add "redstone ore" to {ores::*}
+    add "deepslate redstone ore" to {ores::*}
+    add "lapis lazuli ore" to {ores::*}
+    add "deepslate lapis lazuli ore" to {ores::*}
+    add "diamond ore" to {ores::*}
+    add "deepslate diamond ore" to {ores::*}
+    add "emerald ore" to {ores::*}
+    add "deepslate emerald ore" to {ores::*}
+    add "nether quartz ore" to {ores::*}
+    add "nether gold ore" to {ores::*}
+    add "ancient debris" to {ores::*}
+
     # Pickaxe Names
     set {pickaxe::tier::stone} to "&b&lStone Pickaxe"
     set {pickaxe::tier::iron} to "&b&lIron Pickaxe"
