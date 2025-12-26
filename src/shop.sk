@@ -70,6 +70,13 @@ function purchasePickaxe(p: player, item: text):
 				give unbreakable iron pickaxe named {pickaxe::tier::iron} to {_p}
 				loop {_enchant::*}:
 					enchant loop-item with {_enchant::%loop-iteration-2%}
+
+				loop {customEnchantTier::%{_p}%::*}:
+					set {_romans::*} to convertToRoman({customEnchantTier::%{_p}%::%loop-index%})
+					set {_roman} to {_romans::2}
+					if loop-value-2 is 1:
+						add "&b%loop-index% %{_roman}%" to lore of loop-item
+
 				set {pickaxe::tier::%{_p}%} to "iron"
 				stop loop
 			else if name of loop-item is {pickaxe::tier::iron}:
@@ -77,9 +84,16 @@ function purchasePickaxe(p: player, item: text):
 					set {_enchant::%loop-iteration-2%} to loop-value-2
 				set loop-item to air
 				give unbreakable diamond pickaxe named {pickaxe::tier::diamond} to {_p}
-				set {pickaxe::tier::%{_p}%} to "diamond"
 				loop {_enchant::*}:
 					enchant loop-item with {_enchant::%loop-iteration-2%}
+
+				loop {customEnchantTier::%{_p}%::*}:
+					set {_romans::*} to convertToRoman({customEnchantTier::%{_p}%::%loop-index%})
+					set {_roman} to {_romans::2}
+					if loop-value-2 is 1:
+						add "&b%loop-index% %{_roman}%" to lore of loop-item
+
+				set {pickaxe::tier::%{_p}%} to "diamond"
 				stop loop
 			else if name of loop-item is {pickaxe::tier::diamond}:
 				loop enchantments of loop-item:
@@ -88,6 +102,13 @@ function purchasePickaxe(p: player, item: text):
 				give unbreakable netherite pickaxe named {pickaxe::tier::netherite} to {_p}
 				loop {_enchant::*}:
 					enchant loop-item with {_enchant::%loop-iteration-2%}
+
+				loop {customEnchantTier::%{_p}%::*}:
+					set {_romans::*} to convertToRoman({customEnchantTier::%{_p}%::%loop-index%})
+					set {_roman} to {_romans::2}
+					if loop-value-2 is 1:
+						add "&b%loop-index% %{_roman}%" to lore of loop-item
+
 				set {pickaxe::tier::%{_p}%} to "netherite"
 				stop loop
 	make {_p} execute command "/shop"
@@ -130,6 +151,7 @@ function purchaseWeapon(p: player, item: text):
 					set {sword::tier::%{_p}%} to "netherite"
 					stop loop
 	make {_p} execute command "/shop"
+
 function purchaseEnchant(p: player, item: text, enchantName: text):
 	if chargePlayer({_p}, {_enchantName}) is true:
 		add 1 to {enchantTier::%{_enchantName}%::%{_p}%}
@@ -146,6 +168,54 @@ function purchaseEnchant(p: player, item: text, enchantName: text):
 						enchant loop-item with {_enchantment}
 
 	make {_p} execute command "/shop"
+
+function purchaseCustomEnchant(p: player, enchantName: text):
+	if chargePlayer({_p}, {_enchantName}) is true:
+		add 1 to {customEnchantTier::%{_p}%::%{_enchantName}%}
+		set {_romans::*} to convertToRoman({customEnchantTier::%{_p}%::%{_enchantName}%})
+		set {_pRoman} to {_romans::2}
+		set {_roman} to {_romans::1}
+		
+		set {cost::%{_enchantName}%} to round({cost::%{_enchantName}%} * 2)
+		loop all items in the inventory of {_p}:
+			loop {pickaxe::tier::*}:
+				if name of loop-item is loop-value-2:
+					if {customEnchantTier::%{_p}%::%{_enchantName}%} is 1:
+						add "&b%{_enchantName}% %{_roman}%" to lore of loop-item
+						if {debugMode}:
+							send "loop value found and enchant applied" to {_p}
+						stop loop
+					else:
+						loop lore of loop-item:
+							if loop-value-3 is "&b%{_enchantName}% %{_roman}%":
+								replace loop-value-3 in lore of loop-item with "&b%{_enchantName}% %{_pRoman}%"
+								if {debugMode}:
+									send "loop value found and enchant replaced" to {_p}
+								stop loop
+	else:
+		send "Charge unscucessful" to {_p}
+	make {_p} execute command "/shop"
+
+function convertToRoman(value: number) :: texts:
+	if {_value} is 1:
+		set {_roman} to "I"
+	else if {_value} is 2:
+		set {_pRoman} to "I"
+		set {_roman} to "II"
+	else if {_value} is 3:
+		set {_pRoman} to "II"
+		set {_roman} to "III"
+	else if {_value} is 4:
+		set {_pRoman} to "III"
+		set {_roman} to "IV"
+	else if {_value} is 5:
+		set {_pRoman} to "IV"
+		set {_roman} to "V"
+	else:
+		broadcast "error no roman found"
+	set {_return::*} to ({_pRoman},{_roman})
+	return {_return::*}
+
 
 # Param - _P: player buying
 # Param - _item: item they are buying
@@ -195,7 +265,14 @@ command /shop:
 
 		# Pickaxe enchants
 		set slot 29 of {_inv} to enchanted book named "&r&lEfficiency" with lore "&7Cost: %{cost::efficiency}% Points"
-
+		# Pickaxe enchants custom
+		set slot 30 of {_inv} to enchanted book named "&r&lVein Miner" with lore "&7Cost: %{cost::vein miner}% Points"
+		set slot 31 of {_inv} to enchanted book named "&r&lStreak" with lore "&7Cost: %{cost::streak}% Points"
+		set slot 32 of {_inv} to enchanted book named "&r&lOre Duplicate" with lore "&7Cost: %{cost::ore duplicate}% Points"
+		set slot 33 of {_inv} to enchanted book named "&r&lLucky Miner" with lore "&7Cost: %{cost::lucky miner}% Points"
+		set slot 34 of {_inv} to enchanted book named "&r&lShard Finder" with lore "&7Cost: %{cost::shard finder}% Points"
+		set slot 35 of {_inv} to enchanted book named "&r&lFeed" with lore "&7Cost: %{cost::feed}% Points"
+		set slot 44 of {_inv} to enchanted book named "&r&lPowerball" with lore "&7Cost: %{cost::powerball}% Points"
 
 
 		# Swords
@@ -275,6 +352,22 @@ on inventory click:
 			purchaseEnchant(player, "armor", "protection")
 		else if display name of event-item is "&lThorns":
 			purchaseEnchant(player, "armor", "thorns")
+
+		# Custom enchants
+		else if display name of event-item is "&lVein Miner":
+			purchaseCustomEnchant(player, "vein miner")
+		else if display name of event-item is "&lStreak":
+			purchaseCustomEnchant(player, "streak")
+		else if display name of event-item is "&lOre Duplicate":
+			purchaseCustomEnchant(player, "ore duplicate")
+		else if display name of event-item is "&lLucky Miner":
+			purchaseCustomEnchant(player, "lucky miner")
+		else if display name of event-item is "&lShard Finder":
+			purchaseCustomEnchant(player, "shard finder")
+		else if display name of event-item is "&lFeed":
+			purchaseCustomEnchant(player, "feed")
+		else if display name of event-item is "&lPowerball":
+			purchaseCustomEnchant(player, "powerball")
 
 		# Custom Items
 		else if display name of event-item is "&lGolden Head":
