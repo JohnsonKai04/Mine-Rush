@@ -1,14 +1,23 @@
+function addPoints(p: player, block: block, skipVeinMiner: boolean = false):
+	set {_blockType} to "%type of {_block}%"
+	set {_streak} to streak({_p})
+	set {_points} to round({blockValue::%{_blockType}%} * ({pointMultiplier} + {_streak}))
+	add {_points} to {points::%{_p}%}
+	add {_points} to {totalPoints::%{_p}%}
+
+	# vein miner
+	if {_skipVeinMiner} is false:
+		loop {ores::*}:
+			if {_blockType} is {ores::%loop-index%}:
+				veinMiner({_p}, {_block}, type of {_block})
+				stop loop
+				
+	send action bar "&2&l+%{_points}% Points" to {_p}
+	set bar title of {pointBar::%{_p}%} to "&a&lPoints: %{points::%{_p}%}%"
+	feed({_p})
+
+
+
 on mine:
 	if {inGame::%player%} is true:
-		set {_blockType} to "%type of event-block%"
-		set {_block} to event-block
-		set {_loc} to location of event-block
-
-		set {_points} to ({blockValue::%{_blockType}%} * ({pointMultiplier} + streak(player)))
-		add {_points} to {points::%player%}
-		add {_points} to {totalPoints::%player%}
-
-		send action bar "&2&l+%{_points}% Points" to player
-		set bar title of {pointBar::%player%} to "&a&lPoints: %{points::%player%}%"
-
-		feed(player)
+		addPoints(player, event-block)
