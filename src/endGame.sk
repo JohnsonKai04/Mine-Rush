@@ -38,6 +38,7 @@ function endGame(p: player) :: boolean:
 		delete {spawningLocation::*}
 		delete {extractLocation::*}
 		delete {enchantTier::*}
+		delete {customEnchantTier::*}
 		resetEnchantPrices()
 		delete boss bar with id "01"
 		execute console command "/gamerule doTileDrops true"
