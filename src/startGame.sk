@@ -1,3 +1,12 @@
+command /debug:
+	trigger:
+		if {debugMode} is false:
+			set {debugMode} to true
+			send "Debug mode activated" to player
+		else:
+			set {debugMode} to false
+			send "Debug mode deactivated" to player
+
 command /start [<text>]:
 	trigger:
 		if {inGame::%player%} is true:
@@ -48,6 +57,9 @@ command /start [<text>]:
 			# Boss bar
 			set {pointBar::%player%} to boss bar with id "01" with title "&a&lPoints: 0" with color green with progress 0
 			set bar style of {pointBar::%player%} to solid_bar
+			if {debugMode}:
+				set {points::%player%} to 24000000
+				set bar title of {pointBar::%player%} to "&a&lPoints: %{points::%player%}%"
 			set {pointBar::%player%::progress} to 0
 			add player to {pointBar::%player%}
 
