@@ -1,13 +1,13 @@
 function veinMiner(p: player, b: block, originalType: item type):
-	chance of {veinMiner::chance::%{customEnchantTier::%{_p}%::vein miner}%}:
+	chance of {veinMiner::chance::%{customEnchantTier::%{_p}%::veinMiner}%}:
 		loop all blocks in radius 1.75 around {_b}:
 			if type of loop-block is {_originalType}:
 				set {_loopBlock} to loop-block
 				addPoints({_p}, {_loopBlock}, true)
 				set loop-block to air
-				wait 3 ticks
 				make 50 of block particle using {_originalType} at location of {_loopBlock}
 				play sound (break sound of {_originalType}) at location of {_loopBlock}
+				wait 3 ticks
 				veinMiner({_p}, {_loopBlock}, {_originalType})
 				
 
@@ -24,20 +24,45 @@ function streak(p: player) :: number:
 
 function oreDuplicate(p: player, b: block):
 	chance of {oreDuplicate::chance::%{customEnchantTier::%{_p}%::oreDuplicate}%}:
-		send " " to {_p}
+		play sound "BLOCK_AMETHYST_BLOCK_STEP" with volume {volume} at location of {_b}
+		make 10 of happy villager at location of {_b} with offset vector(0.35, 0.35, 0.35)
+		set {_new} to type of {_b}
+		wait 1 tick
+		set block at location of {_b} to {_new}
 
-function luckyMiner(p: player):
+function luckyMiner(p: player, b: block) :: text:
 	chance of {luckyMiner::chance::%{customEnchantTier::%{_p}%::luckyMiner}%}:
+		set {_currentType} to "%type of {_b}%"
+		set {_typeFound} to false
+		loop {ores::*}:
+			if {_typeFound} is false:
+				if loop-value is {_currentType}:
+					set {_typeFound} to true
+			else:
+				set {_typeFound} to false
+				play sound "ENTITY_TURTLE_SHAMBLE" with volume {volume} at {_b}
+				set {_newType} to loop-value
+				return {_newType}
+	return "none"
+
+function lootBoxCollector(p: player):
+	chance of {lootBoxCollector::chance::%{customEnchantTier::%{_p}%::lootBoxCollector}%}:
 		send " " to {_p}
 
-function shardFinder(p: player):
-	chance of {shardFinder::chance::%{customEnchantTier::%{_p}%::shardFinder}%}:
-		send " " to {_p}
-
-function feed(p: player):
-	chance of {feed::chance::%{customEnchantTier::%{_p}%::feed}%}:
+function hungryMiner(p: player):
+	chance of {hungryMiner::chance::%{customEnchantTier::%{_p}%::hungryMiner}%}:
 		add 1 to {_p}'s food level
 		
-function powerball(p: player):
-	chance of {powerball::chance::%{customEnchantTier::%{_p}%::powerball}%}:
-		send " " to {_p}
+function fireball(p: player):
+	chance of {fireball::chance::%{customEnchantTier::%{_p}%::fireball}%}:
+		set {_test} to 10
+		if {cooldown::fireball::%{_p}%} is not set:
+			set {cooldown::fireball::%{_p}%} to now
+		if difference between now and {cooldown::fireball::%{_p}%} is more than 30 seconds:
+			set {cooldown::fireball::%{_p}%} to now
+			spawn fireball at {_p} with nbt from "{ExplosionPower:%{fireball::size::%{customEnchantTier::%{_p}%::fireball}%}%}"
+		else:
+			send "Cooldown still active please wait!" to {_p}
+
+on rightclick holding a diamond pickaxe, or stone pickaxe:
+	fireball(player)
