@@ -16,13 +16,13 @@ function resetEnchantPrices():
     setPrice("sweeping edge", 100)
 
     # custom enchants
-    setPrice("vein miner", 1000)
+    setPrice("veinMiner", 1000)
     setPrice("streak", 20000)
-    setPrice("ore duplicate", 2000)
-    setPrice("lucky miner", 1000)
-    setPrice("shard finder", 500)
-    setPrice("feed", 5000)
-    setPrice("powerball", 5000)
+    setPrice("oreDuplicate", 2000)
+    setPrice("luckyMiner", 1000)
+    setPrice("lootBoxCollector", 500)
+    setPrice("hungryMiner", 5000)
+    setPrice("fireball", 50000)
 
 on load:
     set {ores::*} to "coal ore"
@@ -71,41 +71,45 @@ on load:
     delete {inFlight::*}
 
     # Enchants
-    set {veinMiner::chance::1} to 100
-    set {veinMiner::chance::2} to 100
-    set {veinMiner::chance::3} to 100
-    set {veinMiner::blocks::1} to 2
-    set {veinMiner::blocks::1} to 4
-    set {veinMiner::blocks::1} to 8
+    set {veinMiner::chance::1} to 100%
+    set {veinMiner::name} to "<#54DAF4>V<#54CCED>e<#54BEE6>i<#54B1DF>n <#5495D2>M<#5487CB>i<#547AC4>n<#546CBD>e<#545EB6>r"
     
-    set {streak::chance::1} to 100
+    set {streak::chance::1} to 100%
     set {streak::max} to 0.25
+    set {streak::name} to "<#303F88>S<#533E9A>t<#763DAB>r<#9A3DBD>e<#BD3CCE>a<#E03BE0>k"
     
-    set {oreDuplicate::chance::1} to 0.5
-    set {oreDuplicate::chance::2} to 0.75
-    set {oreDuplicate::chance::3} to 1.0
-    set {oreDuplicate::chance::4} to 1.25
-    set {oreDuplicate::chance::5} to 1.5
+    set {oreDuplicate::chance::1} to 0.5%
+    set {oreDuplicate::chance::2} to 0.75%
+    set {oreDuplicate::chance::3} to 1.0%
+    set {oreDuplicate::chance::4} to 1.25%
+    set {oreDuplicate::chance::5} to 1.5%
+    set {oreDuplicate::name} to "<#24EE32>O<#34ED2F>r<#44ED2D>e <#64EC27>D<#74EB25>u<#85EB22>p<#95EA1F>l<#A5E91D>i<#B5E91A>c<#C5E817>a<#D5E815>t<#E5E712>e"
 
-    set {luckyMiner::chance::1} to 0.5
-    set {luckyMiner::chance::2} to 1.0
-    set {luckyMiner::chance::3} to 2.0
-    set {luckyMiner::chance::4} to 4.0
-    set {luckyMiner::chance::5} to 5.0
+    set {luckyMiner::chance::1} to 0.5%
+    set {luckyMiner::chance::2} to 1.0%
+    set {luckyMiner::chance::3} to 2.0%
+    set {luckyMiner::chance::4} to 4.0%
+    set {luckyMiner::chance::5} to 5.0%
+    set {luckyMiner::name} to "<#48E289>L<#41D97E>u<#3ACF73>c<#33C667>k<#2CBC5C>y <#1FAA46>M<#18A03B>i<#11972F>n<#0A8D24>e<#038419>r"
 
-    set {shardFinder::chance::1} to 0.5
-    set {shardFinder::chance::2} to 0.75
-    set {shardFinder::chance::3} to 1.0
-    set {shardFinder::chance::4} to 1.25
-    set {shardFinder::chance::5} to 1.5
+    set {LootBoxCollector::chance::1} to 0.5%
+    set {LootBoxCollector::chance::2} to 0.75%
+    set {LootBoxCollector::chance::3} to 1.0%
+    set {LootBoxCollector::chance::4} to 1.25%
+    set {LootBoxCollector::chance::5} to 1.5%
+    set {LootBoxCollector::name} to "<#DDA840>L<#D7A43D>o<#D09F3A>o<#CA9B36>t <#BD9230>B<#B78E2D>o<#B08929>x <#A38023>C<#9D7C20>o<#96771C>l<#907319>l<#8A6F16>e<#836A13>c<#7D660F>t<#76610C>o<#705D09>r"
 
-    set {feed::hungerPoints} to 1
-    set {feed::chance} to 1
+    set {hungryMiner::hungerPoints} to 1
+    set {hungryMiner::chance::1} to 1%
+    set {hungryMiner::name} to "<#E65140>H<#E66C37>u<#E6872E>n<#E5A224>g<#E5BD1B>y <#B9DA1D>M<#8CDB29>i<#60DD34>n<#33DE40>e<#07E04B>r"
 
-    set {powerball::size::1} to 1
-    set {powerball::size::2} to 2
-    set {powerball::size::3} to 3
-    set {powerball::chance::1} to 100
+    set {fireball::size::1} to 2
+    set {fireball::size::2} to 4
+    set {fireball::size::3} to 6
+    set {fireball::chance::1} to 100%
+    set {fireball::chance::2} to 100%
+    set {fireball::chance::3} to 100%
+    set {fireball::name} to "<#F2FF12>F<#F4DE0F>i<#F6BE0D>r<#F89D0A>e<#F97D08>b<#FB5C05>a<#FD3C03>l<#FF1B00>l"
 
     # Prices (used by shop.sk)
 
@@ -143,7 +147,7 @@ on load:
     setPrice("ghead", 150)
     setPrice("grappling hook", 1000)
 
-    # Points allocated by blocks in range from 1 - 100. These are the points set BEFORE any multipliers
+    # Points allocated by blocks in range from 1 - 1000. These are the points set BEFORE any multipliers
     # Common blocks
     setPoints("stone", 1)
     setPoints("cobblestone", 1)
