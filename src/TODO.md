@@ -1,7 +1,7 @@
 # TODO list updated 12/22/2025
 
 ## Commands
-- [ ] Add a /debug command to give the player 1,000,000 points when starting out
+- [x] Add a /debug command to give the player 1,000,000 points when starting out
 
 ## On block break
 - [ ] whenever the player mines any block the item of the block should drop in the middle of the block. This block would need to check if Lucky Miner has procced aswell inorder to show the correct ore.
@@ -18,7 +18,7 @@
 - Custom enchants should have custom colors associated with them. Enchants will be stored in the lore of the item and in a variable
 - Enchants will have to be transfered when the player upgrades their pickaxe tier
 - Custom enchants may need their own section in the shop menu as the shop will becom cluttered without multiple pages
-    - [ ] Vein miner: will mine ores surrounding the targeted block
+    - [x] Vein miner: will mine ores surrounding the targeted block
         - lvl 1-3: 2 extra blocks broken, 4 extra blocks broken, 8 extra blocks broken
         - Cost per level starts at 1k will 2x every time (1k, 2k, 4k)
         - when the player mines a block with this enchant if the player has other enchants on the pickaxe those enchants must be able to be procced on the effected blocks. This means the functions to procc other enchants should be called
@@ -28,24 +28,24 @@
         - Cost: 20k
         - The streak multiplier should be added next to the base multipler "points earned (base + streak)"
 
-    - [ ] Ore duplicate: As the player breaks ores theres a chance the ore will be replace needing to be broken again this replacement should happen before any vein miner checks so the ore can duplicate then if the player has the vein miner enchantment it will proc next
+    - [x] Ore duplicate: As the player breaks ores theres a chance the ore will be replace needing to be broken again this replacement should happen before any vein miner checks so the ore can duplicate then if the player has the vein miner enchantment it will proc next
         - lvl 1-5: 0.5%, 0.75%, 1.0%, 1.25%, 1.5%
         - particles and sound should play whenever the enchant has procced (sounds should be able to be disabled later on)
         - Cost per level starts at 2k will 2x every time
     
-    - [ ] Lucky Miner: As the player breaks ores theres a chance a higher teir ore will be earned based off of the current ore teir
+    - [x] Lucky Miner: As the player breaks ores theres a chance a higher teir ore will be earned based off of the current ore teir
         - lvl 1-5: 0.5%, 1.0%, 2.0%, 4.0%, 5.0%
         - Cost per level starts at 1k will 2x every time
-        - Should display the correct ghost ore when breaking indicating that the enchant has procced
+        - Should display the correct ghost ore when breaking indicating that the enchant has procced 
 
     - [ ] Shard finder: Chance to find shards when mining
         - lvl 1-5: 0.5%, 0.75%, 1.0%, 1.25%, 1.5%
         - Cost per level starts at 500 will 2x every time
 
-    - [ ] Feed: Feeds the player 1 hunger point when mining ores
+    - [x] Feed: Feeds the player 1 hunger point when mining ores
         - Cost: 5k
 
-    - [ ] Powerball: shoots a fireball whenever the player right clicks. cool down is 60 seconds
+    - [x] Powerball: shoots a fireball whenever the player right clicks. cool down is 60 seconds
         - lvl 1-3: effects the radius of the fireball
         - Cost per level starts at 5k and will 2x every time
         - effected broken blocks should active other enchants
