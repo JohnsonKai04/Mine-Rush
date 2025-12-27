@@ -1,21 +1,25 @@
-function addPoints(p: player, block: block, skipVeinMiner: boolean = false):
-	set {_blockType} to "%type of {_block}%"
+function addPoints(p: player, block: block, skipVeinMiner: boolean = false) :: number:
+	set {_blockType} to luckyMiner({_p}, {_block})
+	if {_blockType} is "none":
+		set {_blockType} to "%type of {_block}%"
 	set {_streak} to streak({_p})
 	set {_points} to round({blockValue::%{_blockType}%} * ({pointMultiplier} + {_streak}))
+	if {_points} is 0:
+		exit
 	add {_points} to {points::%{_p}%}
 	add {_points} to {totalPoints::%{_p}%}
 
-	# vein miner
-	if {_skipVeinMiner} is false:
-		loop {ores::*}:
-			if {_blockType} is {ores::%loop-index%}:
+	# vein miner / oreDuplicate
+	loop {ores::*}:
+		if {_blockType} is {ores::%loop-index%}:
+			oreDuplicate({_p}, {_block})
+			if {_skipVeinMiner} is false:
 				veinMiner({_p}, {_block}, type of {_block})
-				stop loop
-				
+			stop loop
+	hungryMiner({_p})
 	send action bar "&2&l+%{_points}% Points" to {_p}
 	set bar title of {pointBar::%{_p}%} to "&a&lPoints: %{points::%{_p}%}%"
-	feed({_p})
-
+	return {_points}
 
 
 on mine:
