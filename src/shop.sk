@@ -170,25 +170,27 @@ function purchaseEnchant(p: player, item: text, enchantName: text):
 	make {_p} execute command "/shop"
 
 function purchaseCustomEnchant(p: player, enchantName: text):
-	if chargePlayer({_p}, {_enchantName}) is true:
+	set {_check} to 1 + {customEnchantTier::%{_p}%::%{_enchantName}%}
+	if {%{_enchantName}%::chance::%{_check}%} is not set:
+		send "<#F10044>M<#E70040>a<#DE003D>x <#CB0136>V<#C10132>a<#B8012E>l<#AE022B>u<#A50227>e <#920220>R<#88031D>e<#7F0319>a<#750315>c<#6C0312>h<#62040E>e<#59040B>d<#4F0407>!" to {_p}
+		play sound "block.note_block.bass" with volume {volume} to {_p}
+	else if chargePlayer({_p}, {_enchantName}) is true:
 		add 1 to {customEnchantTier::%{_p}%::%{_enchantName}%}
 		set {_romans::*} to convertToRoman({customEnchantTier::%{_p}%::%{_enchantName}%})
-		set {_pRoman} to {_romans::2}
-		set {_roman} to {_romans::1}
 		
 		set {cost::%{_enchantName}%} to round({cost::%{_enchantName}%} * 2)
 		loop all items in the inventory of {_p}:
 			loop {pickaxe::tier::*}:
 				if name of loop-item is loop-value-2:
 					if {customEnchantTier::%{_p}%::%{_enchantName}%} is 1:
-						add "&b%{_enchantName}% %{_roman}%" to lore of loop-item
+						add "%{%{_enchantName}%::name}% %{_romans::1}%" to lore of loop-item
 						if {debugMode}:
 							send "loop value found and enchant applied" to {_p}
 						stop loop
 					else:
 						loop lore of loop-item:
-							if loop-value-3 is "&b%{_enchantName}% %{_roman}%":
-								replace loop-value-3 in lore of loop-item with "&b%{_enchantName}% %{_pRoman}%"
+							if loop-value-3 is "%{%{_enchantName}%::name}% %{_romans::1}%":
+								replace loop-value-3 in lore of loop-item with "%{%{_enchantName}%::name}% %{_romans::2}%"
 								if {debugMode}:
 									send "loop value found and enchant replaced" to {_p}
 								stop loop
@@ -266,13 +268,13 @@ command /shop:
 		# Pickaxe enchants
 		set slot 29 of {_inv} to enchanted book named "&r&lEfficiency" with lore "&7Cost: %{cost::efficiency}% Points"
 		# Pickaxe enchants custom
-		set slot 30 of {_inv} to enchanted book named "&r&lVein Miner" with lore "&7Cost: %{cost::vein miner}% Points"
-		set slot 31 of {_inv} to enchanted book named "&r&lStreak" with lore "&7Cost: %{cost::streak}% Points"
-		set slot 32 of {_inv} to enchanted book named "&r&lOre Duplicate" with lore "&7Cost: %{cost::ore duplicate}% Points"
-		set slot 33 of {_inv} to enchanted book named "&r&lLucky Miner" with lore "&7Cost: %{cost::lucky miner}% Points"
-		set slot 34 of {_inv} to enchanted book named "&r&lShard Finder" with lore "&7Cost: %{cost::shard finder}% Points"
-		set slot 35 of {_inv} to enchanted book named "&r&lFeed" with lore "&7Cost: %{cost::feed}% Points"
-		set slot 44 of {_inv} to enchanted book named "&r&lPowerball" with lore "&7Cost: %{cost::powerball}% Points"
+		set slot 30 of {_inv} to enchanted book named "%{veinMiner::name}%" with lore "&7Cost: %{cost::veinMiner}% Points"
+		set slot 31 of {_inv} to enchanted book named "%{streak::name}%" with lore "&7Cost: %{cost::streak}% Points"
+		set slot 32 of {_inv} to enchanted book named "%{oreDuplicate::name}%" with lore "&7Cost: %{cost::oreDuplicate}% Points"
+		set slot 33 of {_inv} to enchanted book named "%{luckyMiner::name}%" with lore "&7Cost: %{cost::luckyMiner}% Points"
+		set slot 34 of {_inv} to enchanted book named "%{lootBoxCollector::name}%" with lore "&7Cost: %{cost::lootBoxCollector}% Points"
+		set slot 35 of {_inv} to enchanted book named "%{hungryMiner::name}%" with lore "&7Cost: %{cost::hungryMiner}% Points"
+		set slot 44 of {_inv} to enchanted book named "%{fireball::name}%" with lore "&7Cost: %{cost::fireball}% Points"
 
 
 		# Swords
@@ -354,20 +356,20 @@ on inventory click:
 			purchaseEnchant(player, "armor", "thorns")
 
 		# Custom enchants
-		else if display name of event-item is "&lVein Miner":
-			purchaseCustomEnchant(player, "vein miner")
-		else if display name of event-item is "&lStreak":
+		else if display name of event-item is "%{veinMiner::name}%":
+			purchaseCustomEnchant(player, "veinMiner")
+		else if display name of event-item is "%{streak::name}%":
 			purchaseCustomEnchant(player, "streak")
-		else if display name of event-item is "&lOre Duplicate":
-			purchaseCustomEnchant(player, "ore duplicate")
-		else if display name of event-item is "&lLucky Miner":
-			purchaseCustomEnchant(player, "lucky miner")
-		else if display name of event-item is "&lShard Finder":
-			purchaseCustomEnchant(player, "shard finder")
-		else if display name of event-item is "&lFeed":
-			purchaseCustomEnchant(player, "feed")
-		else if display name of event-item is "&lPowerball":
-			purchaseCustomEnchant(player, "powerball")
+		else if display name of event-item is "%{oreDuplicate::name}%":
+			purchaseCustomEnchant(player, "oreDuplicate")
+		else if display name of event-item is "%{luckyMiner::name}%":
+			purchaseCustomEnchant(player, "luckyMiner")
+		else if display name of event-item is "%{lootBoxCollector::name}%":
+			purchaseCustomEnchant(player, "lootBoxCollector")
+		else if display name of event-item is "%{hungryMiner::name}%":
+			purchaseCustomEnchant(player, "hungryMiner")
+		else if display name of event-item is "%{fireball::name}%":
+			purchaseCustomEnchant(player, "fireball")
 
 		# Custom Items
 		else if display name of event-item is "&lGolden Head":
