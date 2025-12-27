@@ -35,3 +35,13 @@ on right click using player head:
 			heal player by 2 hearts
 			apply speed potion of tier 2 without any particles to {_p} for 15 seconds
 			remove 1 of player's held item from player's inventory
+
+on explosion:
+	set {_points} to 0
+	loop exploded blocks:
+		set {_loc} to event-position
+		set {_p} to nearest player in radius 50 around {_loc}
+		set {_newPoints} to addPoints({_p}, loop-block, false)
+		add {_newPoints} to {_points}
+	wait 10 ticks
+	send action bar "&2&l+%{_points}% Points" to {_p}
