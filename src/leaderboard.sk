@@ -57,5 +57,5 @@ command /stats:
 
 on death of mob:
 	if attacker is player:
-		if {inGame::%attacker%} is true:
+		if {inGame::%attacker%}:
 			add 1 to {stats::mobKills::%attacker%}

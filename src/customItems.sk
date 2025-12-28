@@ -1,6 +1,6 @@
 # Custom instant ignight tnt
 on place of tnt:
-	if {inGame::%player%} is true:
+	if {inGame::%player%}:
 		cancel event
 		set event-block to air
 		spawn primed tnt at event-location
@@ -23,13 +23,13 @@ on rod cast:
 # Prevents grappling hook from doing damage to player
 on damage:
 	if damage cause is fall:
-		if {inFlight::%victim%} is true:
+		if {inFlight::%victim%}:
 			cancel event
 			delete {inFlight::%victim%}
 
 # Golden Heads
 on right click using player head:
-	if {inGame::%player%} is true:
+	if {inGame::%player%}:
 		if name of player's held item is "&lGolden Head":
 			cancel event
 			heal player by 2 hearts
@@ -37,11 +37,11 @@ on right click using player head:
 			remove 1 of player's held item from player's inventory
 
 on explosion:
-	set {_points} to 0
-	loop exploded blocks:
+	set {_p} to nearest player in radius 50 around {_loc}
+	if {inGame::%player%}:
 		set {_loc} to event-position
-		set {_p} to nearest player in radius 50 around {_loc}
-		set {_newPoints} to addPoints({_p}, loop-block, false)
-		add {_newPoints} to {_points}
-	wait 10 ticks
-	send action bar "&2&l+%{_points}% Points" to {_p}
+		loop exploded blocks:
+			set {_newPoints} to addPoints({_p}, loop-block, false)
+			add {_newPoints} to {_points}
+		wait 10 ticks
+		send action bar "&2&l+%{_points}% Points" to {_p}

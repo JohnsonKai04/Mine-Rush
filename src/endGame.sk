@@ -23,37 +23,38 @@ function spawnExtract():
 # Updates the leaderboard with the players current points, and adds overall points gained to the stats
 # Clears inventoy and kills the player to return them to spawn
 function endGame(p: player) :: boolean:
-	if {inGame::%{_p}%} is true:
-		set {inGame::%{_p}%} to false
-		execute console command "/tick rate 20"
-
-		updateLeaderboard({_p}, {points::%{_p}%})
-		add {totalPoints::%{_p}%} to {stats::overallPoints::%{_p}%}
-		set {pointMultiplier} to 1.0
-		delete {points::%{_p}%}
-		delete {totalPoints::%{_p}%}
-		delete {pickaxe::tier::%{_p}%}
-		delete {sword::tier::%{_p}%}
-		delete {armor::tier::%{_p}%}
-		delete {spawningLocation::*}
-		delete {extractLocation::*}
-		delete {enchantTier::*}
-		delete {customEnchantTier::*}
-		resetEnchantPrices()
-		delete boss bar with id "01"
-		execute console command "/gamerule doTileDrops true"
-		execute console command "/gamerule doDaylightCycle true"
-		set the difficulty of "world" to peaceful
-		clear {_p}'s inventory
-		kill {_p}
-		return true
-	else:
+	if {inGame::%{_p}%} is false:
 		return false
+	set {inGame::%{_p}%} to false
+	execute console command "/tick rate 20"
+
+	updateLeaderboard({_p}, {points::%{_p}%})
+	add {totalPoints::%{_p}%} to {stats::overallPoints::%{_p}%}
+	set {pointMultiplier} to 1.0
+	delete {points::%{_p}%}
+	delete {totalPoints::%{_p}%}
+	delete {pickaxe::tier::%{_p}%}
+	delete {sword::tier::%{_p}%}
+	delete {armor::tier::%{_p}%}
+	delete {spawningLocation::*}
+	delete {extractLocation::*}
+	delete {enchantTier::*}
+	delete {customEnchantTier::*}
+	delete {pointBar::%{_p}%}
+	delete {streak::value::%{_P}%}
+	resetEnchantPrices()
+	delete boss bar with id "01"
+	execute console command "/gamerule doTileDrops true"
+	execute console command "/gamerule doDaylightCycle true"
+	set the difficulty of "world" to peaceful
+	clear {_p}'s inventory
+	kill {_p}
+	return true
 
 # Once the player right clicks the beacon they gain invulnerability and gain a 1.5x point bonus to their current points.
 # after 6 seconds endGame() runs
 on right click on beacon:
-	if {inGame::%player%} is true:
+	if {inGame::%player%}:
 		cancel event
 		make player invulnerable
 		set {_bonus} to 0.5 * {points::%player%}
@@ -66,13 +67,14 @@ on right click on beacon:
 
 command /endGame:
 	trigger:
-		if endGame(player) is false:
-			send "You are currently not in the game" to player
-		else:
+		if endGame(player):
 			add 1 to {stats::unsuccessfulExtracts::%player%}
+		else:
+			send "You are currently not in the game" to player
 
 on death of player:
-	wait 1 tick
-	add 1 to {stats::unsuccessfulExtracts::%victim%}
-	add 1 to {stats::deaths::%victim%}
-	endGame(victim)
+	if {inGame::%victim%}:
+		wait 1 tick
+		add 1 to {stats::unsuccessfulExtracts::%victim%}
+		add 1 to {stats::deaths::%victim%}
+		endGame(victim)

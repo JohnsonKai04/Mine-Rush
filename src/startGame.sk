@@ -7,7 +7,7 @@ command /debug:
 			set {debugMode} to false
 			send "Debug mode deactivated" to player
 
-command /start [<text>]:
+command /start:
 	trigger:
 		if {inGame::%player%} is true:
 			send "Game already started use /stopGame" to player
@@ -20,14 +20,15 @@ command /start [<text>]:
 
 				set {_waterCheck} to location at {spawningLocation::X}, 62, {spawningLocation::Z} in world "world"
 				set {_airCheck} to location at {spawningLocation::X}, {spawningHeight}, {spawningLocation::Z} in world "world"
-
 				if block at {_waterCheck} is water:
 					set {spawningLocation::X} to null
-
+				
 				if block at {_airCheck} is not air:
 					set {spawningLocation::X} to null
-
-				#send "&c&lInvalid Location" to player # DEBUG
+				
+				if {debugMode}:
+					if {spawningLocation::X} is not set:
+						send "&c&lInvalid Location" to player
 
 			wait 1 second # waits for server to catch up before starting count down
 			send action bar "&c&lStarting in 5..." to player

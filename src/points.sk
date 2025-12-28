@@ -23,5 +23,5 @@ function addPoints(p: player, block: block, skipVeinMiner: boolean = false) :: n
 
 
 on mine:
-	if {inGame::%player%} is true:
+	if {inGame::%player%}:
 		addPoints(player, event-block)
