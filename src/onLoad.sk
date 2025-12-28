@@ -45,6 +45,9 @@ on load:
     add "nether gold ore" to {ores::*}
     add "ancient debris" to {ores::*}
 
+    loop 10 times:
+        set {_i} to loop-iteration
+        set {lootBoxPoints::%{_i}%} to 500 * {_i}
     # Pickaxe Names
     set {pickaxe::tier::stone} to "&b&lStone Pickaxe"
     set {pickaxe::tier::iron} to "&b&lIron Pickaxe"
@@ -98,6 +101,9 @@ on load:
     set {LootBoxCollector::chance::4} to 1.25%
     set {LootBoxCollector::chance::5} to 1.5%
     set {LootBoxCollector::name} to "<#DDA840>L<#D7A43D>o<#D09F3A>o<#CA9B36>t <#BD9230>B<#B78E2D>o<#B08929>x <#A38023>C<#9D7C20>o<#96771C>l<#907319>l<#8A6F16>e<#836A13>c<#7D660F>t<#76610C>o<#705D09>r"
+    set {lootBox::name} to ""
+    set {lootBox::lore} to ""
+
 
     set {hungryMiner::hungerPoints} to 1
     set {hungryMiner::chance::1} to 1%
