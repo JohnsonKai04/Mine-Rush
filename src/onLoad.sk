@@ -101,8 +101,14 @@ on load:
     set {LootBoxCollector::chance::4} to 1.25%
     set {LootBoxCollector::chance::5} to 1.5%
     set {LootBoxCollector::name} to "<#DDA840>L<#D7A43D>o<#D09F3A>o<#CA9B36>t <#BD9230>B<#B78E2D>o<#B08929>x <#A38023>C<#9D7C20>o<#96771C>l<#907319>l<#8A6F16>e<#836A13>c<#7D660F>t<#76610C>o<#705D09>r"
-    set {lootBox::name} to ""
-    set {lootBox::lore} to ""
+   
+    set {lootBox::item::lore} to "<#D3716F>P<#D06C6E>l<#CE686D>a<#CB636C>c<#C95E6B>e <#C45569>o<#C15068>n <#BC4766>g<#B94265>r<#B73D64>o<#B43964>u<#B23463>n<#AF2F62>d <#AA2660>t<#A7215F>o <#A2185D>o<#A0135C>p<#9D0E5B>e<#9B0A5A>n<#980559>!"
+    set {lootBox::item::common} to a chest named "<#2F8333>C<#30902D>o<#319C28>m<#31A922>m<#32B51D>o<#33C217>n <#34DB0C>B<#35E707>o<#36F401>x" with lore {lootBox::item::lore}
+    set {lootBox::chance::common} to 50
+    set {lootBox::item::rare} to a chest named "<#0F158E>R<#182F98>a<#2049A1>r<#2963AB>e <#3B98BE>B<#43B2C7>o<#4CCCD1>x" with lore {lootBox::item::lore}
+    set {lootBox::chance::rare} to 35
+    set {lootBox::item::legendary} to a chest named "<#FA0AEA>L<#F80BDA>e<#F70CCA>g<#F50EBA>e<#F40FAA>n<#F2109A>d<#F1118A>a<#EF1279>r<#ED1369>y <#EA1649>B<#E91739>o<#E71829>x" with lore {lootBox::item::lore}
+    #set {lootBox::chance::legendary} this is not needed due to if the previous two rarities dont roll this has to roll (Default 50 + 35 = 85, 100 - 85 = 15% chance of giving a legendary box)
 
 
     set {hungryMiner::hungerPoints} to 1
