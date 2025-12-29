@@ -13,6 +13,7 @@ command /start:
 			send "Game already started use /stopGame" to player
 		else:
 			set {inGame::%player%} to true
+			send "<#0AFA7C>| <#30D47E>S<#43C07E>t<#55AD7F>a<#689A80>r<#7B8781>t<#8E7381>i<#A16082>n<#B44D83>g <#D92684>u<#EC1385>p <#FF007C>M<#FF0071>i<#FF0067>n<#FF005D>e <#FF0048>R<#FF003E>u<#FF0034>s<#FF002A>h <#FF0015>|" to player
 			#Picks random location and makes sure there is not water below the player (prevents spawning in ocean)
 			while {spawningLocation::X} is not set:
 				set {spawningLocation::X} to a random integer between -100000 and 1000000
@@ -29,31 +30,34 @@ command /start:
 				if {debugMode}:
 					if {spawningLocation::X} is not set:
 						send "&c&lInvalid Location" to player
-
-			wait 1 second # waits for server to catch up before starting count down
-			send action bar "&c&lStarting in 5..." to player
+				wait 1 tick
+			
+			wait 5 seconds # waits for server to catch up before starting count down
+			send title "&c&lStarting in 5..." to player
 			wait 1 second
-			send action bar "&c&lStarting in 4..." to player
+			send title "&c&lStarting in 4..." to player
 			wait 1 second
-			send action bar "&c&lStarting in 3..." to player
+			send title "&c&lStarting in 3..." to player
+			apply blindness without any particles to the player for 8 seconds
 			wait 1 second
-			send action bar "&c&lStarting in 2..." to player
+			send title "&c&lStarting in 2..." to player
 			wait 1 second
-			send action bar "&c&lStarting in 1..." to player
+			send title "&c&lStarting in 1..." to player
 			wait 1 second
-			send action bar "&c&lBEGIN" to player
-
-			# Items and effects
-			apply slow falling potion without any particles to the player for 15 seconds
-			teleport player to location({spawningLocation::X}, {spawningHeight}, {spawningLocation::Z})
+			send title "&c&lGood Luck" to player
 			set time of world "world" to 8:00
+			# Items and effects
+			apply slow falling potion without any particles to the player for 90 seconds
+			teleport player to location({spawningLocation::X}, {spawningHeight}, {spawningLocation::Z})
+			asyncAircheck(player)
+
 			execute console command "/gamerule doTileDrops false"
 			execute console command "/gamerule doDaylightCycle true"
 			set weather to clear
 			heal player
 			feed player
 			clear player's inventory
-			give 16 cooked beef and unbreakable stone pickaxe named {pickaxe::tier::stone} to player
+			give unbreakable stone pickaxe named {pickaxe::tier::stone} and 16 cooked beef to player
 
 			# Boss bar
 			set {pointBar::%player%} to boss bar with id "01" with title "&a&lPoints: 0" with color green with progress 0
@@ -69,3 +73,7 @@ command /start:
 
 			# Starts the difficulty timer (see difficulties.sk)
 			difficultyBegin(player)
+function asyncAircheck(p: player):
+	while block below {_p} is air:
+		wait 10 ticks
+	remove slow falling from {_p}'s active potion effects
