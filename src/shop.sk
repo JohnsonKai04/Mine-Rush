@@ -63,53 +63,30 @@ function purchaseArmor(p: player, item: text):
 function purchasePickaxe(p: player, item: text):
 	if chargePlayer({_p}, {_item}) is true:
 		loop all items in the inventory of {_p}:
+			loop enchantments of loop-item:
+				set {_enchant::%loop-iteration-2%} to loop-value-2
+
 			if name of loop-item is {pickaxe::tier::stone}:
-				loop enchantments of loop-item:
-					set {_enchant::%loop-iteration-2%} to loop-value-2
+				set {_found} to true
+				set {pickaxe::tier::%{_p}%} to "iron"
 				set loop-item to air
 				give unbreakable iron pickaxe named {pickaxe::tier::iron} to {_p}
-				loop {_enchant::*}:
-					enchant loop-item with {_enchant::%loop-iteration-2%}
-
-				loop {customEnchantTier::%{_p}%::*}:
-					set {_romans::*} to convertToRoman({customEnchantTier::%{_p}%::%loop-index%})
-					set {_roman} to {_romans::2}
-					if loop-value-2 is 1:
-						add "&b%loop-index% %{_roman}%" to lore of loop-item
-
-				set {pickaxe::tier::%{_p}%} to "iron"
-				stop loop
 			else if name of loop-item is {pickaxe::tier::iron}:
-				loop enchantments of loop-item:
-					set {_enchant::%loop-iteration-2%} to loop-value-2
+				set {_found} to true
+				set {pickaxe::tier::%{_p}%} to "diamond"
 				set loop-item to air
 				give unbreakable diamond pickaxe named {pickaxe::tier::diamond} to {_p}
-				loop {_enchant::*}:
-					enchant loop-item with {_enchant::%loop-iteration-2%}
-
-				loop {customEnchantTier::%{_p}%::*}:
-					set {_romans::*} to convertToRoman({customEnchantTier::%{_p}%::%loop-index%})
-					set {_roman} to {_romans::2}
-					if loop-value-2 is 1:
-						add "&b%loop-index% %{_roman}%" to lore of loop-item
-
-				set {pickaxe::tier::%{_p}%} to "diamond"
-				stop loop
 			else if name of loop-item is {pickaxe::tier::diamond}:
-				loop enchantments of loop-item:
-					set {_enchant::%loop-iteration-2%} to loop-value-2
+				set {_found} to true
+				set {pickaxe::tier::%{_p}%} to "netherite"
 				set loop-item to air
 				give unbreakable netherite pickaxe named {pickaxe::tier::netherite} to {_p}
+
+			if {_found}:
 				loop {_enchant::*}:
 					enchant loop-item with {_enchant::%loop-iteration-2%}
-
 				loop {customEnchantTier::%{_p}%::*}:
-					set {_romans::*} to convertToRoman({customEnchantTier::%{_p}%::%loop-index%})
-					set {_roman} to {_romans::2}
-					if loop-value-2 is 1:
-						add "&b%loop-index% %{_roman}%" to lore of loop-item
-
-				set {pickaxe::tier::%{_p}%} to "netherite"
+					applyCustomEnchant({_p}, loop-index)
 				stop loop
 	make {_p} execute command "/shop"
 
@@ -169,54 +146,52 @@ function purchaseEnchant(p: player, item: text, enchantName: text):
 
 	make {_p} execute command "/shop"
 
+function applyCustomEnchant(p: player, enchantName: text) :: boolean:
+	set {_roman} to convertToRoman({customEnchantTier::%{_p}%::%{_enchantName}%})
+	set {_romanPrevious} to convertToRoman(({customEnchantTier::%{_p}%::%{_enchantName}%} - 1))
+	loop all items in the inventory of {_p}:
+		loop {pickaxe::tier::*}:
+			if name of loop-item is loop-value-2: # item found
+				loop lore of loop-item:
+					if loop-value-3 is "%{%{_enchantName}%::name}% %{_romanPrevious}%":
+						replace loop-value-3 in lore of loop-item with "%{%{_enchantName}%::name}% %{_roman}%"
+						if {debugMode}:
+							send "loop value found and enchant replaced" to {_p}
+						return true
+				# if the item does not have the enchant already on the pickaxe:
+				add "%{%{_enchantName}%::name}% %{_roman}%" to lore of loop-item
+				if {debugMode}:
+					send "loop value found and enchant applied" to {_p}
+				return true
+
 function purchaseCustomEnchant(p: player, enchantName: text):
 	set {_check} to 1 + {customEnchantTier::%{_p}%::%{_enchantName}%}
 	if {%{_enchantName}%::chance::%{_check}%} is not set:
 		send "<#F10044>M<#E70040>a<#DE003D>x <#CB0136>V<#C10132>a<#B8012E>l<#AE022B>u<#A50227>e <#920220>R<#88031D>e<#7F0319>a<#750315>c<#6C0312>h<#62040E>e<#59040B>d<#4F0407>!" to {_p}
 		play sound "block.note_block.bass" with volume {volume} to {_p}
+
 	else if chargePlayer({_p}, {_enchantName}) is true:
-		add 1 to {customEnchantTier::%{_p}%::%{_enchantName}%}
-		set {_romans::*} to convertToRoman({customEnchantTier::%{_p}%::%{_enchantName}%})
-		
+		add 1 to {customEnchantTier::%{_p}%::%{_enchantName}%}		
 		set {cost::%{_enchantName}%} to round({cost::%{_enchantName}%} * 2)
-		loop all items in the inventory of {_p}:
-			loop {pickaxe::tier::*}:
-				if name of loop-item is loop-value-2:
-					if {customEnchantTier::%{_p}%::%{_enchantName}%} is 1:
-						add "%{%{_enchantName}%::name}% %{_romans::1}%" to lore of loop-item
-						if {debugMode}:
-							send "loop value found and enchant applied" to {_p}
-						stop loop
-					else:
-						loop lore of loop-item:
-							if loop-value-3 is "%{%{_enchantName}%::name}% %{_romans::1}%":
-								replace loop-value-3 in lore of loop-item with "%{%{_enchantName}%::name}% %{_romans::2}%"
-								if {debugMode}:
-									send "loop value found and enchant replaced" to {_p}
-								stop loop
+		applyCustomEnchant({_p}, {_enchantName})
 	else:
 		send "Charge unscucessful" to {_p}
 	make {_p} execute command "/shop"
 
-function convertToRoman(value: number) :: texts:
+function convertToRoman(value: number) :: text:
 	if {_value} is 1:
 		set {_roman} to "I"
 	else if {_value} is 2:
-		set {_pRoman} to "I"
 		set {_roman} to "II"
 	else if {_value} is 3:
-		set {_pRoman} to "II"
 		set {_roman} to "III"
 	else if {_value} is 4:
-		set {_pRoman} to "III"
 		set {_roman} to "IV"
 	else if {_value} is 5:
-		set {_pRoman} to "IV"
 		set {_roman} to "V"
 	else:
-		broadcast "error no roman found"
-	set {_return::*} to ({_pRoman},{_roman})
-	return {_return::*}
+		set {_roman} to "0"
+	return {_roman}
 
 
 # Param - _P: player buying
