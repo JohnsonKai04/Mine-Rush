@@ -51,7 +51,7 @@
         - effected broken blocks should active other enchants
 
 ## Custom items
-- [ ] Mining shards or lootboxes similar to cosmic prisons? open them to get random items/points
+- [x] Mining shards or lootboxes similar to cosmic prisons? open them to get random items/points
     - on right click with prismarine shard
     - Loot table should be stored in onLoad with percentage chance of obtaining
     - rare chance on being obtained when mining ores. can be increased with enchants
