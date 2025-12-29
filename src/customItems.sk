@@ -45,3 +45,77 @@ on explosion:
 			add {_newPoints} to {_points}
 		wait 10 ticks
 		send action bar "&2&l+%{_points}% Points" to {_p}
+
+function playLootBoxCommonAnimation(p: player, b: block, m: integer):
+	open the lid of {_b}
+	set {_loc} to location of {_b}
+	set {_i} to 1
+	loop 10 times:
+		subtract 0.1 from {_i}
+		make 5 of glow at {_loc} with offset vector({_i}, 0.2, {_i})
+		make 5 of scrape at {_loc} with offset vector({_i}, 0.2, {_i})
+		wait 5 ticks
+	lootBoxRewardPoints({_p}, {_b}, {_m})
+
+function playLootBoxRareAnimation(p: player, b: block, m: integer):
+	loop 10 times:
+		make 30 of block particle using chest at location of {_b} with offset vector(0.5, 0.2, 0.5)
+		play sound "block.anvil.hit" with volume {volume} at location of {_b}
+		wait 0.5 second
+	open lid of {_b}
+	wait 2 seconds
+	lootBoxRewardPoints({_p}, {_b}, {_m})
+
+function playLootBoxLegendaryAnimation(p: player, b: block, m: integer):
+	open the lid of {_b}
+	set {_loc} to location of {_b}
+	set {_i} to 1
+	loop 10 times:
+		subtract 0.1 from {_i}
+		make 5 of glow at {_loc} with offset vector({_i}, 0.2, {_i})
+		make 5 of scrape at {_loc} with offset vector({_i}, 0.2, {_i})
+		wait 5 ticks
+	lootBoxRewardPoints({_p}, {_b}, {_m})
+
+function lootBoxRewardPoints(p: player, b: block, m: integer):
+	set block at {_b} to air
+
+	set {_base} to 100
+	set {_chance} to a random integer between 1 and {_base}
+	if {_chance} <= ({_base} - 50):
+		set {_points} to a random integer between ({lootBoxPoints::1} * {_m}) and ({lootBoxPoints::2} * {_m})
+	else if {_chance} <= ({_base} - 75):
+		set {_points} to a random integer between ({lootBoxPoints::2} * {_m}) and ({lootBoxPoints::3} * {_m})
+	else if {_chance} <= ({_base} - 95):
+		set {_points} to a random integer between ({lootBoxPoints::3} * {_m}) and ({lootBoxPoints::4} * {_m})
+	else:
+		set {_points} to a random integer between ({lootBoxPoints::5} * {_m}) and ({lootBoxPoints::6} * {_m})
+	add {_points} to {points::%{_p}%}
+	add {_points} to {totalPoints::%{_p}%}
+	set {_color::*} to 3 random integers between 0 and 255
+	set {_text} to text component from "+%{_points}%"
+	set color format of {_text} to rgb({_color::1}, {_color::2}, {_color::3})
+	send title "%{_text}%" to {_p}
+	set bar title of {pointBar::%{_p}%} to "&a&lPoints: %{points::%{_p}%}%"
+
+on place of chest:
+	if name of event-block is name of {lootBox::item::common}:
+		playLootBoxCommonAnimation(player, event-block, 1)
+
+	if name of event-block is name of {lootBox::item::rare}:
+		playLootBoxRareAnimation(player, event-block, 2)
+
+	if name of event-block is name of {lootBox::item::legendary}:
+		playLootBoxLegendaryAnimation(player, event-block, 3)
+
+on rightclick on Chest:
+	loop {lootBox::item::*}:
+		if name of event-block is name of {lootBox::item::%loop-index%}:
+			cancel event
+
+command /givelootbox:
+	trigger:
+		loop 16 times:
+			give player {lootBox::item::common}
+			give player {lootBox::item::rare}
+			give player {lootBox::item::legendary}
