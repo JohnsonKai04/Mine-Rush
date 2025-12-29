@@ -47,8 +47,17 @@ function luckyMiner(p: player, b: block) :: text:
 
 function lootBoxCollector(p: player):
 	chance of {lootBoxCollector::chance::%{customEnchantTier::%{_p}%::lootBoxCollector}%}:
-		send " " to {_p}
-
+		set {_base} to 100
+		set {_chance} to a random integer between 1 and {_base}
+		if {_chance} <= ({_base} - 50):
+			give {_p} {lootBox::item::common}
+			send "+1 %name of {lootBox::item::common}%" to {_p}
+		else if {_chance} <= ({_base} - 85):
+			give {_p} {lootBox::item::rare}
+			send "+1 %name of {lootBox::item::rare}%" to {_p}
+		else:
+			give {_p} {lootBox::item::legendary}
+			send "+1 %name of {lootBox::item::legendary}%" to {_p}
 function hungryMiner(p: player):
 	chance of {hungryMiner::chance::%{customEnchantTier::%{_p}%::hungryMiner}%}:
 		add 1 to {_p}'s food level
@@ -68,35 +77,3 @@ on rightclick holding a stone pickaxe, iron pickaxe, diamond pickaxe, or netheri
 	if {inGame::%player%}:
 		fireball(player)
 
-#loot box
-on place of chest:
-	if name of event-block is "loot box":
-		open the lid of event-block
-		set {_loc} to location of event-block
-		set {_i} to 1
-		loop 10 times:
-			subtract 0.1 from {_i}
-			make 5 of glow at {_loc} with offset vector({_i}, 0.2, {_i})
-			make 5 of scrape at {_loc} with offset vector({_i}, 0.2, {_i})
-			wait 5 ticks
-		set event-block to air
-		set {_base} to 100
-		set {_chance} to a random integer between 1 and {_base}
-		if {_chance} <= ({_base} - 50):
-			set {_points} to a random integer between {lootBoxPoints::1} and {lootBoxPoints::2}
-		else if {_chance} <= ({_base} - 75):
-			set {_points} to a random integer between {lootBoxPoints::2} and {lootBoxPoints::3}
-		else if {_chance} <= ({_base} - 95):
-			set {_points} to a random integer between {lootBoxPoints::3} and {lootBoxPoints::4}
-		else:
-			set {_points} to a random integer between {lootBoxPoints::5} and {lootBoxPoints::6}
-		add {_points} to {points::%player%}
-		add {_points} to {totalPoints::%player%}
-		set {_color::*} to 3 random integers between 0 and 255
-		set {_text} to text component from "+%{_points}%"
-		set color format of {_text} to rgb({_color::1}, {_color::2}, {_color::3})
-		send title "%{_text}%" to player
-		set bar title of {pointBar::%player%} to "&a&lPoints: %{points::%player%}%"
-on rightclick on Chest:
-	if name of event-block is "loot box":
-		cancel event
