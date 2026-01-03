@@ -1,0 +1,18 @@
+command /rename [<text>]:
+    trigger:
+        set name of player's tool to arg-1
+        send "Name set to: %arg-1%" to player
+
+command /MRKillCustomMobs:
+	trigger:
+		killCustomMobs()
+
+command /setingame [<boolean>]:
+	trigger:
+		set {inGame::%player%} to arg-1
+		send "inGame set to: %arg-1%" to player
+
+command /setdifficulty [<number>]:
+	trigger:
+		set {difficulty::%player%} to arg-1
+		send "Difficulty set to: %arg-1%" to player
