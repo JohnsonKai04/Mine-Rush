@@ -112,10 +112,3 @@ on rightclick on Chest:
 	loop {lootBox::item::*}:
 		if name of event-block is name of {lootBox::item::%loop-index%}:
 			cancel event
-
-command /givelootbox:
-	trigger:
-		loop 16 times:
-			give player {lootBox::item::common}
-			give player {lootBox::item::rare}
-			give player {lootBox::item::legendary}
