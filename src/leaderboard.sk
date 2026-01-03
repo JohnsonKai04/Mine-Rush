@@ -23,7 +23,7 @@ function updateLeaderboard(p: player, points: number):
 	set {leaderboardPlayer::%{_insertAt}%} to {_p}
 
 
-command /showleaderboard:
+command /MRshowleaderboard:
 	trigger:
 		send "&6&l----Top 10 Players----" to player
 		loop 10 times:
@@ -31,19 +31,19 @@ command /showleaderboard:
 				send "&e%loop-value%. &b%{leaderboardPlayer::%loop-value%}% &7- &a&l%{leaderboardPoints::%loop-value%}%" to player
 		send "&6&l----------------------" to player
 
-command /clearLeaderboard:
+command /MRclearLeaderboard:
 	trigger:
 		loop 10 times:
 			set {leaderboardPoints::%loop-value%} to 0
 			set {leaderboardPlayer::%loop-value%} to "None"
 		send "LEADERBOARD CLEARED" to player
 
-command /clearStats:
+command /MRclearStats:
 	trigger:
 		delete {stats::*}
 		send "ALL STATS HAVE BEEN DELETED" to player
 
-command /stats:
+command /MRstats:
 	trigger:
 		send "&6&n&l%player%'s Stats:" to player
 		send " " to player
