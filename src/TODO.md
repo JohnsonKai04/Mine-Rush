@@ -1,4 +1,4 @@
-# TODO list updated 12/22/2025
+# TODO list updated 12/31/2025
 
 ## Commands
 - [x] Add a /debug command to give the player 1,000,000 points when starting out
@@ -38,7 +38,7 @@
         - Cost per level starts at 1k will 2x every time
         - Should display the correct ghost ore when breaking indicating that the enchant has procced 
 
-    - [ ] Shard finder: Chance to find shards when mining
+    - [x] Shard finder: Chance to find shards when mining
         - lvl 1-5: 0.5%, 0.75%, 1.0%, 1.25%, 1.5%
         - Cost per level starts at 500 will 2x every time
 
@@ -57,8 +57,8 @@
     - rare chance on being obtained when mining ores. can be increased with enchants
 
 ## Custom mobs / Difficulties
-- [ ] Instead of increasing game speed which would cause server lag replace this with a way to spawn in harder mobs with custom armor / enchants
-- [ ] When the player enters a new difficulty a enderdragon summoning or wither summoning sound should play as a audio indicatior telling the player the difficulty has increased
+- [x] Instead of increasing game speed which would cause server lag replace this with a way to spawn in harder mobs with custom armor / enchants
+- [x] When the player enters a new difficulty a enderdragon summoning or wither summoning sound should play as a audio indicatior telling the player the difficulty has increased
     - Instead of having a narrator tell you messages in chat change it to what the new difficulty has modified
     
 ## Multiplyer support
