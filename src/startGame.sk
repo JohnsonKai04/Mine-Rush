@@ -51,8 +51,8 @@ command /start:
 			teleport player to location({spawningLocation::X::%player%}, {spawningLocation::Y::%player%}, {spawningLocation::Z::%player%})
 			asyncAircheck(player)
 
-			execute console command "/gamerule doTileDrops false"
-			execute console command "/gamerule doDaylightCycle true"
+			execute console command "/gamerule block_drops false"
+			execute console command "/gamerule advance_time true"
 			set weather to clear
 			heal player
 			feed player
