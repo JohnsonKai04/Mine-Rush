@@ -47,8 +47,8 @@ function endGame(p: player) :: boolean:
 	delete {activeCustomMobs::*}
 	resetEnchantPrices()
 	delete boss bar with id "01"
-	execute console command "/gamerule doTileDrops true"
-	execute console command "/gamerule doDaylightCycle true"
+	execute console command "/gamerule block_drops true"
+	execute console command "/gamerule advance_time false"
 	set the difficulty of "world" to peaceful
 	clear {_p}'s inventory
 	kill {_p}
