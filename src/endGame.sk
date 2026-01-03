@@ -42,6 +42,9 @@ function endGame(p: player) :: boolean:
 	delete {customEnchantTier::*}
 	delete {pointBar::%{_p}%}
 	delete {streak::value::%{_P}%}
+	loop {activeCustomMobs::*}:
+		kill loop-value
+	delete {activeCustomMobs::*}
 	resetEnchantPrices()
 	delete boss bar with id "01"
 	execute console command "/gamerule doTileDrops true"
