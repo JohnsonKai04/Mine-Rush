@@ -1,70 +1,177 @@
 # increase game speed, health of mobs, give mobs armor and stronger weapons, splitting mobs, suprise mob attacks, boss battles?
+on spawn:
+	set {_p} to nearest player in radius 80 around event-entity
+	if {inGame::%{_p}%}:
+		if event-entity is a monster:
+			if event-entity's display name does not contain "Baby Battalion Member", or "Horror", or "Brute":
+				if difference between now and {spawnDelay} is more than 1 tick:
+					set {_loc} to location of event-entity
+					chance of ({difficulty::%{_p}%} * 10)%:
+						set {_mobChance} to a random integer between 1 and 3
+						if {_mobChance} is 1:
+							set {_loopNumber} to a random number between 3 and 6
+							loop {_loopNumber} times:
+								spawn a baby zombie at {_loc}
+								set {_mob} to the last spawned monster
+								apply infinite speed potion 2 without particles to {_mob}
+								equip {_mob} with leather boots
+								setHealthOfMob({_mob}, 5)
+								make last spawned entity despawn on chunk unload
+								set name of {_mob} to "Baby Battalion Member"
+								add {_mob} to {activeCustomMobs::*}
+								set {spawnDelay} to now
+						else if {_mobChance} is 2:
+							spawn creaking at {_loc}
+							set {_mob} to the last spawned monster
+							apply infinite speed potion 5 without particles to {_mob}
+							apply infinite strength potion 5 without particles to {_mob}
+							setHealthOfMob({_mob}, 1)
+							make last spawned entity despawn on chunk unload
+							set name of {_mob} to "Horror"
+							add {_mob} to {activeCustomMobs::*}
+							set {spawnDelay} to now
+						else if {_mobChance} is 3:
+							set {_loopNumber} to a random number between 1 and 2
+							loop {_loopNumber} times:
+								spawn zombie at {_loc}
+								set {_mob} to the last spawned monster
+								apply infinite slowness potion 4 without particles to {_mob}
+								apply infinite resistance potion 2 without particles to {_mob}
+								equip {_mob} with iron boots, and iron leggings, and iron chestplate, and diamond helmet
+								equip {_mob} with shield
+								make last spawned entity despawn on chunk unload
+								set name of {_mob} to "Brute"
+								add {_mob} to {activeCustomMobs::*}
+								set {spawnDelay} to now
+						cancel event
+				else if {spawnDelay} is not set:
+					set {spawnDelay} to now
+
+
+function setHealthOfMob(mob: entity, h: number):
+	set {_h} to {_h} / 2
+	set max health of {_mob} to {_h}
+	heal {_mob}
+
+function beginDifficulty1(p: player):
+	send "<#00B154>D<#00AE53>i<#00AB51>f<#00A850>f<#00A44E>i<#00A14D>c<#009E4B>u<#009B4A>l<#009848>t<#009547>y<#009145>: <#008B42>P<#008841>e<#00853F>a<#00823E>c<#007E3C>e<#007B3B>f<#007839>u<#007538>l" to {_p}
+	play sound "item.goat_horn.sound.0" with volume {volume} at {_p}
+	set the difficulty of "world" to peaceful
+	
+
+
+function beginDifficulty2(p: player):
+	send "<#03C400>D<#11C800>i<#1FCC00>f<#2CD000>f<#3AD400>i<#48D800>c<#56DC00>u<#64E000>l<#71E300>t<#7FE700>y<#8DEB00>: <#A9F300>E<#B6F700>a<#C4FB00>s<#D2FF00>y" to {_p}
+	play sound "item.goat_horn.sound.1" with volume {volume} at {_p}
+	set bar color of {pointBar::%{_p}%} to yellow
+	set the difficulty of "world" to normal
+
+
+function beginDifficulty3(p: player):
+	send "<#C1C400>D<#C5C300>i<#C8C200>f<#CCC000>f<#D0BF00>i<#D3BE00>c<#D7BD00>u<#DBBC00>l<#DEBB00>t<#E2B900>y<#E5B800>: <#EDB600>M<#F0B500>e<#F4B400>d<#F8B200>i<#FBB100>u<#FFB000>m" to {_p}
+	play sound "item.goat_horn.sound.2" with volume {volume} at {_p}
+	set bar color of {pointBar::%{_p}%} to red
+
+
+
+function beginDifficulty4(p: player):
+	send "<#C45F00>D<#C85900>i<#CC5200>f<#D04C00>f<#D44600>i<#D83F00>c<#DC3900>u<#E03300>l<#E32C00>t<#E72600>y<#EB2000>: <#F31300>H<#F70D00>a<#FB0600>r<#FF0000>d" to {_p}
+	play sound "item.goat_horn.sound.3" with volume {volume} at {_p}
+	set bar color of {pointBar::%{_p}%} to blue
+	set the difficulty of "world" to hard
+
+
+
+function beginDifficulty5(p: player):
+	send "<#C40000>D<#C5000E>i<#C6001C>f<#C6002B>f<#C70039>i<#C80047>c<#C90055>u<#C90063>l<#CA0071>t<#CB0080>y<#CC008E>: <#CD00AA>E<#CE00B8>x<#CF00C6>t<#D000D5>r<#D000E3>e<#D100F1>m<#D200FF>e" to {_p}
+	play sound "item.goat_horn.sound.6" with volume {volume} at {_p}
+	set bar color of {pointBar::%{_p}%} to white
+	spawnExtract()
+
+
+function beginDifficulty6(p: player):
+	send "<#8B00A0>D<#8200A4>i<#7A01A8>f<#7101AC>f<#6802B0>i<#6002B4>c<#5702B8>u<#4E03BC>l<#4603C0>t<#3D03C4>y<#3404C8>: <#2305D0>C<#1A05D4>h<#1105D8>a<#0906DC>o<#0006E0>s" to {_p}
+	play sound "item.goat_horn.sound.5" with volume {volume} at {_p}
+
+
+
 
 # Param - _p: player playing the game
 # Desc: 6 Different difficulties Peaceful, Easy, Medium, Hard, Extreme, Chaos
 # Default time inbetween difficulties is 15 minutes (is set in onLoad.sk)
 # 6 Different difficulties. Each difficulty lasts 15 minutes by default which can be changed in onLoad.sk
-#	Peaceful: Difficulty set to peaceful
-#	Easy: bar set to yellow, difficulty set to easy
-#	Medium: bar set to red, difficulty set to normal, in game speed set to 1.5x
-#	Hard: bar set to blue, difficulty set to hard, in game speed set to 2x
-#	Extreme: bar set to white, in game speed set to 2.5x, point multiplier set to 2x, spawns extraction in a 1000 x 1000 grid around the initial starting location
-#	Chaos: in game speed set to 2.5x, point multiplier set to 3x, gives player poison tier 1 for 60 minutes
 function difficultyBegin(p: player):
-	set {speedModifier} to 1
+	set {difficulty::%{_p}%} to 0
 
 	loop 6 times:
+		add 1 to {difficulty::%{_p}%}
 		if loop-value is 1:
-			set the difficulty of "world" to peaceful
-			send "&4&l[Difficult Manager]: &2&lDifficulty set to &a&lPeaceful, &2&lGood luck miner! I'll be back in 15 minutes" to {_p}
+			beginDifficulty1({_p})
 
 		if loop-value is 2:
-			set bar color of {pointBar::%{_p}%} to yellow
-			set the difficulty of "world" to easy
-			send "&4&l[Difficult Manager]: &2&lDifficulty set to &e&lEasy, &2&lYour doing good!" to {_p}
+			beginDifficulty2({_p})
 
 		if loop-value is 3:
-			set bar color of {pointBar::%{_p}%} to red
-			set the difficulty of "world" to normal
-			set {speedModifier} to 1.5
-			execute console command "/tick rate 30"
-			send "&4&l[Difficult Manager]: &2&lDifficulty set to &c&lmedium &2&l tick rate set to &5&l1.5x, &2&lThings are going to get harder..." to {_p}
+			beginDifficulty3({_p})
 
 		if loop-value is 4:
-			set bar color of {pointBar::%{_p}%} to blue
-			set the difficulty of "world" to hard
-			set {speedModifier} to 2
-			execute console command "/tick rate 40"
-			send "&4&l[Difficult Manager]: &2&lDifficulty set to &5&lhard &2&l tick rate set to &5&l2x, &2&lHow are you doing out there? Remeber get as many points as possible! If you need an out I'll open an extraction point in 15 minutes" to {_p}
+			beginDifficulty4({_p})
 
 		if loop-value is 5: 
-			set bar color of {pointBar::%{_p}%} to white
-			set {speedModifier} to 2.5
-			execute console command "/tick rate 50"
-			set {pointMultiplier} to 2.0
-			spawnExtract()
-			send "&4&l[Difficult Manager]: &2&lTick rate set to &5&l2.5x, &2&lYour in rough shape bud. I've opened extraction head to &b&l%{extractLocation::X}%, %{extractLocation::Y}%, %{extractLocation::Z}%. &2&lOf course the longer you stay the more points you'll get! Any points earned from here on out are doubled!" to {_p}
+			beginDifficulty5({_p})
 
 		if loop-value is 6:
-			set bar color of {pointBar::%{_p}%} to white
-			set {speedModifier} to 4
-			execute console command "/tick rate 60"
-			set {pointMultiplier} to 3.0
-			send "&4&l[Difficult Manager]: &2&lTick rate set to &5&l3.0x, &2&l3x points but you need to leave now radiation is starting to set in!" to {_p}
-			wait 30 seconds
-			apply poison potion of tier 1 without any particles to {_p} for 60 minutes
-			stop loop
-
-		#sets the difficulty speed to the default 15 minutes times whatever difficulty has modified the {speedModifier} value
-		set {difficultySpeed} to {defaultSpeed} * {speedModifier}
+			beginDifficulty6({_p})
 
 		# Every 15 seconds increase bar by 1.667 for 15 minutes. reloops after every difficulty increase.
 		#This loop will cause the function to exit if the player is no longer playing
 		loop 60 times:
 			if {inGame::%{_p}%} is true:
-				add 1.666 to {pointBar::%{_p}%::progress}
-				set bar progress of {pointBar::%{_p}%} to {pointBar::%{_p}%::progress}
-				wait {difficultySpeed}
+				add 1.666 to {pointBar::progress::%{_p}%}
+				set bar progress of {pointBar::%{_p}%} to {pointBar::progress::%{_p}%}
+				wait {defaultSpeed}
 			else:
-				stop #exits function
-		set {pointBar::%{_p}%::progress} to 0
+				stop # Stops difficulty from increasing
+		set {pointBar::progress::%{_p}%} to 0
+
+
+# THIS FUNCTION IS NEVER USED 
+function findValidMobSpawn(p: player) :: location:
+	set {_found} to false
+	set {_tries} to 0
+	while {_found} is false:
+		if {_tries} >= 50:
+			stop loop
+		set {_x} to random integer between 15 and 20
+		set {_xN} to random integer between 0 and 1
+
+		set {_z} to random integer between 15 and 20
+		set {_zN} to random integer between 0 and 1
+		set {_y} to random integer between -5 and 5
+
+		# Calculate the target location
+		set {_loc} to location of {_p}
+		if {_xN} is 1:
+			subtract {_x} from x-coordinate of {_loc}
+		else:
+			add {_x} to x-coordinate of {_loc}
+
+		add {_y} to y-coordinate of {_loc}
+
+		if {_zN} is 1:
+			subtract {_z} from z-coordinate of {_loc}
+		else:
+			add {_z} to z-coordinate of {_loc}
+
+	# Check if it's a valid spawn location
+		if block at {_loc} is not solid:
+			if block above {_loc} is air:
+				if block below {_loc} is solid:
+					set {_found} to true
+		add 1 to {_tries}
+	if {debugMode}:
+		if {_found} is false:
+			send "position not found with %{_tries}% tries" to {_p}
+		else:
+			send "position found at &a(%{_loc}%)&r within %{_tries}% tries" to {_p}
+	return {_loc}
