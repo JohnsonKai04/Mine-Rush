@@ -47,24 +47,25 @@ function luckyMiner(p: player, b: block) :: text:
 
 function lootBoxCollector(p: player):
 	chance of {lootBoxCollector::chance::%{customEnchantTier::%{_p}%::lootBoxCollector}%}:
-		set {_base} to 100
-		set {_chance} to a random integer between 1 and {_base}
-		if {_chance} <= ({_base} - 50):
+		set {_chance} to a random integer between 1 and 100
+		if {_chance} >= 50: # 50% chance
 			give {_p} {lootBox::item::common}
 			send "+1 %name of {lootBox::item::common}%" to {_p}
-		else if {_chance} <= ({_base} - 85):
+
+		else if {_chance} >= 15: # 35% chance
 			give {_p} {lootBox::item::rare}
 			send "+1 %name of {lootBox::item::rare}%" to {_p}
-		else:
+
+		else: # 15% chance
 			give {_p} {lootBox::item::legendary}
 			send "+1 %name of {lootBox::item::legendary}%" to {_p}
+
 function hungryMiner(p: player):
 	chance of {hungryMiner::chance::%{customEnchantTier::%{_p}%::hungryMiner}%}:
 		add 1 to {_p}'s food level
 		
 function fireball(p: player):
 	chance of {fireball::chance::%{customEnchantTier::%{_p}%::fireball}%}:
-		set {_test} to 10
 		if {cooldown::fireball::%{_p}%} is not set:
 			set {cooldown::fireball::%{_p}%} to now
 		if difference between now and {cooldown::fireball::%{_p}%} is more than 30 seconds:
