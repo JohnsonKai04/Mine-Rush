@@ -203,7 +203,7 @@ function purchaseItem(p: player, item: text, count: number):
 		give {_p} {_count} of {_item} parsed as item
 	make {_p} execute command "/shop"
 
-function purcahseCustomItem(p: player, item: item, cItem: text):
+function purchaseCustomItem(p: player, item: item, cItem: text):
 	if chargePlayer({_p}, {_cItem}) is true:
 		if {_cItem} is "ghead":
 			give {_p} skull of ({goldenSkullPlayerName} parsed as offline player) named {customItem::ghead::name} with lore {customItem::ghead::lore}
@@ -348,9 +348,9 @@ on inventory click:
 
 		# Custom Items
 		else if display name of event-item is "&lGolden Head":
-			purcahseCustomItem(player, stone, "ghead")
+			purchaseCustomItem(player, stone, "ghead")
 		else if display name of event-item is "&lGrappling Hook":
-			purcahseCustomItem(player, fishing rod, "grappling hook")
+			purchaseCustomItem(player, fishing rod, "grappling hook")
 
 		# Swords
 		else if display name of event-item is "&lStone Sword":
