@@ -1,8 +1,19 @@
 function addPoints(p: player, block: block, skipVeinMiner: boolean = false) :: number:
-	set {_blockType} to luckyMiner({_p}, {_block})
-	if {_blockType} is "none":
+	loop {ores::*}:
+		if {_blockType} is {ores::%loop-index%}:
+			set {_isOre} to true
+			stop loop
+		else:
+			set {_isOre} to false
+	if {_isOre}:
+		set {_blockType} to luckyMiner({_p}, {_block})
+		set {_streak} to streak({_p})
+		lootBoxCollector({_p})
+		hungryMiner({_p})
+	else:
 		set {_blockType} to "%type of {_block}%"
-	set {_streak} to streak({_p})
+	
+	# Calculates points
 	set {_points} to round({blockValue::%{_blockType}%} * ({pointMultiplier} + {_streak}))
 	if {_points} is 0:
 		exit
@@ -10,13 +21,12 @@ function addPoints(p: player, block: block, skipVeinMiner: boolean = false) :: n
 	add {_points} to {totalPoints::%{_p}%}
 
 	# vein miner / oreDuplicate
-	loop {ores::*}:
-		if {_blockType} is {ores::%loop-index%}:
-			oreDuplicate({_p}, {_block})
-			if {_skipVeinMiner} is false:
-				veinMiner({_p}, {_block}, type of {_block})
-			stop loop
-	hungryMiner({_p})
+	if {_isOre}:
+		oreDuplicate({_p}, {_block})
+		if {_skipVeinMiner} is false:
+			veinMiner({_p}, {_block}, type of {_block})
+
+	# Update BossBar
 	send action bar "&2&l+%{_points}% Points" to {_p}
 	set bar title of {pointBar::%{_p}%} to "&a&lPoints: %{points::%{_p}%}%"
 	return {_points}
