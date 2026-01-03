@@ -3,16 +3,23 @@ command /rename [<text>]:
         set name of player's tool to arg-1
         send "Name set to: %arg-1%" to player
 
-command /MRKillCustomMobs:
-	trigger:
-		killCustomMobs()
-
 command /setingame [<boolean>]:
 	trigger:
 		set {inGame::%player%} to arg-1
 		send "inGame set to: %arg-1%" to player
+on tab complete of "/setingame":
+    set tab completion to "true" and "false"
 
 command /setdifficulty [<number>]:
 	trigger:
 		set {difficulty::%player%} to arg-1
 		send "Difficulty set to: %arg-1%" to player
+on tab complete of "/setdifficulty":
+    set tab completion to "1" and "2" and "3" and "4" and "5" and "6"
+
+command /givelootbox [<text>]:
+	trigger:
+		loop 16 times:
+			give player {lootBox::item::%arg-1%}
+on tab completion of "/givelootbox":
+	set tab completion to "common" and "rare" and "legendary"
