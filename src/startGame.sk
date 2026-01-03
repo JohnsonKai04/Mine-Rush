@@ -1,4 +1,4 @@
-command /debug:
+command /MRdebug:
 	trigger:
 		if {debugMode} is false:
 			set {debugMode} to true
@@ -15,20 +15,20 @@ command /start:
 			set {inGame::%player%} to true
 			send "<#0AFA7C>| <#30D47E>S<#43C07E>t<#55AD7F>a<#689A80>r<#7B8781>t<#8E7381>i<#A16082>n<#B44D83>g <#D92684>u<#EC1385>p <#FF007C>M<#FF0071>i<#FF0067>n<#FF005D>e <#FF0048>R<#FF003E>u<#FF0034>s<#FF002A>h <#FF0015>|" to player
 			#Picks random location and makes sure there is not water below the player (prevents spawning in ocean)
-			while {spawningLocation::X} is not set:
-				set {spawningLocation::X} to a random integer between -100000 and 1000000
-				set {spawningLocation::Z} to a random integer between -100000 and 1000000
+			while {spawningLocation::X::%player%} is not set:
+				set {spawningLocation::X::%player%} to a random integer between -100000 and 1000000
+				set {spawningLocation::Z::%player%} to a random integer between -100000 and 1000000
 
-				set {_waterCheck} to location at {spawningLocation::X}, 62, {spawningLocation::Z} in world "world"
-				set {_airCheck} to location at {spawningLocation::X}, {spawningHeight}, {spawningLocation::Z} in world "world"
+				set {_waterCheck} to location at {spawningLocation::X::%player%}, 62, {spawningLocation::Z::%player%} in world "world"
+				set {_airCheck} to location at {spawningLocation::X::%player%}, {spawningLocation::Y::%player%}, {spawningLocation::Z::%player%} in world "world"
 				if block at {_waterCheck} is water:
-					set {spawningLocation::X} to null
+					set {spawningLocation::X::%player%} to null
 				
 				if block at {_airCheck} is not air:
-					set {spawningLocation::X} to null
+					set {spawningLocation::X::%player%} to null
 				
 				if {debugMode}:
-					if {spawningLocation::X} is not set:
+					if {spawningLocation::X::%player%} is not set:
 						send "&c&lInvalid Location" to player
 				wait 1 tick
 			
@@ -48,7 +48,7 @@ command /start:
 			set time of world "world" to 8:00
 			# Items and effects
 			apply slow falling potion without any particles to the player for 90 seconds
-			teleport player to location({spawningLocation::X}, {spawningHeight}, {spawningLocation::Z})
+			teleport player to location({spawningLocation::X::%player%}, {spawningLocation::Y::%player%}, {spawningLocation::Z::%player%})
 			asyncAircheck(player)
 
 			execute console command "/gamerule doTileDrops false"
@@ -64,8 +64,8 @@ command /start:
 			set bar style of {pointBar::%player%} to solid_bar
 			if {debugMode}:
 				set {points::%player%} to 24000000
-				set bar title of {pointBar::%player%} to "&a&lPoints: %{points::%player%}%"
-			set {pointBar::%player%::progress} to 0
+				set bar title of {pointBar::title::%player%} to "&a&lPoints: %{points::%player%}%"
+			set {pointBar::progress::%player%} to 0
 			add player to {pointBar::%player%}
 
 			# Sets upgrades to defaults
