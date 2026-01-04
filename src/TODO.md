@@ -4,7 +4,7 @@
 - [x] Add a /debug command to give the player 1,000,000 points when starting out
 
 ## On block break
-- [ ] whenever the player mines any block the item of the block should drop in the middle of the block. This block would need to check if Lucky Miner has procced aswell inorder to show the correct ore.
+- [x] whenever the player mines any block the item of the block should drop in the middle of the block. This block would need to check if Lucky Miner has procced aswell inorder to show the correct ore.
     - drop 1 taget-block at target-block-location
     - on pickup:
     - if player is ingame:
@@ -63,7 +63,7 @@
     
 ## Multiplyer support
 - [ ] Validate that multipler players can start their own independent game. Change all variables to include %player% at the end
-
+    - [x] All variables have been validated to have %player%
 ## MongoDB support
 - [ ] Add mongoDBsk and figure out how to create stats per player and a global leaderboard
 - [ ] Add leaderboard validation so cheaters are easy to spot 
