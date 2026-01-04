@@ -1,12 +1,3 @@
-command /MRdebug:
-	trigger:
-		if {debugMode} is false:
-			set {debugMode} to true
-			send "Debug mode activated" to player
-		else:
-			set {debugMode} to false
-			send "Debug mode deactivated" to player
-
 command /start:
 	trigger:
 		if {inGame::%player%} is true:
@@ -46,18 +37,24 @@ command /start:
 			wait 1 second
 			send title "&c&lGood Luck" to player
 			set time of world "world" to 8:00
-			# Items and effects
+
+			# Slow falling /tp
 			apply slow falling potion without any particles to the player for 90 seconds
 			teleport player to location({spawningLocation::X::%player%}, {spawningHeight}, {spawningLocation::Z::%player%})
 			asyncAircheck(player)
 
+
 			execute console command "/gamerule block_drops false"
+			execute console command "/gamerule mob_drops false"
 			execute console command "/gamerule advance_time true"
 			set weather to clear
 			heal player
 			feed player
 			clear player's inventory
+			
+			# Items
 			give unbreakable stone pickaxe named {pickaxe::tier::stone} and 16 cooked beef to player
+			set {pickaxe::tier::%player%} to "stone"
 
 			# Boss bar
 			set {pointBar::%player%} to boss bar with id "01" with title "&a&lPoints: 0" with color green with progress 0
@@ -69,10 +66,10 @@ command /start:
 			add player to {pointBar::%player%}
 
 			# Sets upgrades to defaults
-			set {pickaxe::tier::%player%} to "stone"
 			add 1 to {currentGameStats::%player%::gamesStarted}
 			# Starts the difficulty timer (see difficulties.sk)
 			difficultyBegin(player)
+
 function asyncAircheck(p: player):
 	while block below {_p} is air:
 		wait 10 ticks
