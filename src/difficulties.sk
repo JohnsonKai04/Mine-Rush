@@ -47,7 +47,6 @@ on spawn:
 				else if {spawnDelay} is not set:
 					set {spawnDelay} to now
 
-
 function setHealthOfMob(mob: entity, h: number):
 	set {_h} to {_h} / 2
 	set max health of {_mob} to {_h}
