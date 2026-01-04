@@ -12,7 +12,6 @@ function addPoints(p: player, block: block, skipVeinMiner: boolean = false) :: n
 		hungryMiner({_p})
 	else:
 		set {_blockType} to "%type of {_block}%"
-	
 	# Calculates points
 	set {_points} to round({blockValue::%{_blockType}%} * ({pointMultiplier} + {_streak}))
 	if {_points} is 0:
@@ -31,9 +30,31 @@ function addPoints(p: player, block: block, skipVeinMiner: boolean = false) :: n
 	# Update BossBar
 	send action bar "&2&l+%{_points}% Points" to {_p}
 	set bar title of {pointBar::%{_p}%} to "&a&lPoints: %{points::%{_p}%}%"
+
+	phantomOre({_p}, {_block}, {_blockType})
 	return {_points}
 
 
 on mine:
 	if {inGame::%player%}:
 		addPoints(player, event-block)
+
+function phantomOre(p: player, block: block, type: text):
+	spawn an armor stand at location below {_block} with nbt from "{Invisible:1, Small: 1, NoGravity: 1, Marker: 1b}"
+	set {_stand} to last spawned armor stand
+	set {_stand}'s helmet to {_type} parsed as an item type
+	wait 1 tick
+	while true:
+		set {_target} to location of {_p}
+		set y-coordinate of {_target} to y-coordinate of {_p} - 0.5
+		set {_current} to location of {_stand}
+		set {_vector} to vector from {_current} to {_target}
+		set {_distance} to distance between {_current} and {_target}
+		if {_distance} > 0.5:
+			set vector length of {_vector} to 0.5
+			teleport {_stand} to {_current} ~ {_vector}
+		if {_distance} <= 0.5:
+			stop loop
+		wait 1 tick
+	wait 2 ticks
+	kill {_stand}
