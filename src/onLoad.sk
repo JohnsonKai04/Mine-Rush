@@ -6,24 +6,6 @@ function setPrice(item: text, price: number):
 function setPoints(block: text, points: number):
     set {blockValue::%{_block}%} to {_points}
 
-function resetEnchantPrices():
-    setPrice("efficiency", 100)
-    setPrice("protection", 100)
-    setPrice("thorns", 100)
-    setPrice("sharpness", 100)
-    setPrice("knockback", 100)
-    setPrice("fire aspect", 100)
-    setPrice("sweeping edge", 100)
-
-    # custom enchants
-    setPrice("veinMiner", 1000)
-    setPrice("streak", 20000)
-    setPrice("oreDuplicate", 2000)
-    setPrice("luckyMiner", 1000)
-    setPrice("lootBoxCollector", 500)
-    setPrice("hungryMiner", 5000)
-    setPrice("fireball", 50000)
-
 on load:
     set {ores::*} to "coal ore"
     add "deepslate coal ore" to {ores::*}
@@ -153,7 +135,22 @@ on load:
     setPrice("diamond armor", 2000)
 
     # Enchants
-    resetEnchantPrices()
+    setPrice("efficiency", 100)
+    setPrice("protection", 100)
+    setPrice("thorns", 100)
+    setPrice("sharpness", 100)
+    setPrice("knockback", 100)
+    setPrice("fire aspect", 100)
+    setPrice("sweeping edge", 100)
+
+    # custom enchants
+    setPrice("veinMiner", 1000)
+    setPrice("streak", 20000)
+    setPrice("oreDuplicate", 2000)
+    setPrice("luckyMiner", 1000)
+    setPrice("lootBoxCollector", 500)
+    setPrice("hungryMiner", 5000)
+    setPrice("fireball", 50000)
 
     # Custom Items
     setPrice("ghead", 150)
