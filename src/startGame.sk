@@ -20,7 +20,7 @@ command /start:
 				set {spawningLocation::Z::%player%} to a random integer between -100000 and 1000000
 
 				set {_waterCheck} to location at {spawningLocation::X::%player%}, 62, {spawningLocation::Z::%player%} in world "world"
-				set {_airCheck} to location at {spawningLocation::X::%player%}, {spawningLocation::Y::%player%}, {spawningLocation::Z::%player%} in world "world"
+				set {_airCheck} to location at {spawningLocation::X::%player%}, {spawningHeight}, {spawningLocation::Z::%player%} in world "world"
 				if block at {_waterCheck} is water:
 					set {spawningLocation::X::%player%} to null
 				
@@ -48,7 +48,7 @@ command /start:
 			set time of world "world" to 8:00
 			# Items and effects
 			apply slow falling potion without any particles to the player for 90 seconds
-			teleport player to location({spawningLocation::X::%player%}, {spawningLocation::Y::%player%}, {spawningLocation::Z::%player%})
+			teleport player to location({spawningLocation::X::%player%}, {spawningHeight}, {spawningLocation::Z::%player%})
 			asyncAircheck(player)
 
 			execute console command "/gamerule block_drops false"
@@ -70,7 +70,7 @@ command /start:
 
 			# Sets upgrades to defaults
 			set {pickaxe::tier::%player%} to "stone"
-
+			add 1 to {currentGameStats::%player%::gamesStarted}
 			# Starts the difficulty timer (see difficulties.sk)
 			difficultyBegin(player)
 function asyncAircheck(p: player):
