@@ -25,10 +25,11 @@ function spawnExtract():
 function endGame(p: player) :: boolean:
 	if {inGame::%{_p}%} is false:
 		return false
-	set {inGame::%{_p}%} to false
+	delete {inGame::%{_p}%}
 
 	updateLeaderboard({_p}, {points::%{_p}%})
-	set {pointMultiplier} to 1.0
+
+	delete {difficulty::%{_p}%}
 	delete {points::%{_p}%}
 	delete {pickaxe::tier::%{_p}%}
 	delete {sword::tier::%{_p}%}
@@ -39,14 +40,17 @@ function endGame(p: player) :: boolean:
 	delete {customEnchantTier::*}
 	delete {pointBar::%{_p}%}
 	delete {streak::value::%{_P}%}
+	delete {enchantCostMultiplier::%{_p}%::*}
 	loop {activeCustomMobs::*}:
 		kill loop-value
 	delete {activeCustomMobs::*}
-	resetEnchantPrices()
 	delete boss bar with id "01"
+
+	execute console command "/gamerule mob_drops true"
 	execute console command "/gamerule block_drops true"
 	execute console command "/gamerule advance_time false"
 	set the difficulty of "world" to peaceful
+
 	clear {_p}'s inventory
 	kill {_p}
 
@@ -64,7 +68,7 @@ function endGame(p: player) :: boolean:
 	loop {currentGameStats::%{_p}%::*}:
 		add {currentGameStats::%{_p}%::%loop-index%} to {overallStats::%{_p}%::%loop-index%}
 
-	delete {currentGameStats::%{_p}%}
+	delete {currentGameStats::%{_p}%::*}
 	
 	return true
 
@@ -94,7 +98,3 @@ on death of player:
 		if attacker is not set:
 			add 1 to {currentGameStats::%victim%::deaths}
 			endGame(victim)
-
-on death of player:
-	wait 1 tick
-	send "%attacker%" to victim
