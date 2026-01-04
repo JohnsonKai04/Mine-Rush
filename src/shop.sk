@@ -1,10 +1,10 @@
 # Param - _p: player that is purchasing from the shop
 # Param - _item: name of the item that the player is buying, this will be used to match the item with a price
 # Return - bool: returns true if the purcahse was sucessful but false if the buyer does not have enough money
-function chargePlayer(p: player, item: text) :: boolean:
-	if {cost::%{_item}%} <= {points::%{_p}%}:
+function chargePlayer(p: player, item: text, multiplier: number = 1) :: boolean:
+	if ({cost::%{_item}%} * {_multiplier}) <= {points::%{_p}%}:
 		# Subtracts cost from balance
-		set {points::%{_p}%} to {points::%{_p}%} - {cost::%{_item}%}
+		set {points::%{_p}%} to round({points::%{_p}%} - {cost::%{_item}%})
 
 		# Adds to stat
 		add {cost::%{_item}%} to {currentGameStats::%{_p}%::pointsSpent}
@@ -130,9 +130,9 @@ function purchaseWeapon(p: player, item: text):
 	make {_p} execute command "/shop"
 
 function purchaseEnchant(p: player, item: text, enchantName: text):
-	if chargePlayer({_p}, {_enchantName}) is true:
+	set {enchantCostMultiplier::%{_p}%::%{_enchantName}%} to {enchantTier::%{_enchantName}%::%{_p}%} * 1.5
+	if chargePlayer({_p}, {_enchantName}, {enchantCostMultiplier::%{_p}%::%{_enchantName}%}) is true:
 		add 1 to {enchantTier::%{_enchantName}%::%{_p}%}
-		set {cost::%{_enchantName}%} to round({cost::%{_enchantName}%} * 1.5)  # NOT COMPATIBLE WITH MULTIPLAYER
 		set {_enchantment} to "%{_enchantName}% %{enchantTier::%{_enchantName}%::%{_p}%}%" parsed as enchantment type
 
 		# Checks if item is armor if not enchants all other items
@@ -166,13 +166,13 @@ function applyCustomEnchant(p: player, enchantName: text) :: boolean:
 
 function purchaseCustomEnchant(p: player, enchantName: text):
 	set {_check} to 1 + {customEnchantTier::%{_p}%::%{_enchantName}%}
+	set {enchantCostMultiplier::%{_p}%::%{_enchantName}%} to {enchantTier::%{_enchantName}%::%{_p}%} * 2
 	if {%{_enchantName}%::chance::%{_check}%} is not set:
 		send "<#F10044>M<#E70040>a<#DE003D>x <#CB0136>V<#C10132>a<#B8012E>l<#AE022B>u<#A50227>e <#920220>R<#88031D>e<#7F0319>a<#750315>c<#6C0312>h<#62040E>e<#59040B>d<#4F0407>!" to {_p}
 		play sound "block.note_block.bass" with volume {volume} to {_p}
 
-	else if chargePlayer({_p}, {_enchantName}) is true:
-		add 1 to {customEnchantTier::%{_p}%::%{_enchantName}%}		
-		set {cost::%{_enchantName}%} to round({cost::%{_enchantName}%} * 2)
+	else if chargePlayer({_p}, {_enchantName}, {enchantCostMultiplier::%{_p}%::%{_enchantName}%}) is true:
+		add 1 to {customEnchantTier::%{_p}%::%{_enchantName}%}
 		applyCustomEnchant({_p}, {_enchantName})
 	else:
 		send "Charge unscucessful" to {_p}
