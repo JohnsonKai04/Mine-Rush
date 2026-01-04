@@ -26,13 +26,10 @@ function endGame(p: player) :: boolean:
 	if {inGame::%{_p}%} is false:
 		return false
 	set {inGame::%{_p}%} to false
-	execute console command "/tick rate 20"
 
 	updateLeaderboard({_p}, {points::%{_p}%})
-	add {totalPoints::%{_p}%} to {stats::overallPoints::%{_p}%}
 	set {pointMultiplier} to 1.0
 	delete {points::%{_p}%}
-	delete {totalPoints::%{_p}%}
 	delete {pickaxe::tier::%{_p}%}
 	delete {sword::tier::%{_p}%}
 	delete {armor::tier::%{_p}%}
@@ -52,6 +49,23 @@ function endGame(p: player) :: boolean:
 	set the difficulty of "world" to peaceful
 	clear {_p}'s inventory
 	kill {_p}
+
+	#stats
+	set {_ID} to 0
+	set {_completed} to false
+	while {_completed} is false:
+		add 1 to {_ID}
+		if {gameStats::%{_p}%::%{_ID}%::*} is not set:
+			loop {currentGameStats::%{_p}%::*}:
+				set {gameStats::%{_p}%::%{_ID}%::%loop-index%} to {currentGameStats::%{_p}%::%loop-index%}
+			set {gameStats::%{_p}%::%{_ID}%::timePlayed} to now
+			set {_completed} to true
+
+	loop {currentGameStats::%{_p}%::*}:
+		add {currentGameStats::%{_p}%::%loop-index%} to {overallStats::%{_p}%::%loop-index%}
+
+	delete {currentGameStats::%{_p}%}
+	
 	return true
 
 # Once the player right clicks the beacon they gain invulnerability and gain a 1.5x point bonus to their current points.
@@ -65,19 +79,22 @@ on right click on beacon:
 		send "&4&l[Difficult Manager]: &aGood job %player% Lets pull you out! Heres a bonus for your efforts &2&l+%{_bonus}% Points" to player
 		wait 6 seconds
 		make player vulnerable
-		add 1 to {stats::extracts::%player%}
+		add 1 to {currentGameStats::%player%::sucessfullExtracts}
 		endGame(player)
 
 command /endGame:
 	trigger:
 		if endGame(player):
-			add 1 to {stats::unsuccessfulExtracts::%player%}
+			add 1 to {currentGameStats::%player%::deaths}
 		else:
 			send "You are currently not in the game" to player
 
 on death of player:
 	if {inGame::%victim%}:
-		wait 1 tick
-		add 1 to {stats::unsuccessfulExtracts::%victim%}
-		add 1 to {stats::deaths::%victim%}
-		endGame(victim)
+		if attacker is not set:
+			add 1 to {currentGameStats::%victim%::deaths}
+			endGame(victim)
+
+on death of player:
+	wait 1 tick
+	send "%attacker%" to victim
