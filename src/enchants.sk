@@ -38,6 +38,7 @@ function luckyMiner(p: player, b: block) :: text:
 			if {_typeFound} is false:
 				if loop-value is {_currentType}:
 					set {_typeFound} to true
+					send "found" to {_p}
 			else:
 				set {_typeFound} to false
 				play sound "ENTITY_TURTLE_SHAMBLE" with volume {volume} at {_b}
@@ -67,10 +68,11 @@ function hungryMiner(p: player):
 function fireball(p: player):
 	chance of {fireball::chance::%{customEnchantTier::%{_p}%::fireball}%}:
 		if {cooldown::fireball::%{_p}%} is not set:
+			spawn fireball 1 block infront of {_p} with nbt from "{ExplosionPower:%{fireball::size::%{customEnchantTier::%{_p}%::fireball}%}%}"
 			set {cooldown::fireball::%{_p}%} to now
-		if difference between now and {cooldown::fireball::%{_p}%} is more than 30 seconds:
+		if difference between now and {cooldown::fireball::%{_p}%} is more than 60 seconds:
 			set {cooldown::fireball::%{_p}%} to now
-			spawn fireball at {_p} with nbt from "{ExplosionPower:%{fireball::size::%{customEnchantTier::%{_p}%::fireball}%}%}"
+			spawn fireball 1 block infront of {_p} with nbt from "{ExplosionPower:%{fireball::size::%{customEnchantTier::%{_p}%::fireball}%}%}"
 		else:
 			send "Cooldown still active please wait!" to {_p}
 

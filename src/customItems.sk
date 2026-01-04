@@ -36,9 +36,10 @@ on right click using player head:
 			apply speed potion of tier 2 without any particles to {_p} for 15 seconds
 			remove 1 of player's held item from player's inventory
 
+
 on explosion:
-	set {_p} to nearest player in radius 50 around {_loc}
-	if {inGame::%player%}:
+	set {_p} to nearest player in radius 50 around event-position
+	if {inGame::%{_p}%}:
 		set {_loc} to event-position
 		loop exploded blocks:
 			set {_newPoints} to addPoints({_p}, loop-block, false)
