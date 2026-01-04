@@ -17,8 +17,10 @@ function addPoints(p: player, block: block, skipVeinMiner: boolean = false) :: n
 	set {_points} to round({blockValue::%{_blockType}%} * ({pointMultiplier} + {_streak}))
 	if {_points} is 0:
 		exit
+	else: 
+		add 1 to {currentGameStats::%{_p}%::%{_blockType}%}
 	add {_points} to {points::%{_p}%}
-	add {_points} to {totalPoints::%{_p}%}
+	add {_points} to {currentGameStats::%{_p}%::totalPoints}
 
 	# vein miner / oreDuplicate
 	if {_isOre}:
