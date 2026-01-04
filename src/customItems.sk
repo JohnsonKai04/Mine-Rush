@@ -91,7 +91,7 @@ function lootBoxRewardPoints(p: player, b: block, m: integer):
 	else:
 		set {_points} to a random integer between ({lootBoxPoints::5} * {_m}) and ({lootBoxPoints::6} * {_m})
 	add {_points} to {points::%{_p}%}
-	add {_points} to {totalPoints::%{_p}%}
+	add {_points} to {currentGameStats::%{_p}%::totalPoints}
 	set {_color::*} to 3 random integers between 0 and 255
 	set {_text} to text component from "+%{_points}%"
 	set color format of {_text} to rgb({_color::1}, {_color::2}, {_color::3})
@@ -99,14 +99,18 @@ function lootBoxRewardPoints(p: player, b: block, m: integer):
 	set bar title of {pointBar::%{_p}%} to "&a&lPoints: %{points::%{_p}%}%"
 
 on place of chest:
-	if name of event-block is name of {lootBox::item::common}:
-		playLootBoxCommonAnimation(player, event-block, 1)
+	if {inGame::%player%}:
+		if name of event-block is name of {lootBox::item::common}:
+			playLootBoxCommonAnimation(player, event-block, 1)
+			add 1 to {currentGameStats::%player%::commonLootBoxesOpened}
 
-	if name of event-block is name of {lootBox::item::rare}:
-		playLootBoxRareAnimation(player, event-block, 2)
+		if name of event-block is name of {lootBox::item::rare}:
+			playLootBoxRareAnimation(player, event-block, 2)
+			add 1 to {currentGameStats::%player%::rareLootBoxesOpened}
 
-	if name of event-block is name of {lootBox::item::legendary}:
-		playLootBoxLegendaryAnimation(player, event-block, 3)
+		if name of event-block is name of {lootBox::item::legendary}:
+			playLootBoxLegendaryAnimation(player, event-block, 3)
+			add 1 to {currentGameStats::%player%::legendaryLootBoxesOpened}
 
 on rightclick on Chest:
 	loop {lootBox::item::*}:
