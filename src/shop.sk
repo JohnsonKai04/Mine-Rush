@@ -7,7 +7,7 @@ function chargePlayer(p: player, item: text) :: boolean:
 		set {points::%{_p}%} to {points::%{_p}%} - {cost::%{_item}%}
 
 		# Adds to stat
-		add {cost::%{_item}%} to {stats::SpentPoints::%{_p}%}
+		add {cost::%{_item}%} to {currentGameStats::%{_p}%::pointsSpent}
 		play sound "entity.experience_orb.pickup" with volume {volume} to {_p}
 
 		# Updates boss bar
