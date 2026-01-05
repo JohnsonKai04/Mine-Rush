@@ -41,9 +41,7 @@ function endGame(p: player) :: boolean:
 	delete {pointBar::%{_p}%}
 	delete {streak::value::%{_P}%}
 	delete {enchantCostMultiplier::%{_p}%::*}
-	loop {activeCustomMobs::*}:
-		kill loop-value
-	delete {activeCustomMobs::*}
+	killCustomMobs()
 	delete boss bar with id "01"
 
 	execute console command "/gamerule mob_drops true"
