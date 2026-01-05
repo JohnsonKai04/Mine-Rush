@@ -37,3 +37,30 @@ command /MRsetting [<text>] [<integer>]:
 			set {volume::%player%} to arg-2
 on tab complete of "/MRsetting":
 	set tab completion for position 1 to "volume"
+
+function playErrorSound(p: player):
+	set {_pitch} to a random number between -1 and 1
+	play sound "block.note_block.bass" with volume {volume} and pitch {_pitch} to {_p}
+
+function killCustomMobs():
+	loop {activeCustomMobs::*}:
+		if loop-value is alive:
+			add 1 to {_count}
+			kill loop-value
+		else:
+			add 1 to {_dead}
+	delete {activeCustomMobs::*}
+	broadcast "Killed %{_count}% mobs, and %{_dead}% Custom mobs have already died/despawned"
+command /killCustomMobs:
+	trigger:
+		killCustomMobs()
+
+command /showCustomMobs:
+	trigger:
+		loop {activeCustomMobs::*}:
+			if loop-value is alive:
+				add 1 to {_count}
+				apply glowing potion without particles to loop-value for 10 seconds
+			else:
+				add 1 to {_dead}
+		broadcast "There are %{_count}% mobs, and %{_dead}% Custom mobs are dead/despawned"
