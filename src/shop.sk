@@ -14,7 +14,7 @@ function chargePlayer(p: player, item: text, multiplier: number = 1) :: boolean:
 		set bar title of {pointBar::%{_p}%} to "&a&lPoints: %{points::%{_p}%}%"
 		return true
 	else:
-		play sound "block.note_block.bass" with volume {volume} to {_p}
+		playErrorSound({_p})
 		send "&4&lERROR: Insufficient funds" to {_p}
 		return false
 
@@ -212,7 +212,7 @@ function purchaseCustomItem(p: player, item: item, cItem: text):
 
 command /shop:
 	trigger:
-		if {inGame::%player%} is false:
+		if {inGame::%player%} is not true:
 			send "This command can only be used when the game has been started" to player
 			stop
 
