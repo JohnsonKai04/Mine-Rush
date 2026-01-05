@@ -1,6 +1,7 @@
 function addPoints(p: player, block: block, skipVeinMiner: boolean = false) :: number:
+	set {_blockType} to "%type of {_block}%"
 	loop {ores::*}:
-		if {_blockType} is {ores::%loop-index%}:
+		if "%type of {_block}%" is loop-value:
 			set {_isOre} to true
 			stop loop
 		else:
@@ -10,10 +11,8 @@ function addPoints(p: player, block: block, skipVeinMiner: boolean = false) :: n
 		set {_streak} to streak({_p})
 		lootBoxCollector({_p})
 		hungryMiner({_p})
-	else:
-		set {_blockType} to "%type of {_block}%"
 	# Calculates points
-	set {_points} to round({blockValue::%{_blockType}%} * ({pointMultiplier} + {_streak}))
+	set {_points} to round({blockValue::%{_blockType}%} * (1 + {_streak}))
 	if {_points} is 0:
 		exit
 	else: 
@@ -28,9 +27,12 @@ function addPoints(p: player, block: block, skipVeinMiner: boolean = false) :: n
 			veinMiner({_p}, {_block}, type of {_block})
 
 	# Update BossBar
-	send action bar "&2&l+%{_points}% Points" to {_p}
-	set bar title of {pointBar::%{_p}%} to "&a&lPoints: %{points::%{_p}%}%"
-
+	set {_streakPercentage} to {_streak} * 100
+	if {_streakPercentage} is not 0:
+		send action bar "<#22F10C>&l+<#20EC15>&l%{_points}% <#1BE328>&l(<#19DE31>&l+<#17DA3A>&l%{_streakPercentage}%<#15D543>&l%%<#13D14D>&l) <#0EC75F>&lP<#0CC368>&lo<#0ABE71>&li<#07B97B>&ln<#05B584>&lt<#03B08D>&ls" to {_p}
+	else:
+		send action bar "<#22F10C>&l+<#1EE91C>&l%{_points}% <#16D93C>&lP<#13D14D>&lo<#0FC85D>&li<#0BC06D>&ln<#07B87D>&lt<#03B08D>&ls" to {_p}
+	set bar title of {pointBar::%{_p}%} to "<#22F10C>&lP<#1EE91C>&lo<#1AE12C>&li<#16D93C>&ln<#13D14D>&lt<#0FC85D>&ls<#0BC06D>&l: <#03B08D>&l%{points::%{_p}%}%"
 	phantomOre({_p}, {_block}, {_blockType})
 	return {_points}
 
@@ -43,13 +45,14 @@ function phantomOre(p: player, block: block, type: text):
 	spawn an armor stand at location below {_block} with nbt from "{Invisible:1, Small: 1, NoGravity: 1, Marker: 1b}"
 	set {_stand} to last spawned armor stand
 	set {_stand}'s helmet to {_type} parsed as an item type
-	wait 1 tick
 	while true:
 		set {_target} to location of {_p}
 		set y-coordinate of {_target} to y-coordinate of {_p} - 0.5
 		set {_current} to location of {_stand}
 		set {_vector} to vector from {_current} to {_target}
 		set {_distance} to distance between {_current} and {_target}
+		if {_distance} > 50:
+			stop loop
 		if {_distance} > 0.5:
 			set vector length of {_vector} to 0.5
 			teleport {_stand} to {_current} ~ {_vector}
