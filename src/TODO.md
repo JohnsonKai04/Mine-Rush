@@ -67,3 +67,21 @@
 ## MongoDB support
 - [ ] Add mongoDBsk and figure out how to create stats per player and a global leaderboard
 - [ ] Add leaderboard validation so cheaters are easy to spot 
+
+
+## 1/4/2026 Game 1 Testing report to fix
+- [ ] scaling of the prices do not reflect in the shop
+- [ ] dark redstone/lapis ore does not activate vein miner
+- [ ] went into negative cash when buying ore duplicate
+- [ ] placing tnt doesnt actually take away from inv
+- [ ] cannot buy steak
+- [ ] fireball needs to spawn infront of player 2 blocks
+- [ ] all armor encahnts does not scale in price
+- [ ] wind charge explosions give the player ores
+- [ ] legendary lootboxes dont have unique animation
+- [ ] add sound to lootboxes
+- [ ] difficulties need to tell the player what has changed
+- [ ] extract location needs to be told to the player
+- [ ] legendary lootbox reward is sad
+- [ ] Golden heads should give speed 2 and resistance 1
+- [ ] spawnExtract location needs to have a player pass through it for multiple games compatability
