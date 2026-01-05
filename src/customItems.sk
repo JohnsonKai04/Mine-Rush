@@ -41,11 +41,13 @@ on explosion:
 	set {_p} to nearest player in radius 50 around event-position
 	if {inGame::%{_p}%}:
 		set {_loc} to event-position
+		set {_points} to 0
 		loop exploded blocks:
 			set {_newPoints} to addPoints({_p}, loop-block, false)
 			add {_newPoints} to {_points}
 		wait 10 ticks
-		send action bar "&2&l+%{_points}% Points" to {_p}
+		if {_points} is not 0:
+			send action bar "<#22F10C>&l+<#1EE91C>&l%{_points}% <#16D93C>&lP<#13D14D>&lo<#0FC85D>&li<#0BC06D>&ln<#07B87D>&lt<#03B08D>&ls" to {_p}
 
 function playLootBoxCommonAnimation(p: player, b: block, m: integer):
 	open the lid of {_b}
@@ -117,3 +119,9 @@ on rightclick on Chest:
 	loop {lootBox::item::*}:
 		if name of event-block is name of {lootBox::item::%loop-index%}:
 			cancel event
+
+on drop:
+	loop {pickaxe::tier::*}:
+		set {_name} to name of event-item
+		if {_name} is "%loop-value%":
+			cancel event 
