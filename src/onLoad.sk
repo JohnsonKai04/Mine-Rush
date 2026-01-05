@@ -1,3 +1,6 @@
+on first join:
+    set {settings::volume::%player%} to 5
+
 # Sets price of given item
 function setPrice(item: text, price: number):
     set {cost::%{_item}%} to {_price}
@@ -48,7 +51,6 @@ on load:
     set {customItem::grappling hook::Lore} to "&r&aMake sure to use feather falling!"
 
     # General
-    set {volume} to 5 # Volume of basic sounds like failing to purcase items in the shop
     set {spawningHeight} to 150 # the hight at which the player spawns once entering the game
     set {pointMultiplier} to 1.0 # the base multiplier
     set {defaultSpeed} to 15 seconds # This is the amount of minutes it takes for each difficulty. ignore the "seconds" due to how the speed is calculated

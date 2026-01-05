@@ -73,7 +73,7 @@ function endGame(p: player) :: boolean:
 # Once the player right clicks the beacon they gain invulnerability and gain a 1.5x point bonus to their current points.
 # after 6 seconds endGame() runs
 on right click on beacon:
-	if {inGame::%player%}:
+	if {inGame::%player%} is true:
 		cancel event
 		make player invulnerable
 		set {_bonus} to 0.5 * {points::%player%}
@@ -86,13 +86,13 @@ on right click on beacon:
 
 command /endGame:
 	trigger:
-		if endGame(player):
+		if endGame(player) is true:
 			add 1 to {currentGameStats::%player%::deaths}
 		else:
 			send "You are currently not in the game" to player
 
 on death of player:
-	if {inGame::%victim%}:
+	if {inGame::%victim%} is true:
 		if attacker is not set:
 			add 1 to {currentGameStats::%victim%::deaths}
 			endGame(victim)

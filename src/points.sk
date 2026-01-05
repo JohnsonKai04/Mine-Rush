@@ -6,7 +6,7 @@ function addPoints(p: player, block: block, skipVeinMiner: boolean = false) :: n
 			stop loop
 		else:
 			set {_isOre} to false
-	if {_isOre}:
+	if {_isOre} is true:
 		set {_blockType} to luckyMiner({_p}, {_block})
 		set {_streak} to streak({_p})
 		lootBoxCollector({_p})
@@ -21,7 +21,7 @@ function addPoints(p: player, block: block, skipVeinMiner: boolean = false) :: n
 	add {_points} to {currentGameStats::%{_p}%::totalPoints}
 
 	# vein miner / oreDuplicate
-	if {_isOre}:
+	if {_isOre} is true:
 		oreDuplicate({_p}, {_block})
 		if {_skipVeinMiner} is false:
 			veinMiner({_p}, {_block}, type of {_block})
@@ -38,14 +38,15 @@ function addPoints(p: player, block: block, skipVeinMiner: boolean = false) :: n
 
 
 on mine:
-	if {inGame::%player%}:
+	if {inGame::%player%} is true:
 		addPoints(player, event-block)
 
 function phantomOre(p: player, block: block, type: text):
 	spawn an armor stand at location below {_block} with nbt from "{Invisible:1, Small: 1, NoGravity: 1, Marker: 1b}"
 	set {_stand} to last spawned armor stand
 	set {_stand}'s helmet to {_type} parsed as an item type
-	while true:
+	set {_true} to true
+	while {_true} is true:
 		set {_target} to location of {_p}
 		set y-coordinate of {_target} to y-coordinate of {_p} - 0.5
 		set {_current} to location of {_stand}

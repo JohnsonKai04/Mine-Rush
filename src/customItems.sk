@@ -1,6 +1,6 @@
 # Custom instant ignight tnt
 on place of tnt:
-	if {inGame::%player%}:
+	if {inGame::%player%} is true:
 		cancel event
 		set event-block to air
 		spawn primed tnt at event-location
@@ -9,13 +9,15 @@ on place of tnt:
 on rod cast:
 	if name of player's tool is "&lGrappling Hook":
 		wait 10 ticks # this is to prevent the grappling hook from going off when you are standing in tall/short grass
-		while true:
+		set {_true} to true
+		while {_true} is true:
 			if block below event-position is not air:
 				set {_loc} to location of fishing hook
 				set yaw of {_loc} to player's yaw
 				set pitch of {_loc} to player's pitch
 				push player upwards at speed 2
-				push player (direction from player to {_loc}) at speed 10
+				set {_distance} to distance between {_loc} and player
+				push player {_distance} at speed 10
 				delete current fish hook of player
 				set {inFlight::%player%} to true
 				stop
@@ -23,13 +25,13 @@ on rod cast:
 # Prevents grappling hook from doing damage to player
 on damage:
 	if damage cause is fall:
-		if {inFlight::%victim%}:
+		if {inFlight::%victim%} is true:
 			cancel event
 			delete {inFlight::%victim%}
 
 # Golden Heads
 on right click using player head:
-	if {inGame::%player%}:
+	if {inGame::%player%} is true:
 		if name of player's held item is "&lGolden Head":
 			cancel event
 			heal player by 2 hearts
@@ -39,7 +41,7 @@ on right click using player head:
 
 on explosion:
 	set {_p} to nearest player in radius 50 around event-position
-	if {inGame::%{_p}%}:
+	if {inGame::%{_p}%} is true:
 		set {_loc} to event-position
 		set {_points} to 0
 		loop exploded blocks:
@@ -63,7 +65,7 @@ function playLootBoxCommonAnimation(p: player, b: block, m: integer):
 function playLootBoxRareAnimation(p: player, b: block, m: integer):
 	loop 10 times:
 		make 30 of block particle using chest at location of {_b} with offset vector(0.5, 0.2, 0.5)
-		play sound "block.anvil.hit" with volume {volume} at location of {_b}
+		play sound "block.anvil.hit" with volume {settings::volume::%{_p}%} at location of {_b}
 		wait 0.5 second
 	open lid of {_b}
 	wait 2 seconds
@@ -102,7 +104,7 @@ function lootBoxRewardPoints(p: player, b: block, m: integer):
 	set bar title of {pointBar::%{_p}%} to "&a&lPoints: %{points::%{_p}%}%"
 
 on place of chest:
-	if {inGame::%player%}:
+	if {inGame::%player%} is true:
 		if name of event-block is name of {lootBox::item::common}:
 			playLootBoxCommonAnimation(player, event-block, 1)
 			add 1 to {currentGameStats::%player%::commonLootBoxesOpened}

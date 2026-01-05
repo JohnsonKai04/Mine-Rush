@@ -31,16 +31,20 @@ command /MRdebug [<boolean>]:
 on tab complete of "/MRdebug":
 	set tab completion to ""
 
-command /MRsetting [<text>] [<integer>]:
+command /MRsettings [<text>] [<integer>]:
 	trigger:
 		if arg-1 is "volume":
-			set {volume::%player%} to arg-2
-on tab complete of "/MRsetting":
+			if arg-2 is set:
+				set {settings::volume::%player%} to arg-2
+				send "Volume set to: %{settings::volume::%player%}%" to player
+			else:
+				send "Volume: %{settings::volume::%player%}%" to player
+on tab complete of "/MRsettings":
 	set tab completion for position 1 to "volume"
 
 function playErrorSound(p: player):
 	set {_pitch} to a random number between -1 and 1
-	play sound "block.note_block.bass" with volume {volume} and pitch {_pitch} to {_p}
+	play sound "block.note_block.bass" with volume {settings::volume::%{_p}%} and pitch {_pitch} to {_p}
 
 function killCustomMobs():
 	loop {activeCustomMobs::*}:
@@ -64,3 +68,9 @@ command /showCustomMobs:
 			else:
 				add 1 to {_dead}
 		broadcast "There are %{_count}% mobs, and %{_dead}% Custom mobs are dead/despawned"
+
+command /test:
+	trigger:
+		playRandomMusic(player)
+function playRandomMusic(p: player):
+	play sound "music_disc.cat" or "music_disc.blocks" or "music_disc.far" or "music_disc.strad" or "music_disc.creator" or "music_disc.otherside" or "music_disc.stall" or "music_disc.pigstep" or "music_disc.lava.chicken" or "music_disc.wait" or "music_disc.tears" with volume {settings::%{_p}%::volume} at {_p}

@@ -1,7 +1,7 @@
 # increase game speed, health of mobs, give mobs armor and stronger weapons, splitting mobs, suprise mob attacks, boss battles?
 on spawn:
 	set {_p} to nearest player in radius 80 around event-entity
-	if {inGame::%{_p}%}:
+	if {inGame::%{_p}%} is true:
 		if event-entity is a drowned:
 			kill event-entity
 		if event-entity is a monster:
@@ -55,28 +55,28 @@ function setHealthOfMob(mob: entity, h: number):
 
 function beginDifficulty1(p: player):
 	send "<#00B154>D<#00AE53>i<#00AB51>f<#00A850>f<#00A44E>i<#00A14D>c<#009E4B>u<#009B4A>l<#009848>t<#009547>y<#009145>: <#008B42>P<#008841>e<#00853F>a<#00823E>c<#007E3C>e<#007B3B>f<#007839>u<#007538>l" to {_p}
-	play sound "item.goat_horn.sound.0" with volume {volume} at {_p}
+	play sound "item.goat_horn.sound.0" with volume {settings::volume::%{_p}%} at {_p}
 	set the difficulty of "world" to peaceful
 	
 
 
 function beginDifficulty2(p: player):
 	send "<#03C400>D<#11C800>i<#1FCC00>f<#2CD000>f<#3AD400>i<#48D800>c<#56DC00>u<#64E000>l<#71E300>t<#7FE700>y<#8DEB00>: <#A9F300>E<#B6F700>a<#C4FB00>s<#D2FF00>y" to {_p}
-	play sound "item.goat_horn.sound.1" with volume {volume} at {_p}
+	play sound "item.goat_horn.sound.1" with volume {settings::volume::%{_p}%} at {_p}
 	set bar color of {pointBar::%{_p}%} to yellow
 	set the difficulty of "world" to normal
 
 
 function beginDifficulty3(p: player):
 	send "<#C1C400>D<#C5C300>i<#C8C200>f<#CCC000>f<#D0BF00>i<#D3BE00>c<#D7BD00>u<#DBBC00>l<#DEBB00>t<#E2B900>y<#E5B800>: <#EDB600>M<#F0B500>e<#F4B400>d<#F8B200>i<#FBB100>u<#FFB000>m" to {_p}
-	play sound "item.goat_horn.sound.2" with volume {volume} at {_p}
+	play sound "item.goat_horn.sound.2" with volume {settings::volume::%{_p}%} at {_p}
 	set bar color of {pointBar::%{_p}%} to red
 
 
 
 function beginDifficulty4(p: player):
 	send "<#C45F00>D<#C85900>i<#CC5200>f<#D04C00>f<#D44600>i<#D83F00>c<#DC3900>u<#E03300>l<#E32C00>t<#E72600>y<#EB2000>: <#F31300>H<#F70D00>a<#FB0600>r<#FF0000>d" to {_p}
-	play sound "item.goat_horn.sound.3" with volume {volume} at {_p}
+	play sound "item.goat_horn.sound.3" with volume {settings::volume::%{_p}%} at {_p}
 	set bar color of {pointBar::%{_p}%} to blue
 	set the difficulty of "world" to hard
 
@@ -84,14 +84,14 @@ function beginDifficulty4(p: player):
 
 function beginDifficulty5(p: player):
 	send "<#C40000>D<#C5000E>i<#C6001C>f<#C6002B>f<#C70039>i<#C80047>c<#C90055>u<#C90063>l<#CA0071>t<#CB0080>y<#CC008E>: <#CD00AA>E<#CE00B8>x<#CF00C6>t<#D000D5>r<#D000E3>e<#D100F1>m<#D200FF>e" to {_p}
-	play sound "item.goat_horn.sound.6" with volume {volume} at {_p}
+	play sound "item.goat_horn.sound.6" with volume {settings::volume::%{_p}%} at {_p}
 	set bar color of {pointBar::%{_p}%} to white
 	spawnExtract()
 
 
 function beginDifficulty6(p: player):
 	send "<#8B00A0>D<#8200A4>i<#7A01A8>f<#7101AC>f<#6802B0>i<#6002B4>c<#5702B8>u<#4E03BC>l<#4603C0>t<#3D03C4>y<#3404C8>: <#2305D0>C<#1A05D4>h<#1105D8>a<#0906DC>o<#0006E0>s" to {_p}
-	play sound "item.goat_horn.sound.5" with volume {volume} at {_p}
+	play sound "item.goat_horn.sound.5" with volume {settings::volume::%{_p}%} at {_p}
 
 
 
@@ -170,7 +170,7 @@ function findValidMobSpawn(p: player) :: location:
 				if block below {_loc} is solid:
 					set {_found} to true
 		add 1 to {_tries}
-	if {debugMode}:
+	if {debugMode} is true:
 		if {_found} is false:
 			send "position not found with %{_tries}% tries" to {_p}
 		else:

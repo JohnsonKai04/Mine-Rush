@@ -8,7 +8,7 @@ function chargePlayer(p: player, item: text, multiplier: number = 1) :: boolean:
 
 		# Adds to stat
 		add {cost::%{_item}%} to {currentGameStats::%{_p}%::pointsSpent}
-		play sound "entity.experience_orb.pickup" with volume {volume} to {_p}
+		play sound "entity.experience_orb.pickup" with volume {settings::volume::%{_p}%} to {_p}
 
 		# Updates boss bar
 		set bar title of {pointBar::%{_p}%} to "&a&lPoints: %{points::%{_p}%}%"
@@ -82,7 +82,7 @@ function purchasePickaxe(p: player, item: text):
 				set loop-item to air
 				give unbreakable netherite pickaxe named {pickaxe::tier::netherite} to {_p}
 
-			if {_found}:
+			if {_found} is true:
 				loop {_enchant::*}:
 					enchant loop-item with {_enchant::%loop-iteration-2%}
 				loop {customEnchantTier::%{_p}%::*}:
@@ -155,12 +155,12 @@ function applyCustomEnchant(p: player, enchantName: text) :: boolean:
 				loop lore of loop-item:
 					if loop-value-3 is "%{%{_enchantName}%::name}% %{_romanPrevious}%":
 						replace loop-value-3 in lore of loop-item with "%{%{_enchantName}%::name}% %{_roman}%"
-						if {debugMode}:
+						if {debugMode} is true:
 							send "loop value found and enchant replaced" to {_p}
 						return true
 				# if the item does not have the enchant already on the pickaxe:
 				add "%{%{_enchantName}%::name}% %{_roman}%" to lore of loop-item
-				if {debugMode}:
+				if {debugMode} is true:
 					send "loop value found and enchant applied" to {_p}
 				return true
 
@@ -169,7 +169,7 @@ function purchaseCustomEnchant(p: player, enchantName: text):
 	set {enchantCostMultiplier::%{_p}%::%{_enchantName}%} to {enchantTier::%{_enchantName}%::%{_p}%} * 2
 	if {%{_enchantName}%::chance::%{_check}%} is not set:
 		send "<#F10044>M<#E70040>a<#DE003D>x <#CB0136>V<#C10132>a<#B8012E>l<#AE022B>u<#A50227>e <#920220>R<#88031D>e<#7F0319>a<#750315>c<#6C0312>h<#62040E>e<#59040B>d<#4F0407>!" to {_p}
-		play sound "block.note_block.bass" with volume {volume} to {_p}
+		playErrorSound({_p})
 
 	else if chargePlayer({_p}, {_enchantName}, {enchantCostMultiplier::%{_p}%::%{_enchantName}%}) is true:
 		add 1 to {customEnchantTier::%{_p}%::%{_enchantName}%}

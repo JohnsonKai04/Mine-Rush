@@ -24,7 +24,7 @@ function streak(p: player) :: number:
 
 function oreDuplicate(p: player, b: block):
 	chance of {oreDuplicate::chance::%{customEnchantTier::%{_p}%::oreDuplicate}%}:
-		play sound "BLOCK_AMETHYST_BLOCK_STEP" with volume {volume} at location of {_b}
+		play sound "BLOCK_AMETHYST_BLOCK_STEP" with volume {settings::volume::%{_p}%} at location of {_b}
 		make 10 of happy villager at location of {_b} with offset vector(0.35, 0.35, 0.35)
 		set {_new} to type of {_b}
 		wait 1 tick
@@ -40,7 +40,7 @@ function luckyMiner(p: player, b: block) :: text:
 					set {_typeFound} to true
 			else:
 				set {_typeFound} to false
-				play sound "ENTITY_TURTLE_SHAMBLE" with volume {volume} at {_b}
+				play sound "ENTITY_TURTLE_SHAMBLE" with volume {settings::volume::%{_p}%} at {_b}
 				set {_newType} to loop-value
 				return {_newType}
 	return {_currentType}
@@ -79,6 +79,6 @@ function fireball(p: player):
 			send "<#F10C31>C<#EE0C31>o<#EB0D30>o<#E90D30>l<#E60E30>d<#E30E2F>o<#E00F2F>w<#DD0F2F>n <#D8102E>s<#D5112E>t<#D2112E>i<#CF122D>l<#CD122D>l <#C7132C>a<#C4142C>c<#C1142C>t<#BF152B>i<#BC152B>v<#B9162B>e <#B3172A>p<#B1172A>l<#AE1829>e<#AB1829>a<#A81929>s<#A51929>e <#A01A28>w<#9D1B28>a<#9A1B27>i<#971C27>t<#951C27>! <#8F1D26>%{_remaining}%" to {_p}
 
 on rightclick holding a stone pickaxe, iron pickaxe, diamond pickaxe, or netherite pickaxe:
-	if {inGame::%player%}:
+	if {inGame::%player%} is true:
 		fireball(player)
 

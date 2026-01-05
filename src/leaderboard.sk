@@ -172,7 +172,7 @@ command /MRgamedelete [<integer>]:
 
 on death of mob:
 	if attacker is player:
-		if {inGame::%attacker%}:
+		if {inGame::%attacker%} is true:
 			add 1 to {currentGameStats::%attacker%::%victim%}
 			add 1 to {currentGameStats::%attacker%::mobKills}
 			
