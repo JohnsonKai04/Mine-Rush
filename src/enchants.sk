@@ -31,20 +31,19 @@ function oreDuplicate(p: player, b: block):
 		set block at location of {_b} to {_new}
 
 function luckyMiner(p: player, b: block) :: text:
+	set {_currentType} to "%type of {_b}%"
 	chance of {luckyMiner::chance::%{customEnchantTier::%{_p}%::luckyMiner}%}:
-		set {_currentType} to "%type of {_b}%"
 		set {_typeFound} to false
 		loop {ores::*}:
 			if {_typeFound} is false:
 				if loop-value is {_currentType}:
 					set {_typeFound} to true
-					send "found" to {_p}
 			else:
 				set {_typeFound} to false
 				play sound "ENTITY_TURTLE_SHAMBLE" with volume {volume} at {_b}
 				set {_newType} to loop-value
 				return {_newType}
-	return "none"
+	return {_currentType}
 
 function lootBoxCollector(p: player):
 	chance of {lootBoxCollector::chance::%{customEnchantTier::%{_p}%::lootBoxCollector}%}:
@@ -74,7 +73,10 @@ function fireball(p: player):
 			set {cooldown::fireball::%{_p}%} to now
 			spawn fireball 1 block infront of {_p} with nbt from "{ExplosionPower:%{fireball::size::%{customEnchantTier::%{_p}%::fireball}%}%}"
 		else:
-			send "Cooldown still active please wait!" to {_p}
+			set {_difference} to difference between {cooldown::fireball::%{_p}%} and now
+			set {_remaining} to difference between {_difference} and 60 seconds
+			playErrorSound({_p})
+			send "<#F10C31>C<#EE0C31>o<#EB0D30>o<#E90D30>l<#E60E30>d<#E30E2F>o<#E00F2F>w<#DD0F2F>n <#D8102E>s<#D5112E>t<#D2112E>i<#CF122D>l<#CD122D>l <#C7132C>a<#C4142C>c<#C1142C>t<#BF152B>i<#BC152B>v<#B9162B>e <#B3172A>p<#B1172A>l<#AE1829>e<#AB1829>a<#A81929>s<#A51929>e <#A01A28>w<#9D1B28>a<#9A1B27>i<#971C27>t<#951C27>! <#8F1D26>%{_remaining}%" to {_p}
 
 on rightclick holding a stone pickaxe, iron pickaxe, diamond pickaxe, or netherite pickaxe:
 	if {inGame::%player%}:
