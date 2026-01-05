@@ -54,49 +54,49 @@ command /MRstats [<player>]:
 		send "<#7C4D24>|<#7A4B24>-<#784824>-<#764624>-<#744423>-<#724223>-<#703F23>- <#6D3B23>%{_P}%<#6B3823>'<#693622>s <#653222>S<#632F22>t<#612D22>a<#5F2B22>t<#5D2921>s<#5B2621>: <#582221>-<#561F21>-<#541D21>-<#521B20>-<#501920>-<#4E1620>-<#4C1420>|" to player
 		send " " to player
 		if {overallStats::%{_p}%::sucessfullExtracts} is set:
-			send " <#CC813E>T<#CB7B3F>i<#CA7641>m<#C97042>e<#C86A43>s <#C65F46>E<#C65947>x<#C55348>t<#C44E4A>r<#C3484B>a<#C2424C>c<#C13C4D>t<#C0374F>e<#BF3150>d: %{overallStats::%{_p}%::sucessfullExtracts}%" to player
+			send " <#CC813E>T<#CB7B3F>i<#CA7641>m<#C97042>e<#C86A43>s <#C65F46>E<#C65947>x<#C55348>t<#C44E4A>r<#C3484B>a<#C2424C>c<#C13C4D>t<#C0374F>e<#BF3150>d:  %{overallStats::%{_p}%::sucessfullExtracts}%" to player
 		else:
-			send " <#CC813E>T<#CB7B3F>i<#CA7641>m<#C97042>e<#C86A43>s <#C65F46>E<#C65947>x<#C55348>t<#C44E4A>r<#C3484B>a<#C2424C>c<#C13C4D>t<#C0374F>e<#BF3150>d: 0" to player
+			send " <#CC813E>T<#CB7B3F>i<#CA7641>m<#C97042>e<#C86A43>s <#C65F46>E<#C65947>x<#C55348>t<#C44E4A>r<#C3484B>a<#C2424C>c<#C13C4D>t<#C0374F>e<#BF3150>d:  0" to player
 		
 		if {overallStats::%{_p}%::gamesStarted} is set:
-			send " <#CC813E>G<#CB7B3F>a<#CA7541>m<#C96F42>e<#C86844>s <#C65C46>p<#C55648>l<#C45049>a<#C34A4A>y<#C2434C>e<#C13D4D>d<#C0374F>: %{overallStats::%{_p}%::gamesStarted}%" to player
+			send " <#CC813E>G<#CB7B3F>a<#CA7541>m<#C96F42>e<#C86844>s <#C65C46>p<#C55648>l<#C45049>a<#C34A4A>y<#C2434C>e<#C13D4D>d<#C0374F>:  %{overallStats::%{_p}%::gamesStarted}%" to player
 		else:
-			send " <#CC813E>G<#CB7B3F>a<#CA7541>m<#C96F42>e<#C86844>s <#C65C46>p<#C55648>l<#C45049>a<#C34A4A>y<#C2434C>e<#C13D4D>d<#C0374F>: 0" to player
+			send " <#CC813E>G<#CB7B3F>a<#CA7541>m<#C96F42>e<#C86844>s <#C65C46>p<#C55648>l<#C45049>a<#C34A4A>y<#C2434C>e<#C13D4D>d<#C0374F>:  0" to player
 		
 		if {overallStats::%{_p}%::deaths} is set:
-			send " <#CC813E>D<#CA7641>e<#C86A43>a<#C65F46>t<#C55348>h<#C3484B>s<#C13C4D>: %{overallStats::%{_p}%::deaths}%" to player
+			send " <#CC813E>D<#CA7641>e<#C86A43>a<#C65F46>t<#C55348>h<#C3484B>s<#C13C4D>:  %{overallStats::%{_p}%::deaths}%" to player
 		else:
-			send " <#CC813E>D<#CA7641>e<#C86A43>a<#C65F46>t<#C55348>h<#C3484B>s<#C13C4D>: 0" to player
+			send " <#CC813E>D<#CA7641>e<#C86A43>a<#C65F46>t<#C55348>h<#C3484B>s<#C13C4D>:  0" to player
 		
 		if {overallStats::%{_p}%::totalPoints} is set:
-			send " <#CC813E>T<#CB7D3F>o<#CB7940>t<#CA7541>a<#C97142>l <#C86943>P<#C76544>o<#C76145>i<#C65D46>n<#C65947>t<#C55548>s <#C44D4A>E<#C3494B>a<#C2454C>r<#C2414C>n<#C13D4D>e<#C0394E>d<#C0354F>: %{overallStats::%{_p}%::totalPoints}%" to player
+			send " <#CC813E>T<#CB7D3F>o<#CB7940>t<#CA7541>a<#C97142>l <#C86943>P<#C76544>o<#C76145>i<#C65D46>n<#C65947>t<#C55548>s <#C44D4A>E<#C3494B>a<#C2454C>r<#C2414C>n<#C13D4D>e<#C0394E>d<#C0354F>:  %{overallStats::%{_p}%::totalPoints}%" to player
 		else:
-			send " <#CC813E>T<#CB7D3F>o<#CB7940>t<#CA7541>a<#C97142>l <#C86943>P<#C76544>o<#C76145>i<#C65D46>n<#C65947>t<#C55548>s <#C44D4A>E<#C3494B>a<#C2454C>r<#C2414C>n<#C13D4D>e<#C0394E>d<#C0354F>: 0" to player
+			send " <#CC813E>T<#CB7D3F>o<#CB7940>t<#CA7541>a<#C97142>l <#C86943>P<#C76544>o<#C76145>i<#C65D46>n<#C65947>t<#C55548>s <#C44D4A>E<#C3494B>a<#C2454C>r<#C2414C>n<#C13D4D>e<#C0394E>d<#C0354F>:  0" to player
 		
 		if {overallStats::%{_p}%::pointsSpent} is set:
-			send " <#CC813E>P<#CB7E3F>o<#CB7B3F>i<#CA7740>n<#CA7441>t<#C97142>s <#C86B43>S<#C86744>p<#C76444>e<#C76145>n<#C65E46>t <#C55747>A<#C55448>t <#C44E4A>T<#C34B4A>h<#C3474B>e <#C2414C>S<#C13E4D>h<#C13B4E>o<#C0374F>p<#C0344F>: %{overallStats::%{_p}%::pointsSpent}%" to player
+			send " <#CC813E>P<#CB7E3F>o<#CB7B3F>i<#CA7740>n<#CA7441>t<#C97142>s <#C86B43>S<#C86744>p<#C76444>e<#C76145>n<#C65E46>t <#C55747>A<#C55448>t <#C44E4A>T<#C34B4A>h<#C3474B>e <#C2414C>S<#C13E4D>h<#C13B4E>o<#C0374F>p<#C0344F>:  %{overallStats::%{_p}%::pointsSpent}%" to player
 		else:
-			send " <#CC813E>P<#CB7E3F>o<#CB7B3F>i<#CA7740>n<#CA7441>t<#C97142>s <#C86B43>S<#C86744>p<#C76444>e<#C76145>n<#C65E46>t <#C55747>A<#C55448>t <#C44E4A>T<#C34B4A>h<#C3474B>e <#C2414C>S<#C13E4D>h<#C13B4E>o<#C0374F>p<#C0344F>: 0" to player
+			send " <#CC813E>P<#CB7E3F>o<#CB7B3F>i<#CA7740>n<#CA7441>t<#C97142>s <#C86B43>S<#C86744>p<#C76444>e<#C76145>n<#C65E46>t <#C55747>A<#C55448>t <#C44E4A>T<#C34B4A>h<#C3474B>e <#C2414C>S<#C13E4D>h<#C13B4E>o<#C0374F>p<#C0344F>:  0" to player
 	
 		if {overallStats::%{_p}%::mobKills} is set:
-			send " <#CC813E>M<#CB7A40>o<#CA7441>b<#C96D43>s <#C76046>K<#C65947>i<#C45249>l<#C34C4A>l<#C2454C>e<#C13E4D>d<#C0384F>: %{overallStats::%{_p}%::mobKills}%" to player
+			send " <#CC813E>M<#CB7A40>o<#CA7441>b<#C96D43>s <#C76046>K<#C65947>i<#C45249>l<#C34C4A>l<#C2454C>e<#C13E4D>d<#C0384F>:  %{overallStats::%{_p}%::mobKills}%" to player
 		else:
-			send " <#CC813E>M<#CB7A40>o<#CA7441>b<#C96D43>s <#C76046>K<#C65947>i<#C45249>l<#C34C4A>l<#C2454C>e<#C13E4D>d<#C0384F>: 0" to player
+			send " <#CC813E>M<#CB7A40>o<#CA7441>b<#C96D43>s <#C76046>K<#C65947>i<#C45249>l<#C34C4A>l<#C2454C>e<#C13E4D>d<#C0384F>:  0" to player
 		
 		if {overallStats::%{_p}%::commonLootBoxesOpened} is set:
-			send " <#CC813E>C<#CB7E3F>o<#CB7B3F>m<#CA7740>m<#CA7441>o<#C97142>n <#C86B43>l<#C86744>o<#C76444>o<#C76145>t <#C65B47>b<#C55747>o<#C55448>x<#C45149>e<#C44E4A>s <#C3474B>o<#C2444C>p<#C2414C>e<#C13E4D>n<#C13B4E>e<#C0374F>d<#C0344F>: %{overallStats::%{_p}%::commonLootBoxesOpened}%" to player
+			send " <#CC813E>C<#CB7E3F>o<#CB7B3F>m<#CA7740>m<#CA7441>o<#C97142>n <#C86B43>l<#C86744>o<#C76444>o<#C76145>t <#C65B47>b<#C55747>o<#C55448>x<#C45149>e<#C44E4A>s <#C3474B>o<#C2444C>p<#C2414C>e<#C13E4D>n<#C13B4E>e<#C0374F>d<#C0344F>:  %{overallStats::%{_p}%::commonLootBoxesOpened}%" to player
 		else:
-			send " <#CC813E>C<#CB7E3F>o<#CB7B3F>m<#CA7740>m<#CA7441>o<#C97142>n <#C86B43>l<#C86744>o<#C76444>o<#C76145>t <#C65B47>b<#C55747>o<#C55448>x<#C45149>e<#C44E4A>s <#C3474B>o<#C2444C>p<#C2414C>e<#C13E4D>n<#C13B4E>e<#C0374F>d<#C0344F>: 0" to player
+			send " <#CC813E>C<#CB7E3F>o<#CB7B3F>m<#CA7740>m<#CA7441>o<#C97142>n <#C86B43>l<#C86744>o<#C76444>o<#C76145>t <#C65B47>b<#C55747>o<#C55448>x<#C45149>e<#C44E4A>s <#C3474B>o<#C2444C>p<#C2414C>e<#C13E4D>n<#C13B4E>e<#C0374F>d<#C0344F>:  0" to player
 	
 		if {overallStats::%{_p}%::rareLootBoxesOpened} is set:
-			send " <#CC813E>R<#CB7E3F>a<#CB7A40>r<#CA7740>e <#C97042>l<#C96C43>o<#C86943>o<#C76544>t <#C65E46>b<#C65B47>o<#C55747>x<#C55448>e<#C45049>s <#C3494B>o<#C2464B>p<#C2424C>e<#C13F4D>n<#C13B4E>e<#C0384E>d<#C0344F>: %{overallStats::%{_p}%::rareLootBoxesOpened}%" to player
+			send " <#CC813E>R<#CB7E3F>a<#CB7A40>r<#CA7740>e <#C97042>l<#C96C43>o<#C86943>o<#C76544>t <#C65E46>b<#C65B47>o<#C55747>x<#C55448>e<#C45049>s <#C3494B>o<#C2464B>p<#C2424C>e<#C13F4D>n<#C13B4E>e<#C0384E>d<#C0344F>:  %{overallStats::%{_p}%::rareLootBoxesOpened}%" to player
 		else:
-			send " <#CC813E>R<#CB7E3F>a<#CB7A40>r<#CA7740>e <#C97042>l<#C96C43>o<#C86943>o<#C76544>t <#C65E46>b<#C65B47>o<#C55747>x<#C55448>e<#C45049>s <#C3494B>o<#C2464B>p<#C2424C>e<#C13F4D>n<#C13B4E>e<#C0384E>d<#C0344F>: 0" to player
+			send " <#CC813E>R<#CB7E3F>a<#CB7A40>r<#CA7740>e <#C97042>l<#C96C43>o<#C86943>o<#C76544>t <#C65E46>b<#C65B47>o<#C55747>x<#C55448>e<#C45049>s <#C3494B>o<#C2464B>p<#C2424C>e<#C13F4D>n<#C13B4E>e<#C0384E>d<#C0344F>:  0" to player
 
 		if {overallStats::%{_p}%::legendaryLootBoxesOpened} is set:
-			send " <#CC813E>L<#CC7E3F>e<#CB7B3F>g<#CB7840>e<#CA7641>n<#CA7341>d<#C97042>a<#C96D43>r<#C86A43>y <#C76444>l<#C76245>o<#C65F46>o<#C65C46>t <#C55648>b<#C55348>o<#C45049>x<#C44E4A>e<#C34B4A>s <#C2454C>o<#C2424C>p<#C13F4D>e<#C13C4D>n<#C03A4E>e<#C0374F>d<#BF344F>: %{overallStats::%{_p}%::legendaryLootBoxesOpened}%" to player
+			send " <#CC813E>L<#CC7E3F>e<#CB7B3F>g<#CB7840>e<#CA7641>n<#CA7341>d<#C97042>a<#C96D43>r<#C86A43>y <#C76444>l<#C76245>o<#C65F46>o<#C65C46>t <#C55648>b<#C55348>o<#C45049>x<#C44E4A>e<#C34B4A>s <#C2454C>o<#C2424C>p<#C13F4D>e<#C13C4D>n<#C03A4E>e<#C0374F>d<#BF344F>:  %{overallStats::%{_p}%::legendaryLootBoxesOpened}%" to player
 		else:
-			send " <#CC813E>L<#CC7E3F>e<#CB7B3F>g<#CB7840>e<#CA7641>n<#CA7341>d<#C97042>a<#C96D43>r<#C86A43>y <#C76444>l<#C76245>o<#C65F46>o<#C65C46>t <#C55648>b<#C55348>o<#C45049>x<#C44E4A>e<#C34B4A>s <#C2454C>o<#C2424C>p<#C13F4D>e<#C13C4D>n<#C03A4E>e<#C0374F>d<#BF344F>: 0" to player
+			send " <#CC813E>L<#CC7E3F>e<#CB7B3F>g<#CB7840>e<#CA7641>n<#CA7341>d<#C97042>a<#C96D43>r<#C86A43>y <#C76444>l<#C76245>o<#C65F46>o<#C65C46>t <#C55648>b<#C55348>o<#C45049>x<#C44E4A>e<#C34B4A>s <#C2454C>o<#C2424C>p<#C13F4D>e<#C13C4D>n<#C03A4E>e<#C0374F>d<#BF344F>:  0" to player
 		
 			send " " to player
 		send "<#7C4D24>|<#7C4D24>-<#7A4B24>-<#784924>-<#774724>-<#754523>-<#734223>-<#714023>-<#703E23>-<#6E3C23>-<#6C3A23>-<#6A3823>-<#683622>-<#673422>-<#653222>-<#632F22>-<#612D22>-<#602B22>-<#5E2921>-<#5C2721>-<#5A2521>-<#582321>-<#572121>-<#551F21>-<#531C21>-<#511A20>-<#501820>-<#4E1620>-<#4C1420>|" to player
@@ -123,46 +123,46 @@ on inventory click:
 		cancel event
 		set {_ID} to display name of event-item
 		if {_ID} is set:
-			send "<#7C4D24>|<#7B4B24>-<#794924>-<#784824>-<#764624>-<#754423>-<#734223>-<#724123>- <#6F3D23>G<#6D3B23>a<#6C3923>m<#6A3823>e <#673422>[<#663222>%{_ID}%<#643122>] <#612D22>S<#602B22>t<#5E2922>a<#5D2821>t<#5B2621>s<#5A2421>: <#572021>-<#551F21>-<#541D21>-<#521B21>-<#511920>-<#4F1820>-<#4E1620>-<#4C1420>|" to player
+			send "<#7C4D24>|<#7B4C24>-<#7A4A24>-<#784924>-<#774724>-<#764623>-<#754423>-<#734323>-<#724123>-<#714023>-<#703E23>-<#6E3D23>- <#6C3A23>G<#6B3923>a<#6A3722>m<#683622>e <#663322>#<#653122>%{_ID}% <#622E22>S<#612D22>t<#602B22>a<#5E2A22>t<#5D2821>s<#5C2721>: <#5A2421>-<#582321>-<#572121>-<#562021>-<#551E21>-<#531D21>-<#521B21>-<#511A20>-<#501820>-<#4E1720>-<#4D1520>-<#4C1420>|" to player
 			send " " to player
 			
-			if {gameStats::%player%::%{_ID}%::sucessfullExtracts} is set:
-				send " <#CC813E>T<#CB7B3F>i<#CA7641>m<#C97042>e<#C86A43>s <#C65F46>E<#C65947>x<#C55348>t<#C44E4A>r<#C3484B>a<#C2424C>c<#C13C4D>t<#C0374F>e<#BF3150>d: %{gameStats::%player%::%{_ID}%::sucessfullExtracts}%" to player
+			if {gameStats::%player%::%{_ID}%::sucessfullExtracts} is 1:
+				send "<#CC813E>S<#CC7E3F>u<#CB7B3F>c<#CB7840>c<#CA7541>e<#CA7241>s<#C96F42>s<#C96B43>f<#C86844>u<#C86544>l<#C76245>l<#C75F46>y <#C65947>E<#C55648>x<#C55348>t<#C45049>r<#C44D4A>a<#C34A4A>c<#C3474B>t<#C2434C>e<#C2404D>d<#C13D4D>:  <#C0374F>Y<#C0344F>e<#BF3150>s" to player
 			else:
-				send " <#CC813E>T<#CB7B3F>i<#CA7641>m<#C97042>e<#C86A43>s <#C65F46>E<#C65947>x<#C55348>t<#C44E4A>r<#C3484B>a<#C2424C>c<#C13C4D>t<#C0374F>e<#BF3150>d: 0" to player
+				send " <#CC813E>S<#CB7E3F>u<#CB7B3F>c<#CA7740>c<#CA7441>e<#C97142>s<#C96E42>s<#C86B43>f<#C86744>u<#C76444>l<#C76145>l<#C65E46>y <#C55747>E<#C55448>x<#C45149>t<#C44E4A>r<#C34B4A>a<#C3474B>c<#C2444C>t<#C2414C>e<#C13E4D>d<#C13B4E>:  <#C0344F>N<#BF3150>o" to player
 			
 			if {gameStats::%player%::%{_ID}%::totalPoints} is set:
-				send " <#CC813E>T<#CB7D3F>o<#CB7940>t<#CA7541>a<#C97142>l <#C86943>P<#C76544>o<#C76145>i<#C65D46>n<#C65947>t<#C55548>s <#C44D4A>E<#C3494B>a<#C2454C>r<#C2414C>n<#C13D4D>e<#C0394E>d<#C0354F>: %{gameStats::%player%::%{_ID}%::totalPoints}%" to player
+				send " <#CC813E>T<#CB7D3F>o<#CB7940>t<#CA7541>a<#C97142>l <#C86943>P<#C76544>o<#C76145>i<#C65D46>n<#C65947>t<#C55548>s <#C44D4A>E<#C3494B>a<#C2454C>r<#C2414C>n<#C13D4D>e<#C0394E>d<#C0354F>:  %{gameStats::%player%::%{_ID}%::totalPoints}%" to player
 			else:
-				send " <#CC813E>T<#CB7D3F>o<#CB7940>t<#CA7541>a<#C97142>l <#C86943>P<#C76544>o<#C76145>i<#C65D46>n<#C65947>t<#C55548>s <#C44D4A>E<#C3494B>a<#C2454C>r<#C2414C>n<#C13D4D>e<#C0394E>d<#C0354F>: 0" to player
+				send " <#CC813E>T<#CB7D3F>o<#CB7940>t<#CA7541>a<#C97142>l <#C86943>P<#C76544>o<#C76145>i<#C65D46>n<#C65947>t<#C55548>s <#C44D4A>E<#C3494B>a<#C2454C>r<#C2414C>n<#C13D4D>e<#C0394E>d<#C0354F>:  0" to player
 		
 			if {gameStats::%player%::%{_ID}%::pointsSpent} is set:
-				send " <#CC813E>P<#CB7E3F>o<#CB7B3F>i<#CA7740>n<#CA7441>t<#C97142>s <#C86B43>S<#C86744>p<#C76444>e<#C76145>n<#C65E46>t <#C55747>A<#C55448>t <#C44E4A>T<#C34B4A>h<#C3474B>e <#C2414C>S<#C13E4D>h<#C13B4E>o<#C0374F>p<#C0344F>: %{gameStats::%player%::%{_ID}%::pointsSpent}%" to player
+				send " <#CC813E>P<#CB7E3F>o<#CB7B3F>i<#CA7740>n<#CA7441>t<#C97142>s <#C86B43>S<#C86744>p<#C76444>e<#C76145>n<#C65E46>t <#C55747>A<#C55448>t <#C44E4A>T<#C34B4A>h<#C3474B>e <#C2414C>S<#C13E4D>h<#C13B4E>o<#C0374F>p<#C0344F>:  %{gameStats::%player%::%{_ID}%::pointsSpent}%" to player
 			else:
-				send " <#CC813E>P<#CB7E3F>o<#CB7B3F>i<#CA7740>n<#CA7441>t<#C97142>s <#C86B43>S<#C86744>p<#C76444>e<#C76145>n<#C65E46>t <#C55747>A<#C55448>t <#C44E4A>T<#C34B4A>h<#C3474B>e <#C2414C>S<#C13E4D>h<#C13B4E>o<#C0374F>p<#C0344F>: 0" to player
+				send " <#CC813E>P<#CB7E3F>o<#CB7B3F>i<#CA7740>n<#CA7441>t<#C97142>s <#C86B43>S<#C86744>p<#C76444>e<#C76145>n<#C65E46>t <#C55747>A<#C55448>t <#C44E4A>T<#C34B4A>h<#C3474B>e <#C2414C>S<#C13E4D>h<#C13B4E>o<#C0374F>p<#C0344F>:  0" to player
 	
 			if {gameStats::%player%::%{_ID}%::mobKills} is set:
-				send " <#CC813E>M<#CB7A40>o<#CA7441>b<#C96D43>s <#C76046>K<#C65947>i<#C45249>l<#C34C4A>l<#C2454C>e<#C13E4D>d<#C0384F>: %{gameStats::%player%::%{_ID}%::mobKills}%" to player
+				send " <#CC813E>M<#CB7A40>o<#CA7441>b<#C96D43>s <#C76046>K<#C65947>i<#C45249>l<#C34C4A>l<#C2454C>e<#C13E4D>d<#C0384F>:  %{gameStats::%player%::%{_ID}%::mobKills}%" to player
 			else:
-				send " <#CC813E>M<#CB7A40>o<#CA7441>b<#C96D43>s <#C76046>K<#C65947>i<#C45249>l<#C34C4A>l<#C2454C>e<#C13E4D>d<#C0384F>: 0" to player
+				send " <#CC813E>M<#CB7A40>o<#CA7441>b<#C96D43>s <#C76046>K<#C65947>i<#C45249>l<#C34C4A>l<#C2454C>e<#C13E4D>d<#C0384F>:  0" to player
 
 			if {gameStats::%player%::%{_ID}%::commonLootBoxesOpened} is set:
-				send " <#CC813E>C<#CB7E3F>o<#CB7B3F>m<#CA7740>m<#CA7441>o<#C97142>n <#C86B43>l<#C86744>o<#C76444>o<#C76145>t <#C65B47>b<#C55747>o<#C55448>x<#C45149>e<#C44E4A>s <#C3474B>o<#C2444C>p<#C2414C>e<#C13E4D>n<#C13B4E>e<#C0374F>d<#C0344F>: %{gameStats::%player%::%{_ID}%::commonLootBoxesOpened}%" to player
+				send " <#CC813E>C<#CB7E3F>o<#CB7B3F>m<#CA7740>m<#CA7441>o<#C97142>n <#C86B43>l<#C86744>o<#C76444>o<#C76145>t <#C65B47>b<#C55747>o<#C55448>x<#C45149>e<#C44E4A>s <#C3474B>o<#C2444C>p<#C2414C>e<#C13E4D>n<#C13B4E>e<#C0374F>d<#C0344F>:  %{gameStats::%player%::%{_ID}%::commonLootBoxesOpened}%" to player
 			else:
-				send " <#CC813E>C<#CB7E3F>o<#CB7B3F>m<#CA7740>m<#CA7441>o<#C97142>n <#C86B43>l<#C86744>o<#C76444>o<#C76145>t <#C65B47>b<#C55747>o<#C55448>x<#C45149>e<#C44E4A>s <#C3474B>o<#C2444C>p<#C2414C>e<#C13E4D>n<#C13B4E>e<#C0374F>d<#C0344F>: 0" to player
+				send " <#CC813E>C<#CB7E3F>o<#CB7B3F>m<#CA7740>m<#CA7441>o<#C97142>n <#C86B43>l<#C86744>o<#C76444>o<#C76145>t <#C65B47>b<#C55747>o<#C55448>x<#C45149>e<#C44E4A>s <#C3474B>o<#C2444C>p<#C2414C>e<#C13E4D>n<#C13B4E>e<#C0374F>d<#C0344F>:  0" to player
 			
 			if {gameStats::%player%::%{_ID}%::rareLootBoxesOpened} is set:
-				send " <#CC813E>R<#CB7E3F>a<#CB7A40>r<#CA7740>e <#C97042>l<#C96C43>o<#C86943>o<#C76544>t <#C65E46>b<#C65B47>o<#C55747>x<#C55448>e<#C45049>s <#C3494B>o<#C2464B>p<#C2424C>e<#C13F4D>n<#C13B4E>e<#C0384E>d<#C0344F>: %{gameStats::%player%::%{_ID}%::rareLootBoxesOpened}%" to player
+				send " <#CC813E>R<#CB7E3F>a<#CB7A40>r<#CA7740>e <#C97042>l<#C96C43>o<#C86943>o<#C76544>t <#C65E46>b<#C65B47>o<#C55747>x<#C55448>e<#C45049>s <#C3494B>o<#C2464B>p<#C2424C>e<#C13F4D>n<#C13B4E>e<#C0384E>d<#C0344F>:  %{gameStats::%player%::%{_ID}%::rareLootBoxesOpened}%" to player
 			else:
-				send " <#CC813E>R<#CB7E3F>a<#CB7A40>r<#CA7740>e <#C97042>l<#C96C43>o<#C86943>o<#C76544>t <#C65E46>b<#C65B47>o<#C55747>x<#C55448>e<#C45049>s <#C3494B>o<#C2464B>p<#C2424C>e<#C13F4D>n<#C13B4E>e<#C0384E>d<#C0344F>: 0" to player
+				send " <#CC813E>R<#CB7E3F>a<#CB7A40>r<#CA7740>e <#C97042>l<#C96C43>o<#C86943>o<#C76544>t <#C65E46>b<#C65B47>o<#C55747>x<#C55448>e<#C45049>s <#C3494B>o<#C2464B>p<#C2424C>e<#C13F4D>n<#C13B4E>e<#C0384E>d<#C0344F>:  0" to player
 		
 			if {gameStats::%player%::%{_ID}%::legendaryLootBoxesOpened} is set:
-				send " <#CC813E>L<#CC7E3F>e<#CB7B3F>g<#CB7840>e<#CA7641>n<#CA7341>d<#C97042>a<#C96D43>r<#C86A43>y <#C76444>l<#C76245>o<#C65F46>o<#C65C46>t <#C55648>b<#C55348>o<#C45049>x<#C44E4A>e<#C34B4A>s <#C2454C>o<#C2424C>p<#C13F4D>e<#C13C4D>n<#C03A4E>e<#C0374F>d<#BF344F>: %{gameStats::%player%::%{_ID}%::legendaryLootBoxesOpened}%" to player
+				send " <#CC813E>L<#CC7E3F>e<#CB7B3F>g<#CB7840>e<#CA7641>n<#CA7341>d<#C97042>a<#C96D43>r<#C86A43>y <#C76444>l<#C76245>o<#C65F46>o<#C65C46>t <#C55648>b<#C55348>o<#C45049>x<#C44E4A>e<#C34B4A>s <#C2454C>o<#C2424C>p<#C13F4D>e<#C13C4D>n<#C03A4E>e<#C0374F>d<#BF344F>:  %{gameStats::%player%::%{_ID}%::legendaryLootBoxesOpened}%" to player
 			else:
-				send " <#CC813E>L<#CC7E3F>e<#CB7B3F>g<#CB7840>e<#CA7641>n<#CA7341>d<#C97042>a<#C96D43>r<#C86A43>y <#C76444>l<#C76245>o<#C65F46>o<#C65C46>t <#C55648>b<#C55348>o<#C45049>x<#C44E4A>e<#C34B4A>s <#C2454C>o<#C2424C>p<#C13F4D>e<#C13C4D>n<#C03A4E>e<#C0374F>d<#BF344F>: 0" to player
+				send " <#CC813E>L<#CC7E3F>e<#CB7B3F>g<#CB7840>e<#CA7641>n<#CA7341>d<#C97042>a<#C96D43>r<#C86A43>y <#C76444>l<#C76245>o<#C65F46>o<#C65C46>t <#C55648>b<#C55348>o<#C45049>x<#C44E4A>e<#C34B4A>s <#C2454C>o<#C2424C>p<#C13F4D>e<#C13C4D>n<#C03A4E>e<#C0374F>d<#BF344F>:  0" to player
 	
 			send " " to player
-			send "<#7C4D24>|<#7C4D24>-<#7A4B24>-<#784924>-<#774724>-<#754523>-<#734223>-<#714023>-<#703E23>-<#6E3C23>-<#6C3A23>-<#6A3823>-<#683622>-<#673422>-<#653222>-<#632F22>-<#612D22>-<#602B22>-<#5E2921>-<#5C2721>-<#5A2521>-<#582321>-<#572121>-<#551F21>-<#531C21>-<#511A20>-<#501820>-<#4E1620>-<#4C1420>|" to player
+			send "<#7C4D24>|<#7B4B24>-<#794A24>-<#784824>-<#774724>-<#754523>-<#744423>-<#734223>-<#714023>-<#703F23>-<#6F3D23>-<#6D3C23>-<#6C3A23>-<#6B3823>-<#693722>-<#683522>-<#673422>-<#653222>-<#643122>-<#632F22>-<#612D22>-<#602C22>-<#5F2A22>-<#5D2921>-<#5C2721>-<#5B2521>-<#592421>-<#582221>-<#572121>-<#551F21>-<#541E21>-<#531C21>-<#511A20>-<#501920>-<#4F1720>-<#4D1620>-<#4C1420>|" to player
 			close the inventory of the player
 
 command /MRgamedelete [<integer>]:
