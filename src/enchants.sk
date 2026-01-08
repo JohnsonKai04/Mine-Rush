@@ -1,14 +1,18 @@
-function veinMiner(p: player, b: block, originalType: item type):
+function veinMiner(p: player, b: block):
 	chance of {veinMiner::chance::%{customEnchantTier::%{_p}%::veinMiner}%}:
+		set {_blockType} to type of {_b}
 		loop all blocks in radius 1.75 around {_b}:
-			if type of loop-block is {_originalType}:
-				set {_loopBlock} to loop-block
-				addPoints({_p}, {_loopBlock}, true)
-				set loop-block to air
-				make 50 of block particle using {_originalType} at location of {_loopBlock}
-				play sound (break sound of {_originalType}) at location of {_loopBlock}
-				wait 3 ticks
-				veinMiner({_p}, {_loopBlock}, {_originalType})
+			if "%type of loop-block%" is "%type of {_b}%": # Type of event block not only stores the name of the event block but also the NBT tags of said block. This makes it so lit redstone and redstone are different
+				add loop-block to {_blocks::*}
+
+		loop {_blocks::*}:
+			wait 2 ticks
+			if loop-value is not air:
+				set {_loopBlock} to loop-value
+				addPoints({_p}, {_loopBlock})
+				make 50 of block particle using {_blockType} at location of {_loopBlock}
+				play sound (break sound of {_blockType}) at location of {_loopBlock}
+				set block at location of {_loopBlock} to air
 				
 
 function streak(p: player) :: number:
@@ -67,18 +71,17 @@ function hungryMiner(p: player):
 function fireball(p: player):
 	chance of {fireball::chance::%{customEnchantTier::%{_p}%::fireball}%}:
 		if {cooldown::fireball::%{_p}%} is not set:
-			spawn fireball 1 block infront of {_p} with nbt from "{ExplosionPower:%{fireball::size::%{customEnchantTier::%{_p}%::fireball}%}%}"
+			spawn fireball 1 block above and 2 blocks infront of {_p} with nbt from "{ExplosionPower:%{fireball::size::%{customEnchantTier::%{_p}%::fireball}%}%}"
 			set {cooldown::fireball::%{_p}%} to now
 		if difference between now and {cooldown::fireball::%{_p}%} is more than 60 seconds:
+			spawn fireball 1 block above and 2 blocks infront of {_p} with nbt from "{ExplosionPower:%{fireball::size::%{customEnchantTier::%{_p}%::fireball}%}%}"
 			set {cooldown::fireball::%{_p}%} to now
-			spawn fireball 1 block infront of {_p} with nbt from "{ExplosionPower:%{fireball::size::%{customEnchantTier::%{_p}%::fireball}%}%}"
 		else:
 			set {_difference} to difference between {cooldown::fireball::%{_p}%} and now
 			set {_remaining} to difference between {_difference} and 60 seconds
 			playErrorSound({_p})
-			send "<#F10C31>C<#EE0C31>o<#EB0D30>o<#E90D30>l<#E60E30>d<#E30E2F>o<#E00F2F>w<#DD0F2F>n <#D8102E>s<#D5112E>t<#D2112E>i<#CF122D>l<#CD122D>l <#C7132C>a<#C4142C>c<#C1142C>t<#BF152B>i<#BC152B>v<#B9162B>e <#B3172A>p<#B1172A>l<#AE1829>e<#AB1829>a<#A81929>s<#A51929>e <#A01A28>w<#9D1B28>a<#9A1B27>i<#971C27>t<#951C27>! <#8F1D26>%{_remaining}%" to {_p}
+			send "<#F10C31>C<#EE0C31>o<#EB0D30>o<#E90D30>l<#E60E30>d<#E30E2F>o<#E00F2F>w<#DD0F2F>n <#D8102E>s<#D5112E>t<#D2112E>i<#CF122D>l<#CD122D>l <#C7132C>a<#C4142C>c<#C1142C>t<#BF152B>i<#BC152B>v<#B9162B>e <#B3172A>p<#B1172A>l<#AE1829>e<#AB1829>a<#A81929>s<#A51929>e <#A01A28>w<#9D1B28>a<#9A1B27>i<#971C27>t<#951C27>: <#8F1D26>%{_remaining}%!" to {_p}
 
 on rightclick holding a stone pickaxe, iron pickaxe, diamond pickaxe, or netherite pickaxe:
 	if {inGame::%player%} is true:
 		fireball(player)
-
