@@ -20,8 +20,8 @@ on load:
     add "deepslate gold ore" to {ores::*}
     add "redstone ore" to {ores::*}
     add "deepslate redstone ore" to {ores::*}
-    add "lapis lazuli ore" to {ores::*}
-    add "deepslate lapis lazuli ore" to {ores::*}
+    add "lapis ore" to {ores::*}
+    add "deepslate lapis ore" to {ores::*}
     add "diamond ore" to {ores::*}
     add "deepslate diamond ore" to {ores::*}
     add "emerald ore" to {ores::*}
@@ -208,3 +208,4 @@ on load:
     setPoints("basalt", 5)
     setPoints("dripstone block", 4)
     setPoints("clay", 5)
+    setPoints("spawner", 2000)
