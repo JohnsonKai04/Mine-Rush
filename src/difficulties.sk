@@ -54,28 +54,36 @@ function setHealthOfMob(mob: entity, h: number):
 	heal {_mob}
 
 function beginDifficulty1(p: player):
-	send "<#00B154>D<#00AE53>i<#00AB51>f<#00A850>f<#00A44E>i<#00A14D>c<#009E4B>u<#009B4A>l<#009848>t<#009547>y<#009145>: <#008B42>P<#008841>e<#00853F>a<#00823E>c<#007E3C>e<#007B3B>f<#007839>u<#007538>l" to {_p}
+	send "<#00FF11>D<#0AFD10>i<#15FB10>f<#1FF90F>f<#29F70E>i<#33F40E>c<#3EF20D>u<#48F00D>l<#52EE0C>t<#5CEC0B>y<#67EA0B>: <#7BE609>P<#85E409>e<#90E208>a<#9ADF08>c<#A4DD07>e<#AEDB06>f<#B9D906>u<#C3D705>l" to {_p}
+	send "<#00FF11>M<#0BFD10>o<#17FA10>b <#2EF60E>D<#39F30D>i<#45F10D>f<#50EF0C>f<#5CEC0B>i<#67EA0B>c<#73E70A>u<#7EE509>l<#8AE309>t<#95E008>y<#A1DE07>: <#B8D906>0<#C3D705>%%" to {_p}
+	send "<#00FF11>T<#08FD11>i<#10FC10>m<#17FA10>e <#27F70F>u<#2FF50E>n<#37F40E>t<#3EF20D>i<#46F10D>l <#56ED0C>e<#5EEC0B>x<#65EA0B>t<#6DE90A>r<#75E70A>a<#7DE509>c<#85E409>t<#8CE208>: <#9CDF07>1 <#ACDC06>H<#B3DA06>o<#BBD905>u<#C3D705>r" to {_p}
 	play sound "item.goat_horn.sound.0" with volume {settings::volume::%{_p}%} at {_p}
 	set the difficulty of "world" to peaceful
 	
 
 
 function beginDifficulty2(p: player):
-	send "<#03C400>D<#11C800>i<#1FCC00>f<#2CD000>f<#3AD400>i<#48D800>c<#56DC00>u<#64E000>l<#71E300>t<#7FE700>y<#8DEB00>: <#A9F300>E<#B6F700>a<#C4FB00>s<#D2FF00>y" to {_p}
+	send "<#C3D705>D<#C6D406>i<#CAD106>f<#CDCF07>f<#D0CC07>i<#D4C908>c<#D7C609>u<#DAC309>l<#DEC10A>t<#E1BE0A>y<#E4BB0B>: <#EBB50C>E<#EEB30D>a<#F2B00D>s<#F5AD0E>y" to {_p}
+	send "<#C3D705>M<#C6D506>o<#C9D206>b <#CECE07>D<#D1CB08>i<#D4C908>f<#D6C709>f<#D9C409>i<#DCC20A>c<#DFC00A>u<#E2BD0B>l<#E4BB0B>t<#E7B90C>y<#EAB60C>: <#EFB20D>1<#F2AF0E>0<#F5AD0E>%%" to {_p}
+	send "<#C3D705>T<#C5D605>i<#C6D406>m<#C8D306>e <#CCD007>u<#CDCE07>n<#CFCD07>t<#D1CB07>i<#D3CA08>l <#D6C708>e<#D8C609>x<#D9C409>t<#DBC309>r<#DDC10A>a<#DFC00A>c<#E0BE0A>t<#E2BD0B>: <#E5BA0B>4<#E7B90C>5 <#EBB60C>M<#ECB40C>i<#EEB30D>n<#F0B10D>u<#F2B00D>t<#F3AE0E>e<#F5AD0E>s" to {_p}
 	play sound "item.goat_horn.sound.1" with volume {settings::volume::%{_p}%} at {_p}
 	set bar color of {pointBar::%{_p}%} to yellow
 	set the difficulty of "world" to normal
 
 
 function beginDifficulty3(p: player):
-	send "<#C1C400>D<#C5C300>i<#C8C200>f<#CCC000>f<#D0BF00>i<#D3BE00>c<#D7BD00>u<#DBBC00>l<#DEBB00>t<#E2B900>y<#E5B800>: <#EDB600>M<#F0B500>e<#F4B400>d<#F8B200>i<#FBB100>u<#FFB000>m" to {_p}
+	send "<#F5AD0E>D<#F5A80E>i<#F5A20E>f<#F59D0E>f<#F5970E>i<#F5920E>c<#F58C0E>u<#F5870E>l<#F5810E>t<#F57C0E>y<#F5760E>: <#F56B0E>M<#F5660E>e<#F5600E>d<#F55B0E>i<#F5550E>u<#F5500E>m" to {_p}
+	send "<#F5AD0E>M<#F5A80E>o<#F5A30E>b <#F5980E>D<#F5930E>i<#F58E0E>f<#F5890E>f<#F5840E>i<#F57F0E>c<#F5790E>u<#F5740E>l<#F56F0E>t<#F56A0E>y<#F5650E>: <#F55A0E>2<#F5550E>0<#F5500E>%%" to {_p}
+	send "<#F5AD0E>T<#F5AA0E>i<#F5A70E>m<#F5A30E>e <#F59D0E>u<#F59A0E>n<#F5970E>t<#F5930E>i<#F5900E>l <#F58A0E>e<#F5870E>x<#F5830E>t<#F5800E>r<#F57D0E>a<#F57A0E>c<#F5760E>t<#F5730E>: <#F56D0E>3<#F56A0E>0 <#F5630E>M<#F5600E>i<#F55D0E>n<#F55A0E>u<#F5560E>t<#F5530E>e<#F5500E>s" to {_p}
 	play sound "item.goat_horn.sound.2" with volume {settings::volume::%{_p}%} at {_p}
 	set bar color of {pointBar::%{_p}%} to red
 
 
 
 function beginDifficulty4(p: player):
-	send "<#C45F00>D<#C85900>i<#CC5200>f<#D04C00>f<#D44600>i<#D83F00>c<#DC3900>u<#E03300>l<#E32C00>t<#E72600>y<#EB2000>: <#F31300>H<#F70D00>a<#FB0600>r<#FF0000>d" to {_p}
+	send "<#F5500E>D<#F54C0E>i<#F5470E>f<#F5430E>f<#F53E0E>i<#F53A0E>c<#F5360E>u<#F5310E>l<#F52D0E>t<#F5280E>y<#F5240E>: <#F51B0E>H<#F5170E>a<#F5120E>r<#F50E0E>d" to {_p}
+	send "<#F5500E>M<#F54C0E>o<#F5490E>b <#F5410E>D<#F53E0E>i<#F53A0E>f<#F5360E>f<#F5330E>i<#F52F0E>c<#F52B0E>u<#F5280E>l<#F5240E>t<#F5200E>y<#F51D0E>: <#F5150E>3<#F5120E>0<#F50E0E>%%" to {_p}
+	send "<#F5500E>T<#F54E0E>i<#F54C0E>m<#F5490E>e <#F5450E>u<#F5430E>n<#F5410E>t<#F53E0E>i<#F53C0E>l <#F5380E>e<#F5360E>x<#F5330E>t<#F5310E>r<#F52F0E>a<#F52D0E>c<#F52B0E>t<#F5280E>: <#F5240E>1<#F5220E>5 <#F51D0E>M<#F51B0E>i<#F5190E>n<#F5170E>u<#F5150E>t<#F5120E>e<#F5100E>s<#F50E0E>!" to {_p}
 	play sound "item.goat_horn.sound.3" with volume {settings::volume::%{_p}%} at {_p}
 	set bar color of {pointBar::%{_p}%} to blue
 	set the difficulty of "world" to hard
@@ -83,15 +91,37 @@ function beginDifficulty4(p: player):
 
 
 function beginDifficulty5(p: player):
-	send "<#C40000>D<#C5000E>i<#C6001C>f<#C6002B>f<#C70039>i<#C80047>c<#C90055>u<#C90063>l<#CA0071>t<#CB0080>y<#CC008E>: <#CD00AA>E<#CE00B8>x<#CF00C6>t<#D000D5>r<#D000E3>e<#D100F1>m<#D200FF>e" to {_p}
+	send "<#F50E0E>D<#F50E18>i<#F50E23>f<#F50E2D>f<#F50E38>i<#F50E42>c<#F50E4C>u<#F50E57>l<#F50E61>t<#F50E6C>y<#F50E76>: <#F50E8B>E<#F50E95>x<#F50E9F>t<#F50EAA>r<#F50EB4>e<#F50EBF>m<#F50EC9>e" to {_p}
+	send "<#F50E0E>M<#F50E18>o<#F50E23>b <#F50E38>D<#F50E42>i<#F50E4C>f<#F50E57>f<#F50E61>i<#F50E6C>c<#F50E76>u<#F50E80>l<#F50E8B>t<#F50E95>y<#F50E9F>: <#F50EB4>4<#F50EBF>0<#F50EC9>%%" to {_p}
+
+	# Spawns extract:
+	set {_extractLocation::X} to a random integer between -500 and 500
+	set {_extractLocation::Z} to a random integer between -500 and 500
+	add {spawningLocation::X::%{_p}%} to {_extractLocation::X::%{_p}%}
+	add {spawningLocation::Z::%{_p}%} to {_extractLocation::Z::%{_p}%}
+	set {_extractLocation::Y} to 310
+	set {_validSpawn} to location at {_extractLocation::X}, {_extractLocation::Y}, {_extractLocation::Z} in world "world"
+	wait 1 second # waits for server to catch up
+
+	while block at {_validSpawn} is air:
+		set {_extractLocation::Y} to {_extractLocation::Y} - 1
+		set {_validSpawn} to location at {_extractLocation::X}, {_extractLocation::Y}, {_extractLocation::Z} in world "world"
+
+	set block at {_validSpawn} to beacon
+	loop blocks within {_validSpawn} ~ vector(-1,-1,-1) and {_validSpawn} ~ vector(1,-1,1):
+		set loop-block to iron block
+	send "<#F50E0E>E<#F50E15>x<#F50E1C>t<#F50E23>r<#F50E2A>a<#F50E31>c<#F50E38>t <#F50E45>L<#F50E4C>o<#F50E53>c<#F50E5A>a<#F50E61>t<#F50E68>i<#F50E6F>o<#F50E76>n <#F50E84>S<#F50E8B>p<#F50E92>a<#F50E99>w<#F50E9F>n<#F50EA6>e<#F50EAD>d <#F50EBB>a<#F50EC2>t<#F50EC9>: %{_validSpawn}%" to {_p}
 	play sound "item.goat_horn.sound.6" with volume {settings::volume::%{_p}%} at {_p}
 	set bar color of {pointBar::%{_p}%} to white
-	spawnExtract()
-
 
 function beginDifficulty6(p: player):
-	send "<#8B00A0>D<#8200A4>i<#7A01A8>f<#7101AC>f<#6802B0>i<#6002B4>c<#5702B8>u<#4E03BC>l<#4603C0>t<#3D03C4>y<#3404C8>: <#2305D0>C<#1A05D4>h<#1105D8>a<#0906DC>o<#0006E0>s" to {_p}
+	send "<#F50EC9>D<#E90ECC>i<#DC0ECF>f<#D00ED1>f<#C30ED4>i<#B70ED7>c<#AA0EDA>u<#9E0EDC>l<#910EDF>t<#850EE2>y<#780EE5>: <#5F0EEA>C<#530EED>h<#460EF0>a<#3A0EF2>o<#2D0EF5>s" to {_p}
+	send "<#F50EC9>M<#EA0ECB>o<#DF0ECE>b <#C90ED3>D<#BD0ED5>i<#B20ED8>f<#A70EDA>f<#9C0EDD>i<#910EDF>c<#860EE1>u<#7B0EE4>l<#700EE6>t<#650EE9>y<#590EEB>: <#430EF0>6<#380EF3>0<#2D0EF5>%%" to {_p}
+	send "<#F50EC9>E<#EC0ECB>f<#E30ECD>f<#DA0ECF>e<#D10ED1>c<#C80ED3>t<#BE0ED5>s<#B50ED7>: <#A30EDB>R<#9A0EDD>a<#910EDF>d<#880EE1>i<#7F0EE3>a<#760EE5>t<#6D0EE7>i<#640EE9>o<#5A0EEB>n <#480EEF>l<#3F0EF1>v<#360EF3>l<#2D0EF5>1" to {_p}
 	play sound "item.goat_horn.sound.5" with volume {settings::volume::%{_p}%} at {_p}
+	wait 30 seconds
+	apply infinite poison without any particles to {_p}
+	apply infinite slowness without any particles to {_p}
 
 
 
@@ -170,7 +200,7 @@ function findValidMobSpawn(p: player) :: location:
 				if block below {_loc} is solid:
 					set {_found} to true
 		add 1 to {_tries}
-	if {debugMode} is true:
+	if {debugMode::%{_p}%} is true:
 		if {_found} is false:
 			send "position not found with %{_tries}% tries" to {_p}
 		else:
