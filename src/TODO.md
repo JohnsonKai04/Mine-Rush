@@ -64,24 +64,24 @@
 ## Multiplyer support
 - [ ] Validate that multipler players can start their own independent game. Change all variables to include %player% at the end
     - [x] All variables have been validated to have %player%
-## MongoDB support
-- [ ] Add mongoDBsk and figure out how to create stats per player and a global leaderboard
-- [ ] Add leaderboard validation so cheaters are easy to spot 
+
+## Database support
+- [ ] Create a website that hosts the variable infromation from each game
 
 
 ## 1/4/2026 Game 1 Testing report to fix
-- [ ] scaling of the prices do not reflect in the shop
-- [ ] dark redstone/lapis ore does not activate vein miner
-- [ ] went into negative cash when buying ore duplicate
-- [ ] placing tnt doesnt actually take away from inv
-- [ ] cannot buy steak
-- [ ] fireball needs to spawn infront of player 2 blocks
-- [ ] all armor encahnts does not scale in price
-- [ ] wind charge explosions give the player ores
-- [ ] legendary lootboxes dont have unique animation
-- [ ] add sound to lootboxes
-- [ ] difficulties need to tell the player what has changed
-- [ ] extract location needs to be told to the player
-- [ ] legendary lootbox reward is sad
-- [ ] Golden heads should give speed 2 and resistance 1
-- [ ] spawnExtract location needs to have a player pass through it for multiple games compatability
+- [x] scaling of the prices do not reflect in the shop
+- [x] dark redstone/lapis ore does not activate vein miner
+- [x] went into negative cash when buying ore duplicate
+- [x] placing tnt doesnt actually take away from inv
+- [?] cannot buy steak
+- [x] fireball needs to spawn infront of player 2 blocks
+- [x] all armor enchants do not scale in price
+- [x] wind charge explosions give the player ores
+- [x] legendary lootboxes dont have unique animation
+- [x] add sound to lootboxes
+- [x] difficulties need to tell the player what has changed
+- [x] extract location needs to be told to the player
+- [x] legendary lootbox reward is sad
+- [x] Golden heads should give speed 2 and resistance 1
+- [x] spawnExtract location needs to have a player pass through it for multiple games compatability
