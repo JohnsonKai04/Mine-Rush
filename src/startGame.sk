@@ -18,7 +18,7 @@ command /start:
 				if block at {_airCheck} is not air:
 					delete {spawningLocation::X::%player%}
 				
-				if {debugMode} is true:
+				if {debugMode::%player%} is true:
 					if {spawningLocation::X::%player%} is not set:
 						send "&c&lInvalid Location" to player
 				wait 1 tick
@@ -36,7 +36,8 @@ command /start:
 			send title "&c&lStarting in 1..." to player
 			wait 1 second
 			send title "&c&lGood Luck" to player
-			playRandomMusic(player)
+			if {settings::startingMusic::%player%} is true:
+				playRandomMusic(player)
 			set time of world "world" to 8:00
 
 			# Slow falling /tp
@@ -60,7 +61,7 @@ command /start:
 			# Boss bar
 			set {pointBar::%player%} to boss bar with id "01" with title "&a&lPoints: 0" with color green with progress 0
 			set bar style of {pointBar::%player%} to solid_bar
-			if {debugMode} is true:
+			if {debugMode::%player%} is true:
 				set {points::%player%} to 24000000
 				set bar title of {pointBar::title::%player%} to "&a&lPoints: %{points::%player%}%"
 			set {pointBar::progress::%player%} to 0
