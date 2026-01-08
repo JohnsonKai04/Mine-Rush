@@ -1,9 +1,10 @@
 # Custom instant ignight tnt
 on place of tnt:
 	if {inGame::%player%} is true:
-		cancel event
+		remove 1 tnt from player
 		set event-block to air
 		spawn primed tnt at event-location
+		cancel event
 
 # Grappling hook
 on rod cast:
@@ -35,21 +36,23 @@ on right click using player head:
 		if name of player's held item is "&lGolden Head":
 			cancel event
 			heal player by 2 hearts
-			apply speed potion of tier 2 without any particles to {_p} for 15 seconds
+			apply speed potion of tier 2 without any particles to the player for 10 seconds
+			apply resistance potion without any particles to the player for 10 seconds
 			remove 1 of player's held item from player's inventory
 
 
 on explosion:
-	set {_p} to nearest player in radius 50 around event-position
-	if {inGame::%{_p}%} is true:
-		set {_loc} to event-position
-		set {_points} to 0
-		loop exploded blocks:
-			set {_newPoints} to addPoints({_p}, loop-block, false)
-			add {_newPoints} to {_points}
-		wait 10 ticks
-		if {_points} is not 0:
-			send action bar "<#22F10C>&l+<#1EE91C>&l%{_points}% <#16D93C>&lP<#13D14D>&lo<#0FC85D>&li<#0BC06D>&ln<#07B87D>&lt<#03B08D>&ls" to {_p}
+	if event-entity is tnt or fireball:
+		set {_p} to nearest player in radius 50 around event-position
+		if {inGame::%{_p}%} is true:
+			set {_loc} to event-position
+			set {_points} to 0
+			loop exploded blocks:
+				set {_newPoints} to addPoints({_p}, loop-block)
+				add {_newPoints} to {_points}
+			wait 10 ticks
+			if {_points} is not 0:
+				send action bar "<#22F10C>&l+<#1EE91C>&l%{_points}% <#16D93C>&lP<#13D14D>&lo<#0FC85D>&li<#0BC06D>&ln<#07B87D>&lt<#03B08D>&ls" to {_p}
 
 function playLootBoxCommonAnimation(p: player, b: block, m: integer):
 	open the lid of {_b}
@@ -59,7 +62,9 @@ function playLootBoxCommonAnimation(p: player, b: block, m: integer):
 		subtract 0.1 from {_i}
 		make 5 of glow at {_loc} with offset vector({_i}, 0.2, {_i})
 		make 5 of scrape at {_loc} with offset vector({_i}, 0.2, {_i})
-		wait 5 ticks
+		set {_pitch} to a random number between -1 and 2
+		play sound "block.amethyst_block.chime" with volume {settings::volume::%{_p}%} and pitch {_pitch} at location of {_b}
+		wait 10 ticks
 	lootBoxRewardPoints({_p}, {_b}, {_m})
 
 function playLootBoxRareAnimation(p: player, b: block, m: integer):
@@ -74,12 +79,17 @@ function playLootBoxRareAnimation(p: player, b: block, m: integer):
 function playLootBoxLegendaryAnimation(p: player, b: block, m: integer):
 	open the lid of {_b}
 	set {_loc} to location of {_b}
-	set {_i} to 1
+	spawn an armor stand 0.5 blocks below {_loc} with nbt from "{Invisible:1, Small: 1, NoGravity: 1, Marker: 1b}"
+	set {_stand} to last spawned armor stand
 	loop 10 times:
-		subtract 0.1 from {_i}
-		make 5 of glow at {_loc} with offset vector({_i}, 0.2, {_i})
-		make 5 of scrape at {_loc} with offset vector({_i}, 0.2, {_i})
-		wait 5 ticks
+		set {_stand}'s helmet to iron block or gold block or diamond block or emerald block
+		set {_pitch} to a random number between -1 and 1
+		play sound "block.note_block.bell" with volume {settings::volume::%{_p}%} and pitch {_pitch} at {_loc}
+		wait 0.5 seconds
+	wait 0.5 seconds
+	launch ball large colored red, and black at {_loc} with duration 0
+	wait 2 ticks
+	kill {_stand}
 	lootBoxRewardPoints({_p}, {_b}, {_m})
 
 function lootBoxRewardPoints(p: player, b: block, m: integer):
@@ -90,11 +100,11 @@ function lootBoxRewardPoints(p: player, b: block, m: integer):
 	if {_chance} <= ({_base} - 50):
 		set {_points} to a random integer between ({lootBoxPoints::1} * {_m}) and ({lootBoxPoints::2} * {_m})
 	else if {_chance} <= ({_base} - 75):
-		set {_points} to a random integer between ({lootBoxPoints::2} * {_m}) and ({lootBoxPoints::3} * {_m})
-	else if {_chance} <= ({_base} - 95):
 		set {_points} to a random integer between ({lootBoxPoints::3} * {_m}) and ({lootBoxPoints::4} * {_m})
-	else:
+	else if {_chance} <= ({_base} - 95):
 		set {_points} to a random integer between ({lootBoxPoints::5} * {_m}) and ({lootBoxPoints::6} * {_m})
+	else:
+		set {_points} to a random integer between ({lootBoxPoints::7} * {_m}) and ({lootBoxPoints::8} * {_m})
 	add {_points} to {points::%{_p}%}
 	add {_points} to {currentGameStats::%{_p}%::totalPoints}
 	set {_color::*} to 3 random integers between 0 and 255
@@ -118,12 +128,24 @@ on place of chest:
 			add 1 to {currentGameStats::%player%::legendaryLootBoxesOpened}
 
 on rightclick on Chest:
-	loop {lootBox::item::*}:
-		if name of event-block is name of {lootBox::item::%loop-index%}:
-			cancel event
+	if {inGame::%player%} is true:
+		set {_lootbox} to false
+		loop {lootBox::item::*}:
+			if name of event-block is name of {lootBox::item::%loop-index%}:
+				set {_lootbox} to true
+				send "lootbox" to {_p}
+		if {_lootbox} is false:
+			give player {lootBox::item::common} or {lootBox::item::rare} or {lootBox::item::legendary}
+			phantomOre(player, event-block, "chest")
+			draw 50 of totem of undying at location of event-block
+			set event-block to air
+			send "gave random lootbox" to {_p}
+		cancel event
+		
+	
 
 on drop:
 	loop {pickaxe::tier::*}:
 		set {_name} to name of event-item
 		if {_name} is "%loop-value%":
-			cancel event 
+			cancel event
