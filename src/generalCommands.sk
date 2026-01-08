@@ -26,7 +26,7 @@ on tab complete of "/givelootbox":
 
 command /MRdebug [<boolean>]:
 	trigger:
-		set {debugMode} to arg-1
+		set {debugMode::%player%} to arg-1
 		send "Debug mode: %arg-1%" to player
 on tab complete of "/MRdebug":
 	set tab completion to ""
@@ -37,10 +37,15 @@ command /MRsettings [<text>] [<integer>]:
 			if arg-2 is set:
 				set {settings::volume::%player%} to arg-2
 				send "Volume set to: %{settings::volume::%player%}%" to player
-			else:
-				send "Volume: %{settings::volume::%player%}%" to player
+		else if arg-1 is "startingmusic":
+			if arg-2 is set:
+				set {settings::startingMusic::%player%} to arg-2
+				send "Starting Music set to: %{settings::startingMusic::%player%}%" to player
+		else:
+			send "<#F10C31>P<#EF0C31>l<#ED0D31>e<#EB0D30>a<#E90D30>s<#E70E30>e <#E40E2F>E<#E20F2F>n<#E00F2F>t<#DE0F2F>e<#DC102F>r <#D8102E>a <#D4112E>v<#D2112E>a<#D0122D>l<#CE122D>i<#CC122D>d <#C9132C>s<#C7132C>e<#C5142C>t<#C3142C>t<#C1142C>i<#BF152B>n<#BD152B>g<#BB152B>: <#B7162B>V<#B5162A>o<#B4172A>l<#B2172A>u<#B0172A>m<#AE1829>e<#AC1829>, <#A81929>s<#A61929>t<#A41928>a<#A21A28>r<#A01A28>t<#9E1A28>i<#9C1B28>n<#9B1B27>g<#991B27>m<#971C27>u<#951C27>s<#931C26>i<#911D26>c<#8F1D26>. " to player
+			playErrorSound(player)
 on tab complete of "/MRsettings":
-	set tab completion for position 1 to "volume"
+	set tab completion for position 1 to "volume" and "startingmusic"
 
 function playErrorSound(p: player):
 	set {_pitch} to a random number between -1 and 1
@@ -54,7 +59,7 @@ function killCustomMobs():
 		else:
 			add 1 to {_dead}
 	delete {activeCustomMobs::*}
-	broadcast "Killed %{_count}% mobs, and %{_dead}% Custom mobs have already died/despawned"
+	
 command /killCustomMobs:
 	trigger:
 		killCustomMobs()
@@ -69,8 +74,5 @@ command /showCustomMobs:
 				add 1 to {_dead}
 		broadcast "There are %{_count}% mobs, and %{_dead}% Custom mobs are dead/despawned"
 
-command /test:
-	trigger:
-		playRandomMusic(player)
 function playRandomMusic(p: player):
-	play sound "music_disc.cat" or "music_disc.blocks" or "music_disc.far" or "music_disc.strad" or "music_disc.creator" or "music_disc.otherside" or "music_disc.stall" or "music_disc.pigstep" or "music_disc.lava.chicken" or "music_disc.wait" or "music_disc.tears" with volume {settings::%{_p}%::volume} at {_p}
+	play sound "music_disc.cat" or "music_disc.blocks" or "music_disc.far" or "music_disc.strad" or "music_disc.creator" or "music_disc.otherside" or "music_disc.stall" or "music_disc.pigstep" or "music_disc.lava.chicken" or "music_disc.wait" or "music_disc.tears" in jukebox category with volume {settings::%{_p}%::volume} at {_p}
