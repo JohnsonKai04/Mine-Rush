@@ -1,4 +1,4 @@
-function addPoints(p: player, block: block, skipVeinMiner: boolean = false) :: number:
+function addPoints(p: player, block: block) :: number:
 	set {_blockType} to "%type of {_block}%"
 	loop {ores::*}:
 		if "%type of {_block}%" is loop-value:
@@ -23,8 +23,7 @@ function addPoints(p: player, block: block, skipVeinMiner: boolean = false) :: n
 	# vein miner / oreDuplicate
 	if {_isOre} is true:
 		oreDuplicate({_p}, {_block})
-		if {_skipVeinMiner} is false:
-			veinMiner({_p}, {_block}, type of {_block})
+		veinMiner({_p}, {_block})
 
 	# Update BossBar
 	set {_streakPercentage} to {_streak} * 100
