@@ -1,9 +1,14 @@
+on first join:
+    set {settings::volume::%player%} to 5
+
 command /rename [<text>]:
+	permission: mineRush.admin
 	trigger:
 		set name of player's tool to arg-1
 		send "Name set to: %arg-1%" to player
 
 command /setingame [<boolean>]:
+	permission: mineRush.admin
 	trigger:
 		set {inGame::%player%} to arg-1
 		send "inGame set to: %arg-1%" to player
@@ -11,6 +16,7 @@ on tab complete of "/setingame":
 	set tab completion to "true" and "false"
 
 command /setdifficulty [<number>]:
+	permission: mineRush.admin
 	trigger:
 		set {difficulty::%player%} to arg-1
 		send "Difficulty set to: %arg-1%" to player
@@ -18,6 +24,7 @@ on tab complete of "/setdifficulty":
 	set tab completion to "1" and "2" and "3" and "4" and "5" and "6"
 
 command /givelootbox [<text>]:
+	permission: mineRush.admin
 	trigger:
 		loop 16 times:
 			give player {lootBox::item::%arg-1%}
@@ -25,6 +32,7 @@ on tab complete of "/givelootbox":
 	set tab completion to "common" and "rare" and "legendary"
 
 command /MRdebug [<boolean>]:
+	permission: mineRush.admin
 	trigger:
 		set {debugMode::%player%} to arg-1
 		send "Debug mode: %arg-1%" to player
@@ -32,6 +40,7 @@ on tab complete of "/MRdebug":
 	set tab completion to ""
 
 command /MRsettings [<text>] [<integer>]:
+	permission: mineRush.settings
 	trigger:
 		if arg-1 is "volume":
 			if arg-2 is set:
@@ -59,20 +68,6 @@ function killCustomMobs():
 		else:
 			add 1 to {_dead}
 	delete {activeCustomMobs::*}
-	
-command /killCustomMobs:
-	trigger:
-		killCustomMobs()
-
-command /showCustomMobs:
-	trigger:
-		loop {activeCustomMobs::*}:
-			if loop-value is alive:
-				add 1 to {_count}
-				apply glowing potion without particles to loop-value for 10 seconds
-			else:
-				add 1 to {_dead}
-		broadcast "There are %{_count}% mobs, and %{_dead}% Custom mobs are dead/despawned"
 
 function playRandomMusic(p: player):
 	play sound "music_disc.cat" or "music_disc.blocks" or "music_disc.far" or "music_disc.strad" or "music_disc.creator" or "music_disc.otherside" or "music_disc.stall" or "music_disc.pigstep" or "music_disc.lava.chicken" or "music_disc.wait" or "music_disc.tears" in jukebox category with volume {settings::%{_p}%::volume} at {_p}

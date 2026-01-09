@@ -1,4 +1,9 @@
 command /start:
+	aliases: /startgame, /st, /begin
+	permission: mineRush.start
+	cooldown: 30 minutes
+	cooldown storage: {startCooldown::%player%}
+	cooldown message: You recently started up a game please wait %remaining time% to begin another run.
 	trigger:
 		if {inGame::%player%} is true:
 			send "Game already started use /stopGame" to player

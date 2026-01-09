@@ -101,7 +101,7 @@ command /MRstats [<player>]:
 			send " " to player
 		send "<#7C4D24>|<#7C4D24>-<#7A4B24>-<#784924>-<#774724>-<#754523>-<#734223>-<#714023>-<#703E23>-<#6E3C23>-<#6C3A23>-<#6A3823>-<#683622>-<#673422>-<#653222>-<#632F22>-<#612D22>-<#602B22>-<#5E2921>-<#5C2721>-<#5A2521>-<#582321>-<#572121>-<#551F21>-<#531C21>-<#511A20>-<#501820>-<#4E1620>-<#4C1420>|" to player
 
-command /MRgames [<integer>]:
+command /MRgames:
 	trigger:
 		open chest inventory with 6 rows named "&6&lGames Played" to player
 		set {_inv} to player's current inventory
@@ -166,6 +166,7 @@ on inventory click:
 			close the inventory of the player
 
 command /MRgamedelete [<integer>]:
+	permission: mineRush.admin
 	trigger:
 		delete {gameStats::%player%::*}
 		send "GAME DATA HAS BEEN DELETED" to player

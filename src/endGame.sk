@@ -4,8 +4,6 @@
 # Updates the leaderboard with the players current points, and adds overall points gained to the stats
 # Clears inventoy and kills the player to return them to spawn
 function endGame(p: player) :: boolean:
-	if {inGame::%{_p}%} is false:
-		return false
 	delete {inGame::%{_p}%}
 
 	updateLeaderboard({_p}, {points::%{_p}%})
@@ -55,6 +53,7 @@ function endGame(p: player) :: boolean:
 # after 6 seconds endGame() runs
 on right click on beacon:
 	if {inGame::%player%} is true:
+		set {inGame::%player%} to false
 		cancel event
 		make player invulnerable
 		set {_bonus} to 0.5 * {points::%player%}
@@ -66,6 +65,7 @@ on right click on beacon:
 		endGame(player)
 
 command /endGame:
+	cooldown: 10 seconds
 	trigger:
 		if endGame(player) is true:
 			add 1 to {currentGameStats::%player%::deaths}

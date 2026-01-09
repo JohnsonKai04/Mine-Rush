@@ -54,6 +54,44 @@ on explosion:
 			if {_points} is not 0:
 				send action bar "<#22F10C>&l+<#1EE91C>&l%{_points}% <#16D93C>&lP<#13D14D>&lo<#0FC85D>&li<#0BC06D>&ln<#07B87D>&lt<#03B08D>&ls" to {_p}
 
+on place of chest:
+	if {inGame::%player%} is true:
+		if name of event-block is name of {lootBox::item::common}:
+			playLootBoxCommonAnimation(player, event-block, 1)
+			add 1 to {currentGameStats::%player%::commonLootBoxesOpened}
+
+		if name of event-block is name of {lootBox::item::rare}:
+			playLootBoxRareAnimation(player, event-block, 2)
+			add 1 to {currentGameStats::%player%::rareLootBoxesOpened}
+
+		if name of event-block is name of {lootBox::item::legendary}:
+			playLootBoxLegendaryAnimation(player, event-block, 3)
+			add 1 to {currentGameStats::%player%::legendaryLootBoxesOpened}
+
+on rightclick on Chest:
+	if {inGame::%player%} is true:
+		set {_lootbox} to false
+		loop {lootBox::item::*}:
+			if name of event-block is name of {lootBox::item::%loop-index%}:
+				set {_lootbox} to true
+				send "lootbox" to {_p}
+		if {_lootbox} is false:
+			give player {lootBox::item::common} or {lootBox::item::rare} or {lootBox::item::legendary}
+			phantomOre(player, event-block, "chest")
+			draw 50 of totem of undying at location of event-block
+			set event-block to air
+			send "gave random lootbox" to {_p}
+		cancel event
+		
+	
+
+on drop:
+	loop {pickaxe::tier::*}:
+		set {_name} to name of event-item
+		if {_name} is "%loop-value%":
+			cancel event
+
+
 function playLootBoxCommonAnimation(p: player, b: block, m: integer):
 	open the lid of {_b}
 	set {_loc} to location of {_b}
@@ -112,40 +150,3 @@ function lootBoxRewardPoints(p: player, b: block, m: integer):
 	set color format of {_text} to rgb({_color::1}, {_color::2}, {_color::3})
 	send title "%{_text}%" to {_p}
 	set bar title of {pointBar::%{_p}%} to "&a&lPoints: %{points::%{_p}%}%"
-
-on place of chest:
-	if {inGame::%player%} is true:
-		if name of event-block is name of {lootBox::item::common}:
-			playLootBoxCommonAnimation(player, event-block, 1)
-			add 1 to {currentGameStats::%player%::commonLootBoxesOpened}
-
-		if name of event-block is name of {lootBox::item::rare}:
-			playLootBoxRareAnimation(player, event-block, 2)
-			add 1 to {currentGameStats::%player%::rareLootBoxesOpened}
-
-		if name of event-block is name of {lootBox::item::legendary}:
-			playLootBoxLegendaryAnimation(player, event-block, 3)
-			add 1 to {currentGameStats::%player%::legendaryLootBoxesOpened}
-
-on rightclick on Chest:
-	if {inGame::%player%} is true:
-		set {_lootbox} to false
-		loop {lootBox::item::*}:
-			if name of event-block is name of {lootBox::item::%loop-index%}:
-				set {_lootbox} to true
-				send "lootbox" to {_p}
-		if {_lootbox} is false:
-			give player {lootBox::item::common} or {lootBox::item::rare} or {lootBox::item::legendary}
-			phantomOre(player, event-block, "chest")
-			draw 50 of totem of undying at location of event-block
-			set event-block to air
-			send "gave random lootbox" to {_p}
-		cancel event
-		
-	
-
-on drop:
-	loop {pickaxe::tier::*}:
-		set {_name} to name of event-item
-		if {_name} is "%loop-value%":
-			cancel event

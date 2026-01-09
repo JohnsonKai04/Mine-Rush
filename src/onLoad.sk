@@ -1,6 +1,3 @@
-on first join:
-    set {settings::volume::%player%} to 5
-
 # Sets price of given item
 function setPrice(item: text, price: number):
     set {cost::%{_item}%} to {_price}

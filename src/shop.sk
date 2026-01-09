@@ -10,7 +10,8 @@ function chargePlayer(p: player, item: text, multiplier: number = 1) :: boolean:
 
 		# Adds to stat
 		add ({cost::%{_item}%} * {_multiplier}) to {currentGameStats::%{_p}%::pointsSpent}
-		play sound "entity.experience_orb.pickup" with volume {settings::volume::%{_p}%} to {_p}
+		set {_pitch} to a random number from -1 to 1
+		play sound "entity.experience_orb.pickup" with volume {settings::volume::%{_p}%} and pitch {_pitch} to {_p}
 
 		# Updates boss bar
 		set bar title of {pointBar::%{_p}%} to "&a&lPoints: %{points::%{_p}%}%"
@@ -213,6 +214,8 @@ function purchaseCustomItem(p: player, item: item, cItem: text):
 			give {_p} {_item} named {customItem::grappling hook::name} with lore {customItem::grappling hook::lore}
 
 command /shop:
+	aliases: /s, /market
+	permission: mineRush.shop
 	trigger:
 		if {inGame::%player%} is not true:
 			send "This command can only be used when the game has been started" to player

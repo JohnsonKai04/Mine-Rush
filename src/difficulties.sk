@@ -1,53 +1,3 @@
-# increase game speed, health of mobs, give mobs armor and stronger weapons, splitting mobs, suprise mob attacks, boss battles?
-on spawn:
-	set {_p} to nearest player in radius 80 around event-entity
-	if {inGame::%{_p}%} is true:
-		if event-entity is a drowned:
-			kill event-entity
-		if event-entity is a monster:
-			if event-entity does not have any potion effects:
-				if difference between now and {spawnDelay} is more than 1 second:
-					set {_loc} to location of event-entity
-					chance of ({difficulty::%{_p}%} * 10)%:
-						set {_mobChance} to a random integer between 1 and 3
-						if {_mobChance} is 1:
-							set {_loopNumber} to a random integer between 3 and 6
-							loop {_loopNumber} times:
-								spawn a baby zombie at {_loc}
-								set {_mob} to the last spawned monster
-								apply infinite speed potion 2 without particles to {_mob}
-								equip {_mob} with leather boots
-								setHealthOfMob({_mob}, 5)
-								make last spawned entity despawn on chunk unload
-								#set name of {_mob} to "Baby Battalion Member"
-								add {_mob} to {activeCustomMobs::*}
-								set {spawnDelay} to now
-						else if {_mobChance} is 2:
-							spawn creaking at {_loc}
-							set {_mob} to the last spawned monster
-							apply infinite speed potion 5 without particles to {_mob}
-							apply infinite strength potion 5 without particles to {_mob}
-							setHealthOfMob({_mob}, 1)
-							make last spawned entity despawn on chunk unload
-							#set name of {_mob} to "Horror"
-							add {_mob} to {activeCustomMobs::*}
-							set {spawnDelay} to now
-						else if {_mobChance} is 3:
-							set {_loopNumber} to a random integer between 1 and 2
-							loop {_loopNumber} times:
-								spawn zombie at {_loc}
-								set {_mob} to the last spawned monster
-								apply infinite slowness potion 4 without particles to {_mob}
-								apply infinite resistance potion 2 without particles to {_mob}
-								equip {_mob} with iron boots, and iron leggings, and iron chestplate
-								make last spawned entity despawn on chunk unload
-								#set name of {_mob} to "Brute"
-								add {_mob} to {activeCustomMobs::*}
-								set {spawnDelay} to now
-						cancel event
-				else if {spawnDelay} is not set:
-					set {spawnDelay} to now
-
 function setHealthOfMob(mob: entity, h: number):
 	set {_h} to {_h} / 2
 	set max health of {_mob} to {_h}
@@ -123,9 +73,6 @@ function beginDifficulty6(p: player):
 	apply infinite poison without any particles to {_p}
 	apply infinite slowness without any particles to {_p}
 
-
-
-
 # Param - _p: player playing the game
 # Desc: 6 Different difficulties Peaceful, Easy, Medium, Hard, Extreme, Chaos
 # Default time inbetween difficulties is 15 minutes (is set in onLoad.sk)
@@ -165,6 +112,55 @@ function difficultyBegin(p: player):
 		if {difficulty::%{_p}%} is not 6:
 			set {pointBar::progress::%{_p}%} to 0
 
+# increase game speed, health of mobs, give mobs armor and stronger weapons, splitting mobs, suprise mob attacks, boss battles?
+on spawn:
+	set {_p} to nearest player in radius 80 around event-entity
+	if {inGame::%{_p}%} is true:
+		if event-entity is a drowned:
+			kill event-entity
+		if event-entity is a monster:
+			if event-entity does not have any potion effects:
+				if difference between now and {spawnDelay} is more than 1 second:
+					set {_loc} to location of event-entity
+					chance of ({difficulty::%{_p}%} * 10)%:
+						set {_mobChance} to a random integer between 1 and 3
+						if {_mobChance} is 1:
+							set {_loopNumber} to a random integer between 3 and 6
+							loop {_loopNumber} times:
+								spawn a baby zombie at {_loc}
+								set {_mob} to the last spawned monster
+								apply infinite speed potion 2 without particles to {_mob}
+								equip {_mob} with leather boots
+								setHealthOfMob({_mob}, 5)
+								make last spawned entity despawn on chunk unload
+								#set name of {_mob} to "Baby Battalion Member"
+								add {_mob} to {activeCustomMobs::*}
+								set {spawnDelay} to now
+						else if {_mobChance} is 2:
+							spawn creaking at {_loc}
+							set {_mob} to the last spawned monster
+							apply infinite speed potion 5 without particles to {_mob}
+							apply infinite strength potion 5 without particles to {_mob}
+							setHealthOfMob({_mob}, 1)
+							make last spawned entity despawn on chunk unload
+							#set name of {_mob} to "Horror"
+							add {_mob} to {activeCustomMobs::*}
+							set {spawnDelay} to now
+						else if {_mobChance} is 3:
+							set {_loopNumber} to a random integer between 1 and 2
+							loop {_loopNumber} times:
+								spawn zombie at {_loc}
+								set {_mob} to the last spawned monster
+								apply infinite slowness potion 4 without particles to {_mob}
+								apply infinite resistance potion 2 without particles to {_mob}
+								equip {_mob} with iron boots, and iron leggings, and iron chestplate
+								make last spawned entity despawn on chunk unload
+								#set name of {_mob} to "Brute"
+								add {_mob} to {activeCustomMobs::*}
+								set {spawnDelay} to now
+						cancel event
+				else if {spawnDelay} is not set:
+					set {spawnDelay} to now
 
 # THIS FUNCTION IS NEVER USED 
 function findValidMobSpawn(p: player) :: location:
