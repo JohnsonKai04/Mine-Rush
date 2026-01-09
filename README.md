@@ -10,4 +10,3 @@ As of the latest version Mine Rush can only be played when one player is online 
 Required plugins and tested versions:
 Skript 2.13.1
 SkBee 3.13.1
-SkQuery 4.3.2
