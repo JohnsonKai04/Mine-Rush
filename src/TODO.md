@@ -70,10 +70,10 @@
 
 
 ## 1/9/2026 Game 2 Testing report to fix
-- [ ] check buying steak
-- [ ] fireball should have a larger power that breaks harder blocks
+- [x] check buying steak
+- [x] fireball should have a larger power that breaks harder blocks
 - [ ] lootbox rewards are still bad
-
+- [x] Extract location didnt work
 
 ## 1/4/2026 Game 1 Testing report to fix
 - [x] scaling of the prices do not reflect in the shop
