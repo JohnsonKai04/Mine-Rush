@@ -69,6 +69,12 @@
 - [ ] Create a website that hosts the variable infromation from each game
 
 
+## 1/9/2026 Game 2 Testing report to fix
+- [ ] check buying steak
+- [ ] fireball should have a larger power that breaks harder blocks
+- [ ] lootbox rewards are still bad
+
+
 ## 1/4/2026 Game 1 Testing report to fix
 - [x] scaling of the prices do not reflect in the shop
 - [x] dark redstone/lapis ore does not activate vein miner
