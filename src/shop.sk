@@ -135,7 +135,7 @@ function purchaseWeapon(p: player, item: text):
 function purchaseEnchant(p: player, item: text, enchantName: text):
 	if chargePlayer({_p}, {_enchantName}, {enchantCostMultiplier::%{_p}%::%{_enchantName}%}) is true:
 		add 1 to {enchantTier::%{_p}%::%{_enchantName}%}
-		set {enchantCostMultiplier::%{_p}%::%{_enchantName}%} to {enchantTier::%{_p}%::%{_enchantName}%} * 1.5
+		set {enchantCostMultiplier::%{_p}%::%{_enchantName}%} to {enchantTier::%{_p}%::%{_enchantName}%} * 3
 		set {_enchantment} to "%{_enchantName}% %{enchantTier::%{_p}%::%{_enchantName}%}%" parsed as enchantment type
 
 		# Checks if item is armor if not enchants all other items
@@ -343,7 +343,7 @@ command /shop:
 on inventory click:
 	if name of event-inventory is "&6&lShop":
 		# General items
-		if display name of event-item is "Steak":
+		if display name of event-item is "&lSteak":
 			purchaseItem(player, "cooked beef", 16)
 		else if display name of event-item is "&lLadder":
 			purchaseItem(player, "ladder", 16)
