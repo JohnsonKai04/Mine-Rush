@@ -28,8 +28,7 @@ on load:
     add "ancient debris" to {ores::*}
 
     loop 10 times:
-        set {_i} to loop-iteration
-        set {lootBoxPoints::%{_i}%} to 500 * {_i}
+        set {lootBoxPoints::%loop-iteration%} to 500 * loop-iteration
     # Pickaxe Names
     set {pickaxe::tier::stone} to "&b&lStone Pickaxe"
     set {pickaxe::tier::iron} to "&b&lIron Pickaxe"
@@ -42,15 +41,15 @@ on load:
     set {sword::tier::diamond} to "&b&lDiamond Sword"
     set {sword::tier::netherite} to "&b&lNetherite Sword"
 
-    set {customItem::ghead::Name} to "&r&lGolden Head"
-    set {customItem::ghead::Lore} to "&r&a+4 hearts"
-    set {customItem::grappling hook::Name} to "&r&lGrappling Hook"
-    set {customItem::grappling hook::Lore} to "&r&aMake sure to use feather falling!"
+    set {customItem::ghead::Name} to "<#FFF800>&lG<#D5F900>&lo<#ABFB00>&ll<#81FC00>&ld<#57FE00>&le<#2DFF00>&ln <#81FC00>&lH<#ABFB00>&le<#D5F900>&la<#FFF800>&ld"
+    set {customItem::ghead::Lore} to "<#D3716F>R<#D06B6E>i<#CC646C>g<#C95E6B>h<#C5586A>t <#BE4B67>c<#BB4566>l<#B73E65>i<#B43863>c<#B03162>k <#A9255F>t<#A61E5E>o <#9F125C>u<#9B0B5A>s<#980559>e"
+    set {customItem::grappling hook::Name} to "<#EC9900>&lG<#E69200>&lr<#DF8B01>&la<#D98501>&lp<#D27E02>&lp<#CC7702>&ll<#C57002>&li<#BF6A03>&ln<#B86303>&lg <#AB5504>&lh<#A54F04>&lo<#9E4805>&lo<#984105>&lk"
+    set {customItem::grappling hook::Lore} to "<#D3716F>R<#D06B6E>i<#CC646C>g<#C95E6B>h<#C5586A>t <#BE4B67>c<#BB4566>l<#B73E65>i<#B43863>c<#B03162>k <#A9255F>t<#A61E5E>o <#9F125C>u<#9B0B5A>s<#980559>e"
 
     # General
     set {spawningHeight} to 150 # the hight at which the player spawns once entering the game
     set {pointMultiplier} to 1.0 # the base multiplier
-    set {defaultSpeed} to 15 seconds # This is the amount of minutes it takes for each difficulty. ignore the "seconds" due to how the speed is calculated
+    set {defaultSpeed} to 12 seconds # This is the amount of minutes it takes for each difficulty. ignore the "seconds" due to how the speed is calculated
     set {goldenSkullPlayerName} to "babyhunter512"
     delete {inFlight::*}
 
@@ -149,7 +148,7 @@ on load:
     setPrice("luckyMiner", 1000)
     setPrice("lootBoxCollector", 500)
     setPrice("hungryMiner", 5000)
-    setPrice("fireball", 50000)
+    setPrice("fireball", 10000)
 
     # Custom Items
     setPrice("ghead", 150)
