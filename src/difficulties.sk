@@ -47,8 +47,8 @@ function beginDifficulty5(p: player):
 	# Spawns extract:
 	set {_extractLocation::X} to a random integer between -500 and 500
 	set {_extractLocation::Z} to a random integer between -500 and 500
-	add {spawningLocation::X::%{_p}%} to {_extractLocation::X::%{_p}%}
-	add {spawningLocation::Z::%{_p}%} to {_extractLocation::Z::%{_p}%}
+	add {spawningLocation::X::%{_p}%} to {_extractLocation::X}
+	add {spawningLocation::Z::%{_p}%} to {_extractLocation::Z}
 	set {_extractLocation::Y} to 310
 	set {_validSpawn} to location at {_extractLocation::X}, {_extractLocation::Y}, {_extractLocation::Z} in world "world"
 	wait 1 second # waits for server to catch up
@@ -60,6 +60,7 @@ function beginDifficulty5(p: player):
 	set block at {_validSpawn} to beacon
 	loop blocks within {_validSpawn} ~ vector(-1,-1,-1) and {_validSpawn} ~ vector(1,-1,1):
 		set loop-block to iron block
+
 	send "<#F50E0E>E<#F50E15>x<#F50E1C>t<#F50E23>r<#F50E2A>a<#F50E31>c<#F50E38>t <#F50E45>L<#F50E4C>o<#F50E53>c<#F50E5A>a<#F50E61>t<#F50E68>i<#F50E6F>o<#F50E76>n <#F50E84>S<#F50E8B>p<#F50E92>a<#F50E99>w<#F50E9F>n<#F50EA6>e<#F50EAD>d <#F50EBB>a<#F50EC2>t<#F50EC9>: %{_validSpawn}%" to {_p}
 	play sound "item.goat_horn.sound.6" with volume {settings::volume::%{_p}%} at {_p}
 	set bar color of {pointBar::%{_p}%} to white
