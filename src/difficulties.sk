@@ -71,8 +71,13 @@ function beginDifficulty6(p: player):
 	send "<#F50EC9>E<#EC0ECB>f<#E30ECD>f<#DA0ECF>e<#D10ED1>c<#C80ED3>t<#BE0ED5>s<#B50ED7>: <#A30EDB>R<#9A0EDD>a<#910EDF>d<#880EE1>i<#7F0EE3>a<#760EE5>t<#6D0EE7>i<#640EE9>o<#5A0EEB>n <#480EEF>l<#3F0EF1>v<#360EF3>l<#2D0EF5>1" to {_p}
 	play sound "item.goat_horn.sound.5" with volume {settings::volume::%{_p}%} at {_p}
 	wait 30 seconds
-	apply infinite poison without any particles to {_p}
-	apply infinite slowness without any particles to {_p}
+
+	apply infinite poison to {_p}:
+		hide the particles
+		hide the icon
+	apply infinite slowness to {_p}:
+		hide the particles
+		hide the icon
 
 # Param - _p: player playing the game
 # Desc: 6 Different difficulties Peaceful, Easy, Medium, Hard, Extreme, Chaos
@@ -130,21 +135,22 @@ on spawn:
 							loop {_loopNumber} times:
 								spawn a baby zombie at {_loc}
 								set {_mob} to the last spawned monster
-								apply infinite speed potion 2 without particles to {_mob}
+								apply infinite speed 2 to {_mob}:
+									hide particles
 								equip {_mob} with leather boots
 								setHealthOfMob({_mob}, 5)
 								make last spawned entity despawn on chunk unload
-								#set name of {_mob} to "Baby Battalion Member"
 								add {_mob} to {activeCustomMobs::*}
 								set {spawnDelay} to now
 						else if {_mobChance} is 2:
 							spawn creaking at {_loc}
 							set {_mob} to the last spawned monster
-							apply infinite speed potion 5 without particles to {_mob}
-							apply infinite strength potion 5 without particles to {_mob}
+							apply infinite speed 5 to {_mob}:
+								hide particles
+							apply infinite strength 5 to {_mob}:
+								hide particles
 							setHealthOfMob({_mob}, 1)
 							make last spawned entity despawn on chunk unload
-							#set name of {_mob} to "Horror"
 							add {_mob} to {activeCustomMobs::*}
 							set {spawnDelay} to now
 						else if {_mobChance} is 3:
@@ -152,11 +158,12 @@ on spawn:
 							loop {_loopNumber} times:
 								spawn zombie at {_loc}
 								set {_mob} to the last spawned monster
-								apply infinite slowness potion 4 without particles to {_mob}
-								apply infinite resistance potion 2 without particles to {_mob}
+								apply infinite slowness 4 to {_mob}:
+									hide particles
+								apply infinite resistance 2 to {_mob}:
+									hide particles
 								equip {_mob} with iron boots, and iron leggings, and iron chestplate
 								make last spawned entity despawn on chunk unload
-								#set name of {_mob} to "Brute"
 								add {_mob} to {activeCustomMobs::*}
 								set {spawnDelay} to now
 						cancel event

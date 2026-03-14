@@ -35,7 +35,9 @@ command /start:
 			send title "&c&lStarting in 4..." to player
 			wait 1 second
 			send title "&c&lStarting in 3..." to player
-			apply blindness without any particles to the player for 8 seconds
+			apply potion effect of blindness to the player for 8 seconds:
+				hide particles
+				hide icon
 			wait 1 second
 			send title "&c&lStarting in 2..." to player
 			wait 1 second
@@ -47,7 +49,9 @@ command /start:
 			set time of world "world" to 8:00
 
 			# Slow falling /tp
-			apply slow falling potion without any particles to the player for 90 seconds
+			apply potion effect of slow falling to the player for 90 seconds:
+				hide particles
+				hide icon
 			teleport player to location({spawningLocation::X::%player%}, {spawningHeight}, {spawningLocation::Z::%player%})
 			asyncAircheck(player)
 

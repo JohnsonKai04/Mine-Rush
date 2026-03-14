@@ -8,5 +8,5 @@ Mine Rush is a mini game in minecraft where players get teleported to a random l
 As of the latest version Mine Rush can only be played when one player is online on a server (LAN servers recommended), compatibility with multiplayer is coming with the full release of the game.
 
 Required plugins and tested versions:
-Skript 2.13.1
-SkBee 3.13.1
+Skript 2.14.3
+SkBee 3.18.0
