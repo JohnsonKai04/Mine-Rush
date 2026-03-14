@@ -109,7 +109,7 @@ function difficultyBegin(p: player):
 		# Every 15 seconds increase bar by 1.667 for 15 minutes. reloops after every difficulty increase.
 		#This loop will cause the function to exit if the player is no longer playing
 		loop 60 times:
-			if {inGame::%{_p}%} is true:
+			if {difficulty::%{_p}%} > 0:
 				add 1.666 to {pointBar::progress::%{_p}%}
 				set bar progress of {pointBar::%{_p}%} to {pointBar::progress::%{_p}%}
 				wait {defaultSpeed}

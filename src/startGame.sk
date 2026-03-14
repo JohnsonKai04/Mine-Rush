@@ -65,7 +65,9 @@ command /start:
 			clear player's inventory
 			
 			# Items
-			give unbreakable stone pickaxe named {pickaxe::tier::stone} and 16 cooked beef to player
+			give nether star named {customItem::shop::name} to player
+			give unbreakable stone pickaxe named {pickaxe::tier::stone} to player
+			give 16 cooked beef to player
 			set {pickaxe::tier::%player%} to "stone"
 
 			# Boss bar

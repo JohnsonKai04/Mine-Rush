@@ -148,3 +148,7 @@ function lootBoxRewardPoints(p: player, b: block, m: integer):
 	set color format of {_text} to rgb({_color::1}, {_color::2}, {_color::3})
 	send title "%{_text}%" to {_p}
 	set bar title of {pointBar::%{_p}%} to "&a&lPoints: %{points::%{_p}%}%"
+
+on rightclick:
+	if name of player's held item is {customItem::shop::name}:
+		make player execute command "/shop"
