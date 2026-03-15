@@ -71,3 +71,7 @@ function killCustomMobs():
 
 function playRandomMusic(p: player):
 	play sound "music_disc.cat" or "music_disc.blocks" or "music_disc.far" or "music_disc.strad" or "music_disc.creator" or "music_disc.otherside" or "music_disc.stall" or "music_disc.pigstep" or "music_disc.lava.chicken" or "music_disc.wait" or "music_disc.tears" in jukebox category with volume {settings::%{_p}%::volume} at {_p}
+
+on drop:
+	if {inGame::%player%} is true:
+		cancel event
