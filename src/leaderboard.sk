@@ -127,7 +127,7 @@ on inventory click:
 			send " " to player
 			
 			if {gameStats::%player%::%{_ID}%::sucessfullExtracts} is 1:
-				send "<#CC813E>S<#CC7E3F>u<#CB7B3F>c<#CB7840>c<#CA7541>e<#CA7241>s<#C96F42>s<#C96B43>f<#C86844>u<#C86544>l<#C76245>l<#C75F46>y <#C65947>E<#C55648>x<#C55348>t<#C45049>r<#C44D4A>a<#C34A4A>c<#C3474B>t<#C2434C>e<#C2404D>d<#C13D4D>:  <#C0374F>Y<#C0344F>e<#BF3150>s" to player
+				send " <#CC813E>S<#CC7E3F>u<#CB7B3F>c<#CB7840>c<#CA7541>e<#CA7241>s<#C96F42>s<#C96B43>f<#C86844>u<#C86544>l<#C76245>l<#C75F46>y <#C65947>E<#C55648>x<#C55348>t<#C45049>r<#C44D4A>a<#C34A4A>c<#C3474B>t<#C2434C>e<#C2404D>d<#C13D4D>:  <#C0374F>Y<#C0344F>e<#BF3150>s" to player
 			else:
 				send " <#CC813E>S<#CB7E3F>u<#CB7B3F>c<#CA7740>c<#CA7441>e<#C97142>s<#C96E42>s<#C86B43>f<#C86744>u<#C76444>l<#C76145>l<#C65E46>y <#C55747>E<#C55448>x<#C45149>t<#C44E4A>r<#C34B4A>a<#C3474B>c<#C2444C>t<#C2414C>e<#C13E4D>d<#C13B4E>:  <#C0344F>N<#BF3150>o" to player
 			
