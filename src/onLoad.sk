@@ -28,7 +28,7 @@ on load:
     add "ancient debris" to {ores::*}
 
     loop 10 times:
-        set {lootBoxPoints::%loop-iteration%} to 500 * loop-iteration
+        set {lootBoxPoints::%loop-iteration%} to 750 * loop-iteration
     # Pickaxe Names
     set {pickaxe::tier::stone} to "&b&lStone Pickaxe"
     set {pickaxe::tier::iron} to "&b&lIron Pickaxe"
