@@ -1,5 +1,39 @@
-# TODO list updated 12/31/2025
+# 3/18/2026
 
+## Multiplyer support
+- [ ] Validate that multipler players can start their own independent game. Change all variables to include %player% at the end
+    - [x] All variables have been validated to have %player%
+
+## Website support
+- [ ] Create a website that hosts the variable infromation from each game
+
+## Booster cards
+- Booster cards are unlockables that can be obtained through playing the game. These cards can be selected in the spawn to benefit the next run.
+- Cards should be able to unlock randomly
+- After a minimum total point threshold has been passed once the player ends their run they will receive a notificaiton saying they unlocked a card
+    - [ ] Vein miner 1-1: Start the run with the vein miner enchant
+    - [ ] Blood lust 1-3: Randomly(5%, 10%, 12%) receive strength 1 after attacking
+    - [ ] Second life: Have a 50% chance of reviving when dying (1 time use per run)
+    - [ ] Extraction expert: Start the run with the Extractor item
+    - [ ] Head master: Start the run with 3 golden heads
+
+## Custom items
+- [ ] Extractor: When used teleports the player to the surface.
+
+## Options
+- [ ] Create a options menu that players can open and change different settings
+    - [ ] Volume
+    - [ ] Enchant procc notification type
+        - [ ] Chat display
+        - [ ] Audio alert
+    - [ ] Skip lootbox animations
+    - [ ] Starting music on/off
+    - [ ] Visual block floating effect on/off
+
+
+
+
+# 12/31/2025
 ## Commands
 - [x] Add a /debug command to give the player 1,000,000 points when starting out
 
@@ -69,18 +103,18 @@
 - [ ] Create a website that hosts the variable infromation from each game
 
 
-## 1/9/2026 Game 2 Testing report to fix
+## 1/9/2026 Game 2 Testing found bugs
 - [x] check buying steak
 - [x] fireball should have a larger power that breaks harder blocks
-- [ ] lootbox rewards are still bad
+- [x] lootbox rewards are still bad
 - [x] Extract location didnt work
 
-## 1/4/2026 Game 1 Testing report to fix
+## 1/4/2026 Game 1 Testing found bugs
 - [x] scaling of the prices do not reflect in the shop
 - [x] dark redstone/lapis ore does not activate vein miner
 - [x] went into negative cash when buying ore duplicate
 - [x] placing tnt doesnt actually take away from inv
-- [?] cannot buy steak
+- [x] cannot buy steak
 - [x] fireball needs to spawn infront of player 2 blocks
 - [x] all armor enchants do not scale in price
 - [x] wind charge explosions give the player ores
