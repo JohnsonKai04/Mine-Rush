@@ -46,6 +46,10 @@ on load:
     set {customItem::grappling hook::Name} to "<#EC9900>&lG<#E69200>&lr<#DF8B01>&la<#D98501>&lp<#D27E02>&lp<#CC7702>&ll<#C57002>&li<#BF6A03>&ln<#B86303>&lg <#AB5504>&lh<#A54F04>&lo<#9E4805>&lo<#984105>&lk"
     set {customItem::grappling hook::Lore} to "<#D3716F>R<#D06B6E>i<#CC646C>g<#C95E6B>h<#C5586A>t <#BE4B67>c<#BB4566>l<#B73E65>i<#B43863>c<#B03162>k <#A9255F>t<#A61E5E>o <#9F125C>u<#9B0B5A>s<#980559>e"
 
+    set {customItem::Extractor::Name} to "<#46F447>E<#4AF33F>x<#4FF337>t<#53F22E>r<#58F226>a<#5CF11E>c<#60F016>t<#65F00D>o<#69EF05>r"
+    set {customItem::Extractor::Lore} to "<#72DBDF>R<#74DBDF>i<#77DBDF>g<#79DBDF>h<#7CDBE0>t <#80DBE0>c<#83DBE0>l<#85DBE0>i<#88DBE0>c<#8ADBE1>k <#8FDCE1>t<#91DCE1>o <#96DCE1>t<#98DCE1>e<#9BDCE2>l<#9DDCE2>e<#A0DCE2>p<#A2DCE2>o<#A4DCE2>r<#A7DCE2>t <#ACDCE3>1<#AEDCE3>5<#B0DCE3>0 <#B5DCE3>b<#B8DCE4>l<#BADCE4>o<#BCDCE4>c<#BFDCE4>k<#C1DCE4>s <#C6DDE4>i<#C8DDE5>n <#CDDDE5>t<#D0DDE5>h<#D2DDE5>e <#D7DDE6>a<#D9DDE6>i<#DCDDE6>r<#DEDDE6>!"
+
+
     set {customItem::shop::name} to "<#6176BB>S<#6C95D2>h<#78B5E8>o<#83D4FF>p"
     # General
     set {spawningHeight} to 150 # the hight at which the player spawns once entering the game

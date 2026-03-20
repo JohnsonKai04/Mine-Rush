@@ -1,5 +1,9 @@
 # 3/18/2026
 
+## On next play test, test:
+- [ ] The Extractor
+- [ ] 
+
 ## Multiplyer support
 - [ ] Validate that multipler players can start their own independent game. Change all variables to include %player% at the end
     - [x] All variables have been validated to have %player%
@@ -18,7 +22,7 @@
     - [ ] Head master: Start the run with 3 golden heads
 
 ## Custom items
-- [ ] Extractor: When used teleports the player to the surface.
+- [x] Extractor: When used teleports the player to the surface.
 
 ## Options
 - [ ] Create a options menu that players can open and change different settings
@@ -30,6 +34,8 @@
     - [ ] Starting music on/off
     - [ ] Visual block floating effect on/off
 
+## Anticheat
+- [ ] Create a custom anticheat that collects data to determine if a run wasnt legit
 
 
 
