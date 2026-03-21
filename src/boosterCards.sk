@@ -1,0 +1,85 @@
+# Card ID'S
+# 0: 
+# 1: 
+on load:
+	set {card::0} to a golden pickaxe named "Vein Miner" with lore "Start the run with the vein miner enchant"
+	set {card::1} to a redstone named "Blood Lust" with lore "Randomly receive strength 1 after attacking"
+	set {card::2} to a totem of undying named "Second Life" with lore "Have a 50%% chance of reviving when dying (1 time use per run)"
+	set {card::3} to a recovery compass named "Extraction expert" with lore "Start the run with the Extractor item"
+	set {card::4} to a player head named "Head Master" with lore "Start the run with golden heads"
+	set {cardMaxLevel::0} to 1
+	set {cardMaxLevel::1} to 3
+	set {cardMaxLevel::2} to 1
+	set {cardMaxLevel::3} to 1
+	set {cardMaxLevel::4} to 3
+
+
+	# Card ID starts at 0 so we offset the total cards by -1.
+	set {totalCards} to -1
+	loop {card::*}:
+		add 1 to {totalCards}
+
+function unlockCard(p: player) :: boolean:
+	set {_unlockable} to false
+	# Checks to see if the player has unlocked all cards
+	loop {card::*}:
+		if {unlockedCard::%{_p}%::%loop-index%} is not equal to {cardMaxLevel::%loop-index%}:
+			set {_unlockable} to true
+
+	# find a random not unlocked card
+	while {_unlockable} is true:
+		set {_ID} to a random integer between 0 and {totalCards}
+		if {unlockedCard::%{_p}%::%{_ID}%} is not equal to {cardMaxLevel::%{_ID}%}:
+			add 1 to {unlockedCard::%{_p}%::%{_ID}%}
+			set {cardActive::%{_p}%::%{_ID}%} to false
+			return true
+	return false
+
+command /booster:
+	trigger:
+		open chest inventory with 3 rows named "&6&lBooster Cards" to the player
+		set {_inv} to player's current inventory
+		loop {unlockedCard::%player%::*}:
+			set {_ID} to loop-index parsed as integer
+			set slot {_ID} of {_inv} to {card::%{_ID}%}
+			if {cardActive::%player%::%{_ID}%} is true:
+				enchant slot {_ID} of {_inv} with infinity
+
+		loop {card::*}:
+			set {_ID} to loop-index parsed as integer
+			if slot {_ID} of {_inv} is air:
+				set slot {_ID} of {_inv} to barrier named "Not Unlocked"
+
+command /showcards:
+	trigger:
+		send "&4Showing all cards you have:"
+		loop {unlockedCard::%player%::*}:
+			send "ID: %loop-index%, level: %{unlockedCard::%player%::%loop-index%}%, Active: %{cardActive::%player%::%loop-index%}%"
+
+command /unlockRandomCard:
+	trigger:
+		if unlockCard(player) is false:
+			send "error unlocking card" to player
+
+command /clearCards:
+	trigger:
+		delete {unlockedCard::%player%::*}
+		send "All cards have been deleted!" to player
+
+function cardActive(p: player, ID: integer) :: boolean:
+	return {cardActive::%{_p}%::%{_ID}%}
+
+function activateCard(p: player, ID: integer):
+	loop {unlockedCard::%{_p}%::*}:
+		set {cardActive::%{_p}%::%loop-index%} to false
+	set {cardActive::%{_p}%::%{_ID}%} to true
+
+# Booster card menu
+on inventory click:
+	if name of event-inventory is "&6&lBooster Cards":
+		if event-item is set:
+			if event-item is not a barrier:
+				set {_ID} to index of event-slot
+				activateCard(player, {_ID})
+				make player execute command "/booster"
+		cancel event
