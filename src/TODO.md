@@ -11,7 +11,7 @@
 ## Website support
 - [ ] Create a website that hosts the variable infromation from each game
 
-## Booster cards
+## Cards
 - Booster cards are unlockables that can be obtained through playing the game. These cards can be selected in the spawn to benefit the next run.
 - Cards should be able to unlock randomly
 - After a minimum total point threshold has been passed once the player ends their run they will receive a notificaiton saying they unlocked a card
