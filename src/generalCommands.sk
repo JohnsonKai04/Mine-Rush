@@ -75,3 +75,28 @@ function playRandomMusic(p: player):
 on drop:
 	if {inGame::%player%} is true:
 		cancel event
+
+
+function convertToRoman(value: number) :: text:
+	if {_value} is 1:
+		return "I"
+	else if {_value} is 2:
+		return "II"
+	else if {_value} is 3:
+		return "III"
+	else if {_value} is 4:
+		return "IV"
+	else if {_value} is 5:
+		return "V"
+	else if {_value} is 6:
+		return "VI"
+	else if {_value} is 7:
+		return "VII"
+	else if {_value} is 8:
+		return "VIII"
+	else if {_value} is 9:
+		return "IX"
+	else if {_value} is 10:
+		return "X"
+	else:
+		return "0"

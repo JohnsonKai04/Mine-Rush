@@ -181,22 +181,6 @@ function purchaseCustomEnchant(p: player, enchantName: text):
 		send "Charge unscucessful" to {_p}
 	make {_p} execute command "/shop"
 
-function convertToRoman(value: number) :: text:
-	if {_value} is 1:
-		set {_roman} to "I"
-	else if {_value} is 2:
-		set {_roman} to "II"
-	else if {_value} is 3:
-		set {_roman} to "III"
-	else if {_value} is 4:
-		set {_roman} to "IV"
-	else if {_value} is 5:
-		set {_roman} to "V"
-	else:
-		set {_roman} to "0"
-	return {_roman}
-
-
 # Param - _P: player buying
 # Param - _item: item they are buying
 # Param - _count: the amount they are buying (pre determined by the /shop)
