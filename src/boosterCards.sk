@@ -1,12 +1,9 @@
-# Card ID'S
-# 0: 
-# 1: 
 on load:
-	set {card::0} to a golden pickaxe named "Vein Miner" with lore "Start the run with the vein miner enchant"
-	set {card::1} to a redstone named "Blood Lust" with lore "Randomly receive strength 1 after attacking"
-	set {card::2} to a totem of undying named "Second Life" with lore "Have a 50%% chance of reviving when dying (1 time use per run)"
-	set {card::3} to a recovery compass named "Extraction expert" with lore "Start the run with the Extractor item"
-	set {card::4} to a player head named "Head Master" with lore "Start the run with golden heads"
+	set {card::0} to a golden pickaxe named "<#F10CCF>&lVein Miner" with lore "<#E3592F>Start the run with the vein miner enchant"
+	set {card::1} to a redstone named "<#F10CCF>&lBlood Lust" with lore "<#E3592F>Randomly receive strength 1 after attacking"
+	set {card::2} to a totem of undying named "<#F10CCF>&lSecond Life" with lore "<#E3592F>Have a 50%% chance of reviving when dying (1 time use per run)"
+	set {card::3} to a recovery compass named "<#F10CCF>&lExtraction expert" with lore "<#E3592F>Start the run with the Extractor item"
+	set {card::4} to a player head named "<#F10CCF>&lHead Master" with lore "<#E3592F>Start the run with golden heads"
 	set {cardMaxLevel::0} to 1
 	set {cardMaxLevel::1} to 3
 	set {cardMaxLevel::2} to 1
@@ -41,14 +38,19 @@ command /booster:
 		set {_inv} to player's current inventory
 		loop {unlockedCard::%player%::*}:
 			set {_ID} to loop-index parsed as integer
-			set slot {_ID} of {_inv} to {card::%{_ID}%}
+			set {_name} to name of {card::%{_ID}%}
+			set {_name} to {_name} + " %convertToRoman({unlockedCard::%player%::%{_ID}%})%"
+			set slot {_ID} of {_inv} to {card::%{_ID}%} named {_name}
 			if {cardActive::%player%::%{_ID}%} is true:
+				set slot {_ID} of {_inv} to {card::%{_ID}%} named ({_name} + " <#4ED95D>&l[Selected]")
 				enchant slot {_ID} of {_inv} with infinity
+			else:
+				set slot {_ID} of {_inv} to {card::%{_ID}%} named {_name}
 
 		loop {card::*}:
 			set {_ID} to loop-index parsed as integer
 			if slot {_ID} of {_inv} is air:
-				set slot {_ID} of {_inv} to barrier named "Not Unlocked"
+				set slot {_ID} of {_inv} to barrier named "<#F10C28>&lNot Unlocked" with lore "<#F10C7B>Complete runs to unlock a random booster card"
 
 command /showcards:
 	trigger:
