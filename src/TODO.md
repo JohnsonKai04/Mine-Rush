@@ -1,6 +1,6 @@
 # 3/18/2026
 
-## On next play test, test:
+## On next play test, validate:
 - [ ] The Extractor
 - [ ] 
 
