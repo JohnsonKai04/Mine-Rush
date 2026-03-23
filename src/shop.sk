@@ -232,46 +232,46 @@ function openUpgradeShop(p: player):
 
 	# Pickaxe enchants
 	if {enchantCostMultiplier::%{_p}%::efficiency} is set:
-		set slot 2 of {_inv} to enchanted book named "&r&lEfficiency" with lore "&7Cost: %({cost::efficiency} * {enchantCostMultiplier::%{_p}%::efficiency})% Points"
+		set slot 2 of {_inv} to enchanted book named "&r&lEfficiency %convertToRoman({enchantTier::%{_p}%::efficiency} + 1)%" with lore "&7Cost: %({cost::efficiency} * {enchantCostMultiplier::%{_p}%::efficiency})% Points"
 	else:
-		set slot 2 of {_inv} to enchanted book named "&r&lEfficiency" with lore "&7Cost: %{cost::efficiency}% Points"
+		set slot 2 of {_inv} to enchanted book named "&r&lEfficiency I" with lore "&7Cost: %{cost::efficiency}% Points"
 
 	# Pickaxe enchants custom
 	if {enchantCostMultiplier::%{_p}%::veinMiner} is set:
-		set slot 3 of {_inv} to enchanted book named "%{veinMiner::name}% %{customEnchantTier::%{player}%::%{veinMiner}%}%" with lore "&7Cost: %({cost::veinMiner} * {enchantCostMultiplier::%{_p}%::veinMiner})% Points"
+		set slot 3 of {_inv} to enchanted book named "%{veinMiner::name}% %convertToRoman({customEnchantTier::%{_p}%::veinMiner} + 1)%" with lore "&7Cost: %({cost::veinMiner} * {enchantCostMultiplier::%{_p}%::veinMiner})% Points"
 	else:
-		set slot 3 of {_inv} to enchanted book named "%{veinMiner::name}% %{customEnchantTier::%{player}%::%{veinMiner}%}%" with lore "&7Cost: %{cost::veinMiner}% Points"
+		set slot 3 of {_inv} to enchanted book named "%{veinMiner::name}% I" with lore "&7Cost: %{cost::veinMiner}% Points"
 
 
 	if {enchantCostMultiplier::%{_p}%::streak} is set:
-		set slot 4 of {_inv} to enchanted book named "%{streak::name}%" with lore "&7Cost: %({cost::streak} * {enchantCostMultiplier::%{_p}%::streak})% Points"
+		set slot 4 of {_inv} to enchanted book named "%{streak::name}% %convertToRoman({customEnchantTier::%{_p}%::streak} + 1)%" with lore "&7Cost: %({cost::streak} * {enchantCostMultiplier::%{_p}%::streak})% Points"
 	else:
-		set slot 4 of {_inv} to enchanted book named "%{streak::name}%" with lore "&7Cost: %{cost::streak}% Points"
+		set slot 4 of {_inv} to enchanted book named "%{streak::name}% I" with lore "&7Cost: %{cost::streak}% Points"
 	
 	if {enchantCostMultiplier::%{_p}%::oreDuplicate} is set:
-		set slot 5 of {_inv} to enchanted book named "%{oreDuplicate::name}%" with lore "&7Cost: %({cost::oreDuplicate} * {enchantCostMultiplier::%{_p}%::oreDuplicate})% Points"
+		set slot 5 of {_inv} to enchanted book named "%{oreDuplicate::name}% %convertToRoman({customEnchantTier::%{_p}%::oreDuplicate} + 1)%" with lore "&7Cost: %({cost::oreDuplicate} * {enchantCostMultiplier::%{_p}%::oreDuplicate})% Points"
 	else:
-		set slot 5 of {_inv} to enchanted book named "%{oreDuplicate::name}%" with lore "&7Cost: %{cost::oreDuplicate}% Points"
+		set slot 5 of {_inv} to enchanted book named "%{oreDuplicate::name}% I" with lore "&7Cost: %{cost::oreDuplicate}% Points"
 
 	if {enchantCostMultiplier::%{_p}%::luckyMiner} is set:
-		set slot 6 of {_inv} to enchanted book named "%{luckyMiner::name}%" with lore "&7Cost: %({cost::luckyMiner} * {enchantCostMultiplier::%{_p}%::luckyMiner})% Points"
+		set slot 6 of {_inv} to enchanted book named "%{luckyMiner::name}% %convertToRoman({customEnchantTier::%{_p}%::luckyMiner} + 1)%" with lore "&7Cost: %({cost::luckyMiner} * {enchantCostMultiplier::%{_p}%::luckyMiner})% Points"
 	else:
-		set slot 6 of {_inv} to enchanted book named "%{luckyMiner::name}%" with lore "&7Cost: %{cost::luckyMiner}% Points"
+		set slot 6 of {_inv} to enchanted book named "%{luckyMiner::name}% I" with lore "&7Cost: %{cost::luckyMiner}% Points"
 
 	if {enchantCostMultiplier::%{_p}%::lootBoxCollector} is set:
-		set slot 7 of {_inv} to enchanted book named "%{lootBoxCollector::name}%" with lore "&7Cost: %({cost::lootBoxCollector} * {enchantCostMultiplier::%{_p}%::lootBoxCollector})% Points"
+		set slot 7 of {_inv} to enchanted book named "%{lootBoxCollector::name}% %convertToRoman({customEnchantTier::%{_p}%::lootBoxCollector} + 1)%" with lore "&7Cost: %({cost::lootBoxCollector} * {enchantCostMultiplier::%{_p}%::lootBoxCollector})% Points"
 	else:
-		set slot 7 of {_inv} to enchanted book named "%{lootBoxCollector::name}%" with lore "&7Cost: %{cost::lootBoxCollector}% Points"
+		set slot 7 of {_inv} to enchanted book named "%{lootBoxCollector::name}% I" with lore "&7Cost: %{cost::lootBoxCollector}% Points"
 
 	if {enchantCostMultiplier::%{_p}%::hungryMiner} is set:
-		set slot 8 of {_inv} to enchanted book named "%{hungryMiner::name}%" with lore "&7Cost: %({cost::hungryMiner} * {enchantCostMultiplier::%{_p}%::hungryMiner})% Points"
+		set slot 8 of {_inv} to enchanted book named "%{hungryMiner::name}% %convertToRoman({customEnchantTier::%{_p}%::hungryMiner} + 1)%" with lore "&7Cost: %({cost::hungryMiner} * {enchantCostMultiplier::%{_p}%::hungryMiner})% Points"
 	else:
-		set slot 8 of {_inv} to enchanted book named "%{hungryMiner::name}%" with lore "&7Cost: %{cost::hungryMiner}% Points"
+		set slot 8 of {_inv} to enchanted book named "%{hungryMiner::name}% I" with lore "&7Cost: %{cost::hungryMiner}% Points"
 
 	if {enchantCostMultiplier::%{_p}%::fireball} is set:
-		set slot 11 of {_inv} to enchanted book named "%{fireball::name}%" with lore "&7Cost: %({cost::fireball} * {enchantCostMultiplier::%{_p}%::fireball})% Points"
+		set slot 11 of {_inv} to enchanted book named "%{fireball::name}% %convertToRoman({customEnchantTier::%{_p}%::fireball} + 1)%" with lore "&7Cost: %({cost::fireball} * {enchantCostMultiplier::%{_p}%::fireball})% Points"
 	else:
-		set slot 11 of {_inv} to enchanted book named "%{fireball::name}%" with lore "&7Cost: %{cost::fireball}% Points"
+		set slot 11 of {_inv} to enchanted book named "%{fireball::name}% I" with lore "&7Cost: %{cost::fireball}% Points"
 
 	# Swords
 	if {sword::tier::%{_p}%} is not set:
@@ -286,24 +286,24 @@ function openUpgradeShop(p: player):
 	# Sword enchants
 	if {sword::tier::%{_p}%} is set:
 		if {enchantCostMultiplier::%{_p}%::sharpness} is set:
-			set slot 20 of {_inv} to enchanted book named "&r&lSharpness" with lore "&7Cost: %({cost::sharpness} * {enchantCostMultiplier::%{_p}%::sharpness})% Points"
+			set slot 20 of {_inv} to enchanted book named "&r&lSharpness %convertToRoman({enchantTier::%{_p}%::sharpness} + 1)%" with lore "&7Cost: %({cost::sharpness} * {enchantCostMultiplier::%{_p}%::sharpness})% Points"
 		else:
-			set slot 20 of {_inv} to enchanted book named "&r&lSharpness" with lore "&7Cost: %{cost::sharpness}% Points"
+			set slot 20 of {_inv} to enchanted book named "&r&lSharpness I" with lore "&7Cost: %{cost::sharpness}% Points"
 		
 		if {enchantCostMultiplier::%{_p}%::sweeping edge} is set:
-			set slot 21 of {_inv} to enchanted book named "&r&lSweeping Edge" with lore "&7Cost: %({cost::sweeping edge} * {enchantCostMultiplier::%{_p}%::sweeping edge})% Points"
+			set slot 21 of {_inv} to enchanted book named "&r&lSweeping Edge %convertToRoman({enchantTier::%{_p}%::sweeping edge} + 1)%" with lore "&7Cost: %({cost::sweeping edge} * {enchantCostMultiplier::%{_p}%::sweeping edge})% Points"
 		else:
-			set slot 21 of {_inv} to enchanted book named "&r&lSweeping Edge" with lore "&7Cost: %{cost::sweeping edge}% Points"
+			set slot 21 of {_inv} to enchanted book named "&r&lSweeping Edge I" with lore "&7Cost: %{cost::sweeping edge}% Points"
 
 		if {enchantCostMultiplier::%{_p}%::fire aspect} is set:
-			set slot 22 of {_inv} to enchanted book named "&r&lFire Aspect" with lore "&7Cost: %({cost::fire aspect} * {enchantCostMultiplier::%{_p}%::fire aspect})% Points"
+			set slot 22 of {_inv} to enchanted book named "&r&lFire Aspect %convertToRoman({enchantTier::%{_p}%::fire aspect} + 1)%" with lore "&7Cost: %({cost::fire aspect} * {enchantCostMultiplier::%{_p}%::fire aspect})% Points"
 		else:
-			set slot 22 of {_inv} to enchanted book named "&r&lFire Aspect" with lore "&7Cost: %{cost::fire aspect}% Points"
+			set slot 22 of {_inv} to enchanted book named "&r&lFire Aspect I" with lore "&7Cost: %{cost::fire aspect}% Points"
 
 		if {enchantCostMultiplier::%{_p}%::knockback} is set:
-			set slot 23 of {_inv} to enchanted book named "&r&lKnockback" with lore "&7Cost: %({cost::knockback} * {enchantCostMultiplier::%{_p}%::knockback})% Points"
+			set slot 23 of {_inv} to enchanted book named "&r&lKnockback %convertToRoman({enchantTier::%{_p}%::knockback} + 1)%" with lore "&7Cost: %({cost::knockback} * {enchantCostMultiplier::%{_p}%::knockback})% Points"
 		else:
-			set slot 23 of {_inv} to enchanted book named "&r&lKnockback" with lore "&7Cost: %{cost::knockback}% Points"
+			set slot 23 of {_inv} to enchanted book named "&r&lKnockback I" with lore "&7Cost: %{cost::knockback}% Points"
 
 
 	# Armor
@@ -317,14 +317,14 @@ function openUpgradeShop(p: player):
 	# Armor enchants
 	if {armor::tier::%{_p}%} is set:
 		if {enchantCostMultiplier::%{_p}%::protection} is set:
-			set slot 29 of {_inv} to enchanted book named "&r&lProtection" with lore "&7Cost: %({cost::protection} * {enchantCostMultiplier::%{_p}%::protection})% Points"
+			set slot 29 of {_inv} to enchanted book named "&r&lProtection %convertToRoman({enchantTier::%{_p}%::protection} + 1)%" with lore "&7Cost: %({cost::protection} * {enchantCostMultiplier::%{_p}%::protection})% Points"
 		else:
-			set slot 29 of {_inv} to enchanted book named "&r&lProtection" with lore "&7Cost: %{cost::protection}% Points"
+			set slot 29 of {_inv} to enchanted book named "&r&lProtection I" with lore "&7Cost: %{cost::protection}% Points"
 
 		if {enchantCostMultiplier::%{_p}%::thorns} is set:
-			set slot 30 of {_inv} to enchanted book named "&r&lThorns" with lore "&7Cost: %({cost::thorns} * {enchantCostMultiplier::%{_p}%::thorns})% Points"
+			set slot 30 of {_inv} to enchanted book named "&r&lThorns %convertToRoman({enchantTier::%{_p}%::thorns} + 1)%" with lore "&7Cost: %({cost::thorns} * {enchantCostMultiplier::%{_p}%::thorns})% Points"
 		else:
-			set slot 30 of {_inv} to enchanted book named "&r&lThorns" with lore "&7Cost: %{cost::thorns}% Points"
+			set slot 30 of {_inv} to enchanted book named "&r&lThorns I" with lore "&7Cost: %{cost::thorns}% Points"
 
 command /shop:
 	aliases: /s, /market
@@ -358,54 +358,54 @@ on inventory click:
 			purchasePickaxe(player, "netherite pickaxe")
 
 		# Enchants
-		else if display name of event-item is "&lEfficiency ":
+		else if display name of event-item contains "&lEfficiency ":
 			purchaseEnchant(player, "pickaxe", "efficiency")
-		else if display name of event-item is "&lSharpness":
+		else if display name of event-item contains "&lSharpness":
 			purchaseEnchant(player, "sword", "sharpness")
-		else if display name of event-item is "&lFire Aspect":
+		else if display name of event-item contains "&lFire Aspect":
 			purchaseEnchant(player, "sword", "fire aspect")
-		else if display name of event-item is "&lSweeping Edge":
+		else if display name of event-item contains "&lSweeping Edge":
 			purchaseEnchant(player, "sword", "sweeping edge")
-		else if display name of event-item is "&lKnockback":
+		else if display name of event-item contains "&lKnockback":
 			purchaseEnchant(player, "sword", "knockback")
-		else if display name of event-item is "&lProtection":
+		else if display name of event-item contains "&lProtection":
 			purchaseEnchant(player, "armor", "protection")
-		else if display name of event-item is "&lThorns":
+		else if display name of event-item contains "&lThorns":
 			purchaseEnchant(player, "armor", "thorns")
 
 		# Custom enchants
 		else if display name of event-item contains "%{veinMiner::name}%":
 			purchaseCustomEnchant(player, "veinMiner")
-		else if display name of event-item is "%{streak::name}%":
+		else if display name of event-item contains "%{streak::name}%":
 			purchaseCustomEnchant(player, "streak")
-		else if display name of event-item is "%{oreDuplicate::name}%":
+		else if display name of event-item contains "%{oreDuplicate::name}%":
 			purchaseCustomEnchant(player, "oreDuplicate")
-		else if display name of event-item is "%{luckyMiner::name}%":
+		else if display name of event-item contains "%{luckyMiner::name}%":
 			purchaseCustomEnchant(player, "luckyMiner")
-		else if display name of event-item is "%{lootBoxCollector::name}%":
+		else if display name of event-item contains "%{lootBoxCollector::name}%":
 			purchaseCustomEnchant(player, "lootBoxCollector")
-		else if display name of event-item is "%{hungryMiner::name}%":
+		else if display name of event-item contains "%{hungryMiner::name}%":
 			purchaseCustomEnchant(player, "hungryMiner")
-		else if display name of event-item is "%{fireball::name}%":
+		else if display name of event-item contains "%{fireball::name}%":
 			purchaseCustomEnchant(player, "fireball")
 
 
 		# Swords
-		else if display name of event-item is "&lStone Sword":
+		else if display name of event-item contains "&lStone Sword":
 			purchaseWeapon(player, "stone sword")
-		else if display name of event-item is "&lIron Sword":
+		else if display name of event-item contains "&lIron Sword":
 			purchaseWeapon(player, "iron sword")
-		else if display name of event-item is "&lDiamond Sword":
+		else if display name of event-item contains "&lDiamond Sword":
 			purchaseWeapon(player, "diamond sword")
-		else if display name of event-item is "&lNetherite Sword":
+		else if display name of event-item contains "&lNetherite Sword":
 			purchaseWeapon(player, "netherite sword")
 
 		# Armor
-		else if display name of event-item is "&lLeather Armor":
+		else if display name of event-item contains "&lLeather Armor":
 			purchaseArmor(player, "leather armor")
-		else if display name of event-item is "&lIron Armor":
+		else if display name of event-item contains "&lIron Armor":
 			purchaseArmor(player, "iron armor")
-		else if display name of event-item is "&lDiamond Armor":
+		else if display name of event-item contains "&lDiamond Armor":
 			purchaseArmor(player, "diamond armor")
 
 		openUpgradeShop(player)
