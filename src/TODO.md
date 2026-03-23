@@ -1,5 +1,8 @@
 # 3/18/2026
 
+## Issues
+- There are client side mods that hide the players bossbar for some reason right now these mods are (Better F3)
+
 ## On next play test, validate:
 - [ ] The Extractor
 - [ ] 
