@@ -19,7 +19,7 @@
 - Cards should be able to unlock randomly
 - After a minimum total point threshold has been passed once the player ends their run they will receive a notificaiton saying they unlocked a card
     - [ ] Vein miner 1-1: Start the run with the vein miner enchant
-    - [ ] Blood lust 1-3: Randomly(5%, 10%, 12%) receive strength 1 after attacking
+    - [ ] Blood lust 1-3: Randomly(5%, 10%, 15%) receive strength 1 after attacking
     - [ ] Second life: Have a 50% chance of reviving when dying (1 time use per run)
     - [ ] Extraction expert: Start the run with the Extractor item
     - [ ] Head master: Start the run with 3 golden heads
