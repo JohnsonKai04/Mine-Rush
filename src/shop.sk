@@ -198,7 +198,7 @@ function purchaseCustomItem(p: player, item: item, cItem: text):
 			give {_p} {_item} named {customItem::grappling hook::name} with lore {customItem::grappling hook::lore}
 
 function openUtilityShop(p: player):
-	open chest inventory with 6 rows named "&6&lUtility Shop" to {_p}
+	open chest inventory with 6 rows named "&6&lUtility Shop, &2&l%{points::%{_p}%}%" to {_p}
 	set {_inv} to {_p}'s current inventory
 
 	# Blocks
@@ -219,7 +219,7 @@ function openUtilityShop(p: player):
 	set slot 42 of {_inv} to golden apple named "&r&lGolden Head" with lore "&7Cost: %{cost::ghead}% Points"
 
 function openUpgradeShop(p: player):
-	open chest inventory with 6 rows named "&6&lUpgrade Shop" to {_p}
+	open chest inventory with 6 rows named "&6&lUpgrade Shop, &2&l%{points::%{_p}%}%" to {_p}
 	set {_inv} to {_p}'s current inventory
 
 	# Pickaxes
@@ -348,7 +348,7 @@ on inventory click:
 
 		cancel event
 
-	if name of event-inventory is "&6&lUpgrade Shop":
+	if name of event-inventory contains "&6&lUpgrade Shop":
 		# Pickaxes
 		if display name of event-item is "&lIron Pickaxe":
 			purchasePickaxe(player, "iron pickaxe")
