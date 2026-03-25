@@ -3,6 +3,9 @@
 ## Issues
 - There are client side mods that hide the players bossbar for some reason right now these mods are (Better F3)
 
+## Anticheat
+- [ ] Create a custom anticheat that collects data to determine if a run wasnt legit
+
 ## On next play test, validate:
 - [ ] The Extractor
 - [ ] 
@@ -18,11 +21,11 @@
 - Booster cards are unlockables that can be obtained through playing the game. These cards can be selected in the spawn to benefit the next run.
 - Cards should be able to unlock randomly
 - After a minimum total point threshold has been passed once the player ends their run they will receive a notificaiton saying they unlocked a card
-    - [ ] Vein miner 1-1: Start the run with the vein miner enchant
-    - [ ] Blood lust 1-3: Randomly(5%, 10%, 15%) receive strength 1 after attacking
-    - [ ] Second life: Have a 50% chance of reviving when dying (1 time use per run)
-    - [ ] Extraction expert: Start the run with the Extractor item
-    - [ ] Head master: Start the run with 3 golden heads
+    - [x] Vein miner 1-1: Start the run with the vein miner enchant
+    - [x] Blood lust 1-3: Randomly(5%, 10%, 15%) receive strength 1 after attacking
+    - [x] Second life: Have a 50% chance of reviving when dying (1 time use per run)
+    - [x] Extraction expert: Start the run with the Extractor item
+    - [x] Head master: Start the run with 3 golden heads
 
 ## Custom items
 - [x] Extractor: When used teleports the player to the surface.
@@ -36,11 +39,6 @@
     - [ ] Skip lootbox animations
     - [ ] Starting music on/off
     - [ ] Visual block floating effect on/off
-
-## Anticheat
-- [ ] Create a custom anticheat that collects data to determine if a run wasnt legit
-
-
 
 # 12/31/2025
 ## Commands
