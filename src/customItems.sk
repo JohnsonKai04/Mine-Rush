@@ -89,22 +89,32 @@ on place of chest:
 			playLootBoxLegendaryAnimation(player, event-block, 3)
 			add 1 to {currentGameStats::%player%::legendaryLootBoxesOpened}
 
+on break of chest:
+	if {inGame::%player%} is true:
+		cancel event
+function giveRandomLootbox(p: player, l: location):
+	set {_lootbox} to false
+	set {_b} to block at {_l}
+	loop {lootBox::item::*}:
+		if name of {_b} is name of {lootBox::item::%loop-index%}:
+			set {_lootbox} to true
+	if {_lootbox} is false:
+		give {_p} {lootBox::item::common} or {lootBox::item::rare} or {lootBox::item::legendary}
+		phantomOre({_p}, {_b}, "chest")
+		draw 50 of totem of undying at {_l}
+		set block at location of {_b} to air
+
+on rightclick on entity:
+	if {inGame::%player%} is true:
+		if name of event-entity is "Minecart with Chest":
+			giveRandomLootbox(player, location of event-entity)
+			kill event-entity
+			cancel event
+
 on rightclick on Chest:
 	if {inGame::%player%} is true:
-		set {_lootbox} to false
-		loop {lootBox::item::*}:
-			if name of event-block is name of {lootBox::item::%loop-index%}:
-				set {_lootbox} to true
-				send "lootbox" to {_p}
-		if {_lootbox} is false:
-			give player {lootBox::item::common} or {lootBox::item::rare} or {lootBox::item::legendary}
-			phantomOre(player, event-block, "chest")
-			draw 50 of totem of undying at location of event-block
-			set event-block to air
-			send "gave random lootbox" to {_p}
+		giveRandomLootbox(player, location of event-block)
 		cancel event
-		
-	
 
 on drop:
 	loop {pickaxe::tier::*}:
