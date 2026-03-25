@@ -411,7 +411,7 @@ on inventory click:
 		openUpgradeShop(player)
 		cancel event
 
-	if name of event-inventory is "&6&lUtility Shop":
+	if name of event-inventory contains "&6&lUtility Shop":
 		# General items
 		if display name of event-item is "&lSteak":
 			purchaseItem(player, "cooked beef", 16)
