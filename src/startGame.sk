@@ -70,6 +70,9 @@ command /start:
 			give 16 cooked beef to player
 			set {pickaxe::tier::%player%} to "stone"
 
+			veinMinerCard(player)
+			extractionExpertCard(player)
+			headMasterCard(player)
 			# Boss bar
 			set {pointBar::%player%} to boss bar with id "01" with title "&a&lPoints: 0" with color green with progress 0
 			set bar style of {pointBar::%player%} to solid_bar

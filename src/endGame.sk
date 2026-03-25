@@ -20,6 +20,7 @@ function endGame(p: player) :: boolean:
 	delete {pointBar::%{_p}%}
 	delete {streak::value::%{_P}%}
 	delete {enchantCostMultiplier::%{_p}%::*}
+	delete {secondLifeUsed::%{_p}%}
 	killCustomMobs()
 	delete boss bar with id "01"
 
@@ -74,6 +75,8 @@ command /endGame:
 
 on death of player:
 	if {inGame::%victim%} is true:
+		if secondLife(victim) is true:
+			cancel event
 		if attacker is not set:
 			add 1 to {currentGameStats::%victim%::deaths}
 			endGame(victim)

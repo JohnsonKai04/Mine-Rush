@@ -34,6 +34,10 @@ function unlockCard(p: player) :: boolean:
 
 command /booster:
 	trigger:
+		if {inGame::%player%} is true:
+			send "<#F10C31>E<#EF0C31>r<#EE0D31>r<#EC0D30>o<#EA0D30>r<#E80E30>: <#E50E30>Y<#E30E2F>o<#E10F2F>u <#DE0F2F>c<#DC102F>a<#DA102E>n<#D9102E>n<#D7112E>o<#D5112E>t <#D2112D>v<#D0122D>i<#CE122D>e<#CC122D>w<#CB132D>/<#C9132C>a<#C7132C>c<#C5142C>t<#C4142C>i<#C2142C>v<#C0152C>a<#BE152B>t<#BD152B>e <#B9162B>b<#B7162B>o<#B6162A>o<#B4172A>s<#B2172A>t<#B0172A>e<#AF182A>r<#AD1829>c<#AB1829>a<#A91829>r<#A81929>d<#A61929>s <#A21A28>w<#A11A28>h<#9F1A28>i<#9D1B28>l<#9B1B27>e <#981B27>i<#961C27>n<#941C27>g<#931C26>a<#911D26>m<#8F1D26>e" to player
+			stop
+
 		open chest inventory with 3 rows named "&6&lBooster Cards" to the player
 		set {_inv} to player's current inventory
 		loop {unlockedCard::%player%::*}:
@@ -85,3 +89,48 @@ on inventory click:
 				activateCard(player, {_ID})
 				make player execute command "/booster"
 		cancel event
+
+
+
+# Booster card implimentation
+
+# Implimented in startGame.sk
+function veinMinerCard(p: player):
+	if {cardActive::%{_p}%::0} is true:
+		applyCustomEnchant({_p}, "veinMiner")
+
+# Implimented in boosterCards.sk
+function bloodLustCard(p: player):
+	if {cardActive::%{_p}%::1} is true:
+		chance of (5 * {unlockedCard::%{_p}%::1})%:
+			apply potion effect of strength to {_p} for 10 seconds:
+				hide particles
+
+# Implimented in endGame.sk
+function secondLife(p: player) :: boolean:
+	if {cardActive::%{_p}%::2} is true:
+		chance of 50%:
+			set health of {_p} to 5
+			apply potion effect of regeneration 3 to {_p} for 10 seconds
+			apply potion effect of speed 2 to {_p} for 10 seconds
+			set {secondLifeUsed::%{_p}%} to true
+			send "<#4ED95D>&lSaved by [Second Life]" to {_p}
+			play sound "item.totem.use" with volume {settings::volume::%{_p}%} to {_p}
+			return true
+	return false
+
+# Implimented in startGame.sk
+function extractionExpertCard(p: player):
+	if {cardActive::%{_p}%::3} is true:
+		give {_p} 1 recovery compass named {customItem::Extractor::Name} with lore {customItem::Extractor::Lore}
+
+# Implimented in startGame.sk
+function headMasterCard(p: player):
+	if {cardActive::%{_p}%::4} is true:
+		give {_p} skull of ({goldenSkullPlayerName} parsed as offline player) named {customItem::ghead::name} with lore {customItem::ghead::lore}
+		give {_p} skull of ({goldenSkullPlayerName} parsed as offline player) named {customItem::ghead::name} with lore {customItem::ghead::lore}
+		give {_p} skull of ({goldenSkullPlayerName} parsed as offline player) named {customItem::ghead::name} with lore {customItem::ghead::lore}
+
+on damage:
+	if attacker is a player:
+		bloodLustCard(attacker)
