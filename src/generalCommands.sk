@@ -56,10 +56,6 @@ command /MRsettings [<text>] [<integer>]:
 on tab complete of "/MRsettings":
 	set tab completion for position 1 to "volume" and "startingmusic"
 
-function playErrorSound(p: player):
-	set {_pitch} to a random number between -1 and 1
-	play sound "block.note_block.bass" with volume {settings::volume::%{_p}%} and pitch {_pitch} to {_p}
-
 function killCustomMobs():
 	loop {activeCustomMobs::*}:
 		if loop-value is alive:
