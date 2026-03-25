@@ -10,8 +10,7 @@ function chargePlayer(p: player, item: text, multiplier: number = 1) :: boolean:
 
 		# Adds to stat
 		add ({cost::%{_item}%} * {_multiplier}) to {currentGameStats::%{_p}%::pointsSpent}
-		set {_pitch} to a random number from -1 to 1
-		play sound "entity.experience_orb.pickup" with volume {settings::volume::%{_p}%} and pitch {_pitch} to {_p}
+		playDing({_p})
 
 		# Updates boss bar
 		set bar title of {pointBar::%{_p}%} to "&a&lPoints: %{points::%{_p}%}%"
