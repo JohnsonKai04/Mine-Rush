@@ -30,14 +30,14 @@
 - [x] Extractor: When used teleports the player to the surface.
 
 ## Options
-- [ ] Create a options menu that players can open and change different settings
-    - [ ] Volume
-    - [ ] Enchant procc notification type
-        - [ ] Chat display
-        - [ ] Audio alert
-    - [ ] Skip lootbox animations
-    - [ ] Starting music on/off
-    - [ ] Visual block floating effect on/off
+- [x] Create a options menu that players can open and change different settings
+    - [x] Volume
+    - [x] Enchant procc notification type
+        - [x] Chat display
+        - [x] Audio alert
+    - [x] Skip lootbox animations
+    - [x] Starting music on/off
+    - [x] Visual block floating effect on/off
 
 # 12/31/2025
 ## Commands
