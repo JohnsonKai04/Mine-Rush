@@ -44,13 +44,13 @@ on right click using player head or recovery compass:
 				if block at {_height} is air:
 					remove 1 of player's held item from player's inventory
 					send "<#2E94E4>T<#2C8EE0>e<#2987DD>l<#2781D9>e<#257AD6>p<#2374D2>o<#206ECF>r<#1E67CB>t<#1C61C8>i<#1A5BC4>n<#1754C0>g <#1347B9>i<#1041B6>n <#0C34AF>3<#0A2EAB>.<#0727A8>.<#0521A4>." to player
-					playDing(play)
+					playDing(player)
 					wait 1 second
 					send "<#2E94E4>T<#2C8EE0>e<#2987DD>l<#2781D9>e<#257AD6>p<#2374D2>o<#206ECF>r<#1E67CB>t<#1C61C8>i<#1A5BC4>n<#1754C0>g <#1347B9>i<#1041B6>n <#0C34AF>2<#0A2EAB>.<#0727A8>.<#0521A4>." to player
-					playDing(play)
+					playDing(player)
 					wait 1 second
 					send "<#2E94E4>T<#2C8EE0>e<#2987DD>l<#2781D9>e<#257AD6>p<#2374D2>o<#206ECF>r<#1E67CB>t<#1C61C8>i<#1A5BC4>n<#1754C0>g <#1347B9>i<#1041B6>n <#0C34AF>1<#0A2EAB>.<#0727A8>.<#0521A4>." to player
-					playDing(play)
+					playDing(player)
 					wait 1 second
 					teleport player to {_height}
 					set {inFlight::%player%} to true

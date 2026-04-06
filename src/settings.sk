@@ -21,7 +21,7 @@ function openSettingsMenu(p: player):
 		set slot 1 of {_inv} to a sculk sensor named "<#4ED95D>&lVolume" with lore "<#72DBDF>Currently: %%%({settings::volume::%{_p}%} * 100)%"
 		set slot 2 of {_inv} to a bell named "<#4ED95D>&lChat Enchant Notification" with lore "<#72DBDF>Currently: %{settings::chatEnchantNotif::%{_p}%}%"
 		set slot 11 of {_inv} to a bell named "<#4ED95D>&lAudio Enchant Notification" with lore "<#72DBDF>Currently: %{settings::audioEnchantNotif::%{_p}%}%"
-		set slot 3 of {_inv} to a chest named "<#4ED95D>&lLootbox animation" with lore "<#72DBDF>Currenty: %{settings::lootboxAnimation::%{_p}%}%"
+		set slot 3 of {_inv} to a chest named "<#4ED95D>&lLootbox animation" with lore "<#72DBDF>Currently: %{settings::lootboxAnimation::%{_p}%}%"
 		set slot 4 of {_inv} to a jukebox named "<#4ED95D>&lStarting music" with lore "<#72DBDF>Currently: %{settings::startingMusic::%{_p}%}%"
 		set slot 5 of {_inv} to a diamond ore named "<#4ED95D>&lVisual block floating effect" with lore "<#72DBDF>Currently: %{settings::visualBlock::%{_p}%}%"
 
