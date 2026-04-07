@@ -34,10 +34,6 @@ function unlockCard(p: player) :: boolean:
 
 command /booster:
 	trigger:
-		if {inGame::%player%} is true:
-			send "<#F10C31>E<#EF0C31>r<#EE0D31>r<#EC0D30>o<#EA0D30>r<#E80E30>: <#E50E30>Y<#E30E2F>o<#E10F2F>u <#DE0F2F>c<#DC102F>a<#DA102E>n<#D9102E>n<#D7112E>o<#D5112E>t <#D2112D>v<#D0122D>i<#CE122D>e<#CC122D>w<#CB132D>/<#C9132C>a<#C7132C>c<#C5142C>t<#C4142C>i<#C2142C>v<#C0152C>a<#BE152B>t<#BD152B>e <#B9162B>b<#B7162B>o<#B6162A>o<#B4172A>s<#B2172A>t<#B0172A>e<#AF182A>r<#AD1829>c<#AB1829>a<#A91829>r<#A81929>d<#A61929>s <#A21A28>w<#A11A28>h<#9F1A28>i<#9D1B28>l<#9B1B27>e <#981B27>i<#961C27>n<#941C27>g<#931C26>a<#911D26>m<#8F1D26>e" to player
-			stop
-
 		open chest inventory with 3 rows named "&6&lBooster Cards" to the player
 		set {_inv} to player's current inventory
 		loop {unlockedCard::%player%::*}:
@@ -83,12 +79,16 @@ function activateCard(p: player, ID: integer):
 # Booster card menu
 on inventory click:
 	if name of event-inventory is "&6&lBooster Cards":
+		cancel event
+		if {inGame::%player%} is true:
+			send "<#F10C31>E<#EF0C31>r<#ED0D31>r<#EC0D30>o<#EA0D30>r<#E80E30>: <#E40E30>Y<#E20F2F>o<#E10F2F>u <#DD0F2F>c<#DB102F>a<#D9102E>n<#D8102E>n<#D6112E>o<#D4112E>t <#D0122D>a<#CF122D>c<#CD122D>t<#CB132D>i<#C9132D>v<#C7132C>a<#C5142C>t<#C4142C>e <#C0152C>b<#BE152B>o<#BC152B>o<#BB152B>s<#B9162B>t<#B7162A>e<#B5162A>r <#B1172A>c<#B0172A>a<#AE1829>r<#AC1829>d<#AA1829>s <#A71929>w<#A51928>h<#A31A28>i<#A11A28>l<#9F1A28>e <#9C1B27>i<#9A1B27>n <#961C27>a <#931C26>r<#911D26>u<#8F1D26>n" to player
+			playErrorSound(player)
+			stop
 		if event-item is set:
 			if event-item is not a barrier:
 				set {_ID} to index of event-slot
 				activateCard(player, {_ID})
 				make player execute command "/booster"
-		cancel event
 
 
 
@@ -127,9 +127,8 @@ function extractionExpertCard(p: player):
 # Implimented in startGame.sk
 function headMasterCard(p: player):
 	if {cardActive::%{_p}%::4} is true:
-		give {_p} skull of ({goldenSkullPlayerName} parsed as offline player) named {customItem::ghead::name} with lore {customItem::ghead::lore}
-		give {_p} skull of ({goldenSkullPlayerName} parsed as offline player) named {customItem::ghead::name} with lore {customItem::ghead::lore}
-		give {_p} skull of ({goldenSkullPlayerName} parsed as offline player) named {customItem::ghead::name} with lore {customItem::ghead::lore}
+		loop 3 times:
+			give {_p} skull of ({goldenSkullPlayerName} parsed as offline player) named {customItem::ghead::name} with lore {customItem::ghead::lore}
 
 on damage:
 	if attacker is a player:
