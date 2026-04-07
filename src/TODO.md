@@ -1,7 +1,11 @@
-# 3/18/2026
-
 ## Issues
 - There are client side mods that hide the players bossbar for some reason right now these mods are (Better F3)
+
+# 4/6/2026 To Today
+
+## QOL
+- [ ] Damage indecators
+- [ ] Create an array of 100 different spawning points preloaded to avoid needing to load lots of chunks
 
 ## Anticheat
 - [ ] Create a custom anticheat that collects data to determine if a run wasnt legit
@@ -16,6 +20,14 @@
 ## Website support
 - [ ] Create a website that hosts the variable infromation from each game
 
+## Enemy
+- [ ] The curroption: Teleports player to parkour area on contact then teleports them back
+
+
+
+
+
+# 3/18/2026
 ## Cards
 - Booster cards are unlockables that can be obtained through playing the game. These cards can be selected in the spawn to benefit the next run.
 - Cards should be able to unlock randomly
@@ -38,6 +50,7 @@
     - [x] Skip lootbox animations
     - [x] Starting music on/off
     - [x] Visual block floating effect on/off
+
 
 # 12/31/2025
 ## Commands
