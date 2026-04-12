@@ -13,11 +13,12 @@ command /start:
 			send "<#0AFA7C>| <#30D47E>S<#43C07E>t<#55AD7F>a<#689A80>r<#7B8781>t<#8E7381>i<#A16082>n<#B44D83>g <#D92684>u<#EC1385>p <#FF007C>M<#FF0071>i<#FF0067>n<#FF005D>e <#FF0048>R<#FF003E>u<#FF0034>s<#FF002A>h <#FF0015>|" to player
 			#Picks random location and makes sure there is not water below the player (prevents spawning in ocean)
 			while {spawningLocation::X::%player%} is not set:
+				add 1 to {_counter}
 				set {spawningLocation::X::%player%} to a random integer between -100000 and 1000000
 				set {spawningLocation::Z::%player%} to a random integer between -100000 and 1000000
-
 				set {_waterCheck} to location at {spawningLocation::X::%player%}, 62, {spawningLocation::Z::%player%} in world "world"
 				set {_airCheck} to location at {spawningLocation::X::%player%}, {spawningHeight}, {spawningLocation::Z::%player%} in world "world"
+
 				if block at {_waterCheck} is water:
 					delete {spawningLocation::X::%player%}
 				
@@ -27,6 +28,9 @@ command /start:
 				if {debugMode::%player%} is true:
 					if {spawningLocation::X::%player%} is not set:
 						send "&c&lInvalid Location" to player
+				if {_counter} is greater than 10:
+					send "&c&l[Error] No valid spawning positions. Please report" to player
+					cancel event
 				wait 1 tick
 			
 			wait 5 seconds # waits for server to catch up before starting count down
