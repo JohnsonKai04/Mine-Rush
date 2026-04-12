@@ -122,13 +122,15 @@ on spawn:
 		if {inGame::%{_p}%} is true:
 			if {difficulty::%{_p}%} is 1:
 				cancel event
-			set max health of event-entity to round((max health of event-entity) * ({difficulty::%{_p}%} / 3))
+			set max health of event-entity to round((max health of event-entity) * ({difficulty::%{_p}%} / 2))
 			heal event-entity
 			set {_speed} to event-entity's generic movement speed attribute
-			set event-entity's generic movement speed attribute to ({_speed} * ({difficulty::%{_p}%} / 3))
+			set event-entity's generic movement speed attribute to ({_speed} * ({difficulty::%{_p}%} / 2))
 			make last spawned entity despawn on chunk unload
 
-
+on damage:
+	if victim is player:
+		set the damage to damage * ({difficulty::%victim%} / 2)
 # Old on spawn function
 # increase game speed, health of mobs, give mobs armor and stronger weapons, splitting mobs, suprise mob attacks, boss battles?
 # on spawn:
