@@ -34,6 +34,9 @@ function oreDuplicate(p: player, b: block):
 		wait 1 tick
 		set block at location of {_b} to {_new}
 
+		if {settings::chatEnchantNotif::%{_p}%} is true:
+			send "&l%{oreDuplicate::name}% Proc" to {_p}
+
 function luckyMiner(p: player, b: block) :: text:
 	set {_currentType} to "%type of {_b}%"
 	chance of {luckyMiner::chance::%{customEnchantTier::%{_p}%::luckyMiner}%}:
@@ -47,6 +50,9 @@ function luckyMiner(p: player, b: block) :: text:
 				play sound "ENTITY_TURTLE_SHAMBLE" with volume {settings::volume::%{_p}%} at {_b}
 				set {_newType} to loop-value
 				return {_newType}
+
+		if {settings::chatEnchantNotif::%{_p}%} is true:
+			send "&l%{luckyMiner::name}% Proc" to {_p}
 	return {_currentType}
 
 function lootBoxCollector(p: player):
@@ -64,9 +70,14 @@ function lootBoxCollector(p: player):
 			give {_p} {lootBox::item::legendary}
 			send "+1 %name of {lootBox::item::legendary}%" to {_p}
 
+		if {settings::chatEnchantNotif::%{_p}%} is true:
+			send "&l%{LootBoxCollector::name}% Proc" to {_p}
+
 function hungryMiner(p: player):
 	chance of {hungryMiner::chance::%{customEnchantTier::%{_p}%::hungryMiner}%}:
 		add 1 to {_p}'s food level
+		if {settings::chatEnchantNotif::%{_p}%} is true:
+			send "&l%{hungryMiner::name}% Proc" to {_p}
 		
 function fireball(p: player):
 	chance of {fireball::chance::%{customEnchantTier::%{_p}%::fireball}%}:
