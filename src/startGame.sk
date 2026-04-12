@@ -30,7 +30,7 @@ command /start:
 						send "&c&lInvalid Location" to player
 				if {_counter} is greater than 10:
 					send "&c&l[Error] No valid spawning positions. Please report" to player
-					cancel event
+					stop
 				wait 1 tick
 			
 			wait 5 seconds # waits for server to catch up before starting count down
