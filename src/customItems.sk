@@ -68,9 +68,13 @@ on explosion:
 			loop exploded blocks:
 				set {_newPoints} to addPoints({_p}, loop-block)
 				add {_newPoints} to {_points}
-			wait 10 ticks
-			if {_points} is not 0:
-				send action bar "<#22F10C>&l+<#1EE91C>&l%{_points}% <#16D93C>&lP<#13D14D>&lo<#0FC85D>&li<#0BC06D>&ln<#07B87D>&lt<#03B08D>&ls" to {_p}
+			asyncPoints({_p}, {_points})
+
+
+function asyncPoints(p: player, points: integer):
+	wait 10 ticks
+	if {_points} is not 0:
+		send action bar "<#22F10C>&l+<#1EE91C>&l%{_points}% <#16D93C>&lP<#13D14D>&lo<#0FC85D>&li<#0BC06D>&ln<#07B87D>&lt<#03B08D>&ls" to {_p}
 
 on place of chest:
 	if {inGame::%player%} is true:
