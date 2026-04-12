@@ -13,21 +13,17 @@ function endGame(p: player) :: boolean:
 	delete {pickaxe::tier::%{_p}%}
 	delete {sword::tier::%{_p}%}
 	delete {armor::tier::%{_p}%}
-	delete {spawningLocation::*}
+	delete {spawningLocation::Z::%{_p}%}
+	delete {spawningLocation::X::%{_p}%}
 	delete {extractLocation::*}
-	delete {enchantTier::*}
+	delete {enchantTier::%{_p}%::*}
 	delete {customEnchantTier::*}
 	delete {pointBar::%{_p}%}
 	delete {streak::value::%{_P}%}
 	delete {enchantCostMultiplier::%{_p}%::*}
 	delete {secondLifeUsed::%{_p}%}
-	killCustomMobs()
+	# killCustomMobs()     Function not used anymore
 	delete boss bar with id "01"
-
-	execute console command "/gamerule mob_drops true"
-	execute console command "/gamerule block_drops true"
-	execute console command "/gamerule advance_time false"
-	set the difficulty of "world" to peaceful
 
 	clear {_p}'s inventory
 	kill {_p}
@@ -80,3 +76,16 @@ on death of player:
 		if attacker is not set:
 			add 1 to {currentGameStats::%victim%::deaths}
 			endGame(victim)
+		endGame(victim)
+
+
+on disconnect:
+	if {inGame::%player%} is true:
+		set {disconnectTimer::%player%} to now
+
+on join:
+	if {disconnectTimer::%player%} is set:
+		if {disconnectTimer::%player%} > {disconnectTime} ago:
+			send "<#F10C31>Y<#EF0C31>o<#EE0D31>u <#EB0D30>w<#E90D30>e<#E80E30>r<#E60E30>e <#E30E2F>d<#E10F2F>i<#E00F2F>s<#DE0F2F>c<#DD102F>o<#DB102F>n<#DA102E>n<#D8102E>e<#D7112E>c<#D5112E>t<#D3112E>e<#D2112E>d <#CF122D>f<#CD122D>o<#CC122D>r <#C9132C>m<#C7132C>o<#C5142C>r<#C4142C>e <#C1142C>t<#BF152B>h<#BE152B>a<#BC152B>n <#B9162B>%{disconnectTime}% <#B6162A>c<#B4172A>a<#B3172A>u<#B1172A>s<#B0172A>i<#AE1829>n<#AD1829>g <#A91829>t<#A81929>h<#A61929>e <#A31928>r<#A21A28>u<#A01A28>n <#9D1B28>t<#9B1B27>o <#981B27>e<#971C27>x<#951C27>p<#941C27>l<#921C26>o<#911D26>d<#8F1D26>e" to player
+			delete {disconnectTimer::%player%}
+			endGame(player)
