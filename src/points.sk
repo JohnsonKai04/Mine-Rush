@@ -32,7 +32,8 @@ function addPoints(p: player, block: block) :: number:
 	else:
 		send action bar "<#22F10C>&l+<#1EE91C>&l%{_points}% <#16D93C>&lP<#13D14D>&lo<#0FC85D>&li<#0BC06D>&ln<#07B87D>&lt<#03B08D>&ls" to {_p}
 	set bar title of {pointBar::%{_p}%} to "<#22F10C>&lP<#1EE91C>&lo<#1AE12C>&li<#16D93C>&ln<#13D14D>&lt<#0FC85D>&ls<#0BC06D>&l: <#03B08D>&l%{points::%{_p}%}%"
-	phantomOre({_p}, {_block}, {_blockType})
+	if {settings::visualBlock::%{_p}%} is true:
+		phantomOre({_p}, {_block}, {_blockType})
 	return {_points}
 
 
@@ -54,9 +55,9 @@ function phantomOre(p: player, block: block, type: text):
 		if {_distance} > 50:
 			stop loop
 		if {_distance} > 0.5:
-			set vector length of {_vector} to 0.5
+			set vector length of {_vector} to 1
 			teleport {_stand} to {_current} ~ {_vector}
-		if {_distance} <= 0.5:
+		else:
 			stop loop
 		wait 1 tick
 	wait 2 ticks
