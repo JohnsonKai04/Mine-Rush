@@ -56,6 +56,7 @@ on load:
     set {pointMultiplier} to 1.0 # the base multiplier
     set {defaultSpeed} to 15 seconds # This is the amount of minutes it takes for each difficulty. ignore the "seconds" due to how the speed is calculated
     set {goldenSkullPlayerName} to "babyhunter512"
+    set {disconnectTime} to 1.5 hours  # The amount of time a player can be disconnected for before killing them inGame
     delete {inFlight::*}
 
     # Enchants
@@ -93,8 +94,6 @@ on load:
     set {lootBox::item::rare} to a chest named "<#0F158E>R<#182F98>a<#2049A1>r<#2963AB>e <#3B98BE>B<#43B2C7>o<#4CCCD1>x" with lore {lootBox::item::lore}
     set {lootBox::chance::rare} to 35
     set {lootBox::item::legendary} to a chest named "<#FA0AEA>L<#F80BDA>e<#F70CCA>g<#F50EBA>e<#F40FAA>n<#F2109A>d<#F1118A>a<#EF1279>r<#ED1369>y <#EA1649>B<#E91739>o<#E71829>x" with lore {lootBox::item::lore}
-    #set {lootBox::chance::legendary} this is not needed due to if the previous two rarities dont roll this has to roll (Default 50 + 35 = 85, 100 - 85 = 15% chance of giving a legendary box)
-
 
     set {hungryMiner::hungerPoints} to 1
     set {hungryMiner::chance::1} to 1%
