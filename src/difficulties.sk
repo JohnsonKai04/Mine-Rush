@@ -129,8 +129,9 @@ on spawn:
 			make last spawned entity despawn on chunk unload
 
 on damage:
-	if victim is player:
-		set the damage to damage * ({difficulty::%victim%} / 2)
+	if {inGame::%victim%} is true:
+		if victim is player:
+			set the damage to damage * ({difficulty::%victim%} / 2)
 # Old on spawn function
 # increase game speed, health of mobs, give mobs armor and stronger weapons, splitting mobs, suprise mob attacks, boss battles?
 # on spawn:
