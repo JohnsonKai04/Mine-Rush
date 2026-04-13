@@ -1,3 +1,7 @@
+on rightclick holding a stone pickaxe, iron pickaxe, diamond pickaxe, or netherite pickaxe:
+	if {inGame::%player%} is true:
+		fireball(player)
+
 function veinMiner(p: player, b: block):
 	chance of {veinMiner::chance::%{customEnchantTier::%{_p}%::veinMiner}%}:
 		set {_blockType} to type of {_b}
@@ -92,7 +96,3 @@ function fireball(p: player):
 			set {_remaining} to difference between {_difference} and 60 seconds
 			playErrorSound({_p})
 			send "<#F10C31>C<#EE0C31>o<#EB0D30>o<#E90D30>l<#E60E30>d<#E30E2F>o<#E00F2F>w<#DD0F2F>n <#D8102E>s<#D5112E>t<#D2112E>i<#CF122D>l<#CD122D>l <#C7132C>a<#C4142C>c<#C1142C>t<#BF152B>i<#BC152B>v<#B9162B>e <#B3172A>p<#B1172A>l<#AE1829>e<#AB1829>a<#A81929>s<#A51929>e <#A01A28>w<#9D1B28>a<#9A1B27>i<#971C27>t<#951C27>: <#8F1D26>%{_remaining}%!" to {_p}
-
-on rightclick holding a stone pickaxe, iron pickaxe, diamond pickaxe, or netherite pickaxe:
-	if {inGame::%player%} is true:
-		fireball(player)

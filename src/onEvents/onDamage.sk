@@ -1,0 +1,5 @@
+on damage:
+	if {inGame::%attacker%} is true:
+		bloodLustCard(attacker)
+	if {inGame::%victim%} is true:
+		set the damage to damage * ({difficulty::%victim%} / 2)

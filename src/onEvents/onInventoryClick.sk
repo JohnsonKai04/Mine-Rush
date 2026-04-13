@@ -1,0 +1,211 @@
+on inventory click:
+
+    # ------------------------------------------------------
+    #          BOOSTER CARDS
+    # ------------------------------------------------------
+	if name of event-inventory is "&6&lBooster Cards":
+		cancel event
+		if {inGame::%player%} is true:
+			send "<#F10C31>E<#EF0C31>r<#ED0D31>r<#EC0D30>o<#EA0D30>r<#E80E30>: <#E40E30>Y<#E20F2F>o<#E10F2F>u <#DD0F2F>c<#DB102F>a<#D9102E>n<#D8102E>n<#D6112E>o<#D4112E>t <#D0122D>a<#CF122D>c<#CD122D>t<#CB132D>i<#C9132D>v<#C7132C>a<#C5142C>t<#C4142C>e <#C0152C>b<#BE152B>o<#BC152B>o<#BB152B>s<#B9162B>t<#B7162A>e<#B5162A>r <#B1172A>c<#B0172A>a<#AE1829>r<#AC1829>d<#AA1829>s <#A71929>w<#A51928>h<#A31A28>i<#A11A28>l<#9F1A28>e <#9C1B27>i<#9A1B27>n <#961C27>a <#931C26>r<#911D26>u<#8F1D26>n" to player
+			playErrorSound(player)
+			stop
+		if event-item is set:
+			if event-item is not a barrier:
+				set {_ID} to index of event-slot
+				activateCard(player, {_ID})
+				make player execute command "/booster"
+
+    # ------------------------------------------------------
+    #          SETTINGS
+    # ------------------------------------------------------
+	if name of event-inventory is "&6&lSettings":
+		if display name of event-item contains "Volume":
+			open chest inventory with 2 row named "&6&lVolume" to player
+			set {_inv} to player's current inventory
+			loop 11 times:
+				set {_volume} to loop-value - 1
+				set slot {_volume} of {_inv} to a bell named "<#4ED95D>&l%%%({_volume} * 10)%"
+
+		else if display name of event-item contains "Chat Enchant Notification":
+			set {settings::chatEnchantNotif::%player%} to swapBoolean({settings::chatEnchantNotif::%player%})
+
+		else if display name of event-item contains "Audio Enchant Notification":
+			set {settings::audioEnchantNotif::%player%} to swapBoolean({settings::audioEnchantNotif::%player%})
+
+		else if display name of event-item contains "Lootbox animation":
+			set {settings::lootboxAnimation::%player%} to swapBoolean({settings::lootboxAnimation::%player%})
+
+		else if display name of event-item contains "Starting music":
+			set {settings::startingMusic::%player%} to swapBoolean({settings::startingMusic::%player%})
+
+		else if display name of event-item contains "Visual block floating effect":
+			set {settings::visualBlock::%player%} to swapBoolean({settings::visualBlock::%player%})
+
+		else if display name of event-item contains "Reset All Settings To Default":
+			setDefaultSettings(player)
+
+		if display name of event-item is set:
+			if display name of event-item does not contain "volume":
+				playDing(player)
+				openSettingsMenu(player)
+		cancel event
+
+	if name of event-inventory is "&6&lVolume":
+		set {_volume} to index of event-slot / 10
+		set {settings::volume::%player%} to {_volume}
+		playDing(player)
+		openSettingsMenu(player)
+		cancel event
+        
+    # ------------------------------------------------------
+    #          SHOP
+    # ------------------------------------------------------
+	if name of event-inventory is "&6&lShop":
+		if display name of event-item is "&6&lUtilies":
+			openUtilityShop(player)
+		if display name of event-item is "&6&lUpgrades":
+			openUpgradeShop(player)
+
+		cancel event
+
+	if name of event-inventory contains "&6&lUpgrade Shop":
+		# Pickaxes
+		if display name of event-item is "&lIron Pickaxe":
+			purchasePickaxe(player, "iron pickaxe")
+		else if display name of event-item is "&lDiamond Pickaxe":
+			purchasePickaxe(player, "diamond pickaxe")
+		else if display name of event-item is "&lNetherite Pickaxe":
+			purchasePickaxe(player, "netherite pickaxe")
+
+		# Enchants
+		else if display name of event-item contains "&lEfficiency ":
+			purchaseEnchant(player, "pickaxe", "efficiency")
+		else if display name of event-item contains "&lSharpness":
+			purchaseEnchant(player, "sword", "sharpness")
+		else if display name of event-item contains "&lFire Aspect":
+			purchaseEnchant(player, "sword", "fire aspect")
+		else if display name of event-item contains "&lSweeping Edge":
+			purchaseEnchant(player, "sword", "sweeping edge")
+		else if display name of event-item contains "&lKnockback":
+			purchaseEnchant(player, "sword", "knockback")
+		else if display name of event-item contains "&lProtection":
+			purchaseEnchant(player, "armor", "protection")
+		else if display name of event-item contains "&lThorns":
+			purchaseEnchant(player, "armor", "thorns")
+
+		# Custom enchants
+		else if display name of event-item contains "%{veinMiner::name}%":
+			purchaseCustomEnchant(player, "veinMiner")
+		else if display name of event-item contains "%{streak::name}%":
+			purchaseCustomEnchant(player, "streak")
+		else if display name of event-item contains "%{oreDuplicate::name}%":
+			purchaseCustomEnchant(player, "oreDuplicate")
+		else if display name of event-item contains "%{luckyMiner::name}%":
+			purchaseCustomEnchant(player, "luckyMiner")
+		else if display name of event-item contains "%{lootBoxCollector::name}%":
+			purchaseCustomEnchant(player, "lootBoxCollector")
+		else if display name of event-item contains "%{hungryMiner::name}%":
+			purchaseCustomEnchant(player, "hungryMiner")
+		else if display name of event-item contains "%{fireball::name}%":
+			purchaseCustomEnchant(player, "fireball")
+
+
+		# Swords
+		else if display name of event-item contains "&lStone Sword":
+			purchaseWeapon(player, "stone sword")
+		else if display name of event-item contains "&lIron Sword":
+			purchaseWeapon(player, "iron sword")
+		else if display name of event-item contains "&lDiamond Sword":
+			purchaseWeapon(player, "diamond sword")
+		else if display name of event-item contains "&lNetherite Sword":
+			purchaseWeapon(player, "netherite sword")
+
+		# Armor
+		else if display name of event-item contains "&lLeather Armor":
+			purchaseArmor(player, "leather armor")
+		else if display name of event-item contains "&lIron Armor":
+			purchaseArmor(player, "iron armor")
+		else if display name of event-item contains "&lDiamond Armor":
+			purchaseArmor(player, "diamond armor")
+
+		openUpgradeShop(player)
+		cancel event
+
+	if name of event-inventory contains "&6&lUtility Shop":
+		# General items
+		if display name of event-item is "&lSteak":
+			purchaseItem(player, "cooked beef", 16)
+		else if display name of event-item is "&lLadder":
+			purchaseItem(player, "ladder", 16)
+		else if display name of event-item is "&lWind charges":
+			purchaseItem(player, "wind charge", 8)
+		else if display name of event-item is "&lAndesite":
+			purchaseItem(player, "andesite", 64)
+		else if display name of event-item is "&lTorches":
+			purchaseItem(player, "torch", 32)
+		else if display name of event-item is "&lWater Bucket":
+			purchaseItem(player, "water bucket", 1)
+		else if display name of event-item is "&lScaffolding":
+			purchaseItem(player, "scaffolding", 32)
+		else if display name of event-item is "&lTnt":
+			purchaseItem(player, "tnt", 8)
+		else if display name of event-item is "&lShield":
+			purchaseItem(player, "shield", 1)
+
+		# Custom Items
+		else if display name of event-item is "&lGolden Head":
+			purchaseCustomItem(player, stone, "ghead")
+		else if display name of event-item is "&lGrappling Hook":
+			purchaseCustomItem(player, fishing rod, "grappling hook")
+
+		openUtilityShop(player)
+		cancel event
+
+    # ------------------------------------------------------
+    #          STATS/LEADERBOARD
+    # ------------------------------------------------------
+	if name of event-inventory is "&6&lGames Played":
+		cancel event
+		set {_ID} to display name of event-item
+		if {_ID} is set:
+			send "<#7C4D24>|<#7B4C24>-<#7A4A24>-<#784924>-<#774724>-<#764623>-<#754423>-<#734323>-<#724123>-<#714023>-<#703E23>-<#6E3D23>- <#6C3A23>G<#6B3923>a<#6A3722>m<#683622>e <#663322>#<#653122>%{_ID}% <#622E22>S<#612D22>t<#602B22>a<#5E2A22>t<#5D2821>s<#5C2721>: <#5A2421>-<#582321>-<#572121>-<#562021>-<#551E21>-<#531D21>-<#521B21>-<#511A20>-<#501820>-<#4E1720>-<#4D1520>-<#4C1420>|" to player
+			send " " to player
+			
+			if {gameStats::%player%::%{_ID}%::sucessfullExtracts} is 1:
+				send " <#CC813E>S<#CC7E3F>u<#CB7B3F>c<#CB7840>c<#CA7541>e<#CA7241>s<#C96F42>s<#C96B43>f<#C86844>u<#C86544>l<#C76245>l<#C75F46>y <#C65947>E<#C55648>x<#C55348>t<#C45049>r<#C44D4A>a<#C34A4A>c<#C3474B>t<#C2434C>e<#C2404D>d<#C13D4D>:  <#C0374F>Y<#C0344F>e<#BF3150>s" to player
+			else:
+				send " <#CC813E>S<#CB7E3F>u<#CB7B3F>c<#CA7740>c<#CA7441>e<#C97142>s<#C96E42>s<#C86B43>f<#C86744>u<#C76444>l<#C76145>l<#C65E46>y <#C55747>E<#C55448>x<#C45149>t<#C44E4A>r<#C34B4A>a<#C3474B>c<#C2444C>t<#C2414C>e<#C13E4D>d<#C13B4E>:  <#C0344F>N<#BF3150>o" to player
+			
+			if {gameStats::%player%::%{_ID}%::totalPoints} is set:
+				send " <#CC813E>T<#CB7D3F>o<#CB7940>t<#CA7541>a<#C97142>l <#C86943>P<#C76544>o<#C76145>i<#C65D46>n<#C65947>t<#C55548>s <#C44D4A>E<#C3494B>a<#C2454C>r<#C2414C>n<#C13D4D>e<#C0394E>d<#C0354F>:  %{gameStats::%player%::%{_ID}%::totalPoints}%" to player
+			else:
+				send " <#CC813E>T<#CB7D3F>o<#CB7940>t<#CA7541>a<#C97142>l <#C86943>P<#C76544>o<#C76145>i<#C65D46>n<#C65947>t<#C55548>s <#C44D4A>E<#C3494B>a<#C2454C>r<#C2414C>n<#C13D4D>e<#C0394E>d<#C0354F>:  0" to player
+		
+			if {gameStats::%player%::%{_ID}%::pointsSpent} is set:
+				send " <#CC813E>P<#CB7E3F>o<#CB7B3F>i<#CA7740>n<#CA7441>t<#C97142>s <#C86B43>S<#C86744>p<#C76444>e<#C76145>n<#C65E46>t <#C55747>A<#C55448>t <#C44E4A>T<#C34B4A>h<#C3474B>e <#C2414C>S<#C13E4D>h<#C13B4E>o<#C0374F>p<#C0344F>:  %{gameStats::%player%::%{_ID}%::pointsSpent}%" to player
+			else:
+				send " <#CC813E>P<#CB7E3F>o<#CB7B3F>i<#CA7740>n<#CA7441>t<#C97142>s <#C86B43>S<#C86744>p<#C76444>e<#C76145>n<#C65E46>t <#C55747>A<#C55448>t <#C44E4A>T<#C34B4A>h<#C3474B>e <#C2414C>S<#C13E4D>h<#C13B4E>o<#C0374F>p<#C0344F>:  0" to player
+	
+			if {gameStats::%player%::%{_ID}%::mobKills} is set:
+				send " <#CC813E>M<#CB7A40>o<#CA7441>b<#C96D43>s <#C76046>K<#C65947>i<#C45249>l<#C34C4A>l<#C2454C>e<#C13E4D>d<#C0384F>:  %{gameStats::%player%::%{_ID}%::mobKills}%" to player
+			else:
+				send " <#CC813E>M<#CB7A40>o<#CA7441>b<#C96D43>s <#C76046>K<#C65947>i<#C45249>l<#C34C4A>l<#C2454C>e<#C13E4D>d<#C0384F>:  0" to player
+
+			if {gameStats::%player%::%{_ID}%::commonLootBoxesOpened} is set:
+				send " <#CC813E>C<#CB7E3F>o<#CB7B3F>m<#CA7740>m<#CA7441>o<#C97142>n <#C86B43>l<#C86744>o<#C76444>o<#C76145>t <#C65B47>b<#C55747>o<#C55448>x<#C45149>e<#C44E4A>s <#C3474B>o<#C2444C>p<#C2414C>e<#C13E4D>n<#C13B4E>e<#C0374F>d<#C0344F>:  %{gameStats::%player%::%{_ID}%::commonLootBoxesOpened}%" to player
+			else:
+				send " <#CC813E>C<#CB7E3F>o<#CB7B3F>m<#CA7740>m<#CA7441>o<#C97142>n <#C86B43>l<#C86744>o<#C76444>o<#C76145>t <#C65B47>b<#C55747>o<#C55448>x<#C45149>e<#C44E4A>s <#C3474B>o<#C2444C>p<#C2414C>e<#C13E4D>n<#C13B4E>e<#C0374F>d<#C0344F>:  0" to player
+			
+			if {gameStats::%player%::%{_ID}%::rareLootBoxesOpened} is set:
+				send " <#CC813E>R<#CB7E3F>a<#CB7A40>r<#CA7740>e <#C97042>l<#C96C43>o<#C86943>o<#C76544>t <#C65E46>b<#C65B47>o<#C55747>x<#C55448>e<#C45049>s <#C3494B>o<#C2464B>p<#C2424C>e<#C13F4D>n<#C13B4E>e<#C0384E>d<#C0344F>:  %{gameStats::%player%::%{_ID}%::rareLootBoxesOpened}%" to player
+			else:
+				send " <#CC813E>R<#CB7E3F>a<#CB7A40>r<#CA7740>e <#C97042>l<#C96C43>o<#C86943>o<#C76544>t <#C65E46>b<#C65B47>o<#C55747>x<#C55448>e<#C45049>s <#C3494B>o<#C2464B>p<#C2424C>e<#C13F4D>n<#C13B4E>e<#C0384E>d<#C0344F>:  0" to player
+		
+			if {gameStats::%player%::%{_ID}%::legendaryLootBoxesOpened} is set:
+				send " <#CC813E>L<#CC7E3F>e<#CB7B3F>g<#CB7840>e<#CA7641>n<#CA7341>d<#C97042>a<#C96D43>r<#C86A43>y <#C76444>l<#C76245>o<#C65F46>o<#C65C46>t <#C55648>b<#C55348>o<#C45049>x<#C44E4A>e<#C34B4A>s <#C2454C>o<#C2424C>p<#C13F4D>e<#C13C4D>n<#C03A4E>e<#C0374F>d<#BF344F>:  %{gameStats::%player%::%{_ID}%::legendaryLootBoxesOpened}%" to player
+			else:
+				send " <#CC813E>L<#CC7E3F>e<#CB7B3F>g<#CB7840>e<#CA7641>n<#CA7341>d<#C97042>a<#C96D43>r<#C86A43>y <#C76444>l<#C76245>o<#C65F46>o<#C65C46>t <#C55648>b<#C55348>o<#C45049>x<#C44E4A>e<#C34B4A>s <#C2454C>o<#C2424C>p<#C13F4D>e<#C13C4D>n<#C03A4E>e<#C0374F>d<#BF344F>:  0" to player
+	
+			send " " to player
+			send "<#7C4D24>|<#7B4B24>-<#794A24>-<#784824>-<#774724>-<#754523>-<#744423>-<#734223>-<#714023>-<#703F23>-<#6F3D23>-<#6D3C23>-<#6C3A23>-<#6B3823>-<#693722>-<#683522>-<#673422>-<#653222>-<#643122>-<#632F22>-<#612D22>-<#602C22>-<#5F2A22>-<#5D2921>-<#5C2721>-<#5B2521>-<#592421>-<#582221>-<#572121>-<#551F21>-<#541E21>-<#531C21>-<#511A20>-<#501920>-<#4F1720>-<#4D1620>-<#4C1420>|" to player
+			close the inventory of the player

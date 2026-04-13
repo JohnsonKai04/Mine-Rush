@@ -1,0 +1,30 @@
+on drop:
+	if {inGame::%player%} is true:
+		cancel event
+
+on explosion:
+	set {_p} to nearest player in radius 50 around event-position
+	if {inGame::%{_p}%} is true:
+		if event-entity is tnt or large fireball:
+			set {_loc} to event-position
+			set {_points} to 0
+			loop exploded blocks:
+				set {_newPoints} to addPoints({_p}, loop-block)
+				add {_newPoints} to {_points}
+			asyncPoints({_p}, {_points})
+
+on break of chest:
+	if {inGame::%player%} is true:
+		cancel event
+
+on rightclick on entity:
+	if {inGame::%player%} is true:
+		if name of event-entity is "Minecart with Chest":
+			giveRandomLootbox(player, location of event-entity)
+			kill event-entity
+			cancel event
+
+on rightclick on Chest:
+	if {inGame::%player%} is true:
+		giveRandomLootbox(player, location of event-block)
+		cancel event

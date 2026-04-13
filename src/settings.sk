@@ -1,5 +1,7 @@
-on first join:
-	setDefaultSettings(player)
+command /settings:
+	aliases: /options, /configuration
+	trigger:
+		openSettingsMenu(player)
 
 function setDefaultSettings(p: player):
 	set {settings::volume::%{_p}%} to 5
@@ -8,11 +10,6 @@ function setDefaultSettings(p: player):
 	set {settings::lootboxAnimation::%{_p}%} to true
 	set {settings::startingMusic::%{_p}%} to true
 	set {settings::visualBlock::%{_p}%} to true
-
-command /settings:
-	aliases: /options, /configuration
-	trigger:
-		openSettingsMenu(player)
 
 function openSettingsMenu(p: player):
 		open chest inventory with 3 rows named "&6&lSettings" to {_p}
@@ -26,46 +23,6 @@ function openSettingsMenu(p: player):
 		set slot 5 of {_inv} to a diamond ore named "<#4ED95D>&lVisual block floating effect" with lore "<#72DBDF>Currently: %{settings::visualBlock::%{_p}%}%"
 
 		set slot 26 of {_inv} to a barrier named "Reset All Settings To Default"
-
-on inventory click:
-	if name of event-inventory is "&6&lSettings":
-		if display name of event-item contains "Volume":
-			open chest inventory with 2 row named "&6&lVolume" to player
-			set {_inv} to player's current inventory
-			loop 11 times:
-				set {_volume} to loop-value - 1
-				set slot {_volume} of {_inv} to a bell named "<#4ED95D>&l%%%({_volume} * 10)%"
-
-		else if display name of event-item contains "Chat Enchant Notification":
-			set {settings::chatEnchantNotif::%player%} to swapBoolean({settings::chatEnchantNotif::%player%})
-
-		else if display name of event-item contains "Audio Enchant Notification":
-			set {settings::audioEnchantNotif::%player%} to swapBoolean({settings::audioEnchantNotif::%player%})
-
-		else if display name of event-item contains "Lootbox animation":
-			set {settings::lootboxAnimation::%player%} to swapBoolean({settings::lootboxAnimation::%player%})
-
-		else if display name of event-item contains "Starting music":
-			set {settings::startingMusic::%player%} to swapBoolean({settings::startingMusic::%player%})
-
-		else if display name of event-item contains "Visual block floating effect":
-			set {settings::visualBlock::%player%} to swapBoolean({settings::visualBlock::%player%})
-
-		else if display name of event-item contains "Reset All Settings To Default":
-			setDefaultSettings(player)
-
-		if display name of event-item is set:
-			if display name of event-item does not contain "volume":
-				playDing(player)
-				openSettingsMenu(player)
-		cancel event
-
-	if name of event-inventory is "&6&lVolume":
-		set {_volume} to index of event-slot / 10
-		set {settings::volume::%player%} to {_volume}
-		playDing(player)
-		openSettingsMenu(player)
-		cancel event
 
 function swapBoolean(v: boolean) :: boolean:
 	if {_v} is true:

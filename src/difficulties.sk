@@ -1,3 +1,15 @@
+on spawn:
+	if event-entity is a monster:
+		set {_p} to nearest player in radius 80 around event-entity
+		if {inGame::%{_p}%} is true:
+			if {difficulty::%{_p}%} is 1:
+				cancel event
+			set max health of event-entity to round((max health of event-entity) * ({difficulty::%{_p}%} / 2))
+			heal event-entity
+			set {_speed} to event-entity's generic movement speed attribute
+			set event-entity's generic movement speed attribute to ({_speed} * ({difficulty::%{_p}%} / 2))
+			make last spawned entity despawn on chunk unload
+
 function setHealthOfMob(mob: entity, h: number):
 	set {_h} to {_h} / 2
 	set max health of {_mob} to {_h}
@@ -115,75 +127,6 @@ function difficultyBegin(p: player):
 				stop # Stops difficulty from increasing
 		if {difficulty::%{_p}%} is not 6:
 			set {pointBar::progress::%{_p}%} to 0
-
-on spawn:
-	if event-entity is a monster:
-		set {_p} to nearest player in radius 80 around event-entity
-		if {inGame::%{_p}%} is true:
-			if {difficulty::%{_p}%} is 1:
-				cancel event
-			set max health of event-entity to round((max health of event-entity) * ({difficulty::%{_p}%} / 2))
-			heal event-entity
-			set {_speed} to event-entity's generic movement speed attribute
-			set event-entity's generic movement speed attribute to ({_speed} * ({difficulty::%{_p}%} / 2))
-			make last spawned entity despawn on chunk unload
-
-on damage:
-	if {inGame::%victim%} is true:
-		if victim is player:
-			set the damage to damage * ({difficulty::%victim%} / 2)
-# Old on spawn function
-# increase game speed, health of mobs, give mobs armor and stronger weapons, splitting mobs, suprise mob attacks, boss battles?
-# on spawn:
-# 	set {_p} to nearest player in radius 80 around event-entity
-# 	if {inGame::%{_p}%} is true:
-# 		if event-entity is a drowned:
-# 			kill event-entity
-# 		if event-entity is a monster:
-# 			if event-entity does not have any potion effects:
-# 				if difference between now and {spawnDelay} is more than 1 second:
-# 					set {_loc} to location of event-entity
-# 					chance of ({difficulty::%{_p}%} * 10)%:
-# 						set {_mobChance} to a random integer between 1 and 3
-# 						if {_mobChance} is 1:
-# 							set {_loopNumber} to a random integer between 3 and 6
-# 							loop {_loopNumber} times:
-# 								spawn a baby zombie at {_loc}
-# 								set {_mob} to the last spawned monster
-# 								apply infinite speed 2 to {_mob}:
-# 									hide particles
-# 								equip {_mob} with leather boots
-# 								setHealthOfMob({_mob}, 5)
-# 								make last spawned entity despawn on chunk unload
-# 								add {_mob} to {activeCustomMobs::*}
-# 								set {spawnDelay} to now
-# 						else if {_mobChance} is 2:
-# 							spawn creaking at {_loc}
-# 							set {_mob} to the last spawned monster
-# 							apply infinite speed 5 to {_mob}:
-# 								hide particles
-# 							apply infinite strength 5 to {_mob}:
-# 								hide particles
-# 							setHealthOfMob({_mob}, 1)
-# 							make last spawned entity despawn on chunk unload
-# 							add {_mob} to {activeCustomMobs::*}
-# 							set {spawnDelay} to now
-# 						else if {_mobChance} is 3:
-# 							set {_loopNumber} to a random integer between 1 and 2
-# 							loop {_loopNumber} times:
-# 								spawn zombie at {_loc}
-# 								set {_mob} to the last spawned monster
-# 								apply infinite slowness 4 to {_mob}:
-# 									hide particles
-# 								apply infinite resistance 2 to {_mob}:
-# 									hide particles
-# 								equip {_mob} with iron boots, and iron leggings, and iron chestplate
-# 								make last spawned entity despawn on chunk unload
-# 								add {_mob} to {activeCustomMobs::*}
-# 								set {spawnDelay} to now
-# 						cancel event
-# 				else if {spawnDelay} is not set:
-# 					set {spawnDelay} to now
 
 # THIS FUNCTION IS NEVER USED 
 function findValidMobSpawn(p: player) :: location:

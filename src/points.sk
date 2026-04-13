@@ -1,3 +1,7 @@
+on mine:
+	if {inGame::%player%} is true:
+		addPoints(player, event-block)
+
 function addPoints(p: player, block: block) :: number:
 	set {_blockType} to "%type of {_block}%"
 	loop {ores::*}:
@@ -35,11 +39,6 @@ function addPoints(p: player, block: block) :: number:
 	if {settings::visualBlock::%{_p}%} is true:
 		phantomOre({_p}, {_block}, {_blockType})
 	return {_points}
-
-
-on mine:
-	if {inGame::%player%} is true:
-		addPoints(player, event-block)
 
 function phantomOre(p: player, block: block, type: text):
 	spawn an armor stand at location below {_block} with nbt from "{Invisible:1, Small: 1, NoGravity: 1, Marker: 1b}"

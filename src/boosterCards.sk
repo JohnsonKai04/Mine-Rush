@@ -1,37 +1,3 @@
-on load:
-	set {card::0} to a golden pickaxe named "<#F10CCF>&lVein Miner" with lore "<#E3592F>Start the run with the vein miner enchant"
-	set {card::1} to a redstone named "<#F10CCF>&lBlood Lust" with lore "<#E3592F>Randomly receive strength 1 after attacking"
-	set {card::2} to a totem of undying named "<#F10CCF>&lSecond Life" with lore "<#E3592F>Have a 50%% chance of reviving when dying (1 time use per run)"
-	set {card::3} to a recovery compass named "<#F10CCF>&lExtraction expert" with lore "<#E3592F>Start the run with the Extractor item"
-	set {card::4} to a player head named "<#F10CCF>&lHead Master" with lore "<#E3592F>Start the run with golden heads"
-	set {cardMaxLevel::0} to 1
-	set {cardMaxLevel::1} to 3
-	set {cardMaxLevel::2} to 1
-	set {cardMaxLevel::3} to 1
-	set {cardMaxLevel::4} to 3
-
-
-	# Card ID starts at 0 so we offset the total cards by -1.
-	set {totalCards} to -1
-	loop {card::*}:
-		add 1 to {totalCards}
-
-function unlockCard(p: player) :: boolean:
-	set {_unlockable} to false
-	# Checks to see if the player has unlocked all cards
-	loop {card::*}:
-		if {unlockedCard::%{_p}%::%loop-index%} is not equal to {cardMaxLevel::%loop-index%}:
-			set {_unlockable} to true
-
-	# find a random not unlocked card
-	while {_unlockable} is true:
-		set {_ID} to a random integer between 0 and {totalCards}
-		if {unlockedCard::%{_p}%::%{_ID}%} is not equal to {cardMaxLevel::%{_ID}%}:
-			add 1 to {unlockedCard::%{_p}%::%{_ID}%}
-			set {cardActive::%{_p}%::%{_ID}%} to false
-			return true
-	return false
-
 command /booster:
 	trigger:
 		open chest inventory with 3 rows named "&6&lBooster Cards" to the player
@@ -76,20 +42,21 @@ function activateCard(p: player, ID: integer):
 		set {cardActive::%{_p}%::%loop-index%} to false
 	set {cardActive::%{_p}%::%{_ID}%} to true
 
-# Booster card menu
-on inventory click:
-	if name of event-inventory is "&6&lBooster Cards":
-		cancel event
-		if {inGame::%player%} is true:
-			send "<#F10C31>E<#EF0C31>r<#ED0D31>r<#EC0D30>o<#EA0D30>r<#E80E30>: <#E40E30>Y<#E20F2F>o<#E10F2F>u <#DD0F2F>c<#DB102F>a<#D9102E>n<#D8102E>n<#D6112E>o<#D4112E>t <#D0122D>a<#CF122D>c<#CD122D>t<#CB132D>i<#C9132D>v<#C7132C>a<#C5142C>t<#C4142C>e <#C0152C>b<#BE152B>o<#BC152B>o<#BB152B>s<#B9162B>t<#B7162A>e<#B5162A>r <#B1172A>c<#B0172A>a<#AE1829>r<#AC1829>d<#AA1829>s <#A71929>w<#A51928>h<#A31A28>i<#A11A28>l<#9F1A28>e <#9C1B27>i<#9A1B27>n <#961C27>a <#931C26>r<#911D26>u<#8F1D26>n" to player
-			playErrorSound(player)
-			stop
-		if event-item is set:
-			if event-item is not a barrier:
-				set {_ID} to index of event-slot
-				activateCard(player, {_ID})
-				make player execute command "/booster"
+function unlockCard(p: player) :: boolean:
+	set {_unlockable} to false
+	# Checks to see if the player has unlocked all cards
+	loop {card::*}:
+		if {unlockedCard::%{_p}%::%loop-index%} is not equal to {cardMaxLevel::%loop-index%}:
+			set {_unlockable} to true
 
+	# find a random not unlocked card
+	while {_unlockable} is true:
+		set {_ID} to a random integer between 0 and {totalCards}
+		if {unlockedCard::%{_p}%::%{_ID}%} is not equal to {cardMaxLevel::%{_ID}%}:
+			add 1 to {unlockedCard::%{_p}%::%{_ID}%}
+			set {cardActive::%{_p}%::%{_ID}%} to false
+			return true
+	return false
 
 
 # Booster card implimentation
@@ -129,7 +96,3 @@ function headMasterCard(p: player):
 	if {cardActive::%{_p}%::4} is true:
 		loop 3 times:
 			give {_p} skull of ({goldenSkullPlayerName} parsed as offline player) named {customItem::ghead::name} with lore {customItem::ghead::lore}
-
-on damage:
-	if attacker is a player:
-		bloodLustCard(attacker)
