@@ -61,6 +61,11 @@ function phantomOre(p: player, block: block, type: text):
 			stop loop
 		wait 1 tick
 	wait 2 ticks
+	playItemPickup({_p})
 	set {_killZone} to location of {_p} ~ vector(0, -20, 0)
 	teleport {_stand} to {_killZone}
 	kill {_stand}
+
+function playItemPickup(p: player):
+	set {_pitch} to a random number between 0.5 and 1.5
+	play sound "entity.item.pickup" with pitch {_pitch} to {_p}
