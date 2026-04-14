@@ -64,6 +64,8 @@ function unlockCard(p: player) :: boolean:
 # Implimented in startGame.sk
 function veinMinerCard(p: player):
 	if {cardActive::%{_p}%::0} is true:
+		add 1 to {customEnchantTier::%{_p}%::veinMiner}
+		set {enchantCostMultiplier::%{_p}%::%{_enchantName}%} to {customEnchantTier::%{_p}%::%{_enchantName}%} * 2
 		applyCustomEnchant({_p}, "veinMiner")
 
 # Implimented in boosterCards.sk
