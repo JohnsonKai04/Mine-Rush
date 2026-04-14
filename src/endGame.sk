@@ -40,6 +40,7 @@ command /endGame:
 	trigger:
 		if endGame(player) is true:
 			add 1 to {currentGameStats::%player%::deaths}
+			kill player
 		else:
 			send "You are currently not in the game" to player
 
@@ -51,27 +52,10 @@ command /endGame:
 # Clears inventoy and kills the player to return them to spawn
 function endGame(p: player) :: boolean:
 	delete {inGame::%{_p}%}
+	remove {_p} from {pointBar::%{_p}%}
 
 	updateLeaderboard({_p}, {points::%{_p}%})
-
-	delete {difficulty::%{_p}%}
-	delete {points::%{_p}%}
-	delete {pickaxe::tier::%{_p}%}
-	delete {sword::tier::%{_p}%}
-	delete {armor::tier::%{_p}%}
-	delete {spawningLocation::Z::%{_p}%}
-	delete {spawningLocation::X::%{_p}%}
-	delete {extractLocation::*}
-	delete {enchantTier::%{_p}%::*}
-	delete {customEnchantTier::*}
-	delete {pointBar::%{_p}%}
-	delete {streak::value::%{_P}%}
-	delete {enchantCostMultiplier::%{_p}%::*}
-	delete {secondLifeUsed::%{_p}%}
-	delete boss bar with id "01"
-
-	clear {_p}'s inventory
-	kill {_p}
+	deletePlayerVariables({_p})
 
 	#stats
 	set {_ID} to 0
@@ -90,3 +74,19 @@ function endGame(p: player) :: boolean:
 	delete {currentGameStats::%{_p}%::*}
 	
 	return true
+
+
+function deletePlayerVariables(p: player):
+	delete {difficulty::%{_p}%}
+	delete {points::%{_p}%}
+	delete {pickaxe::tier::%{_p}%}
+	delete {sword::tier::%{_p}%}
+	delete {armor::tier::%{_p}%}
+	delete {spawningLocation::Z::%{_p}%}
+	delete {spawningLocation::X::%{_p}%}
+	delete {enchantTier::%{_p}%::*}
+	delete {customEnchantTier::%{_p}%::*}
+	delete {pointBar::%{_p}%}
+	delete {streak::value::%{_P}%}
+	delete {enchantCostMultiplier::%{_p}%::*}
+	delete {secondLifeUsed::%{_p}%}

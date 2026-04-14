@@ -78,7 +78,7 @@ command /start:
 			extractionExpertCard(player)
 			headMasterCard(player)
 			# Boss bar
-			set {pointBar::%player%} to boss bar with id "01" with title "&a&lPoints: 0" with color green with progress 0
+			set {pointBar::%player%} to boss bar with title "&a&lPoints: 0" with color green with progress 0
 			set bar style of {pointBar::%player%} to solid_bar
 			if {debugMode::%player%} is true:
 				set {points::%player%} to 24000000
@@ -88,8 +88,13 @@ command /start:
 
 			# Sets upgrades to defaults
 			add 1 to {currentGameStats::%player%::gamesStarted}
+
+
 			# Starts the difficulty timer (see difficulties.sk)
 			difficultyBegin(player)
+
+
+
 
 function asyncAircheck(p: player):
 	while block below {_p} is air:
