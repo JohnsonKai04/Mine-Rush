@@ -4,12 +4,13 @@ command /settings:
 		openSettingsMenu(player)
 
 function setDefaultSettings(p: player):
-	set {settings::volume::%{_p}%} to 5
+	set {settings::volume::%{_p}%} to 0.5
 	set {settings::chatEnchantNotif::%{_p}%} to true
 	set {settings::audioEnchantNotif::%{_p}%} to true
 	set {settings::lootboxAnimation::%{_p}%} to true
 	set {settings::startingMusic::%{_p}%} to true
 	set {settings::visualBlock::%{_p}%} to true
+	set {settings::audioBlock::%{_p}%} to true
 
 function openSettingsMenu(p: player):
 		open chest inventory with 3 rows named "&6&lSettings" to {_p}
@@ -21,6 +22,7 @@ function openSettingsMenu(p: player):
 		set slot 3 of {_inv} to a chest named "<#4ED95D>&lLootbox animation" with lore "<#72DBDF>Currently: %{settings::lootboxAnimation::%{_p}%}%"
 		set slot 4 of {_inv} to a jukebox named "<#4ED95D>&lStarting music" with lore "<#72DBDF>Currently: %{settings::startingMusic::%{_p}%}%"
 		set slot 5 of {_inv} to a diamond ore named "<#4ED95D>&lVisual block floating effect" with lore "<#72DBDF>Currently: %{settings::visualBlock::%{_p}%}%"
+		set slot 14 of {_inv} to a diamond ore named "<#4ED95D>&lAudio block effect" with lore "<#72DBDF>Currently: %{settings::audioBlock::%{_p}%}%"
 
 		set slot 26 of {_inv} to a barrier named "Reset All Settings To Default"
 
@@ -29,7 +31,6 @@ function swapBoolean(v: boolean) :: boolean:
 		return false
 	else:
 		return true
-
 
 function playDing(p: player):
 	playSound({_p}, "entity.experience_orb.pickup", -1, 1)

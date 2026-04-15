@@ -41,6 +41,9 @@ on inventory click:
 		else if display name of event-item contains "Visual block floating effect":
 			set {settings::visualBlock::%player%} to swapBoolean({settings::visualBlock::%player%})
 
+		else if display name of event-item contains "Audio block effect":
+			set {settings::audioBlock::%player%} to swapBoolean({settings::audioBlock::%player%})
+
 		else if display name of event-item contains "Reset All Settings To Default":
 			setDefaultSettings(player)
 
