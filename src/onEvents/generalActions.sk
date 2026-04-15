@@ -1,6 +1,6 @@
 # Prevents the player from droping items
 on drop:
-	if {inGame::%player%} is true:
+	if {debugMode::%player%} is not true:
 		cancel event
 
 # Awards points to the nearest player when an explosion happens
