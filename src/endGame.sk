@@ -2,10 +2,11 @@ on death of player:
 	if {inGame::%victim%} is true:
 		if secondLife(victim) is true:
 			cancel event
-		if attacker is not set:
+		if attacker is set:
 			add 1 to {currentGameStats::%victim%::deaths}
 			endGame(victim)
-		endGame(victim)
+		else:
+			endGame(victim)
 
 
 on disconnect:
@@ -32,6 +33,7 @@ on right click on beacon:
 		wait 6 seconds
 		make player vulnerable
 		add 1 to {currentGameStats::%player%::sucessfullExtracts}
+		kill player
 		endGame(player)
 
 
