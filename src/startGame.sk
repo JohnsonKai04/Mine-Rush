@@ -90,8 +90,6 @@ command /start:
 		difficultyBegin(player)
 
 
-
-
 function asyncAircheck(p: player):
 	while block below {_p} is air:
 		wait 10 ticks
