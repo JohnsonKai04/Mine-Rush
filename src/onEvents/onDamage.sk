@@ -1,5 +1,31 @@
 on damage:
 	if {inGame::%attacker%} is true:
+		spawnIndicator(attacker, location of victim, damage, health of victim, max health of victim)
 		bloodLustCard(attacker)
 	if {inGame::%victim%} is true:
 		set the damage to damage * ({difficulty::%victim%} / 2)
+
+function spawnIndicator(p: player, l: location, d: number, h: number, maxH: number):
+	set {_color} to (({_h} / {_maxH}) * 100)
+	if {_color} >= 75:
+		set {_color} to "&a"
+	else if {_color} >= 50:
+		set {_color} to "&e"
+	else if {_color} >= 25:
+		set {_color} to "&6"
+	else:
+		set {_color} to "&4"
+
+
+	set {_current} to location above {_l}
+	set {_vector} to vector from {_current} to {_p}
+	set {_distance} to distance between {_current} and {_target}
+	set vector length of {_vector} to 0.5
+	set {_location} to {_current} ~ {_vector}
+	set {_random::*} to 3 random numbers from -0.2 to 0.2
+	set {_location} to {_location} ~ vector({_random::1},{_random::2},{_random::3})
+	spawn an armor stand at {_location} with nbt from "{CustomName: ""%{_color}%%{_d}%"", CustomNameVisible:1, Invisible:1, NoGravity: 1, Marker: 1b}"
+	set {_stand} to last spawned armor stand
+	wait 10 ticks
+	teleport {_stand} to location of {_stand} ~ vector(0, -20, 0)
+	kill {_stand}
