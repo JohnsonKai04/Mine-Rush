@@ -3,8 +3,9 @@ on spawn:
 		set {_p} to nearest player in radius 80 around event-entity
 		if {inGame::%{_p}%} is true:
 			# Mobs do not spawn for the first 15 minutes
-			if {difficulty::%{_p}%} is 1: 
-				cancel event
+			if {difficulty::%{_p}%} is 1:
+				if {debugMode::%{_p}%} is not true:
+					cancel event
 			set max health of event-entity to round((max health of event-entity) * ({difficulty::%{_p}%} / 2))
 			heal event-entity
 			set {_speed} to event-entity's generic movement speed attribute
