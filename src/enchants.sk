@@ -2,6 +2,7 @@ on rightclick holding a stone pickaxe, iron pickaxe, diamond pickaxe, or netheri
 	if {inGame::%player%} is true:
 		fireball(player)
 
+		
 function veinMiner(p: player, b: block):
 	chance of {veinMiner::chance::%{customEnchantTier::%{_p}%::veinMiner}%}:
 		set {_blockType} to type of {_b}
@@ -30,6 +31,7 @@ function streak(p: player) :: number:
 		set {streak::timer::%{_p}%} to now
 		return {streak::value::%{_p}%}
 
+
 function oreDuplicate(p: player, b: block):
 	chance of {oreDuplicate::chance::%{customEnchantTier::%{_p}%::oreDuplicate}%}:
 		play sound "BLOCK_AMETHYST_BLOCK_STEP" with volume {settings::volume::%{_p}%} at location of {_b}
@@ -40,6 +42,7 @@ function oreDuplicate(p: player, b: block):
 
 		if {settings::chatEnchantNotif::%{_p}%} is true:
 			send "&l%{oreDuplicate::name}% Proc" to {_p}
+
 
 function luckyMiner(p: player, b: block) :: text:
 	set {_currentType} to "%type of {_b}%"
@@ -59,6 +62,7 @@ function luckyMiner(p: player, b: block) :: text:
 			send "&l%{luckyMiner::name}% Proc" to {_p}
 	return {_currentType}
 
+
 function lootBoxCollector(p: player):
 	chance of {lootBoxCollector::chance::%{customEnchantTier::%{_p}%::lootBoxCollector}%}:
 		set {_chance} to a random integer between 1 and 100
@@ -77,12 +81,14 @@ function lootBoxCollector(p: player):
 		if {settings::chatEnchantNotif::%{_p}%} is true:
 			send "&l%{LootBoxCollector::name}% Proc" to {_p}
 
+
 function hungryMiner(p: player):
 	chance of {hungryMiner::chance::%{customEnchantTier::%{_p}%::hungryMiner}%}:
 		add 1 to {_p}'s food level
 		if {settings::chatEnchantNotif::%{_p}%} is true:
 			send "&l%{hungryMiner::name}% Proc" to {_p}
 		
+
 function fireball(p: player):
 	chance of {fireball::chance::%{customEnchantTier::%{_p}%::fireball}%}:
 		if {cooldown::fireball::%{_p}%} is not set:
@@ -96,3 +102,4 @@ function fireball(p: player):
 			set {_remaining} to difference between {_difference} and 60 seconds
 			playErrorSound({_p})
 			send "<#F10C31>C<#EE0C31>o<#EB0D30>o<#E90D30>l<#E60E30>d<#E30E2F>o<#E00F2F>w<#DD0F2F>n <#D8102E>s<#D5112E>t<#D2112E>i<#CF122D>l<#CD122D>l <#C7132C>a<#C4142C>c<#C1142C>t<#BF152B>i<#BC152B>v<#B9162B>e <#B3172A>p<#B1172A>l<#AE1829>e<#AB1829>a<#A81929>s<#A51929>e <#A01A28>w<#9D1B28>a<#9A1B27>i<#971C27>t<#951C27>: <#8F1D26>%{_remaining}%!" to {_p}
+

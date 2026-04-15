@@ -84,6 +84,7 @@ function asyncPoints(p: player, points: integer):
 	if {_points} is not 0:
 		send action bar "<#22F10C>&l+<#1EE91C>&l%{_points}% <#16D93C>&lP<#13D14D>&lo<#0FC85D>&li<#0BC06D>&ln<#07B87D>&lt<#03B08D>&ls" to {_p}
 
+
 function giveRandomLootbox(p: player, l: location):
 	set {_lootbox} to false
 	set {_b} to block at {_l}
@@ -108,7 +109,9 @@ function playLootBoxCommonAnimation(p: player, b: block, m: integer):
 		set {_pitch} to a random number between -1 and 2
 		play sound "block.amethyst_block.chime" with volume {settings::volume::%{_p}%} and pitch {_pitch} at location of {_b}
 		wait 10 ticks
+
 	lootBoxRewardPoints({_p}, {_b}, {_m})
+
 
 function playLootBoxRareAnimation(p: player, b: block, m: integer):
 	loop 10 times:
@@ -118,6 +121,7 @@ function playLootBoxRareAnimation(p: player, b: block, m: integer):
 	open lid of {_b}
 	wait 2 seconds
 	lootBoxRewardPoints({_p}, {_b}, {_m})
+
 
 function playLootBoxLegendaryAnimation(p: player, b: block, m: integer):
 	open the lid of {_b}
@@ -129,11 +133,13 @@ function playLootBoxLegendaryAnimation(p: player, b: block, m: integer):
 		set {_pitch} to a random number between -1 and 1
 		play sound "block.note_block.bell" with volume {settings::volume::%{_p}%} and pitch {_pitch} at {_loc}
 		wait 0.5 seconds
+
 	wait 0.5 seconds
 	launch ball large colored red, and black at {_loc} with duration 0
 	wait 2 ticks
 	kill {_stand}
 	lootBoxRewardPoints({_p}, {_b}, {_m})
+
 
 function lootBoxRewardPoints(p: player, b: block, m: integer):
 	set block at {_b} to air
@@ -148,6 +154,7 @@ function lootBoxRewardPoints(p: player, b: block, m: integer):
 		set {_points} to a random integer between ({lootBoxPoints::5} * {_m}) and ({lootBoxPoints::6} * {_m})
 	else:
 		set {_points} to a random integer between ({lootBoxPoints::7} * {_m}) and ({lootBoxPoints::8} * {_m})
+
 	add {_points} to {points::%{_p}%}
 	add {_points} to {currentGameStats::%{_p}%::totalPoints}
 	set {_color::*} to 3 random integers between 0 and 255

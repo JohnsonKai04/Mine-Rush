@@ -1,7 +1,8 @@
+# Prevents the chunk from being saved while inGame
 on player chunk unload:
 	if {inGame::%player%} is true:
 		unload event-chunk without saving
- # 20 per tick
+
 command /generateSpawnPoints [<integer>]:
 	trigger:
 		set {_overallTime} to now

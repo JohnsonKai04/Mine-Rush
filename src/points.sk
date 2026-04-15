@@ -2,6 +2,7 @@ on mine:
 	if {inGame::%player%} is true:
 		addPoints(player, event-block)
 
+		
 function addPoints(p: player, block: block) :: number:
 	set {_blockType} to "%type of {_block}%"
 	loop {ores::*}:
@@ -40,6 +41,7 @@ function addPoints(p: player, block: block) :: number:
 		phantomOre({_p}, {_block}, {_blockType})
 	return {_points}
 
+
 function phantomOre(p: player, block: block, type: text):
 	spawn an armor stand at location below {_block} with nbt from "{Invisible:1, Small: 1, NoGravity: 1, Marker: 1b}"
 	set {_stand} to last spawned armor stand
@@ -65,6 +67,7 @@ function phantomOre(p: player, block: block, type: text):
 	set {_killZone} to location of {_p} ~ vector(0, -20, 0)
 	teleport {_stand} to {_killZone}
 	kill {_stand}
+
 
 function playItemPickup(p: player):
 	set {_pitch} to a random number between 0.5 and 1.5

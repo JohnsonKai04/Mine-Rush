@@ -1,2 +1,3 @@
+# Sets the default settings for the player located in ../settings.sk
 on first join:
     setDefaultSettings(player)

@@ -3,6 +3,7 @@ command /settings:
 	trigger:
 		openSettingsMenu(player)
 
+		
 function setDefaultSettings(p: player):
 	set {settings::volume::%{_p}%} to 0.5
 	set {settings::chatEnchantNotif::%{_p}%} to true
@@ -11,6 +12,7 @@ function setDefaultSettings(p: player):
 	set {settings::startingMusic::%{_p}%} to true
 	set {settings::visualBlock::%{_p}%} to true
 	set {settings::audioBlock::%{_p}%} to true
+
 
 function openSettingsMenu(p: player):
 		open chest inventory with 3 rows named "&6&lSettings" to {_p}
@@ -26,18 +28,23 @@ function openSettingsMenu(p: player):
 
 		set slot 26 of {_inv} to a barrier named "Reset All Settings To Default"
 
+
 function swapBoolean(v: boolean) :: boolean:
 	if {_v} is true:
 		return false
 	else:
 		return true
 
+
 function playDing(p: player):
 	playSound({_p}, "entity.experience_orb.pickup", -1, 1)
+
 
 function playErrorSound(p: player):
 	playSound({_p}, "block.note_block.bass", -1, 1)
 
+
 function playSound(p: player, sound: text, lowP: number, highP: number):
 	set {_pitch} to a random number between {_lowP} and {_highP}
 	play sound {_sound} with volume {settings::volume::%{_p}%} and pitch {_pitch} to {_p}
+
