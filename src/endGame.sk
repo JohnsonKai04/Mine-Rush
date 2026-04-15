@@ -53,7 +53,7 @@ command /endGame:
 function endGame(p: player) :: boolean:
 	delete {inGame::%{_p}%}
 	remove {_p} from {pointBar::%{_p}%}
-
+	set {validSpawn::active::%{spawnLocation::%{_p}%}%} to false
 	updateLeaderboard({_p}, {points::%{_p}%})
 	deletePlayerVariables({_p})
 
@@ -72,7 +72,6 @@ function endGame(p: player) :: boolean:
 		add {currentGameStats::%{_p}%::%loop-index%} to {overallStats::%{_p}%::%loop-index%}
 
 	delete {currentGameStats::%{_p}%::*}
-	
 	return true
 
 
