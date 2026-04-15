@@ -6,6 +6,7 @@ on damage:
 		set the damage to damage * ({difficulty::%victim%} / 2)
 
 function spawnIndicator(p: player, l: location, d: number, h: number, maxH: number):
+	# Color of damage indector
 	set {_color} to (({_h} / {_maxH}) * 100)
 	if {_color} >= 75:
 		set {_color} to "&a"
@@ -16,7 +17,7 @@ function spawnIndicator(p: player, l: location, d: number, h: number, maxH: numb
 	else:
 		set {_color} to "&4"
 
-
+	# Location of damage indicator
 	set {_current} to location above {_l}
 	set {_vector} to vector from {_current} to {_p}
 	set {_distance} to distance between {_current} and {_target}
