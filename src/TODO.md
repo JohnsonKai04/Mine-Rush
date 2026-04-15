@@ -4,8 +4,8 @@
 # 4/6/2026 To Today
 
 ## QOL
-- [ ] Damage indecators
-- [ ] Create an array of 100 different spawning points preloaded to avoid needing to load lots of chunks
+- [x] Damage indecators
+- [x] Create an array of 100 different spawning points preloaded to avoid needing to load lots of chunks
 
 ## Anticheat
 - [ ] Create a custom anticheat that collects data to determine if a run wasnt legit
