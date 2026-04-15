@@ -7,7 +7,7 @@ on damage:
 
 function spawnIndicator(p: player, l: location, d: number, h: number, maxH: number):
 	# Color of damage indector
-	set {_color} to (({_h} / {_maxH}) * 100)
+	set {_color} to ((({_h} - {_d}) / {_maxH}) * 100)
 	if {_color} >= 75:
 		set {_color} to "&a"
 	else if {_color} >= 50:
