@@ -170,6 +170,11 @@ on inventory click:
 	if name of event-inventory is "&6&lGames Played":
 		cancel event
 		set {_ID} to display name of event-item
+		if event-item is tipped arrow of luck:
+			set {_page::*} to uncolored name of event-item split at " "
+			set {_page} to ({_page::2} parsed as an integer) - 1 # -1 for offset
+			openGamesMenu(player, {_page})
+			stop
 		if {_ID} is set:
 			send "<#7C4D24>|<#7B4C24>-<#7A4A24>-<#784924>-<#774724>-<#764623>-<#754423>-<#734323>-<#724123>-<#714023>-<#703E23>-<#6E3D23>- <#6C3A23>G<#6B3923>a<#6A3722>m<#683622>e <#663322>#<#653122>%{_ID}% <#622E22>S<#612D22>t<#602B22>a<#5E2A22>t<#5D2821>s<#5C2721>: <#5A2421>-<#582321>-<#572121>-<#562021>-<#551E21>-<#531D21>-<#521B21>-<#511A20>-<#501820>-<#4E1720>-<#4D1520>-<#4C1420>|" to player
 			send " " to player

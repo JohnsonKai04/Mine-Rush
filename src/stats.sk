@@ -85,25 +85,47 @@ command /MRstats [<player>]:
 
 command /MRgames:
 	trigger:
-		open chest inventory with 6 rows named "&6&lGames Played" to player
-		set {_inv} to player's current inventory
-		set {_ID} to 0
-		set {_end} to false
-		while {_end} is false:
-			add 1 to {_ID}
-			if {gameStats::%player%::%{_ID}%::*} is set:
-				while {_ore} is not set:
-					set {_ore} to random element out of {ores::*} parsed as an item
-				set slot {_ID} of {_inv} to {_ore} named "%{_ID}%" with lore "<#CC813E>P<#CB7840>l<#C96F42>a<#C86644>y<#C65D46>e<#C55548>d <#C2434C>o<#C03A4E>n<#BF3150>: %{gameStats::%player%::%{_ID}%::timePlayed}%"
-				delete {_ore}
-			else:
-				set {_end} to true
+		openGamesMenu(player, 0)
 
 command /MRgamedelete [<integer>]:
 	permission: mineRush.admin
 	trigger:
 		delete {gameStats::%player%::*}
 		send "GAME DATA HAS BEEN DELETED" to player
+
+
+function openGamesMenu(p: player, page: int = 0):
+	open chest inventory with 6 rows named "&6&lGames Played" to {_p}
+	set {_inv} to {_p}'s current inventory
+	set {_end} to false
+	set {_ID} to ((45 * {_page}) + {_ID})
+	while {_end} is false:
+		add 1 to {_ID}
+		set {_slot} to {_ID} - (45 * {_page})
+		if {_slot} = 46:
+			set {_end} to true
+			set slot 53 of {_inv} to tipped arrow of luck named "&aPage %{_page} + 2%"
+		else:
+			if {gameStats::%{_p}%::%{_ID}%::*} is set:
+				while {_ore} is not set:
+					set {_ore} to random element out of {ores::*} parsed as an item
+				set slot ({_slot} - 1) of {_inv} to {_ore} named "%{_ID}%" with lore "<#CC813E>P<#CB7840>l<#C96F42>a<#C86644>y<#C65D46>e<#C55548>d <#C2434C>o<#C03A4E>n<#BF3150>: %{gameStats::%{_p}%::%{_ID}%::timePlayed}%"
+				delete {_ore}
+			else:
+				set {_end} to true
+		if {_page} >= 1:
+			set slot 45 of {_inv} to tipped arrow of luck named "&aPage %{_page}%"
+
+command /fillGames [<int>]:
+	trigger:
+		loop arg-1 times:
+			set {_true} to true
+			while {_true} is true:
+				add 1 to {_ID}
+				if {gameStats::%player%::%{_ID}%::*} is not set:
+					set {gameStats::%player%::%{_ID}%::timePlayed} to now
+					set {_true} to false
+		send "%arg-1% Games have been filled" to player
 
 # Param - _p: player that is playing
 # Param - _points: the points the player has earned through playing the game, this will be shown on the leaderboard
