@@ -2,6 +2,7 @@ on death of player:
 	if {inGame::%victim%} is true:
 		if secondLife(victim) is true:
 			cancel event
+		clear victim's inventory
 		if attacker is set:
 			add 1 to {currentGameStats::%victim%::deaths}
 			endGame(victim)
