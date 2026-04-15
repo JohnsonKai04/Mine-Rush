@@ -67,4 +67,4 @@ function phantomOre(p: player, block: block, type: text):
 
 function playItemPickup(p: player):
 	set {_pitch} to a random number between 0.5 and 1.5
-	play sound "entity.item.pickup" with pitch {_pitch} to {_p}
+	play sound "entity.item.pickup" with volume {settings::volume::%{_p}%} and pitch {_pitch} to {_p}
