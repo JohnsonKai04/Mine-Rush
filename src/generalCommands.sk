@@ -31,10 +31,13 @@ on tab complete of "/givelootbox":
 command /MRdebug [<boolean>]:
 	permission: mineRush.admin
 	trigger:
-		set {debugMode::%player%} to arg-1
+		if arg-1 is not set:
+			swapBoolean({debugMode::%player%})
+		else:
+			set {debugMode::%player%} to arg-1
 		send "Debug mode: %arg-1%" to player
 on tab complete of "/MRdebug":
-	set tab completion to ""
+	set tab completion to "true" and "false"
 
 command /MRsettings [<text>] [<integer>]:
 	permission: mineRush.settings
@@ -88,6 +91,14 @@ function convertToRoman(value: number) :: text:
 		return "X"
 	else:
 		return "%{_value}%"
+
+
+function swapBoolean(v: boolean) :: boolean:
+	if {_v} is true:
+		return false
+	else:
+		return true
+
 
 # Damage indecators
 function spawnIndicator(p: player, l: location, d: number, h: number, maxH: number):

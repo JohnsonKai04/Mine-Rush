@@ -29,13 +29,6 @@ function openSettingsMenu(p: player):
 		set slot 26 of {_inv} to a barrier named "Reset All Settings To Default"
 
 
-function swapBoolean(v: boolean) :: boolean:
-	if {_v} is true:
-		return false
-	else:
-		return true
-
-
 function playDing(p: player):
 	playSound({_p}, "entity.experience_orb.pickup", -1, 1)
 
