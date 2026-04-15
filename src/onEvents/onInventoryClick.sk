@@ -44,6 +44,9 @@ on inventory click:
 
 		else if display name of event-item contains "Audio block effect":
 			set {settings::audioBlock::%player%} to swapBoolean({settings::audioBlock::%player%})
+		
+		else if display name of event-item contains "Damage indicator":
+			set {settings::damageIndicator::%player%} to swapBoolean({settings::damageIndicator::%player%})
 
 		else if display name of event-item contains "Reset All Settings To Default":
 			setDefaultSettings(player)
