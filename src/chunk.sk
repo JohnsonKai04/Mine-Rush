@@ -1,0 +1,70 @@
+on player chunk unload:
+	if {inGame::%player%} is true:
+		unload event-chunk without saving
+ # 20 per tick
+command /generateSpawnPoints [<integer>]:
+	trigger:
+		set {_overallTime} to now
+		set {stopgen} to false
+		send "Generating %arg-1% spawn points..."
+		loop arg-1 times:
+			set {_timer} to now
+			while {_isValid} is not set:
+				set {_isValid} to true
+				add 1 to {_counter}
+				set {_spawningLocationX} to a random integer between -25000000 and 25000000
+				set {_spawningLocationZ} to a random integer between -25000000 and 25000000
+				set {_waterCheck} to location at {_spawningLocationX}, 62, {_spawningLocationZ} in world "world"
+				set {_spawningLocation} to location at {_spawningLocationX}, {spawningHeight}, {_spawningLocationZ} in world "world"
+
+				if block at {_waterCheck} is water:
+					delete {_isValid}
+				
+				if block at {_spawningLocation} is not air:
+					delete {_isValid}
+				
+				if {_counter} >= 10:
+					send "Error no valid spawns found" to player
+					stop
+			set {_x} to (chunk x of chunk at {_spawningLocation} + 16)
+			set {_z} to (chunk z of chunk at {_spawningLocation} + 16)
+			loop 32 times:
+				loop 32 times:
+					if {stopgen} is true:
+						stop
+					load chunk at {_x},{_z} in world "world"
+					subtract 1 from {_x}
+
+					# 15 Chunks per tick
+					add 1 to {_count}
+					add 1 to {_totalCount}
+					if {_count} is greater than or equal to 3:
+						set {_count} to 0
+						wait 1 tick
+					unload chunk at {_x},{_z} in world "world"
+				add 32 to {_x}
+				subtract 1 from {_z}
+			delete {_isValid}
+			delete {_counter}
+			add {_spawningLocation} to {validSpawn::location::*}
+			add false to {validSpawn::active::*}
+			send "Completed spawning location (%loop-iteration-1%/%arg-1%) at %{_spawningLocation}%." to player
+			send "This generation took: %difference between now and {_timer}% " to player
+			wait 10 ticks
+		send " " to player
+		send "&aAll %arg-1% spawn points have been generated with a time of %difference between now and {_overallTime}%, and %{_totalCount}% chunks generated" to player
+
+command /stopgen:
+	trigger:
+		set {stopgen} to true
+
+
+command /viewValidSpawn:
+	trigger:
+		send "Viewing %size of {validSpawn::location::*}% Different spawns" to player
+		loop {validSpawn::location::*}:
+			send "%loop-value%, %{validSpawn::active::%loop-index%}%" to player
+
+command /clearValidSpawns:
+	trigger:
+		delete {validSpawn::*}

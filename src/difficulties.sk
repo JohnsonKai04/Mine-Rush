@@ -57,6 +57,9 @@ function beginDifficulty5(p: player):
 	# Spawns extract:
 	set {_extractLocation::X} to a random integer between -500 and 500
 	set {_extractLocation::Z} to a random integer between -500 and 500
+	set {spawningLocation::X::%{_p}%} to {_p}'s x coordinate
+	set {spawningLocation::Z::%{_p}%} to {_p}'s z coordinate
+
 	add {spawningLocation::X::%{_p}%} to {_extractLocation::X}
 	add {spawningLocation::Z::%{_p}%} to {_extractLocation::Z}
 	set {_extractLocation::Y} to 310
