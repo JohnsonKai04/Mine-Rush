@@ -1,7 +1,3 @@
-command /test:
-	trigger:
-		send "%{spawnPointer}% / %size of {validSpawn::location::*}%"
-
 command /start:
 	aliases: /startgame, /st, /begin
 	permission: mineRush.start
