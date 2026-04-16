@@ -1,3 +1,7 @@
+command /test:
+	trigger:
+		send "%{spawnPointer}% / %size of {validSpawn::location::*}%"
+
 command /start:
 	aliases: /startgame, /st, /begin
 	permission: mineRush.start
@@ -14,7 +18,7 @@ command /start:
 		# Find spawn location
 		if {spawnPointer} is not set:
 			set {spawnPointer} to 1
-		if {spawnPointer} is equal to size of {validSpawns::*}:
+		if {spawnPointer} is greater than or equal to size of {validSpawn::location::*}:
 			set {spawnPointer} to 1
 		if {validSpawn::location::%{spawnPointer}%} is not set:
 			send "Error no valid spawns found please contact an admin" to player
