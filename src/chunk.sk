@@ -1,12 +1,13 @@
 # Prevents the chunk from being saved while inGame
-on player chunk unload:
-	if {inGame::%player%} is true:
+on chunk unload:
+	if {chunkSaving} is not true:
 		unload event-chunk without saving
 
 command /generateSpawnPoints [<integer>]:
 	trigger:
 		set {_overallTime} to now
 		set {stopgen} to false
+		set {chunkSaving} to true
 		send "Generating %arg-1% spawn points..."
 		loop arg-1 times:
 			set {_timer} to now
@@ -54,6 +55,16 @@ command /generateSpawnPoints [<integer>]:
 			wait 10 ticks
 		send " " to player
 		send "&aAll %arg-1% spawn points have been generated with a time of %difference between now and {_overallTime}%, and %{_totalCount}% chunks generated" to player
+		send "&aChunks are no longer being saved"
+		set {chunkSaving} to false
+
+command /chunksaving [<boolean>]:
+	trigger:
+		if arg-1 is true or false:
+			set {chunkSaving} to arg-1
+			send "chunkSaving is now: %arg-1%" to player
+		else:
+			send "chunkSaving: %{chunkSaving}%" to player
 
 command /stopgen:
 	trigger:
