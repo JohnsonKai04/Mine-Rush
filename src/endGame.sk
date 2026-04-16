@@ -2,13 +2,19 @@ on death of player:
 	if {inGame::%victim%} is true:
 		if secondLife(victim) is true:
 			cancel event
-		clear victim's inventory
-		if attacker is set:
-			add 1 to {currentGameStats::%victim%::deaths}
-			endGame(victim)
 		else:
+			set death message to deathMsg(victim, "%attacker%")
+			cancel event
+			set victim's gamemode to spectator
+			clear victim's inventory
+			showDeathScreen(victim)
+			wait 10 seconds
+			set victim's gamemode to survival
+			wait 1 tick
+			delete {inGame::%victim%}
+			kill victim
 			endGame(victim)
-
+	
 
 on disconnect:
 	if {inGame::%player%} is true:
@@ -21,14 +27,14 @@ on join:
 			delete {disconnectTimer::%player%}
 			endGame(player)
 
-# Once the player right clicks the beacon they gain invulnerability and gain a 1.5x point bonus to their current points.
+# Once the player right clicks the beacon they gain invulnerability and gain a 1.2x point bonus to their current points.
 # after 6 seconds endGame() runs
 on right click on beacon:
 	if {inGame::%player%} is true:
-		set {inGame::%player%} to false
+		delete {inGame::%player%}
 		cancel event
 		make player invulnerable
-		set {_bonus} to 0.5 * {points::%player%}
+		set {_bonus} to round(0.2 * {points::%player%})
 		add {_bonus} to {points::%player%}
 		send "&4&l[Difficult Manager]: &aGood job %player% Lets pull you out! Heres a bonus for your efforts &2&l+%{_bonus}% Points" to player
 		wait 6 seconds
@@ -41,12 +47,25 @@ on right click on beacon:
 command /endGame:
 	cooldown: 10 seconds
 	trigger:
-		if endGame(player) is true:
-			add 1 to {currentGameStats::%player%::deaths}
+		if {inGame::%player%} is true: 
 			kill player
 		else:
-			send "You are currently not in the game" to player
+			send "Error: you are not ingame" to player
 
+command /test:
+	trigger:
+		send deathMsg(player, "Zombie") to player
+function showDeathScreen(p: player):
+	set {_val} to a random integer between 1 and (size of {deathTitle::*})
+	send title "<#AC0C26>%{deathTitle::%{_val}%}%" to {_p}
+
+function deathMsg(p: player, k: text) :: text:
+	set {_val} to a random integer between 1 and (size of {deathMsg::*})
+	set {_msg} to {deathMsg::%{_val}%}
+	replace all "[player]" with "%{_p}%" in {_msg}
+	replace all "[points]" with "%{points::%{_p}%}%" in {_msg}
+	replace all "[killer]" with "%{_k}%" in {_msg}
+	return {_msg}
 
 # Param - _p: player that is playing the game
 # Reutrn - returns true if game has ended successfully, false if player not in game

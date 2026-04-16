@@ -7,6 +7,38 @@ function setPoints(block: text, points: number):
 	set {blockValue::%{_block}%} to {_points}
 
 on load:
+	set {deathTitle::1} to "[RIP]"
+	set {deathTitle::2} to "[DEAD]"
+	set {deathTitle::3} to "[DEAD] lol"
+	set {deathTitle::4} to "WASTED"
+	set {deathTitle::5} to "YOU DIED"
+	set {deathTitle::6} to "GAME OVER"
+	set {deathTitle::7} to "<Insert Death Screen>"
+	set {deathTitle::8} to "Play Again?"
+	set {deathTitle::9} to "☠ ☠ ☠"
+	set {deathTitle::10} to "AAAAAAAAA"
+	set {deathTitle::11} to "☹ ☹ ☹"
+	set {deathTitle::12} to "Already? Just quit ☺"
+	set {deathTitle::13} to "L"
+	set {deathTitle::14} to "You Lost The Game ☺"
+	set {deathTitle::15} to "youtube.com/watch?v=dQw4w9WgXcQ"
+	set {deathTitle::16} to "meow meow?"
+
+	# Death Msg's
+	# [player] - the player who Died
+	# [killer] - the entity that killed the player
+	# [points] - amount of points the player has
+	set {deathMsg::1} to "[player] Should play roblox instead"
+	set {deathMsg::2} to "[player] Died from the grind"
+	set {deathMsg::3} to "[player] Got a job"
+	set {deathMsg::4} to "[player] Exploded with [points] points"
+	set {deathMsg::5} to "[points] fell out of [player]'s pockets"
+	set {deathMsg::6} to "[player] was slain by evil pibble"
+	set {deathMsg::7} to "[killer] stole [points] from [player]"
+	set {deathMsg::8} to "[player] was slain by a tropical fish"
+	set {deathMsg::9} to "[player] was slain by a villager"
+	set {deathMsg::10} to "[player] passed out while trying to mine %a random element out of {ores::*}%"
+
 	set {ores::*} to "coal ore"
 	add "deepslate coal ore" to {ores::*}
 	add "copper ore" to {ores::*}
