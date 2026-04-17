@@ -1,7 +1,6 @@
 on death of mob:
 	if attacker is player:
 		if {inGame::%attacker%} is true:
-			add 1 to {currentGameStats::%attacker%::%victim%}
 			add 1 to {currentGameStats::%attacker%::mobKills}
 
 
@@ -67,19 +66,22 @@ function openGamesMenu(p: player, page: int = 0):
 	while {_end} is false:
 		add 1 to {_ID}
 		set {_slot} to {_ID} - (45 * {_page})
+		load yaml "mineRushData/playerData/%{_p}'s uuid%/game%{_ID}%.yaml" as "file"
 		if {_slot} = 46:
 			set {_end} to true
 			set slot 53 of {_inv} to tipped arrow of luck named "&aPage %{_page} + 2%"
 		else:
-			if {gameStats::%{_p}%::%{_ID}%::*} is set:
+			if yaml path "points" in "file" doesn't have a value:
 				while {_ore} is not set:
 					set {_ore} to random element out of {ores::*} parsed as an item
+				set {_timePlayed} to yaml value "time.timePlayed" from "file"
 				set slot ({_slot} - 1) of {_inv} to {_ore} named "%{_ID}%" with lore "<#CC813E>P<#CB7840>l<#C96F42>a<#C86644>y<#C65D46>e<#C55548>d <#C2434C>o<#C03A4E>n<#BF3150>: %{gameStats::%{_p}%::%{_ID}%::timePlayed}%"
 				delete {_ore}
 			else:
 				set {_end} to true
 		if {_page} >= 1:
 			set slot 45 of {_inv} to tipped arrow of luck named "&aPage %{_page}%"
+		unload yaml "file"
 
 command /fillGames [<int>]:
 	trigger:

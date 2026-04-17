@@ -1,4 +1,5 @@
 on death of player:
+	send "rip" to victim
 	if {inGame::%victim%} is true:
 		if secondLife(victim) is true:
 			cancel event
@@ -34,8 +35,8 @@ on right click on beacon:
 		delete {inGame::%player%}
 		cancel event
 		make player invulnerable
-		set {_bonus} to round(0.2 * {points::%player%})
-		add {_bonus} to {points::%player%}
+		set {pointsBonus::%player%} to round(0.2 * {points::%player%})
+		add {pointsBonus::%player%} to {points::%player%}
 		send "&4&l[Difficult Manager]: &aGood job %player% Lets pull you out! Heres a bonus for your efforts &2&l+%{_bonus}% Points" to player
 		wait 6 seconds
 		make player vulnerable
@@ -52,9 +53,41 @@ command /endGame:
 		else:
 			send "Error: you are not ingame" to player
 
-command /test:
-	trigger:
-		send deathMsg(player, "Zombie") to player
+function saveDataToFile(p: player) :: boolean:
+	set {_ID} to 0
+	set {_completed} to false
+	while {_completed} is false:
+		add 1 to {_ID}
+		load yaml "mineRushData/playerData/%{_p}'s uuid%/game%{_ID}%.yaml" as "file"
+		load yaml "mineRushData/playerData/%{_p}'s uuid%/stats.yaml" as "stats"
+		if yaml path "points" in "file" doesn't have a value:
+			loop {currentGameStats::%{_p}%::*}:
+				if {ores::*} contains loop-index:
+					set yaml value "ores.%loop-index%" from "file" to loop-value
+					set yaml value "ores.%loop-index%" from "stats" to (loop-value + yaml value "ores.%loop-index%" from "stats")
+				else if loop-index is "pointsspent", or "totalPoints":
+					set yaml value "points.%loop-index%" from "file" to loop-value
+					set yaml value "points.%loop-index%" from "stats" to (loop-value + yaml value "points.%loop-index%" from "stats")
+				else if loop-index is not "duration", or "sucessfullextracts":
+					set yaml value "other.%loop-index%" from "file" to loop-value
+					set yaml value "other.%loop-index%" from "stats" to (loop-value + yaml value "other.%loop-index%" from "stats")
+			set yaml value "points.points" from "file" to {points::%{_p}%}
+			set yaml value "points.extractionpoints" from "file" to {pointsBonus::%{_p}%}
+			set yaml value "time.duration" from "file" to "%difference between now and {currentGameStats::%{_p}%::duration}%"
+			set yaml value "time.timePlayed" from "file" to "%now%"
+			set yaml value "points.points" from "stats" to ({points::%{_p}%} + yaml value "points.points" from "stats")
+			set yaml value "points.extractionpoints" from "stats" to ({pointsBonus::%{_p}%} + yaml value "points.extractionpoints" from "stats")
+
+			set {_completed} to true
+
+	delete {currentGameStats::%{_p}%::*}
+	delete {pointsBonus::%{_p}%}
+	save yaml "file"
+	save yaml "stats"
+	unload yaml "file"
+	unload yaml "stats"
+
+
 function showDeathScreen(p: player):
 	set {_val} to a random integer between 1 and (size of {deathTitle::*})
 	send title "<#AC0C26>%{deathTitle::%{_val}%}%" to {_p}
@@ -74,26 +107,11 @@ function deathMsg(p: player, k: text) :: text:
 # Clears inventoy and kills the player to return them to spawn
 function endGame(p: player) :: boolean:
 	delete {inGame::%{_p}%}
+	saveDataToFile({_p})
 	remove {_p} from {pointBar::%{_p}%}
 	set {validSpawn::active::%{spawnLocation::%{_p}%}%} to false
 	updateLeaderboard({_p}, {points::%{_p}%})
 	deletePlayerVariables({_p})
-
-	#stats
-	set {_ID} to 0
-	set {_completed} to false
-	while {_completed} is false:
-		add 1 to {_ID}
-		if {gameStats::%{_p}%::%{_ID}%::*} is not set:
-			loop {currentGameStats::%{_p}%::*}:
-				set {gameStats::%{_p}%::%{_ID}%::%loop-index%} to {currentGameStats::%{_p}%::%loop-index%}
-			set {gameStats::%{_p}%::%{_ID}%::timePlayed} to now
-			set {_completed} to true
-
-	loop {currentGameStats::%{_p}%::*}:
-		add {currentGameStats::%{_p}%::%loop-index%} to {overallStats::%{_p}%::%loop-index%}
-
-	delete {currentGameStats::%{_p}%::*}
 	return true
 
 
