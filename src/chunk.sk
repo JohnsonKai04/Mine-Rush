@@ -80,3 +80,8 @@ command /viewValidSpawn:
 command /clearValidSpawns:
 	trigger:
 		delete {validSpawn::*}
+
+
+command /test:
+	trigger:
+		send "<color:#AC0C26>Dead</color>" to player
