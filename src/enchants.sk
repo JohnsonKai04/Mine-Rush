@@ -41,7 +41,7 @@ function oreDuplicate(p: player, b: block):
 		set block at location of {_b} to {_new}
 
 		if {settings::chatEnchantNotif::%{_p}%} is true:
-			send "&l%{oreDuplicate::name}% Proc" to {_p}
+			send "<b>%{oreDuplicate::name}% Proc</b>" to {_p}
 
 
 function luckyMiner(p: player, b: block) :: text:
@@ -59,7 +59,7 @@ function luckyMiner(p: player, b: block) :: text:
 				return {_newType}
 
 		if {settings::chatEnchantNotif::%{_p}%} is true:
-			send "&l%{luckyMiner::name}% Proc" to {_p}
+			send "<b>%{luckyMiner::name}% Proc</b>" to {_p}
 	return {_currentType}
 
 
@@ -68,25 +68,25 @@ function lootBoxCollector(p: player):
 		set {_chance} to a random integer between 1 and 100
 		if {_chance} >= 50: # 50% chance
 			give {_p} {lootBox::item::common}
-			send "+1 %name of {lootBox::item::common}%" to {_p}
-
-		else if {_chance} >= 15: # 35% chance
+			
+			send "<b>+1 %name of {lootBox::item::common}%</b>" to {_p}
+		else if {_cha nce} >= 15: # 35% chance
 			give {_p} {lootBox::item::rare}
-			send "+1 %name of {lootBox::item::rare}%" to {_p}
+			send "<b>+1 %name of {lootBox::item::rare}%</b>" to {_p}
 
 		else: # 15% chance
 			give {_p} {lootBox::item::legendary}
-			send "+1 %name of {lootBox::item::legendary}%" to {_p}
+			send "<b>+1 %name of {lootBox::item::legendary}% Proc</b>" to {_p}
 
 		if {settings::chatEnchantNotif::%{_p}%} is true:
-			send "&l%{LootBoxCollector::name}% Proc" to {_p}
+			send "<b>%{LootBoxCollector::name}% Proc</b>" to {_p}
 
 
 function hungryMiner(p: player):
 	chance of {hungryMiner::chance::%{customEnchantTier::%{_p}%::hungryMiner}%}:
 		add 1 to {_p}'s food level
 		if {settings::chatEnchantNotif::%{_p}%} is true:
-			send "&l%{hungryMiner::name}% Proc" to {_p}
+			send "<b>%{hungryMiner::name}% Proc</b>" to {_p}
 		
 
 function fireball(p: player):
@@ -101,5 +101,4 @@ function fireball(p: player):
 			set {_difference} to difference between {cooldown::fireball::%{_p}%} and now
 			set {_remaining} to difference between {_difference} and 60 seconds
 			playErrorSound({_p})
-			send "<#F10C31>C<#EE0C31>o<#EB0D30>o<#E90D30>l<#E60E30>d<#E30E2F>o<#E00F2F>w<#DD0F2F>n <#D8102E>s<#D5112E>t<#D2112E>i<#CF122D>l<#CD122D>l <#C7132C>a<#C4142C>c<#C1142C>t<#BF152B>i<#BC152B>v<#B9162B>e <#B3172A>p<#B1172A>l<#AE1829>e<#AB1829>a<#A81929>s<#A51929>e <#A01A28>w<#9D1B28>a<#9A1B27>i<#971C27>t<#951C27>: <#8F1D26>%{_remaining}%!" to {_p}
-
+			send "<gradient:#F10C31:#8F1D26>Cooldown Still Active Please Wait: %{_remaining}%!</gradient>" to {_p}

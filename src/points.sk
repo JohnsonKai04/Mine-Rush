@@ -29,10 +29,10 @@ function addPoints(p: player, block: block) :: number:
 	# Update BossBar
 	set {_streakPercentage} to {_streak} * 100
 	if {_streakPercentage} is not 0:
-		send action bar "<#22F10C>&l+<#20EC15>&l%{_points}% <#1BE328>&l(<#19DE31>&l+<#17DA3A>&l%{_streakPercentage}%<#15D543>&l%%<#13D14D>&l) <#0EC75F>&lP<#0CC368>&lo<#0ABE71>&li<#07B97B>&ln<#05B584>&lt<#03B08D>&ls" to {_p}
+		send action bar colored "<b><gradient:#22F10C:#03B08D>+%{_points}% (+%{_streakPercentage}%%%) Points</gradient></b>" to {_p}
 	else:
-		send action bar "<#22F10C>&l+<#1EE91C>&l%{_points}% <#16D93C>&lP<#13D14D>&lo<#0FC85D>&li<#0BC06D>&ln<#07B87D>&lt<#03B08D>&ls" to {_p}
-	set bar title of {pointBar::%{_p}%} to colored "<#22F10C>&lP<#1EE91C>&lo<#1AE12C>&li<#16D93C>&ln<#13D14D>&lt<#0FC85D>&ls<#0BC06D>&l: <#03B08D>&l%{points::%{_p}%}%"
+		send action bar colored "<b><gradient:#22F10C:#03B08D>+%{_points}% Points</gradient></b>" to {_p}
+	updatePointsBar({_p})
 	if {settings::visualBlock::%{_p}%} is true:
 		phantomOre({_p}, {_block}, {_blockType})
 	return {_points}
@@ -68,3 +68,6 @@ function phantomOre(p: player, block: block, type: text):
 function playItemPickup(p: player):
 	set {_pitch} to a random number between 0.5 and 1.5
 	play sound "entity.item.pickup" with volume {settings::volume::%{_p}%} and pitch {_pitch} to {_p}
+
+function updatePointsBar(p: player):
+	set bar title of {pointBar::%{_p}%} to colored "<b><gradient:#22F10C:#03B08D>Points: %{points::%{_p}%}%</gradient></b>"

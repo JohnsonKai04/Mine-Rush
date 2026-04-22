@@ -6,7 +6,8 @@
 ## QOL
 - [x] Damage indecators
 - [x] Create an array of 100 different spawning points preloaded to avoid needing to load lots of chunks
-
+- [ ] UHC custom weapons
+- [ ] dont store pointbar in variable use minecraft boss bar id's
 ## Anticheat
 - [ ] Create a custom anticheat that collects data to determine if a run wasnt legit
 
@@ -22,8 +23,6 @@
 
 ## Enemy
 - [ ] The curroption: Teleports player to parkour area on contact then teleports them back
-
-
 
 
 

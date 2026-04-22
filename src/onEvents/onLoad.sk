@@ -7,6 +7,11 @@ function setPoints(block: text, points: number):
 	set {blockValue::%{_block}%} to {_points}
 
 on load:
+	# Color codes will only be stored in variables to make editing easier. After beta this can be removed to conserve memory if needed
+	set {color::desc} to "<gradient:#750CF1:#A703B0>"
+	set {color::error} to "<gradient:#F10C31:#8F1D26>"
+	set {color::points} to "<color:#00FF3B>"
+
 	set {deathTitle::1} to "[RIP]"
 	set {deathTitle::2} to "[DEAD]"
 	set {deathTitle::3} to "[DEAD] lol"
@@ -62,74 +67,72 @@ on load:
 	loop 10 times:
 		set {lootBoxPoints::%loop-iteration%} to 750 * loop-iteration
 	# Pickaxe Names
-	set {pickaxe::tier::stone} to "&b&lStone Pickaxe"
-	set {pickaxe::tier::iron} to "&b&lIron Pickaxe"
-	set {pickaxe::tier::diamond} to "&b&lDiamond Pickaxe"
-	set {pickaxe::tier::netherite} to "&b&lNetherite Pickaxe"
+	set {pickaxe::tier::stone} to "<!i><color:#00E0FF><b>Stone Pickaxe</b></color>"
+	set {pickaxe::tier::iron} to "<!i><color:#00E0FF><b>Iron Pickaxe</b></color>"
+	set {pickaxe::tier::diamond} to "<!i><color:#00E0FF><b>Diamond Pickaxe</b></color>"
+	set {pickaxe::tier::netherite} to "<!i><color:#00E0FF><b>Netherite Pickaxe</b></color>"
 
 	# Sword Names
-	set {sword::tier::stone} to "&b&lStone Sword"
-	set {sword::tier::iron} to "&b&lIron Sword"
-	set {sword::tier::diamond} to "&b&lDiamond Sword"
-	set {sword::tier::netherite} to "&b&lNetherite Sword"
+	set {sword::tier::stone} to "<!i><color:#00E0FF><b>Stone Sword</b></color>"
+	set {sword::tier::iron} to "<!i><color:#00E0FF><b>Iron Sword</b></color>"
+	set {sword::tier::diamond} to "<!i><color:#00E0FF><b>Diamond Sword</b></color>"
+	set {sword::tier::netherite} to "<!i><color:#00E0FF><b>Netherite Sword</b></color>"
 
-	set {customItem::ghead::Name} to "<#FFF800>&lG<#D5F900>&lo<#ABFB00>&ll<#81FC00>&ld<#57FE00>&le<#2DFF00>&ln <#81FC00>&lH<#ABFB00>&le<#D5F900>&la<#FFF800>&ld"
-	set {customItem::ghead::Lore} to "<#D3716F>R<#D06B6E>i<#CC646C>g<#C95E6B>h<#C5586A>t <#BE4B67>c<#BB4566>l<#B73E65>i<#B43863>c<#B03162>k <#A9255F>t<#A61E5E>o <#9F125C>u<#9B0B5A>s<#980559>e"
-	set {customItem::grappling hook::Name} to "<#EC9900>&lG<#E69200>&lr<#DF8B01>&la<#D98501>&lp<#D27E02>&lp<#CC7702>&ll<#C57002>&li<#BF6A03>&ln<#B86303>&lg <#AB5504>&lh<#A54F04>&lo<#9E4805>&lo<#984105>&lk"
-	set {customItem::grappling hook::Lore} to "<#D3716F>R<#D06B6E>i<#CC646C>g<#C95E6B>h<#C5586A>t <#BE4B67>c<#BB4566>l<#B73E65>i<#B43863>c<#B03162>k <#A9255F>t<#A61E5E>o <#9F125C>u<#9B0B5A>s<#980559>e"
+	set {customItem::ghead::Name} to "<!i><b><gradient:#FFF800:#2DFF00:#FFF800>Golden Head</gradient></b>"
+	set {customItem::ghead::Lore} to "<!i><gradient:#750CF1:#A703B0>Right Click to Gain Health, Speed, Resistance</gradient>"
+	set {customItem::grappling hook::Name} to "<!i><b><gradient:#EC9900:#984105>Grappling Hook</gradient></b>"
+	set {customItem::grappling hook::Lore} to "<!i><gradient:#750CF1:#A703B0>Right Click to Use!"
+	set {customItem::Extractor::Name} to "<!i><b><gradient:#46F447:#69EF05>Extractor</gradient></b>"
+	set {customItem::Extractor::Lore} to "<!i><gradient:#750CF1:#A703B0>Right Click to Teleport to The Surface!</gradient>"
 
-	set {customItem::Extractor::Name} to "<#46F447>E<#4AF33F>x<#4FF337>t<#53F22E>r<#58F226>a<#5CF11E>c<#60F016>t<#65F00D>o<#69EF05>r"
-	set {customItem::Extractor::Lore} to "<#72DBDF>R<#74DBDF>i<#77DBDF>g<#79DBDF>h<#7CDBE0>t <#80DBE0>c<#83DBE0>l<#85DBE0>i<#88DBE0>c<#8ADBE1>k <#8FDCE1>t<#91DCE1>o <#96DCE1>t<#98DCE1>e<#9BDCE2>l<#9DDCE2>e<#A0DCE2>p<#A2DCE2>o<#A4DCE2>r<#A7DCE2>t <#ACDCE3>1<#AEDCE3>5<#B0DCE3>0 <#B5DCE3>b<#B8DCE4>l<#BADCE4>o<#BCDCE4>c<#BFDCE4>k<#C1DCE4>s <#C6DDE4>i<#C8DDE5>n <#CDDDE5>t<#D0DDE5>h<#D2DDE5>e <#D7DDE6>a<#D9DDE6>i<#DCDDE6>r<#DEDDE6>!"
-
-
-	set {customItem::shop::name} to "<#6176BB>S<#6C95D2>h<#78B5E8>o<#83D4FF>p"
+	set {customItem::shop::name} to "<!i><b><gradient:#6176BB:#83D4FF>Shop Menu</gradient></b>"
 	# General
 	set {spawningHeight} to 150 # the hight at which the player spawns once entering the game
 	set {pointMultiplier} to 1.0 # the base multiplier
 	set {defaultSpeed} to 15 seconds # This is the amount of minutes it takes for each difficulty. ignore the "seconds" due to how the speed is calculated
 	set {goldenSkullPlayerName} to "babyhunter512"
 	set {disconnectTime} to 1.5 hours  # The amount of time a player can be disconnected for before killing them inGame
-	delete {inFlight::*}
+	set {spawnPointer} to 1
 
 	# Enchants
 	set {veinMiner::chance::1} to 100%
-	set {veinMiner::name} to "<#54DAF4>V<#54CCED>e<#54BEE6>i<#54B1DF>n <#5495D2>M<#5487CB>i<#547AC4>n<#546CBD>e<#545EB6>r"
+	set {veinMiner::name} to "<gradient:#54DAF4:#545EB6>Vein Miner</gradient>"
 	
 	set {streak::chance::1} to 100%
 	set {streak::max} to 0.25
-	set {streak::name} to "<#303F88>S<#533E9A>t<#763DAB>r<#9A3DBD>e<#BD3CCE>a<#E03BE0>k"
+	set {streak::name} to "<gradient:#303F88:#E03BE0>Streak</gradient>"
 	
 	set {oreDuplicate::chance::1} to 0.5%
 	set {oreDuplicate::chance::2} to 0.75%
 	set {oreDuplicate::chance::3} to 1.0%
 	set {oreDuplicate::chance::4} to 1.25%
 	set {oreDuplicate::chance::5} to 1.5%
-	set {oreDuplicate::name} to "<#24EE32>O<#34ED2F>r<#44ED2D>e <#64EC27>D<#74EB25>u<#85EB22>p<#95EA1F>l<#A5E91D>i<#B5E91A>c<#C5E817>a<#D5E815>t<#E5E712>e"
+	set {oreDuplicate::name} to "<gradient:#24EE32:#E5E712>Ore Duplicate</gradient>"
 
 	set {luckyMiner::chance::1} to 0.5%
 	set {luckyMiner::chance::2} to 1.0%
 	set {luckyMiner::chance::3} to 2.0%
 	set {luckyMiner::chance::4} to 4.0%
 	set {luckyMiner::chance::5} to 5.0%
-	set {luckyMiner::name} to "<#48E289>L<#41D97E>u<#3ACF73>c<#33C667>k<#2CBC5C>y <#1FAA46>M<#18A03B>i<#11972F>n<#0A8D24>e<#038419>r"
+	set {luckyMiner::name} to "<gradient:#48E289:#038419>Lucky Miner</gradient>"
 
 	set {LootBoxCollector::chance::1} to 0.5%
 	set {LootBoxCollector::chance::2} to 0.75%
 	set {LootBoxCollector::chance::3} to 1.0%
 	set {LootBoxCollector::chance::4} to 1.25%
 	set {LootBoxCollector::chance::5} to 1.5%
-	set {LootBoxCollector::name} to "<#DDA840>L<#D7A43D>o<#D09F3A>o<#CA9B36>t <#BD9230>B<#B78E2D>o<#B08929>x <#A38023>C<#9D7C20>o<#96771C>l<#907319>l<#8A6F16>e<#836A13>c<#7D660F>t<#76610C>o<#705D09>r"
-   
-	set {lootBox::item::lore} to "<#D3716F>P<#D06C6E>l<#CE686D>a<#CB636C>c<#C95E6B>e <#C45569>o<#C15068>n <#BC4766>g<#B94265>r<#B73D64>o<#B43964>u<#B23463>n<#AF2F62>d <#AA2660>t<#A7215F>o <#A2185D>o<#A0135C>p<#9D0E5B>e<#9B0A5A>n<#980559>!"
-	set {lootBox::item::common} to a chest named "<#2F8333>C<#30902D>o<#319C28>m<#31A922>m<#32B51D>o<#33C217>n <#34DB0C>B<#35E707>o<#36F401>x" with lore {lootBox::item::lore}
+	set {LootBoxCollector::name} to "<gradient:#DDA840:#705D09>Loot Box Collector</gradient>"
+
+	set {lootBox::item::lore} to "<gradient:#750CF1:#A703B0>Place to Open!</gradient>"
+	set {lootBox::item::common} to a chest named "<<gradient:#2F8333:#36F401>Common Box</gradient>" with lore {lootBox::item::lore}
 	set {lootBox::chance::common} to 50
-	set {lootBox::item::rare} to a chest named "<#0F158E>R<#182F98>a<#2049A1>r<#2963AB>e <#3B98BE>B<#43B2C7>o<#4CCCD1>x" with lore {lootBox::item::lore}
+	set {lootBox::item::rare} to a chest named "<gradient:#0F158E:#4CCCD1>Rare Box</gradient>" with lore {lootBox::item::lore}
 	set {lootBox::chance::rare} to 35
-	set {lootBox::item::legendary} to a chest named "<#FA0AEA>L<#F80BDA>e<#F70CCA>g<#F50EBA>e<#F40FAA>n<#F2109A>d<#F1118A>a<#EF1279>r<#ED1369>y <#EA1649>B<#E91739>o<#E71829>x" with lore {lootBox::item::lore}
+	set {lootBox::item::legendary} to a chest named "<gradient:#FA0AEA:#E71829>Legendary Box</gradient>" with lore {lootBox::item::lore}
 
 	set {hungryMiner::hungerPoints} to 1
 	set {hungryMiner::chance::1} to 1%
-	set {hungryMiner::name} to "<#E65140>H<#E66C37>u<#E6872E>n<#E5A224>g<#E5BD1B>y <#B9DA1D>M<#8CDB29>i<#60DD34>n<#33DE40>e<#07E04B>r"
+	set {hungryMiner::name} to "<gradient:#E65140:#07E04B>Hungry Miner</gradient>"
 
 	set {fireball::size::1} to 2
 	set {fireball::size::2} to 4
@@ -137,16 +140,16 @@ on load:
 	set {fireball::chance::1} to 100%
 	set {fireball::chance::2} to 100%
 	set {fireball::chance::3} to 100%
-	set {fireball::name} to "<#F2FF12>F<#F4DE0F>i<#F6BE0D>r<#F89D0A>e<#F97D08>b<#FB5C05>a<#FD3C03>l<#FF1B00>l"
+	set {fireball::name} to "<gradient:#F2FF12:#FF1B00>Fireball</gradient>"
 
 
 	# Booster Cards
 
-	set {card::0} to a golden pickaxe named "<#F10CCF>&lVein Miner" with lore "<#E3592F>Start the run with the vein miner enchant"
-	set {card::1} to a redstone named "<#F10CCF>&lBlood Lust" with lore "<#E3592F>Randomly receive strength 1 after attacking"
-	set {card::2} to a totem of undying named "<#F10CCF>&lSecond Life" with lore "<#E3592F>Have a 50%% chance of reviving when dying (1 time use per run)"
-	set {card::3} to a recovery compass named "<#F10CCF>&lExtraction expert" with lore "<#E3592F>Start the run with the Extractor item"
-	set {card::4} to a player head named "<#F10CCF>&lHead Master" with lore "<#E3592F>Start the run with golden heads"
+	set {card::0} to a golden pickaxe named "<b><color:#F10CCF:>Vein Miner</color></b>" with lore "<gradient:#750CF1:#A703B0>Start the run with the vein miner enchant</gradient>"
+	set {card::1} to a redstone named "<b><color:#F10CCF>Blood Lust</color></b>" with lore "<gradient:#750CF1:#A703B0>Randomly receive strength 1 after attacking</gradient>"
+	set {card::2} to a totem of undying named "<b><color:#F10CCF>Second Life</color></b>" with lore "<gradient:#750CF1:#A703B0>Have a 50%% chance of reviving when dying (1 time use per run)</gradient>"
+	set {card::3} to a recovery compass named "<b><color:#F10CCF>Extraction expert</color></b>" with lore "<gradient:#750CF1:#A703B0>Start the run with the Extractor item</gradient>"
+	set {card::4} to a player head named "<b><color:#F10CCF>Head Master</color></b>" with lore "<gradient:#750CF1:#A703B0>Start the run with golden heads</gradient>"
 	set {cardMaxLevel::0} to 1
 	set {cardMaxLevel::1} to 3
 	set {cardMaxLevel::2} to 1

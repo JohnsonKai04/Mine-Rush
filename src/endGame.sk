@@ -1,21 +1,19 @@
 on death of player:
-	send "rip" to victim
 	if {inGame::%victim%} is true:
 		if secondLife(victim) is true:
 			cancel event
 		else:
-			set death message to deathMsg(victim, "%attacker%")
 			cancel event
 			set victim's gamemode to spectator
 			clear victim's inventory
 			showDeathScreen(victim)
-			wait 10 seconds
+			wait 5 seconds
 			set victim's gamemode to survival
 			wait 1 tick
 			delete {inGame::%victim%}
 			kill victim
 			endGame(victim)
-	
+	set death message to deathMsg(victim, "%attacker%")
 
 on disconnect:
 	if {inGame::%player%} is true:
@@ -24,9 +22,9 @@ on disconnect:
 on join:
 	if {disconnectTimer::%player%} is set:
 		if difference between now and {disconnectTimer::%player%} is more than {disconnectTime}:
-			send "<#F10C31>Y<#EF0C31>o<#EE0D31>u <#EB0D30>w<#E90D30>e<#E80E30>r<#E60E30>e <#E30E2F>d<#E10F2F>i<#E00F2F>s<#DE0F2F>c<#DD102F>o<#DB102F>n<#DA102E>n<#D8102E>e<#D7112E>c<#D5112E>t<#D3112E>e<#D2112E>d <#CF122D>f<#CD122D>o<#CC122D>r <#C9132C>m<#C7132C>o<#C5142C>r<#C4142C>e <#C1142C>t<#BF152B>h<#BE152B>a<#BC152B>n <#B9162B>%{disconnectTime}% <#B6162A>c<#B4172A>a<#B3172A>u<#B1172A>s<#B0172A>i<#AE1829>n<#AD1829>g <#A91829>t<#A81929>h<#A61929>e <#A31928>r<#A21A28>u<#A01A28>n <#9D1B28>t<#9B1B27>o <#981B27>e<#971C27>x<#951C27>p<#941C27>l<#921C26>o<#911D26>d<#8F1D26>e" to player
+			send "<b><gradient:#F10C31:#8F1D26>You were disconnected for more than %{disconnectTime}% causing the run to explode!</gradient></b>" to player
 			delete {disconnectTimer::%player%}
-			endGame(player)
+			kill player
 
 # Once the player right clicks the beacon they gain invulnerability and gain a 1.2x point bonus to their current points.
 # after 6 seconds endGame() runs
@@ -37,7 +35,7 @@ on right click on beacon:
 		make player invulnerable
 		set {pointsBonus::%player%} to round(0.2 * {points::%player%})
 		add {pointsBonus::%player%} to {points::%player%}
-		send "&4&l[Difficult Manager]: &aGood job %player% Lets pull you out! Heres a bonus for your efforts &2&l+%{_bonus}% Points" to player
+		send "<b><gradient:#52F361:#02CEF6:#52F361>Extracting You Now good job %player%. Heres a Bonus For Your Efforts: %{pointsBonus::%player%}%</gradient></b>" to player
 		wait 6 seconds
 		make player vulnerable
 		add 1 to {currentGameStats::%player%::sucessfullExtracts}
@@ -113,7 +111,9 @@ function endGame(p: player) :: boolean:
 	updateLeaderboard({_p}, {points::%{_p}%})
 	deletePlayerVariables({_p})
 	return true
-
+command /test:
+	trigger:
+		send {spawnLocation::%player%} to player
 
 function deletePlayerVariables(p: player):
 	delete {difficulty::%{_p}%}
@@ -121,11 +121,16 @@ function deletePlayerVariables(p: player):
 	delete {pickaxe::tier::%{_p}%}
 	delete {sword::tier::%{_p}%}
 	delete {armor::tier::%{_p}%}
-	delete {spawningLocation::Z::%{_p}%}
-	delete {spawningLocation::X::%{_p}%}
 	delete {enchantTier::%{_p}%::*}
 	delete {customEnchantTier::%{_p}%::*}
 	delete {pointBar::%{_p}%}
 	delete {streak::value::%{_P}%}
 	delete {enchantCostMultiplier::%{_p}%::*}
 	delete {secondLifeUsed::%{_p}%}
+	delete {spawnLocation::%{_p}%}
+
+
+command /spawnlocation:
+	trigger:
+		loop {validSpawn::active::*}:
+			set {validSpawn::active::%loop-iteration%} to false

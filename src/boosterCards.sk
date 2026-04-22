@@ -1,6 +1,6 @@
 command /booster:
 	trigger:
-		open chest inventory with 3 rows named "&6&lBooster Cards" to the player
+		open chest inventory with 3 rows named colored "&6&lBooster Cards" to the player
 		set {_inv} to player's current inventory
 		loop {unlockedCard::%player%::*}:
 			set {_ID} to loop-index parsed as integer
@@ -8,7 +8,7 @@ command /booster:
 			set {_name} to {_name} + " %convertToRoman({unlockedCard::%player%::%{_ID}%})%"
 			set slot {_ID} of {_inv} to {card::%{_ID}%} named {_name}
 			if {cardActive::%player%::%{_ID}%} is true:
-				set slot {_ID} of {_inv} to {card::%{_ID}%} named ({_name} + " <#4ED95D>&l[Selected]")
+				set slot {_ID} of {_inv} to {card::%{_ID}%} named ({_name} + " <b><gradient:#0CF11B:#E7FF00:#0CF11B>[Selected]</gradient></b>")
 				enchant slot {_ID} of {_inv} with infinity
 			else:
 				set slot {_ID} of {_inv} to {card::%{_ID}%} named {_name}
@@ -16,7 +16,7 @@ command /booster:
 		loop {card::*}:
 			set {_ID} to loop-index parsed as integer
 			if slot {_ID} of {_inv} is air:
-				set slot {_ID} of {_inv} to barrier named "<#F10C28>&lNot Unlocked" with lore "<#F10C7B>Complete runs to unlock a random booster card"
+				set slot {_ID} of {_inv} to barrier named "<b><gradient:#F10C31:#8F1D26>Not Unlocked</gradient></b>" with lore "<gradient:#750CF1:#A703B0>Complete runs to unlock a random booster card</gradient>"
 
 command /showcards:
 	trigger:
@@ -83,7 +83,7 @@ function secondLife(p: player) :: boolean:
 			apply potion effect of regeneration 3 to {_p} for 10 seconds
 			apply potion effect of speed 2 to {_p} for 10 seconds
 			set {secondLifeUsed::%{_p}%} to true
-			send "<#4ED95D>&lSaved by [Second Life]" to {_p}
+			send "<b><gradient:#0CF11B:#E7FF00:#0CF11B>&lSaved by [Second Life]</b></gradient>" to {_p}
 			play sound "item.totem.use" with volume {settings::volume::%{_p}%} to {_p}
 			return true
 	return false

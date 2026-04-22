@@ -43,13 +43,13 @@ on right click using player head or recovery compass:
 				set {_height} to block 150 above player
 				if block at {_height} is air:
 					remove 1 of player's held item from player's inventory
-					send "<#2E94E4>T<#2C8EE0>e<#2987DD>l<#2781D9>e<#257AD6>p<#2374D2>o<#206ECF>r<#1E67CB>t<#1C61C8>i<#1A5BC4>n<#1754C0>g <#1347B9>i<#1041B6>n <#0C34AF>3<#0A2EAB>.<#0727A8>.<#0521A4>." to player
+					send "<b><gradient:#2E94E4:#0521A4>Teleporting in 3...</gradient></b>" to player
 					playDing(player)
 					wait 1 second
-					send "<#2E94E4>T<#2C8EE0>e<#2987DD>l<#2781D9>e<#257AD6>p<#2374D2>o<#206ECF>r<#1E67CB>t<#1C61C8>i<#1A5BC4>n<#1754C0>g <#1347B9>i<#1041B6>n <#0C34AF>2<#0A2EAB>.<#0727A8>.<#0521A4>." to player
+					send "<b><gradient:#2E94E4:#0521A4>Teleporting in 3...</gradient></b>" to player
 					playDing(player)
 					wait 1 second
-					send "<#2E94E4>T<#2C8EE0>e<#2987DD>l<#2781D9>e<#257AD6>p<#2374D2>o<#206ECF>r<#1E67CB>t<#1C61C8>i<#1A5BC4>n<#1754C0>g <#1347B9>i<#1041B6>n <#0C34AF>1<#0A2EAB>.<#0727A8>.<#0521A4>." to player
+					send "<b><gradient:#2E94E4:#0521A4>Teleporting in 3...</gradient></b>" to player
 					playDing(player)
 					wait 1 second
 					teleport player to {_height}
@@ -59,9 +59,9 @@ on right click using player head or recovery compass:
 						hide icon
 					asyncAircheck(player)
 				else:
-					send "<#F10C31>E<#EF0C31>r<#EE0D31>r<#EC0D30>o<#EB0D30>r<#E90D30>: <#E60E30>T<#E50E30>h<#E30E2F>e <#E00F2F>l<#DF0F2F>o<#DD0F2F>c<#DC102F>a<#DA102E>t<#D9102E>i<#D7112E>o<#D5112E>n <#D2112E>a<#D1122D>b<#CF122D>o<#CE122D>v<#CC122D>e <#C9132D>i<#C8132C>s <#C5142C>n<#C3142C>o<#C2142C>t <#BE152B>s<#BD152B>a<#BB152B>f<#BA162B>e<#B8162B>, <#B5162A>y<#B4172A>o<#B2172A>u <#AF172A>w<#AE1829>i<#AC1829>l<#AB1829>l <#A81929>n<#A61929>o<#A41928>t <#A11A28>b<#A01A28>e <#9D1B28>t<#9B1B27>e<#9A1B27>l<#981B27>e<#971C27>p<#951C27>o<#941C27>r<#921C26>t<#911D26>e<#8F1D26>d" to player
+					send "<b><gradient:#F10C31:#8F1D26>Error: The teleport location is unsafe!! (Cancelling)</gradient></b>" to player
 			else:
-				send "<#F10C31>E<#EE0C31>r<#EC0D30>r<#E90D30>o<#E70E30>r<#E40E30>: <#DF0F2F>Y<#DC102F>o<#DA102E>u <#D5112E>a<#D2112E>r<#CF122D>e <#CA132D>t<#C8132C>o<#C5142C>o <#C0152C>c<#BD152B>l<#BB152B>o<#B8162B>s<#B6162A>e <#B1172A>t<#AE1829>o <#A91929>t<#A61929>h<#A41928>e <#9E1A28>s<#9C1B27>u<#991B27>r<#971C27>f<#941C27>a<#921D26>c<#8F1D26>e" to player
+				send "<b><gradient:#F10C31:#8F1D26>Error: You cannot use this above Y:10</gradient></b>" to player
 
 
 on place of chest:
@@ -80,14 +80,14 @@ on place of chest:
 
 
 on rightclick:
-	if name of player's held item is {customItem::shop::name}:
+	if uncolored name of player's held item is uncolored {customItem::shop::name}: # Yea i dont even know
 		make player execute command "/shop"
 
 
 function asyncPoints(p: player, points: integer):
 	wait 10 ticks
 	if {_points} is not 0:
-		send action bar "<#22F10C>&l+<#1EE91C>&l%{_points}% <#16D93C>&lP<#13D14D>&lo<#0FC85D>&li<#0BC06D>&ln<#07B87D>&lt<#03B08D>&ls" to {_p}
+		send action bar "<b><gradient:#22F10C:#03B08D>+%{_points}% Points </gradient>" to {_p}
 
 
 function giveRandomLootbox(p: player, l: location):
@@ -166,4 +166,4 @@ function lootBoxRewardPoints(p: player, b: block, m: integer):
 	set {_text} to text component from "+%{_points}%"
 	set color format of {_text} to rgb({_color::1}, {_color::2}, {_color::3})
 	send title "%{_text}%" to {_p}
-	set bar title of {pointBar::%{_p}%} to "&a&lPoints: %{points::%{_p}%}%"
+	updatePointsBar({_p})
