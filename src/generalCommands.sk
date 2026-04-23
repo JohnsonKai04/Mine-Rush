@@ -97,7 +97,13 @@ function spawnIndicator(p: player, l: location, d: number, h: number, maxH: numb
 	set {_random::*} to 3 random numbers from -0.2 to 0.2
 	set {_location} to {_location} ~ vector({_random::1},{_random::2},{_random::3})
 	spawn an armor stand at {_location} with nbt from "{CustomName: """", CustomNameVisible:1, Invisible:1, NoGravity: 1, Marker: 1b}"
-	set the name of the last spawned armor stand to "%{_color}%%{_d}%</color>"
+	if {_d} >= {_maxH}:
+		if {_h} = {_maxH}:
+			set the name of the last spawned armor stand to "<b><shadow:black><rainbow:%random integer between 1 and 5%>[Overkill]</rainbow></shadow></b>"
+		else:
+			set the name of the last spawned armor stand to "%{_color}%%{_d}%</color>"
+	else:
+		set the name of the last spawned armor stand to "%{_color}%%{_d}%</color>"
 	set {_stand} to last spawned armor stand
 	wait 10 ticks
 	teleport {_stand} to location of {_stand} ~ vector(0, -20, 0)
