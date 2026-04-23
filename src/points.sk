@@ -45,7 +45,7 @@ function phantomOre(p: player, block: block, type: text):
 	set {_true} to true
 	while {_true} is true:
 		set {_target} to location of {_p}
-		set y-coordinate of {_target} to y-coordinate of {_p} - 0.5
+		set y-coordinate of {_target} to y-coordinate of {_p} - 1
 		set {_current} to location of {_stand}
 		set {_vector} to vector from {_current} to {_target}
 		set {_distance} to distance between {_current} and {_target}
