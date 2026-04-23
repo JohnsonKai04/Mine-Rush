@@ -7,18 +7,19 @@ on place of tnt:
 		cancel event
 
 # Grappling hook
-on rod cast:
-	if name of player's tool is {customItem::grappling hook::Name}:
-		wait 10 ticks # this is to prevent the grappling hook from going off when you are standing in tall/short grass
+on fishing rod cast:
+	if uncolored name of player's tool is uncolored {customItem::grappling hook::Name}:
 		set {_true} to true
 		while {_true} is true:
-			if block below event-position is not air:
+			set {_loc} to location of fishing hook
+			set {_block} to block below {_loc}
+			if {_block} is solid:
 				push player up at speed 1
 				push player towards location of fishing hook at speed 3
 				delete current fish hook of player
 				set {inFlight::%player%} to true
 				stop
-			wait 5 ticks	
+			wait 5 ticks
 		
 # Prevents grappling hook from doing damage to player
 on damage:
@@ -29,39 +30,38 @@ on damage:
 
 # Golden Heads / Extractor
 on right click using player head or recovery compass:
-	if {inGame::%player%} is true:
-		if name of player's held item is {customItem::ghead::Name}:
-			cancel event
-			heal player by 2 hearts
-			apply potion effect of speed 2 to the player for 10 seconds:
-				hide particles
-			apply potion effect of resistance 1 to the player for 10 seconds:
-				hide particles
-			remove 1 of player's held item from player's inventory
-		if name of player's held item is {customItem::Extractor::Name}:
-			if player's y-coordinate is less than 10:
-				set {_height} to block 150 above player
-				if block at {_height} is air:
-					remove 1 of player's held item from player's inventory
-					send "<b><gradient:#2E94E4:#0521A4>Teleporting in 3...</gradient></b>" to player
-					playDing(player)
-					wait 1 second
-					send "<b><gradient:#2E94E4:#0521A4>Teleporting in 3...</gradient></b>" to player
-					playDing(player)
-					wait 1 second
-					send "<b><gradient:#2E94E4:#0521A4>Teleporting in 3...</gradient></b>" to player
-					playDing(player)
-					wait 1 second
-					teleport player to {_height}
-					wait 1 tick
-					apply potion effect of slow falling to the player for 90 seconds:
-						hide particles
-						hide icon
-					asyncAircheck(player)
-				else:
-					send "<b><gradient:#F10C31:#8F1D26>Error: The teleport location is unsafe!! (Cancelling)</gradient></b>" to player
+	if uncolored name of player's held item is uncolored {customItem::ghead::Name}:
+		cancel event
+		heal player by 2 hearts
+		apply potion effect of speed 2 to the player for 10 seconds:
+			hide particles
+		apply potion effect of resistance 1 to the player for 10 seconds:
+			hide particles
+		remove 1 of player's held item from player's inventory
+	if uncolored name of player's held item is uncolored {customItem::Extractor::Name}:
+		if player's y-coordinate is less than 10:
+			set {_height} to block 150 above player
+			if block at {_height} is air:
+				remove 1 of player's held item from player's inventory
+				send "<b><gradient:#2E94E4:#0521A4>Teleporting in 3...</gradient></b>" to player
+				playDing(player)
+				wait 1 second
+				send "<b><gradient:#2E94E4:#0521A4>Teleporting in 3...</gradient></b>" to player
+				playDing(player)
+				wait 1 second
+				send "<b><gradient:#2E94E4:#0521A4>Teleporting in 3...</gradient></b>" to player
+				playDing(player)
+				wait 1 second
+				teleport player to {_height}
+				wait 1 tick
+				apply potion effect of slow falling to the player for 90 seconds:
+					hide particles
+					hide icon
+				asyncAircheck(player)
 			else:
-				send "<b><gradient:#F10C31:#8F1D26>Error: You cannot use this above Y:10</gradient></b>" to player
+				send "<b><gradient:#F10C31:#8F1D26>Error: The teleport location is unsafe!! (Cancelling)</gradient></b>" to player
+		else:
+			send "<b><gradient:#F10C31:#8F1D26>Error: You cannot use this above Y:10</gradient></b>" to player
 
 
 on place of chest:
