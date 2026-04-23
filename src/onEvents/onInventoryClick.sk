@@ -69,70 +69,70 @@ on inventory click:
     #          SHOP
     # ------------------------------------------------------
 	if {_name} is "Shop":
-		if display name of event-item contains "Utilies":
+		if {_item} contains uncolored "Utilies":
 			openUtilityShop(player)
-		if display name of event-item contains "Upgrades":
+		if {_item} contains uncolored "Upgrades":
 			openUpgradeShop(player)
 		cancel event
 
 	if {_name} contains "Upgrade Shop":
 		# Pickaxes
-		if display name of event-item contains "Iron Pickaxe":
+		if {_item} contains uncolored "Iron Pickaxe":
 			purchasePickaxe(player, "iron pickaxe")
-		else if display name of event-item contains "Diamond Pickaxe":
+		else if {_item} contains uncolored "Diamond Pickaxe":
 			purchasePickaxe(player, "diamond pickaxe")
-		else if display name of event-item contains "Netherite Pickaxe":
+		else if {_item} contains uncolored "Netherite Pickaxe":
 			purchasePickaxe(player, "netherite pickaxe")
 
 		# Enchants
-		else if display name of event-item contains "Efficiency ":
+		else if {_item} contains uncolored "Efficiency ":
 			purchaseEnchant(player, "pickaxe", "efficiency")
-		else if display name of event-item contains "Sharpness":
+		else if {_item} contains uncolored "Sharpness":
 			purchaseEnchant(player, "sword", "sharpness")
-		else if display name of event-item contains "Fire Aspect":
+		else if {_item} contains uncolored "Fire Aspect":
 			purchaseEnchant(player, "sword", "fire aspect")
-		else if display name of event-item contains "Sweeping Edge":
+		else if {_item} contains uncolored "Sweeping Edge":
 			purchaseEnchant(player, "sword", "sweeping edge")
-		else if display name of event-item contains "Knockback":
+		else if {_item} contains uncolored "Knockback":
 			purchaseEnchant(player, "sword", "knockback")
-		else if display name of event-item contains "Protection":
+		else if {_item} contains uncolored "Protection":
 			purchaseEnchant(player, "armor", "protection")
-		else if display name of event-item contains "Thorns":
+		else if {_item} contains uncolored "Thorns":
 			purchaseEnchant(player, "armor", "thorns")
 
 		# Custom enchants
-		else if display name of event-item contains "%{veinMiner::name}%":
+		else if {_item} contains uncolored "%{veinMiner::name}%":
 			purchaseCustomEnchant(player, "veinMiner")
-		else if display name of event-item contains "%{streak::name}%":
+		else if {_item} contains uncolored "%{streak::name}%":
 			purchaseCustomEnchant(player, "streak")
-		else if display name of event-item contains "%{oreDuplicate::name}%":
+		else if {_item} contains uncolored "%{oreDuplicate::name}%":
 			purchaseCustomEnchant(player, "oreDuplicate")
-		else if display name of event-item contains "%{luckyMiner::name}%":
+		else if {_item} contains uncolored "%{luckyMiner::name}%":
 			purchaseCustomEnchant(player, "luckyMiner")
-		else if display name of event-item contains "%{lootBoxCollector::name}%":
+		else if {_item} contains uncolored "%{lootBoxCollector::name}%":
 			purchaseCustomEnchant(player, "lootBoxCollector")
-		else if display name of event-item contains "%{hungryMiner::name}%":
+		else if {_item} contains uncolored "%{hungryMiner::name}%":
 			purchaseCustomEnchant(player, "hungryMiner")
-		else if display name of event-item contains "%{fireball::name}%":
+		else if {_item} contains uncolored "%{fireball::name}%":
 			purchaseCustomEnchant(player, "fireball")
 
 
 		# Swords
-		else if display name of event-item contains "Stone Sword":
+		else if {_item} contains uncolored "Stone Sword":
 			purchaseWeapon(player, "stone sword")
-		else if display name of event-item contains "Iron Sword":
+		else if {_item} contains uncolored "Iron Sword":
 			purchaseWeapon(player, "iron sword")
-		else if display name of event-item contains "Diamond Sword":
+		else if {_item} contains uncolored "Diamond Sword":
 			purchaseWeapon(player, "diamond sword")
-		else if display name of event-item contains "Netherite Sword":
+		else if {_item} contains uncolored "Netherite Sword":
 			purchaseWeapon(player, "netherite sword")
 
 		# Armor
-		else if display name of event-item contains "Leather Armor":
+		else if {_item} contains uncolored "Leather Armor":
 			purchaseArmor(player, "leather armor")
-		else if display name of event-item contains "Iron Armor":
+		else if {_item} contains uncolored "Iron Armor":
 			purchaseArmor(player, "iron armor")
-		else if display name of event-item contains "Diamond Armor":
+		else if {_item} contains uncolored "Diamond Armor":
 			purchaseArmor(player, "diamond armor")
 
 		openUpgradeShop(player)
