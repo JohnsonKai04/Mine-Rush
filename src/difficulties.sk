@@ -99,7 +99,8 @@ function beginDifficulty6(p: player):
 function difficultyBegin(p: player):
 	set {difficulty::%{_p}%} to 1
 
-	loop 6 times:
+	set {_true} to true
+	while {_true}:
 		if loop-value is 1:
 			beginDifficulty1({_p})
 
@@ -121,7 +122,7 @@ function difficultyBegin(p: player):
 		# Every 15 seconds increase bar by 1.667 for 15 minutes. reloops after every difficulty increase.
 		loop 60 times:
 			if {inGame::%{_p}%} is true:
-				add 1.666 to {pointBar::progress::%{_p}%}
+				add 1.667 to {pointBar::progress::%{_p}%}
 				set bar progress of {pointBar::%{_p}%} to {pointBar::progress::%{_p}%}
 				wait {defaultSpeed}
 			else:
