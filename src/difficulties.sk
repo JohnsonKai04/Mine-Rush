@@ -19,7 +19,7 @@ function setHealthOfMob(mob: entity, h: number):
 
 function beginDifficulty1(p: player):
 	send "<gradient:#00FF11:#C3D705>Difficulty <b>1</b></gradient>" to {_p}
-	send "<gradient:#00FF11:#C3D705>Mob Speed/Health/Damage: <b>%%%({difficulty::%{_p}%} / 2) * 100%</b></gradient>" to {_p}
+	send "<gradient:#00FF11:#C3D705>Mob Speed/Health/Damage: <b>%({difficulty::%{_p}%} / 2) * 100%%%</b></gradient>" to {_p}
 	send "<gradient:#00FF11:#C3D705>Time Until Extraction: <b>1 Hour</b></gradient>" to {_p}
 	play sound "item.goat_horn.sound.0" with volume {settings::volume::%{_p}%} at {_p}
 	set the difficulty of "world" to normal
@@ -28,7 +28,7 @@ function beginDifficulty1(p: player):
 
 function beginDifficulty2(p: player):
 	send "<gradient:#C3D705:#F5AD0E>Difficulty <b>2</b></gradient>" to {_p}
-	send "<gradient:#C3D705:#F5AD0E>Mob Speed/Health/Damage: <b>%%%({difficulty::%{_p}%} / 2) * 100%</b></gradient>" to {_p}
+	send "<gradient:#C3D705:#F5AD0E>Mob Speed/Health/Damage: <b>%({difficulty::%{_p}%} / 2) * 100%%%</b></gradient>" to {_p}
 	send "<gradient:#C3D705:#F5AD0E>Time Until Extraction: <b>45 Minutes</b></gradient>" to {_p}
 	play sound "item.goat_horn.sound.1" with volume {settings::volume::%{_p}%} at {_p}
 	set bar color of {pointBar::%{_p}%} to yellow
@@ -36,7 +36,7 @@ function beginDifficulty2(p: player):
 
 function beginDifficulty3(p: player):
 	send "<gradient:#F5AD0E:#F5500E>Difficulty <b>3</b></gradient>" to {_p}
-	send "<gradient:#F5AD0E:#F5500E>Mob Speed/Health/Damage: <b>%%%({difficulty::%{_p}%} / 2) * 100%</b></gradient>" to {_p}
+	send "<gradient:#F5AD0E:#F5500E>Mob Speed/Health/Damage: <b>%({difficulty::%{_p}%} / 2) * 100%%%</b></gradient>" to {_p}
 	send "<gradient:#F5AD0E:#F5500E>Time Until Extraction: <b>30 Minutes</b></gradient>" to {_p}
 	play sound "item.goat_horn.sound.2" with volume {settings::volume::%{_p}%} at {_p}
 	set bar color of {pointBar::%{_p}%} to red
@@ -45,7 +45,7 @@ function beginDifficulty3(p: player):
 
 function beginDifficulty4(p: player):
 	send "<gradient:#F5500E:#F50EC9>Difficulty <b>4</b></gradient>" to {_p}
-	send "<gradient:#F5500E:#F50EC9>Mob Speed/Health/Damage: <b>%%%({difficulty::%{_p}%} / 2) * 100%</b></gradient>" to {_p}
+	send "<gradient:#F5500E:#F50EC9>Mob Speed/Health/Damage: <b>%({difficulty::%{_p}%} / 2) * 100%%%</b></gradient>" to {_p}
 	send "<gradient:#F5500E:#F50EC9>Time Until Extraction: <b>15 Minutes!</b></gradient>" to {_p}
 	play sound "item.goat_horn.sound.3" with volume {settings::volume::%{_p}%} at {_p}
 	set bar color of {pointBar::%{_p}%} to blue
@@ -54,7 +54,7 @@ function beginDifficulty4(p: player):
 
 function beginDifficulty5(p: player):
 	send "<gradient:#F50EC9:#F50E0E>Difficulty <b>5</b></gradient>" to {_p}
-	send "<gradient:#F50EC9:#F50E0E>Mob Speed/Health/Damage: <b>%%%({difficulty::%{_p}%} / 2) * 100%</b></gradient>" to {_p}
+	send "<gradient:#F50EC9:#F50E0E>Mob Speed/Health/Damage: <b>%({difficulty::%{_p}%} / 2) * 100%%%</b></gradient>" to {_p}
 
 	# Spawns extract:
 	set {_extractLocation::X} to a random integer between -500 and 500
