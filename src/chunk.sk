@@ -26,7 +26,7 @@ command /generateSpawnPoints [<integer>]:
 					delete {_isValid}
 				
 				if {_counter} >= 10:
-					send "Error no valid spawns found" to player
+					send "<gradient:#F10C31:#8F1D26>Error: no valid spawns found" to player
 					stop
 			set {_x} to (chunk x of chunk at {_spawningLocation} + 16)
 			set {_z} to (chunk z of chunk at {_spawningLocation} + 16)
