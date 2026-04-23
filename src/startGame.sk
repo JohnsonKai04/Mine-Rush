@@ -51,7 +51,7 @@ command /start:
 		apply potion effect of slow falling to the player for 90 seconds:
 			hide particles
 			hide icon
-		teleport player to {spawnLocation::%player%}
+		teleport player to {_location}
 		asyncAircheck(player)
 		heal player
 		feed player
