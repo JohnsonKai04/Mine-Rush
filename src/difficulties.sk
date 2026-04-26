@@ -3,9 +3,12 @@ on spawn:
 		set {_p} to nearest player in radius 80 around event-entity
 		if {inGame::%{_p}%} is true:
 			# Mobs do not spawn for the first 15 minutes
-			if {difficulty::%{_p}%} is 1:
-				if {debugMode::%{_p}%} is not true:
-					cancel event
+			#if {difficulty::%{_p}%} is 1:
+				#if {debugMode::%{_p}%} is not true:
+				#	cancel event
+			if y-coordinate of location of event-entity is greater than or equal to ({_p}'s y-level + {mobSpawnMaxHeight}):
+				broadcast "too high"
+				cancel event
 			set max health of event-entity to round((max health of event-entity) * ({difficulty::%{_p}%} / 2))
 			heal event-entity
 			set {_speed} to event-entity's generic movement speed attribute
@@ -100,23 +103,23 @@ function difficultyBegin(p: player):
 	set {difficulty::%{_p}%} to 1
 
 	set {_true} to true
-	while {_true}:
-		if loop-value is 1:
+	while {_true} is true:
+		if {difficulty::%{_p}%} is 1:
 			beginDifficulty1({_p})
 
-		if loop-value is 2:
+		if {difficulty::%{_p}%} is 2:
 			beginDifficulty2({_p})
 
-		if loop-value is 3:
+		if {difficulty::%{_p}%} is 3:
 			beginDifficulty3({_p})
 
-		if loop-value is 4:
+		if {difficulty::%{_p}%} is 4:
 			beginDifficulty4({_p})
 
-		if loop-value is 5: 
+		if {difficulty::%{_p}%} is 5: 
 			beginDifficulty5({_p})
 
-		if loop-value is 6:
+		if {difficulty::%{_p}%} is 6:
 			beginDifficulty6({_p})
 
 		# Every 15 seconds increase bar by 1.667 for 15 minutes. reloops after every difficulty increase.
