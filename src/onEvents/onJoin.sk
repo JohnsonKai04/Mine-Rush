@@ -1,0 +1,11 @@
+# Sets the default settings for the player located in ../settings.sk
+on first join:
+	setDefaultSettings(player)
+
+on join:
+	if {disconnectTimer::%player%} is set:
+		if difference between now and {disconnectTimer::%player%} is more than {disconnectTime}:
+			send "<b><gradient:#F10C31:#8F1D26>You were disconnected for more than %{disconnectTime}% causing the run to explode!</gradient></b>" to player
+			delete {disconnectTimer::%player%}
+			wait 2 seconds
+			kill player
