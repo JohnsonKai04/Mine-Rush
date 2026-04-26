@@ -5,4 +5,5 @@ on damage:
 		if {settings::damageIndicator::%attacker%} is true:
 			spawnIndicator(attacker, location of victim, damage, health of victim, max health of victim)
 	if {inGame::%victim%} is true:
-		set the damage to damage * ({difficulty::%victim%} / 2)
+		if attacker is set:
+			set the damage to damage * ({difficulty::%victim%} / 2)

@@ -1,9 +1,7 @@
 on death of player:
 	if {inGame::%victim%} is true:
-		if secondLife(victim) is true:
-			cancel event
-		else:
-			cancel event
+		cancel event
+		if secondLife(victim) is false:
 			set victim's gamemode to spectator
 			clear victim's inventory
 			showDeathScreen(victim)
@@ -18,13 +16,6 @@ on death of player:
 on disconnect:
 	if {inGame::%player%} is true:
 		set {disconnectTimer::%player%} to now
-
-on join:
-	if {disconnectTimer::%player%} is set:
-		if difference between now and {disconnectTimer::%player%} is more than {disconnectTime}:
-			send "<b><gradient:#F10C31:#8F1D26>You were disconnected for more than %{disconnectTime}% causing the run to explode!</gradient></b>" to player
-			delete {disconnectTimer::%player%}
-			kill player
 
 # Once the player right clicks the beacon they gain invulnerability and gain a 1.2x point bonus to their current points.
 # after 6 seconds endGame() runs
@@ -44,7 +35,7 @@ on right click on beacon:
 
 
 command /endGame:
-	cooldown: 10 seconds
+	cooldown: 2 seconds
 	trigger:
 		if {inGame::%player%} is true: 
 			kill player
