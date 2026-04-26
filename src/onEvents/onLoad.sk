@@ -93,6 +93,7 @@ on load:
 	set {goldenSkullPlayerName} to "babyhunter512"
 	set {disconnectTime} to 1.5 hours  # The amount of time a player can be disconnected for before killing them inGame
 	set {spawnPointer} to 1
+	set {mobSpawnMaxHeight} to 10 # Mobs spawned x blocks above the player will despawn
 
 	# Enchants
 	set {veinMiner::chance::1} to 100%
