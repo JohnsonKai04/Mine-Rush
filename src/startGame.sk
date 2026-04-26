@@ -1,8 +1,3 @@
-command /pointer:
-	trigger:
-		send {spawnPointer} to player
-
-
 command /start:
 	aliases: /startgame, /st, /begin
 	permission: mineRush.start
