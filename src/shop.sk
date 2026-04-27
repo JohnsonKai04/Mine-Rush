@@ -215,21 +215,21 @@ function openUtilityShop(p: player):
 	set {_inv} to {_p}'s current inventory
 
 	# Blocks
-	set slot 10 of {_inv} to 16 cooked beef named "<!i><b>Steak</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::cooked beef}% Points"
-	set slot 11 of {_inv} to 16 ladders named "<!i><b>Ladder</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::ladder}% Points"
-	set slot 12 of {_inv} to 8 wind charge named "<!i><b>Wind charges</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::wind charge}% Points"
-	set slot 13 of {_inv} to 64 andesite named "<!i><b>Andesite</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::andesite}% Points"
-	set slot 14 of {_inv} to 32 torch named "<!i><b>Torches</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::torch}% Points"
-	set slot 15 of {_inv} to 1 water bucket named "<!i><b>Water Bucket</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::water bucket}% Points"
-	set slot 16 of {_inv} to 32 scaffolding named "<!i><b>Scaffolding</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::scaffolding}% Points"
+	set slot 10 of {_inv} to 16 cooked beef named "<!i><b>Steak</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::cooked beef}% Points"
+	set slot 11 of {_inv} to 16 ladders named "<!i><b>Ladder</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::ladder}% Points"
+	set slot 12 of {_inv} to 8 wind charge named "<!i><b>Wind charges</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::wind charge}% Points"
+	set slot 13 of {_inv} to 64 andesite named "<!i><b>Andesite</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::andesite}% Points"
+	set slot 14 of {_inv} to 32 torch named "<!i><b>Torches</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::torch}% Points"
+	set slot 15 of {_inv} to 1 water bucket named "<!i><b>Water Bucket</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::water bucket}% Points"
+	set slot 16 of {_inv} to 32 scaffolding named "<!i><b>Scaffolding</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::scaffolding}% Points"
 
 	# Utility
-	set slot 29 of {_inv} to 8 tnt named "<!i><b>TNT</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::tnt}% Points"
-	set slot 38 of {_inv} to shield named "<!i><b>Shield</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::shield}% Points"
+	set slot 29 of {_inv} to 8 tnt named "<!i><b>TNT</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::tnt}% Points"
+	set slot 38 of {_inv} to shield named "<!i><b>Shield</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::shield}% Points"
 
 	# Custom items
-	set slot 33 of {_inv} to fishing rod named "<!i><b>Grappling Hook</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::grappling hook}% Points"
-	set slot 42 of {_inv} to golden apple named "<!i><b>Golden Head</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::ghead}% Points"
+	set slot 33 of {_inv} to fishing rod named "<!i><b>Grappling Hook</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::grappling hook}% Points"
+	set slot 42 of {_inv} to golden apple named "<!i><b>Golden Head</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::ghead}% Points"
 
 function openUpgradeShop(p: player):
 	open chest inventory with 6 rows named "<b><color:#FF4800>Upgrade Shop,</b> %{color::points}%%{points::%{_p}%}%</color>" to {_p}
@@ -237,104 +237,54 @@ function openUpgradeShop(p: player):
 
 	# Pickaxes
 	if {pickaxe::tier::%{_p}%} is not set:
-		set slot 1 of {_inv} to iron pickaxe named "<!i><b>Iron Pickaxe</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::iron pickaxe}% Points"
+		set slot 1 of {_inv} to iron pickaxe named "<!i><b>Iron Pickaxe</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::iron pickaxe}% Points"
 	else if {pickaxe::tier::%{_p}%} is "iron":
-		set slot 1 of {_inv} to diamond pickaxe named "<!i><b>Diamond Pickaxe</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::diamond pickaxe}% Points"
+		set slot 1 of {_inv} to diamond pickaxe named "<!i><b>Diamond Pickaxe</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::diamond pickaxe}% Points"
 	else if {pickaxe::tier::%{_p}%} is "diamond":
-		set slot 1 of {_inv} to netherite pickaxe named "<!i><b>Netherite Pickaxe</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::netherite pickaxe}% Points"
+		set slot 1 of {_inv} to netherite pickaxe named "<!i><b>Netherite Pickaxe</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::netherite pickaxe}% Points"
 
 	# Pickaxe enchants
-	if {enchantCostMultiplier::%{_p}%::efficiency} is set:
-		set slot 2 of {_inv} to enchanted book named "<!i><b>Efficiency %convertToRoman({enchantTier::%{_p}%::efficiency} + 1)%</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%({cost::efficiency} * {enchantCostMultiplier::%{_p}%::efficiency})% Points"
-	else:
-		set slot 2 of {_inv} to enchanted book named "<!i><b>Efficiency I</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::efficiency}% Points"
+	#if {enchantCostMultiplier::%{_p}%::efficiency} is set:
+	set slot 2 of {_inv} to enchanted book named "<!i><b>Efficiency %convertToRoman({enchantTier::%{_p}%::efficiency} + 1)%</b>" with lore "%{color::desc}%Cost: %{color::points}%%({cost::efficiency} * ({enchantCostMultiplier::%{_p}%::efficiency} ? 1))% Points"
+	#else:
+	#	set slot 2 of {_inv} to enchanted book named "<!i><b>Efficiency I</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::efficiency}% Points"
 
 	# Pickaxe enchants custom
-	if {enchantCostMultiplier::%{_p}%::veinMiner} is set:
-		set slot 3 of {_inv} to enchanted book named "%{veinMiner::name}% %convertToRoman({customEnchantTier::%{_p}%::veinMiner} + 1)%" with lore "<!i>%{color::desc}%Cost: %{color::points}%%({cost::veinMiner} * {enchantCostMultiplier::%{_p}%::veinMiner})% Points"
-	else:
-		set slot 3 of {_inv} to enchanted book named "%{veinMiner::name}% I" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::veinMiner}% Points"
-
-
-	if {enchantCostMultiplier::%{_p}%::streak} is set:
-		set slot 4 of {_inv} to enchanted book named "%{streak::name}% %convertToRoman({customEnchantTier::%{_p}%::streak} + 1)%" with lore "<!i>%{color::desc}%Cost: %{color::points}%%({cost::streak} * {enchantCostMultiplier::%{_p}%::streak})% Points"
-	else:
-		set slot 4 of {_inv} to enchanted book named "%{streak::name}% I" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::streak}% Points"
-	
-	if {enchantCostMultiplier::%{_p}%::oreDuplicate} is set:
-		set slot 5 of {_inv} to enchanted book named "%{oreDuplicate::name}% %convertToRoman({customEnchantTier::%{_p}%::oreDuplicate} + 1)%" with lore "<!i>%{color::desc}%Cost: %{color::points}%%({cost::oreDuplicate} * {enchantCostMultiplier::%{_p}%::oreDuplicate})% Points"
-	else:
-		set slot 5 of {_inv} to enchanted book named "%{oreDuplicate::name}% I" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::oreDuplicate}% Points"
-
-	if {enchantCostMultiplier::%{_p}%::luckyMiner} is set:
-		set slot 6 of {_inv} to enchanted book named "%{luckyMiner::name}% %convertToRoman({customEnchantTier::%{_p}%::luckyMiner} + 1)%" with lore "<!i>%{color::desc}%Cost: %{color::points}%%({cost::luckyMiner} * {enchantCostMultiplier::%{_p}%::luckyMiner})% Points"
-	else:
-		set slot 6 of {_inv} to enchanted book named "%{luckyMiner::name}% I" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::luckyMiner}% Points"
-
-	if {enchantCostMultiplier::%{_p}%::lootBoxCollector} is set:
-		set slot 7 of {_inv} to enchanted book named "%{lootBoxCollector::name}% %convertToRoman({customEnchantTier::%{_p}%::lootBoxCollector} + 1)%" with lore "<!i>%{color::desc}%Cost: %{color::points}%%({cost::lootBoxCollector} * {enchantCostMultiplier::%{_p}%::lootBoxCollector})% Points"
-	else:
-		set slot 7 of {_inv} to enchanted book named "%{lootBoxCollector::name}% I" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::lootBoxCollector}% Points"
-
-	if {enchantCostMultiplier::%{_p}%::hungryMiner} is set:
-		set slot 8 of {_inv} to enchanted book named "%{hungryMiner::name}% %convertToRoman({customEnchantTier::%{_p}%::hungryMiner} + 1)%" with lore "<!i>%{color::desc}%Cost: %{color::points}%%({cost::hungryMiner} * {enchantCostMultiplier::%{_p}%::hungryMiner})% Points"
-	else:
-		set slot 8 of {_inv} to enchanted book named "%{hungryMiner::name}% I" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::hungryMiner}% Points"
-
-	if {enchantCostMultiplier::%{_p}%::fireball} is set:
-		set slot 11 of {_inv} to enchanted book named "%{fireball::name}% %convertToRoman({customEnchantTier::%{_p}%::fireball} + 1)%" with lore "<!i>%{color::desc}%Cost: %{color::points}%%({cost::fireball} * {enchantCostMultiplier::%{_p}%::fireball})% Points"
-	else:
-		set slot 11 of {_inv} to enchanted book named "%{fireball::name}% I" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::fireball}% Points"
+	set slot 3 of {_inv} to enchanted book named "%{veinMiner::name}% %convertToRoman({customEnchantTier::%{_p}%::veinMiner} + 1)%" with lore "%{color::desc}%Cost: %{color::points}%%({cost::veinMiner} * ({enchantCostMultiplier::%{_p}%::veinMiner} ? 1))% Points"
+	set slot 4 of {_inv} to enchanted book named "%{streak::name}% %convertToRoman({customEnchantTier::%{_p}%::streak} + 1)%" with lore "%{color::desc}%Cost: %{color::points}%%({cost::streak} * ({enchantCostMultiplier::%{_p}%::streak} ? 1))% Points"
+	set slot 5 of {_inv} to enchanted book named "%{oreDuplicate::name}% %convertToRoman({customEnchantTier::%{_p}%::oreDuplicate} + 1)%" with lore "%{color::desc}%Cost: %{color::points}%%({cost::oreDuplicate} * ({enchantCostMultiplier::%{_p}%::oreDuplicate} ? 1))% Points"
+	set slot 6 of {_inv} to enchanted book named "%{luckyMiner::name}% %convertToRoman({customEnchantTier::%{_p}%::luckyMiner} + 1)%" with lore "%{color::desc}%Cost: %{color::points}%%({cost::luckyMiner} * ({enchantCostMultiplier::%{_p}%::luckyMiner} ? 1))% Points"
+	set slot 7 of {_inv} to enchanted book named "%{lootBoxCollector::name}% %convertToRoman({customEnchantTier::%{_p}%::lootBoxCollector} + 1)%" with lore "%{color::desc}%Cost: %{color::points}%%({cost::lootBoxCollector} * ({enchantCostMultiplier::%{_p}%::lootBoxCollector} ? 1))% Points"
+	set slot 8 of {_inv} to enchanted book named "%{hungryMiner::name}% %convertToRoman({customEnchantTier::%{_p}%::hungryMiner} + 1)%" with lore "%{color::desc}%Cost: %{color::points}%%({cost::hungryMiner} * ({enchantCostMultiplier::%{_p}%::hungryMiner} ? 1))% Points"
+	set slot 11 of {_inv} to enchanted book named "%{fireball::name}% %convertToRoman({customEnchantTier::%{_p}%::fireball} + 1)%" with lore "%{color::desc}%Cost: %{color::points}%%({cost::fireball} * ({enchantCostMultiplier::%{_p}%::fireball} ? 1))% Points"
 
 	# Swords
 	if {sword::tier::%{_p}%} is not set:
-		set slot 19 of {_inv} to stone sword named "<!i><b>Stone Sword</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::stone sword}% Points"
+		set slot 19 of {_inv} to stone sword named "<!i><b>Stone Sword</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::stone sword}% Points"
 	else if {sword::tier::%{_p}%} is "stone":
-		set slot 19 of {_inv} to iron sword named "<!i><b>Iron Sword</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::iron sword}% Points"
+		set slot 19 of {_inv} to iron sword named "<!i><b>Iron Sword</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::iron sword}% Points"
 	else if {sword::tier::%{_p}%} is "iron":
-		set slot 19 of {_inv} to diamond sword named "<!i><b>Diamond Sword</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::diamond sword}% Points"
+		set slot 19 of {_inv} to diamond sword named "<!i><b>Diamond Sword</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::diamond sword}% Points"
 	else if {sword::tier::%{_p}%} is "diamond":
-		set slot 19 of {_inv} to netherite sword named "<!i><b>Netherite Sword</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::netherite sword}% Points"
+		set slot 19 of {_inv} to netherite sword named "<!i><b>Netherite Sword</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::netherite sword}% Points"
 
 	# Sword enchants
 	if {sword::tier::%{_p}%} is set:
-		if {enchantCostMultiplier::%{_p}%::sharpness} is set:
-			set slot 20 of {_inv} to enchanted book named "<!i><b>Sharpness %convertToRoman({enchantTier::%{_p}%::sharpness} + 1)%</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%({cost::sharpness} * {enchantCostMultiplier::%{_p}%::sharpness})% Points"
-		else:
-			set slot 20 of {_inv} to enchanted book named "<!i><b>Sharpness I</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::sharpness}% Points"
-		
-		if {enchantCostMultiplier::%{_p}%::sweeping edge} is set:
-			set slot 21 of {_inv} to enchanted book named "<!i><b>Sweeping Edge %convertToRoman({enchantTier::%{_p}%::sweeping edge} + 1)%</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%({cost::sweeping edge} * {enchantCostMultiplier::%{_p}%::sweeping edge})% Points"
-		else:
-			set slot 21 of {_inv} to enchanted book named "<!i><b>Sweeping Edge I</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::sweeping edge}% Points"
-
-		if {enchantCostMultiplier::%{_p}%::fire aspect} is set:
-			set slot 22 of {_inv} to enchanted book named "<!i><b>Fire Aspect %convertToRoman({enchantTier::%{_p}%::fire aspect} + 1)%</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%({cost::fire aspect} * {enchantCostMultiplier::%{_p}%::fire aspect})% Points"
-		else:
-			set slot 22 of {_inv} to enchanted book named "<!i><b>Fire Aspect I</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::fire aspect}% Points"
-
-		if {enchantCostMultiplier::%{_p}%::knockback} is set:
-			set slot 23 of {_inv} to enchanted book named "<!i><b>Knockback %convertToRoman({enchantTier::%{_p}%::knockback} + 1)%</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%({cost::knockback} * {enchantCostMultiplier::%{_p}%::knockback})% Points"
-		else:
-			set slot 23 of {_inv} to enchanted book named "<!i><b>Knockback I</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::knockback}% Points"
+		set slot 20 of {_inv} to enchanted book named "<!i><b>Sharpness %convertToRoman({enchantTier::%{_p}%::sharpness} + 1)%</b>" with lore "%{color::desc}%Cost: %{color::points}%%({cost::sharpness} * ({enchantCostMultiplier::%{_p}%::sharpness} ? 1))% Points"
+		set slot 21 of {_inv} to enchanted book named "<!i><b>Sweeping Edge %convertToRoman({enchantTier::%{_p}%::sweeping edge} + 1)%</b>" with lore "%{color::desc}%Cost: %{color::points}%%({cost::sweeping edge} * ({enchantCostMultiplier::%{_p}%::sweeping edge} ? 1))% Points"
+		set slot 22 of {_inv} to enchanted book named "<!i><b>Fire Aspect %convertToRoman({enchantTier::%{_p}%::fire aspect} + 1)%</b>" with lore "%{color::desc}%Cost: %{color::points}%%({cost::fire aspect} * ({enchantCostMultiplier::%{_p}%::fire aspect} ? 1))% Points"
+		set slot 23 of {_inv} to enchanted book named "<!i><b>Knockback %convertToRoman({enchantTier::%{_p}%::knockback} + 1)%</b>" with lore "%{color::desc}%Cost: %{color::points}%%({cost::knockback} * ({enchantCostMultiplier::%{_p}%::knockback} ? 1))% Points"
 
 
 	# Armor
 	if {armor::tier::%{_p}%} is not set:
-		set slot 28 of {_inv} to leather chestplate named "<!i><b>Leather Armor</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::leather armor}% Points"
+		set slot 28 of {_inv} to leather chestplate named "<!i><b>Leather Armor</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::leather armor}% Points"
 	else if {armor::tier::%{_p}%} is "leather":
-		set slot 28 of {_inv} to iron chestplate named "<!i><b>Iron Armor</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::iron armor}% Points"
+		set slot 28 of {_inv} to iron chestplate named "<!i><b>Iron Armor</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::iron armor}% Points"
 	else if {armor::tier::%{_p}%} is "iron":
-		set slot 28 of {_inv} to diamond chestplate named "<!i><b>Diamond Armor</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::diamond armor}% Points"
+		set slot 28 of {_inv} to diamond chestplate named "<!i><b>Diamond Armor</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::diamond armor}% Points"
 
 	# Armor enchants
 	if {armor::tier::%{_p}%} is set:
-		if {enchantCostMultiplier::%{_p}%::protection} is set:
-			set slot 29 of {_inv} to enchanted book named "<!i><b>Protection %convertToRoman({enchantTier::%{_p}%::protection} + 1)%</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%({cost::protection} * {enchantCostMultiplier::%{_p}%::protection})% Points"
-		else:
-			set slot 29 of {_inv} to enchanted book named "<!i><b>Protection I</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::protection}% Points"
-
-		if {enchantCostMultiplier::%{_p}%::thorns} is set:
-			set slot 30 of {_inv} to enchanted book named "<!i><b>Thorns %convertToRoman({enchantTier::%{_p}%::thorns} + 1)%</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%({cost::thorns} * {enchantCostMultiplier::%{_p}%::thorns})% Points"
-		else:
-			set slot 30 of {_inv} to enchanted book named "<!i><b>Thorns I</b>" with lore "<!i>%{color::desc}%Cost: %{color::points}%%{cost::thorns}% Points"
+		set slot 29 of {_inv} to enchanted book named "<!i><b>Protection %convertToRoman({enchantTier::%{_p}%::protection} + 1)%</b>" with lore "%{color::desc}%Cost: %{color::points}%%({cost::protection} * ({enchantCostMultiplier::%{_p}%::protection} ? 1))% Points"
+		set slot 30 of {_inv} to enchanted book named "<!i><b>Thorns %convertToRoman({enchantTier::%{_p}%::thorns} + 1)%</b>" with lore "%{color::desc}%Cost: %{color::points}%%({cost::thorns} * ({enchantCostMultiplier::%{_p}%::thorns} ? 1))% Points"
