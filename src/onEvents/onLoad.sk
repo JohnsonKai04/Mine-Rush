@@ -8,7 +8,7 @@ function setPoints(block: text, points: number):
 
 on load:
 	# Color codes will only be stored in variables to make editing easier. After beta this can be removed to conserve memory if needed
-	set {color::desc} to "<gradient:#750CF1:#A703B0>"
+	set {color::desc} to "<!i><gradient:#750CF1:#A703B0>"
 	set {color::error} to "<gradient:#F10C31:#8F1D26>"
 	set {color::points} to "<color:#00FF3B>"
 
@@ -84,7 +84,8 @@ on load:
 	set {customItem::grappling hook::Lore} to "<!i><gradient:#750CF1:#A703B0>Right Click to Use!"
 	set {customItem::Extractor::Name} to "<!i><b><gradient:#46F447:#69EF05>Extractor</gradient></b>"
 	set {customItem::Extractor::Lore} to "<!i><gradient:#750CF1:#A703B0>Right Click to Teleport to The Surface!</gradient>"
-
+	set {customItem::ExtractionCompass::Name} to "<!i><b><gradient:#00E0FF:#2145A8>Extraction Compass</gradient></b>"
+	set {customItem::ExtractionCompass::Lore} to "%{color::desc}%Follow the compass to the extraction point!"
 	set {customItem::shop::name} to "<!i><b><gradient:#6176BB:#83D4FF>Shop Menu</gradient></b>"
 	# General
 	set {spawningHeight} to 150 # the hight at which the player spawns once entering the game
@@ -97,32 +98,32 @@ on load:
 
 	# Enchants
 	set {veinMiner::chance::1} to 100%
-	set {veinMiner::name} to "<gradient:#54DAF4:#545EB6>Vein Miner</gradient>"
+	set {veinMiner::name} to "<!i><gradient:#54DAF4:#545EB6>Vein Miner</gradient>"
 	
 	set {streak::chance::1} to 100%
 	set {streak::max} to 0.25
-	set {streak::name} to "<gradient:#303F88:#E03BE0>Streak</gradient>"
+	set {streak::name} to "<!i><gradient:#303F88:#E03BE0>Streak</gradient>"
 	
 	set {oreDuplicate::chance::1} to 0.5%
 	set {oreDuplicate::chance::2} to 0.75%
 	set {oreDuplicate::chance::3} to 1.0%
 	set {oreDuplicate::chance::4} to 1.25%
 	set {oreDuplicate::chance::5} to 1.5%
-	set {oreDuplicate::name} to "<gradient:#24EE32:#E5E712>Ore Duplicate</gradient>"
+	set {oreDuplicate::name} to "<!i><gradient:#24EE32:#E5E712>Ore Duplicate</gradient>"
 
 	set {luckyMiner::chance::1} to 0.5%
 	set {luckyMiner::chance::2} to 1.0%
 	set {luckyMiner::chance::3} to 2.0%
 	set {luckyMiner::chance::4} to 4.0%
 	set {luckyMiner::chance::5} to 5.0%
-	set {luckyMiner::name} to "<gradient:#48E289:#038419>Lucky Miner</gradient>"
+	set {luckyMiner::name} to "<!i><gradient:#48E289:#038419>Lucky Miner</gradient>"
 
 	set {LootBoxCollector::chance::1} to 0.5%
 	set {LootBoxCollector::chance::2} to 0.75%
 	set {LootBoxCollector::chance::3} to 1.0%
 	set {LootBoxCollector::chance::4} to 1.25%
 	set {LootBoxCollector::chance::5} to 1.5%
-	set {LootBoxCollector::name} to "<gradient:#DDA840:#705D09>Loot Box Collector</gradient>"
+	set {LootBoxCollector::name} to "<!i><gradient:#DDA840:#705D09>Loot Box Collector</gradient>"
 
 	set {lootBox::item::lore} to "<gradient:#750CF1:#A703B0>Place to Open!</gradient>"
 	set {lootBox::item::common} to a chest named "<<gradient:#2F8333:#36F401>Common Box</gradient>" with lore {lootBox::item::lore}
@@ -133,7 +134,7 @@ on load:
 
 	set {hungryMiner::hungerPoints} to 1
 	set {hungryMiner::chance::1} to 1%
-	set {hungryMiner::name} to "<gradient:#E65140:#07E04B>Hungry Miner</gradient>"
+	set {hungryMiner::name} to "<!i><gradient:#E65140:#07E04B>Hungry Miner</gradient>"
 
 	set {fireball::size::1} to 2
 	set {fireball::size::2} to 4
@@ -141,7 +142,7 @@ on load:
 	set {fireball::chance::1} to 100%
 	set {fireball::chance::2} to 100%
 	set {fireball::chance::3} to 100%
-	set {fireball::name} to "<gradient:#F2FF12:#FF1B00>Fireball</gradient>"
+	set {fireball::name} to "<!i><gradient:#F2FF12:#FF1B00>Fireball</gradient>"
 
 
 	# Booster Cards
