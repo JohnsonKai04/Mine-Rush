@@ -76,7 +76,8 @@ function beginDifficulty5(p: player):
 	set block at {_validSpawn} to beacon
 	loop blocks within {_validSpawn} ~ vector(-1,-1,-1) and {_validSpawn} ~ vector(1,-1,1):
 		set loop-block to iron block
-
+	give {_p} compass named {customItem::ExtractionCompass::Name} with lore {customItem::ExtractionCompass::Lore}
+	set {_p}'s compass target to {_validSpawn}
 	send "<gradient:#F50EC9:#F50E0E>Extract Location Spawned at: <b>%{_validSpawn}%</b></gradient>" to {_p}
 	play sound "item.goat_horn.sound.6" with volume {settings::volume::%{_p}%} at {_p}
 	set bar color of {pointBar::%{_p}%} to white
