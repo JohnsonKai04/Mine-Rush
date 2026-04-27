@@ -12,7 +12,7 @@
 - [ ] Create a custom anticheat that collects data to determine if a run wasnt legit
 
 ## On next play test, validate:
-- [ ] The Extractor
+- [x] The Extractor
 
 ## Multiplyer support
 - [ ] Validate that multipler players can start their own independent game. Change all variables to include %player% at the end
