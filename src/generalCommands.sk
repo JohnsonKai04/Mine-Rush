@@ -43,29 +43,24 @@ on tab complete of "/MRdebug":
 function playRandomMusic(p: player):
 	play sound "music_disc.creator" or "music_disc.otherside" or "music_disc.pigstep" or "music_disc.lava.chicken" or "music_disc.tears" in jukebox category with volume {settings::%{_p}%::volume} at {_p}
 
-function convertToRoman(value: number) :: text:
-	if {_value} is 1:
-		return "I"
-	else if {_value} is 2:
-		return "II"
-	else if {_value} is 3:
-		return "III"
-	else if {_value} is 4:
-		return "IV"
-	else if {_value} is 5:
-		return "V"
-	else if {_value} is 6:
-		return "VI"
-	else if {_value} is 7:
-		return "VII"
-	else if {_value} is 8:
-		return "VIII"
-	else if {_value} is 9:
-		return "IX"
-	else if {_value} is 10:
-		return "X"
-	else:
-		return "%{value}%"
+
+function convertToRoman(num: integer) :: text:
+    set {_roman} to ""
+
+    set {_map::*} to "1000=M", and "900=CM", and "500=D", and "400=CD", and "100=C", and "90=XC", and "50=L", and "40=XL", and "10=X", and "9=IX", and "5=V", and "4=IV", and "1=I"
+
+    loop {_map::*}:
+        set {_parts::*} to loop-value split at "="
+        set {_value} to {_parts::1} parsed as integer
+        set {_symbol} to {_parts::2}
+
+        set {_count} to floor({_num} / {_value})
+        loop {_count} times:
+            set {_roman} to "%{_roman}%%{_symbol}%"
+
+        set {_num} to mod({_num}, {_value})
+
+    return {_roman}
 
 
 function swapBoolean(v: boolean) :: boolean:
