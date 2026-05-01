@@ -8,7 +8,7 @@ command /generateSpawnPoints [<integer>]:
 		set {_overallTime} to now
 		set {stopgen} to false
 		set {chunkSaving} to true
-		send "Generating %arg-1% spawn points..."
+		send "Generating %arg-1% spawn points..." # meow meow test
 		loop arg-1 times:
 			set {_timer} to now
 			while {_isValid} is not set:
