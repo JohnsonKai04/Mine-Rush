@@ -7,7 +7,6 @@ on spawn:
 				#if {debugMode::%{_p}%} is not true:
 				#	cancel event
 			if y-coordinate of location of event-entity is greater than or equal to ({_p}'s y-level + {mobSpawnMaxHeight}):
-				broadcast "too high"
 				cancel event
 			set max health of event-entity to round((max health of event-entity) * ({difficulty::%{_p}%} / 2))
 			heal event-entity

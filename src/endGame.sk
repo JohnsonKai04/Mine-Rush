@@ -102,9 +102,6 @@ function endGame(p: player) :: boolean:
 	updateLeaderboard({_p}, {points::%{_p}%})
 	deletePlayerVariables({_p})
 	return true
-command /test:
-	trigger:
-		send {spawnLocation::%player%} to player
 
 function deletePlayerVariables(p: player):
 	delete {difficulty::%{_p}%}
