@@ -2,7 +2,7 @@ command /shop:
 	aliases: /s, /market
 	trigger:
 		if {inGame::%player%} is not true:
-			send "<gradient:#750CF1:#A703B0>This command can only be used when the game has been started</gradient" to player
+			send "%{color::error}%Error: This command can only be used when the game has been started" to player
 			stop
 
 		open chest inventory with 3 rows named "<gradient:#00FF30:#E7FF00>Shop</gradient>" to player
