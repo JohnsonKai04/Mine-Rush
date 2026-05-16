@@ -10,6 +10,7 @@ on death of player:
 			wait 1 tick
 			delete {inGame::%victim%}
 			kill victim
+			set {currentGameStats::%victim%::extracted} to false
 			endGame(victim)
 	set death message to deathMsg(victim, "%attacker%")
 
@@ -29,7 +30,7 @@ on right click on beacon:
 		send "<b><gradient:#52F361:#02CEF6:#52F361>Extracting You Now good job %player%. Heres a Bonus For Your Efforts: %{pointsBonus::%player%}%</gradient></b>" to player
 		wait 6 seconds
 		make player vulnerable
-		add 1 to {currentGameStats::%player%::sucessfullExtracts}
+		set {currentGameStats::%player%::extracted} to true
 		kill player
 		endGame(player)
 
@@ -48,8 +49,8 @@ function saveDataToFile(p: player) :: boolean:
 	while {_completed} is false:
 		add 1 to {_ID}
 		load yaml "mineRushData/playerData/%{_p}'s uuid%/game%{_ID}%.yaml" as "file"
-		load yaml "mineRushData/playerData/%{_p}'s uuid%/stats.yaml" as "stats"
 		if yaml path "points" in "file" doesn't have a value:
+			load yaml "mineRushData/playerData/%{_p}'s uuid%/stats.yaml" as "stats"
 			loop {currentGameStats::%{_p}%::*}:
 				if {ores::*} contains loop-index:
 					set yaml value "ores.%loop-index%" from "file" to loop-value
@@ -58,14 +59,17 @@ function saveDataToFile(p: player) :: boolean:
 					set yaml value "points.%loop-index%" from "file" to loop-value
 					set yaml value "points.%loop-index%" from "stats" to (loop-value + yaml value "points.%loop-index%" from "stats")
 				else if loop-index is not "duration", or "sucessfullextracts":
-					set yaml value "other.%loop-index%" from "file" to loop-value
-					set yaml value "other.%loop-index%" from "stats" to (loop-value + yaml value "other.%loop-index%" from "stats")
+					set yaml value "otherblocks.%loop-index%" from "file" to loop-value
+					set yaml value "otherblocks.%loop-index%" from "stats" to (loop-value + yaml value "otherblocks.%loop-index%" from "stats")
 			set yaml value "points.points" from "file" to {points::%{_p}%}
-			set yaml value "points.extractionpoints" from "file" to {pointsBonus::%{_p}%}
 			set yaml value "time.duration" from "file" to "%difference between now and {currentGameStats::%{_p}%::duration}%"
 			set yaml value "time.timePlayed" from "file" to "%now%"
 			set yaml value "points.points" from "stats" to ({points::%{_p}%} + yaml value "points.points" from "stats")
-			set yaml value "points.extractionpoints" from "stats" to ({pointsBonus::%{_p}%} + yaml value "points.extractionpoints" from "stats")
+			set yaml value "extracted" from "file" to "%{currentGameStats::%{_p}%::extracted}%"
+			if {currentGameStats::%{_p}%::extracted} is true:
+				set yaml value "other.extracts" from "stats" to (1 + yaml value of "other.extracts" from "stats")
+			else:
+				set yaml value "other.deaths" from "stats" to (1 + yaml value of "other.deaths" from "stats")
 
 			set {_completed} to true
 

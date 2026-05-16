@@ -180,20 +180,24 @@ on inventory click:
 			openGamesMenu(player, {_page})
 			stop
 		if {_ID} is set:
+			set {_file} to "mineRushData/playerData/%player's uuid%/game%{_ID}%.yaml"
+			set {_totalPoints} to yaml value "points.totalpoints" from {_file}
+			set {_pointsSpent} to yaml value "points.pointsspent" from {_file}
+			set {_mobKills} to yaml value "other.mobkills" from {_file}
+			set {_commonLootBoxesOpened} to yaml value "other.commonlootboxesopened" from {_file}
+			set {_rareLootBoxesOpened} to yaml value "other.rarelootboxesopened" from {_file}
+			set {_legendaryLootBoxesOpened} to yaml value "other.legendarylootboxesopened" from {_file}
+
 			send "<gradient:#7C4D24:#4C1420> |----------- Game #%{_ID}% -----------|</gradient>"
 			send " " to player
-			
-			#if {gameStats::%player%::%{_ID}%::sucessfullExtracts} is 1:
-			#	send " <#CC813E>S<#CC7E3F>u<#CB7B3F>c<#CB7840>c<#CA7541>e<#CA7241>s<#C96F42>s<#C96B43>f<#C86844>u<#C86544>l<#C76245>l<#C75F46>y <#C65947>E<#C55648>x<#C55348>t<#C45049>r<#C44D4A>a<#C34A4A>c<#C3474B>t<#C2434C>e<#C2404D>d<#C13D4D>:  <#C0374F>Y<#C0344F>e<#BF3150>s" to player
-			#else:
-			#	send " <#CC813E>S<#CB7E3F>u<#CB7B3F>c<#CA7740>c<#CA7441>e<#C97142>s<#C96E42>s<#C86B43>f<#C86744>u<#C76444>l<#C76145>l<#C65E46>y <#C55747>E<#C55448>x<#C45149>t<#C44E4A>r<#C34B4A>a<#C3474B>c<#C2444C>t<#C2414C>e<#C13E4D>d<#C13B4E>:  <#C0344F>N<#BF3150>o" to player
-			
-			send " <gradient:#CC813E:#BF344F>Total Points Earned:          %{gameStats::%player%::%{_ID}%::totalPoints} ? 0%</gradient>" to player
-			send " <gradient:#CC813E:#BF344F>Points Spent:                 %{gameStats::%player%::%{_ID}%::pointsSpent} ? 0%</gradient>" to player
-			send " <gradient:#CC813E:#BF344F>Mobs Killed:                  %{gameStats::%player%::%{_ID}%::mobKills} ? 0%</gradient>" to player
-			send " <gradient:#CC813E:#BF344F>Common loot boxes opened:     %{gameStats::%player%::%{_ID}%::commonLootBoxesOpened} ? 0%</gradient>" to player
-			send " <gradient:#CC813E:#BF344F>Rare loot boxes opened:       %{gameStats::%player%::%{_ID}%::rareLootBoxesOpened} ? 0%</gradient>" to player
-			send " <gradient:#CC813E:#BF344F>Legendary Loot Boxes Opened:  %{gameStats::%player%::%{_ID}%::legendaryLootBoxesOpened} ? 0%</gradient>" to player
+			send " <gradient:#CC813E:#BF344F>Total Points Earned:          %{_totalPoints} ? 0%</gradient>" to player
+			send " <gradient:#CC813E:#BF344F>Points Spent:                 %{_pointsSpent} ? 0%</gradient>" to player
+			send " <gradient:#CC813E:#BF344F>Mobs Killed:                  %{_mobKills} ? 0%</gradient>" to player
+			send " <gradient:#CC813E:#BF344F>Common loot boxes opened:     %{_commonLootBoxesOpened} ? 0%</gradient>" to player
+			send " <gradient:#CC813E:#BF344F>Rare loot boxes opened:       %{_rareLootBoxesOpened} ? 0%</gradient>" to player
+			send " <gradient:#CC813E:#BF344F>Legendary Loot Boxes Opened:  %{_legendaryLootBoxesOpened} ? 0%</gradient>" to player
 			send " " to player
 			send "<gradient:#7C4D24:#4C1420>|-------------------------------------|</gradient>" to player
 			close the inventory of the player
+			unload yaml "mineRushData/playerData/%player's uuid%/game%{_ID}%.yaml"
+		
