@@ -95,33 +95,34 @@ function updateLeaderboard(p: player, points: number):
 
 function saveDataToFile(p: player) :: boolean:
 	set {_ID} to 0
+	load yaml "mineRushData/playerData/%{_p}'s uuid%/gameData.yaml" as "file"
+	load yaml "mineRushData/playerData/%{_p}'s uuid%/stats.yaml" as "stats"
 	set {_completed} to false
 	while {_completed} is false:
 		add 1 to {_ID}
-		load yaml "mineRushData/playerData/%{_p}'s uuid%/game%{_ID}%.yaml" as "file"
-		if yaml path "points" in "file" doesn't have a value:
-			load yaml "mineRushData/playerData/%{_p}'s uuid%/stats.yaml" as "stats"
-			loop {currentGameStats::%{_p}%::*}:
-				if {ores::*} contains loop-index:
-					set yaml value "ores.%loop-index%" from "file" to loop-value
-					set yaml value "ores.%loop-index%" from "stats" to (loop-value + yaml value "ores.%loop-index%" from "stats")
-				else if loop-index is "pointsspent", or "totalPoints":
-					set yaml value "points.%loop-index%" from "file" to loop-value
-					set yaml value "points.%loop-index%" from "stats" to (loop-value + yaml value "points.%loop-index%" from "stats")
-				else if loop-index is not "duration", or "sucessfullextracts":
-					set yaml value "otherblocks.%loop-index%" from "file" to loop-value
-					set yaml value "otherblocks.%loop-index%" from "stats" to (loop-value + yaml value "otherblocks.%loop-index%" from "stats")
-			set yaml value "points.points" from "file" to {points::%{_p}%}
-			set yaml value "time.duration" from "file" to "%difference between now and {currentGameStats::%{_p}%::duration}%"
-			set yaml value "time.timePlayed" from "file" to "%now%"
-			set yaml value "points.points" from "stats" to ({points::%{_p}%} + yaml value "points.points" from "stats")
-			set yaml value "extracted" from "file" to "%{currentGameStats::%{_p}%::extracted}%"
-			if {currentGameStats::%{_p}%::extracted} is true:
-				set yaml value "other.extracts" from "stats" to (1 + yaml value of "other.extracts" from "stats")
-			else:
-				set yaml value "other.deaths" from "stats" to (1 + yaml value of "other.deaths" from "stats")
+		if yaml path "%{_ID}%" in "file" has a value:
+			continue
+		set {_completed} to true
 
-			set {_completed} to true
+	loop {currentGameStats::%{_p}%::*}:
+		if {ores::*} contains loop-index:
+			set yaml value "%{_ID}%.ores.%loop-index%" from "file" to loop-value
+			set yaml value "ores.%loop-index%" from "stats" to (loop-value + yaml value "ores.%loop-index%" from "stats")
+		else if loop-index is "pointsspent", or "totalPoints":
+			set yaml value "%{_ID}%.points.%loop-index%" from "file" to loop-value
+			set yaml value "points.%loop-index%" from "stats" to (loop-value + yaml value "points.%loop-index%" from "stats")
+		else if loop-index is not "duration", or "extracted":
+			set yaml value "%{_ID}%.otherblocks.%loop-index%" from "file" to loop-value
+			set yaml value "otherblocks.%loop-index%" from "stats" to (loop-value + yaml value "otherblocks.%loop-index%" from "stats")
+	set yaml value "%{_ID}%.points.points" from "file" to {points::%{_p}%}
+	set yaml value "%{_ID}%.time.duration" from "file" to "%difference between now and {currentGameStats::%{_p}%::duration}%"
+	set yaml value "%{_ID}%.time.timePlayed" from "file" to "%now%"
+	set yaml value "points.points" from "stats" to ({points::%{_p}%} + yaml value "points.points" from "stats")
+	set yaml value "%{_ID}%.extracted" from "file" to "%{currentGameStats::%{_p}%::extracted}%"
+	if {currentGameStats::%{_p}%::extracted} is true:
+		set yaml value "other.extracts" from "stats" to (1 + yaml value "other.extracts" from "stats")
+	else:
+		set yaml value "other.deaths" from "stats" to (1 + yaml value "other.deaths" from "stats")
 
 	delete {currentGameStats::%{_p}%::*}
 	delete {pointsBonus::%{_p}%}
