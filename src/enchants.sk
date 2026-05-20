@@ -76,10 +76,7 @@ function lootBoxCollector(p: player):
 
 		else: # 15% chance
 			give {_p} {lootBox::item::legendary}
-			send "<b>+1 %name of {lootBox::item::legendary}% Proc</b>" to {_p}
-
-		if {settings::chatEnchantNotif::%{_p}%} is true:
-			send "<b>%{LootBoxCollector::name}% Proc</b>" to {_p}
+			send "<b>+1 %name of {lootBox::item::legendary}%</b>" to {_p}
 
 
 function hungryMiner(p: player):
