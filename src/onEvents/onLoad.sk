@@ -127,7 +127,7 @@ on load:
 	set {LootBoxCollector::name} to "<!i><gradient:#DDA840:#705D09>Loot Box Collector</gradient>"
 
 	set {lootBox::item::lore} to "<gradient:#750CF1:#A703B0>Place to Open!</gradient>"
-	set {lootBox::item::common} to a chest named "<<gradient:#2F8333:#36F401>Common Box</gradient>" with lore {lootBox::item::lore}
+	set {lootBox::item::common} to a chest named "<gradient:#2F8333:#36F401>Common Box</gradient>" with lore {lootBox::item::lore}
 	set {lootBox::chance::common} to 50
 	set {lootBox::item::rare} to a chest named "<gradient:#0F158E:#4CCCD1>Rare Box</gradient>" with lore {lootBox::item::lore}
 	set {lootBox::chance::rare} to 35
