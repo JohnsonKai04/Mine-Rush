@@ -169,16 +169,10 @@ function applyCustomEnchant(p: player, enchantName: text) :: boolean:
 			if name of loop-item is loop-value-2: # item found
 				loop lore of loop-item:
 					if loop-value-3 is "%{%{_enchantName}%::name}% %{_romanPrevious}%":
-						replace loop-value-3 in lore of loop-item with "%{%{_enchantName}%::name}% %{_roman}%"
-						if {debugMode::%{_p}%} is true:
-							send "loop value found and enchant replaced1" to {_p}
+						replace loop-value-3 in lore of loop-item with formatted "%{%{_enchantName}%::name}% %{_roman}%"
 						return true
 				# if the item does not have the enchant already on the pickaxe:
-				add "%{%{_enchantName}%::name}% %{_roman}%" to the lore of the loop-item
-
-				send "%loop-item%, %{%{_enchantName}%::name}% %{_roman}%" to {_p}
-				if {debugMode::%{_p}%} is true:
-					send "loop value found and enchant applied2" to {_p}
+				add formatted "%{%{_enchantName}%::name}% %{_roman}%" to the lore of the loop-item
 				return true
 
 function purchaseCustomEnchant(p: player, enchantName: text):
