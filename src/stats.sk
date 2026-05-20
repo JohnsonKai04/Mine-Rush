@@ -19,11 +19,6 @@ command /MRclearLeaderboard:
 			set {leaderboardPlayer::%loop-value%} to "None"
 		send "LEADERBOARD CLEARED" to player
 
-command /MRclearStats:
-	trigger:
-		delete {overallStats::%player%::*}
-		send "ALL STATS HAVE BEEN DELETED" to player
-
 command /MRstats [<player>]:
 	trigger:
 		set {_p} to arg-1
@@ -74,17 +69,6 @@ function openGamesMenu(p: player, page: int = 0):
 			set slot 45 of {_inv} to tipped arrow of luck named "&aPage %{_page}%"
 		unload yaml "file"
 
-command /fillGames [<int>]:
-	trigger:
-		loop arg-1 times:
-			set {_true} to true
-			while {_true} is true:
-				add 1 to {_ID}
-				if {gameStats::%player%::%{_ID}%::*} is not set:
-					set {gameStats::%player%::%{_ID}%::timePlayed} to now
-					set {_true} to false
-		send "%arg-1% Games have been filled" to player
-
 # Param - _p: player that is playing
 # Param - _points: the points the player has earned through playing the game, this will be shown on the leaderboard
 # Runs through the leaderboard and checks where to put the player on the leaderboard of 10 slots. Sorts the leaderboard whenever finished
@@ -107,3 +91,41 @@ function updateLeaderboard(p: player, points: number):
 
 	set {leaderboardPoints::%{_insertAt}%} to {_points}
 	set {leaderboardPlayer::%{_insertAt}%} to {_p}
+
+
+function saveDataToFile(p: player) :: boolean:
+	set {_ID} to 0
+	set {_completed} to false
+	while {_completed} is false:
+		add 1 to {_ID}
+		load yaml "mineRushData/playerData/%{_p}'s uuid%/game%{_ID}%.yaml" as "file"
+		if yaml path "points" in "file" doesn't have a value:
+			load yaml "mineRushData/playerData/%{_p}'s uuid%/stats.yaml" as "stats"
+			loop {currentGameStats::%{_p}%::*}:
+				if {ores::*} contains loop-index:
+					set yaml value "ores.%loop-index%" from "file" to loop-value
+					set yaml value "ores.%loop-index%" from "stats" to (loop-value + yaml value "ores.%loop-index%" from "stats")
+				else if loop-index is "pointsspent", or "totalPoints":
+					set yaml value "points.%loop-index%" from "file" to loop-value
+					set yaml value "points.%loop-index%" from "stats" to (loop-value + yaml value "points.%loop-index%" from "stats")
+				else if loop-index is not "duration", or "sucessfullextracts":
+					set yaml value "otherblocks.%loop-index%" from "file" to loop-value
+					set yaml value "otherblocks.%loop-index%" from "stats" to (loop-value + yaml value "otherblocks.%loop-index%" from "stats")
+			set yaml value "points.points" from "file" to {points::%{_p}%}
+			set yaml value "time.duration" from "file" to "%difference between now and {currentGameStats::%{_p}%::duration}%"
+			set yaml value "time.timePlayed" from "file" to "%now%"
+			set yaml value "points.points" from "stats" to ({points::%{_p}%} + yaml value "points.points" from "stats")
+			set yaml value "extracted" from "file" to "%{currentGameStats::%{_p}%::extracted}%"
+			if {currentGameStats::%{_p}%::extracted} is true:
+				set yaml value "other.extracts" from "stats" to (1 + yaml value of "other.extracts" from "stats")
+			else:
+				set yaml value "other.deaths" from "stats" to (1 + yaml value of "other.deaths" from "stats")
+
+			set {_completed} to true
+
+	delete {currentGameStats::%{_p}%::*}
+	delete {pointsBonus::%{_p}%}
+	save yaml "file"
+	save yaml "stats"
+	unload yaml "file"
+	unload yaml "stats"
