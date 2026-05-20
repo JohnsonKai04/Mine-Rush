@@ -1,7 +1,17 @@
 ## Issues
 - There are client side mods that hide the players bossbar for some reason right now these mods are (Better F3)
 
-# 4/6/2026 To Today
+# 5/20/2026
+
+- [ ] lootbox procc msgs are not formatted correctly
+- [ ] Add /setup wich generates 25 valid spawns, sets gamerules
+- [ ] Enchant tiers are not color coded correctly and lootboxcollector was able to duplicate IV to V
+- [ ] Starting in... looks like ass
+
+
+
+
+# 4/6/2026
 
 ## QOL
 - [x] Damage indecators
