@@ -41,7 +41,7 @@ function oreDuplicate(p: player, b: block):
 		set block at location of {_b} to {_new}
 
 		if {settings::chatEnchantNotif::%{_p}%} is true:
-			send "<b>%{oreDuplicate::name}% Proc</b>" to {_p}
+			send formatted "<b>%{oreDuplicate::name}% Proc</b>" to {_p}
 
 
 function luckyMiner(p: player, b: block) :: text:
@@ -59,7 +59,7 @@ function luckyMiner(p: player, b: block) :: text:
 				return {_newType}
 
 		if {settings::chatEnchantNotif::%{_p}%} is true:
-			send "<b>%{luckyMiner::name}% Proc</b>" to {_p}
+			send formatted "<b>%{luckyMiner::name}% Proc</b>" to {_p}
 	return {_currentType}
 
 
@@ -69,21 +69,21 @@ function lootBoxCollector(p: player):
 		if {_chance} >= 50: # 50% chance
 			give {_p} {lootBox::item::common}
 			
-			send "<b>+1 %name of {lootBox::item::common}%</b>" to {_p}
+			send formatted "<b>+1 %name of {lootBox::item::common}%</b>" to {_p}
 		else if {_cha nce} >= 15: # 35% chance
 			give {_p} {lootBox::item::rare}
-			send "<b>+1 %name of {lootBox::item::rare}%</b>" to {_p}
+			send formatted "<b>+1 %name of {lootBox::item::rare}%</b>" to {_p}
 
 		else: # 15% chance
 			give {_p} {lootBox::item::legendary}
-			send "<b>+1 %name of {lootBox::item::legendary}%</b>" to {_p}
+			send formatted "<b>+1 %name of {lootBox::item::legendary}%</b>" to {_p}
 
 
 function hungryMiner(p: player):
 	chance of {hungryMiner::chance::%{customEnchantTier::%{_p}%::hungryMiner}%}:
 		add 1 to {_p}'s food level
 		if {settings::chatEnchantNotif::%{_p}%} is true:
-			send "<b>%{hungryMiner::name}% Proc</b>" to {_p}
+			send formatted "<b>%{hungryMiner::name}% Proc</b>" to {_p}
 		
 
 function fireball(p: player):
@@ -98,4 +98,4 @@ function fireball(p: player):
 			set {_difference} to difference between {cooldown::fireball::%{_p}%} and now
 			set {_remaining} to difference between {_difference} and 60 seconds
 			playErrorSound({_p})
-			send "<gradient:#F10C31:#8F1D26>Cooldown Still Active Please Wait: %{_remaining}%!</gradient>" to {_p}
+			send formatted "<gradient:#F10C31:#8F1D26>Cooldown Still Active Please Wait: %{_remaining}%!</gradient>" to {_p}
