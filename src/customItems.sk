@@ -75,8 +75,11 @@ on place of chest:
 			add 1 to {currentGameStats::%player%::rareLootBoxesOpened}
 
 		if name of event-block is name of {lootBox::item::legendary}:
+			send "meow" to player
 			playLootBoxLegendaryAnimation(player, event-block, 3)
 			add 1 to {currentGameStats::%player%::legendaryLootBoxesOpened}
+		else:
+			send "no meow" to player
 
 
 on rightclick:
@@ -129,6 +132,7 @@ function playLootBoxRareAnimation(p: player, b: block, m: integer):
 
 
 function playLootBoxLegendaryAnimation(p: player, b: block, m: integer):
+	send "%{_b}%" to {_p}
 	open the lid of {_b}
 	set {_loc} to location of {_b}
 	spawn an armor stand 0.5 blocks below {_loc} with nbt from "{Invisible:1, Small: 1, NoGravity: 1, Marker: 1b}"
