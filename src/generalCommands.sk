@@ -40,6 +40,23 @@ on tab complete of "/MRdebug":
 	set tab completion to "true" and "false"
 
 
+command /setup:
+	permission: mineRush.admin
+	trigger:
+		make console execute command "gamerule advance_time false"
+		make console execute command "gamerule advance_weather false"
+		make console execute command "gamerule allow_entering_nether_using_portals false"
+		make console execute command "gamerule block_drops false"
+		make console execute command "gamerule entity_drops false"
+		make console execute command "gamerule fire_spread_radius_around_player 0"
+		make console execute command "gamerule immediate_respawn true"
+		make console execute command "gamerule keep_inventory true"
+		make console execute command "gamerule immediate_respawn true"
+		make console execute command "gamerule immediate_respawn true"
+		wait 1 tick
+		send "%{color::desc}%Make sure to run /generateSpawnPoints [# of spawn points]" to player
+		send "%{color::desc}%25-50 spawn points is recommended depending on storage/player count" to player
+
 function playRandomMusic(p: player):
 	play sound "music_disc.creator" or "music_disc.otherside" or "music_disc.pigstep" or "music_disc.lava.chicken" or "music_disc.tears" in jukebox category with volume {settings::%{_p}%::volume} at {_p}
 
