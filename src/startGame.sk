@@ -28,18 +28,18 @@ command /start:
 		set {_location} to {validSpawn::location::%{spawnPointer}%}
 		set {spawnLocation::%player%} to {spawnPointer}
 
-		send title "<b><color:#00FF3B><shadow:#E7FF00:1>Starting in 5...</shadow></color></b>" to player
+		send title "<b><color:#00FF3B>Starting in 5...</color></b>" to player
 		wait 1 second
-		send title "<b><color:#E7FF00><shadow:#FFC400:1>Starting in 4...</shadow></color></b>" to player
+		send title "<b><color:#E7FF00>Starting in 4...</color></b>" to player
 		wait 1 second
-		send title "<b><color:#FFC400><shadow:#FF7200:1>Starting in 3...</shadow></color></b>" to player
+		send title "<b><color:#FFC400>Starting in 3...</color></b>" to player
 		apply potion effect of blindness to the player for 6 seconds:
 			hide particles
 			hide icon
 		wait 1 second
-		send title "<b><color:#FF7200><shadow:#FF3E00:1>Starting in 2...</shadow></color></b>" to player
+		send title "<b><color:#FF7200>Starting in 2...</color></b>" to player
 		wait 1 second
-		send title "<b><color:#FF3E00><shadow:#000000:1>Starting in 1...</shadow></color></b>" to player
+		send title "<b><color:#FF3E00>Starting in 1...</color></b>" to player
 		wait 1 second
 		send title "<b><rainbow>Good Luck</rainbow></b>" to player
 		
