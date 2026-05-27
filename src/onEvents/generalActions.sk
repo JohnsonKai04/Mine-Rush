@@ -31,5 +31,17 @@ on rightclick on entity:
 # Awards the player with a lootbox whenever they find a chest
 on rightclick on Chest:
 	if {inGame::%player%} is true:
-		giveRandomLootbox(player, location of event-block)
+		loop {lootBox::item::*}:
+			if formatted name of {_b} is formatted name of {lootBox::item::%loop-index%}:
+				set {_lootbox} to true
+		if {_lootbox} is not true:
+			giveRandomLootbox(player, location of event-block)
 		cancel event
+
+
+function giveRandomLootbox(p: player, l: location):
+	set {_b} to block at {_l}
+	give {_p} {lootBox::item::common} or {lootBox::item::rare} or {lootBox::item::legendary}
+	phantomOre({_p}, {_b}, "chest")
+	draw 50 of totem of undying at {_l}
+	set block at location of {_b} to air

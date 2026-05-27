@@ -66,21 +66,17 @@ on right click using player head or recovery compass:
 
 on place of chest:
 	if {inGame::%player%} is true:
-		if name of event-block is name of {lootBox::item::common}:
+		if formatted name of event-block is formatted name of {lootBox::item::common}:
 			playLootBoxCommonAnimation(player, event-block, 1)
 			add 1 to {currentGameStats::%player%::commonLootBoxesOpened}
 
-		if name of event-block is name of {lootBox::item::rare}:
+		if formatted name of event-block is formatted name of {lootBox::item::rare}:
 			playLootBoxRareAnimation(player, event-block, 2)
 			add 1 to {currentGameStats::%player%::rareLootBoxesOpened}
 
-		if name of event-block is name of {lootBox::item::legendary}:
-			send "meow" to player
+		if formatted name of event-block is formatted name of {lootBox::item::legendary}:
 			playLootBoxLegendaryAnimation(player, event-block, 3)
 			add 1 to {currentGameStats::%player%::legendaryLootBoxesOpened}
-		else:
-			send "no meow" to player
-
 
 on rightclick:
 	if uncolored name of player's held item is uncolored {customItem::shop::name}: # Yea i dont even know
@@ -91,19 +87,6 @@ function asyncPoints(p: player, points: integer):
 	wait 10 ticks
 	if {_points} is not 0:
 		send action bar "<b><gradient:#22F10C:#03B08D>+%{_points}% Points </gradient>" to {_p}
-
-
-function giveRandomLootbox(p: player, l: location):
-	set {_lootbox} to false
-	set {_b} to block at {_l}
-	loop {lootBox::item::*}:
-		if name of {_b} is name of {lootBox::item::%loop-index%}:
-			set {_lootbox} to true
-	if {_lootbox} is false:
-		give {_p} {lootBox::item::common} or {lootBox::item::rare} or {lootBox::item::legendary}
-		phantomOre({_p}, {_b}, "chest")
-		draw 50 of totem of undying at {_l}
-		set block at location of {_b} to air
 
 
 function playLootBoxCommonAnimation(p: player, b: block, m: integer):
@@ -132,7 +115,6 @@ function playLootBoxRareAnimation(p: player, b: block, m: integer):
 
 
 function playLootBoxLegendaryAnimation(p: player, b: block, m: integer):
-	send "%{_b}%" to {_p}
 	open the lid of {_b}
 	set {_loc} to location of {_b}
 	spawn an armor stand 0.5 blocks below {_loc} with nbt from "{Invisible:1, Small: 1, NoGravity: 1, Marker: 1b}"
