@@ -1,0 +1,5 @@
+function giveMenuItem(p: player):
+    set slot 4 of {_p} to nether star named {customItem::menu::name} with lore {customItem::menu::lore}
+command /test:
+    trigger:
+        giveMenuItem(player)
