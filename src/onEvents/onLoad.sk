@@ -11,7 +11,7 @@ on load:
 	set {color::desc} to "<!i><gradient:#750CF1:#A703B0>"
 	set {color::error} to "<gradient:#F10C31:#8F1D26>"
 	set {color::points} to "<color:#00FF3B>"
-	set {color::leaderboard} to "<gradient:#CC813E:#BF344F>"
+	set {color::leaderboard} to "<!i><gradient:#CC813E:#BF344F>"
 
 	set {deathTitle::1} to "[RIP]"
 	set {deathTitle::2} to "[DEAD]"
@@ -80,14 +80,17 @@ on load:
 	set {sword::tier::netherite} to "<!i><color:#00E0FF><b>Netherite Sword</b></color>"
 
 	set {customItem::ghead::Name} to "<!i><b><gradient:#FFF800:#2DFF00:#FFF800>Golden Head</gradient></b>"
-	set {customItem::ghead::Lore} to "<!i><gradient:#750CF1:#A703B0>Right Click to Gain Health, Speed, Resistance</gradient>"
+	set {customItem::ghead::Lore} to "<!i>%{color::desc}%Right Click to Gain Health, Speed, Resistance</gradient>"
 	set {customItem::grappling hook::Name} to "<!i><b><gradient:#EC9900:#984105>Grappling Hook</gradient></b>"
-	set {customItem::grappling hook::Lore} to "<!i><gradient:#750CF1:#A703B0>Right Click to Use!"
+	set {customItem::grappling hook::Lore} to "<!i>%{color::desc}%Right Click to Use!"
 	set {customItem::Extractor::Name} to "<!i><b><gradient:#46F447:#69EF05>Extractor</gradient></b>"
-	set {customItem::Extractor::Lore} to "<!i><gradient:#750CF1:#A703B0>Right Click to Teleport to The Surface!</gradient>"
+	set {customItem::Extractor::Lore} to "<!i>%{color::desc}%Right Click to Teleport to The Surface!</gradient>"
 	set {customItem::ExtractionCompass::Name} to "<!i><b><gradient:#00E0FF:#2145A8>Extraction Compass</gradient></b>"
 	set {customItem::ExtractionCompass::Lore} to "%{color::desc}%Follow the compass to the extraction point!"
 	set {customItem::shop::name} to "<!i><b><gradient:#6176BB:#83D4FF>Shop Menu</gradient></b>"
+	set {customItem::menu::name} to "<!i><b><gradient:#6176BB:#83D4FF>Menu</gradient></b>"
+	set {customItem::menu::lore} to "<!i>%{color::desc}%Right click to open the main menu"
+
 	# General
 	set {spawningHeight} to 150 # the hight at which the player spawns once entering the game
 	set {pointMultiplier} to 1.0 # the base multiplier
