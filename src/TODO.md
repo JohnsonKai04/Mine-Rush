@@ -5,10 +5,10 @@
 
 - [x] lootbox procc msgs are not formatted correctly
 - [x] Add /setup wich generates 25 valid spawns, sets gamerules
-- [ ] Enchant tiers are not color coded correctly and lootboxcollector was able to duplicate IV to V
+- [x] Enchant tiers are not color coded correctly and lootboxcollector was able to duplicate IV to V
 - [x] Starting in... looks like ass
 
-- [ ] Placing lootboxes does not work fix next!
+- [x] Placing lootboxes does not work fix next!
 
 
 # 4/6/2026
