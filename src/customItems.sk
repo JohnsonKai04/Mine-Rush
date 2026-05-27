@@ -29,7 +29,7 @@ on damage:
 			delete {inFlight::%victim%}
 
 # Golden Heads / Extractor
-on right click using player head or recovery compass:
+on right click using player head or recovery compass or nether star:
 	if uncolored name of player's held item is uncolored {customItem::ghead::Name}:
 		cancel event
 		heal player by 2 hearts
@@ -62,6 +62,10 @@ on right click using player head or recovery compass:
 				send "<b><gradient:#F10C31:#8F1D26>Error: The teleport location is unsafe!! (Cancelling)</gradient></b>" to player
 		else:
 			send "<b><gradient:#F10C31:#8F1D26>Error: You cannot use this above Y:10</gradient></b>" to player
+	if uncolored name of player's held item is uncolored {customItem::shop::name}:
+		make player execute command "/shop"
+	if uncolored name of player's held item is uncolored {customItem::menu::name}:
+		make player execute command "/menu"
 
 
 on place of chest:
@@ -77,10 +81,6 @@ on place of chest:
 		if formatted name of event-block is formatted name of {lootBox::item::legendary}:
 			playLootBoxLegendaryAnimation(player, event-block, 3)
 			add 1 to {currentGameStats::%player%::legendaryLootBoxesOpened}
-
-on rightclick:
-	if uncolored name of player's held item is uncolored {customItem::shop::name}: # Yea i dont even know
-		make player execute command "/shop"
 
 
 function asyncPoints(p: player, points: integer):
