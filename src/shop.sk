@@ -168,7 +168,7 @@ function applyCustomEnchant(p: player, enchantName: text) :: boolean:
 		loop {pickaxe::tier::*}:
 			if name of loop-item is loop-value-2: # item found
 				loop lore of loop-item:
-					if loop-value-3 is "%{%{_enchantName}%::name}% %{_romanPrevious}%":
+					if unformatted loop-value-3 is unformatted "%{%{_enchantName}%::name}% %{_romanPrevious}%":
 						replace loop-value-3 in lore of loop-item with formatted "%{%{_enchantName}%::name}% %{_roman}%"
 						return true
 				# if the item does not have the enchant already on the pickaxe:
