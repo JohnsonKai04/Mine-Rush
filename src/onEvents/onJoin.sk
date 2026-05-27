@@ -1,6 +1,7 @@
 # Sets the default settings for the player located in ../settings.sk
 on first join:
 	setDefaultSettings(player)
+	set slot 4 of {_p} to nether star named {customItem::menu::name} with lore {customItem::menu::lore}
 
 on join:
 	if {disconnectTimer::%player%} is set:
