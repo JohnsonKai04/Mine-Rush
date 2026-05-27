@@ -19,6 +19,8 @@ command /MRclearLeaderboard:
 			set {leaderboardPlayer::%loop-value%} to "None"
 		send "LEADERBOARD CLEARED" to player
 
+
+# Retired command need to remake
 command /MRstats [<player>]:
 	trigger:
 		set {_p} to arg-1
@@ -111,18 +113,25 @@ function saveDataToFile(p: player) :: boolean:
 		else if loop-index is "pointsspent", or "totalPoints":
 			set yaml value "%{_ID}%.points.%loop-index%" from "file" to loop-value
 			set yaml value "points.%loop-index%" from "stats" to (loop-value + yaml value "points.%loop-index%" from "stats")
+		else if loop-index contains "lootbox":
+			set yaml value "%{_ID}%.lootboxes.%loop-index%" from "file" to loop-value
+			set yaml value "lootboxes.%loop-index%" from "stats" to (loop-value + yaml value "lootboxes.%loop-index%" from "stats")
+		else if loop-index is "mobkills":
+			set yaml value "%{_ID}%.other.%loop-index%" from "file" to loop-value
+			set yaml value "other.%loop-index%" from "stats" to (loop-value + yaml value "other.%loop-index%" from "stats")
 		else if loop-index is not "duration", or "extracted":
 			set yaml value "%{_ID}%.otherblocks.%loop-index%" from "file" to loop-value
 			set yaml value "otherblocks.%loop-index%" from "stats" to (loop-value + yaml value "otherblocks.%loop-index%" from "stats")
 	set yaml value "%{_ID}%.points.points" from "file" to {points::%{_p}%}
+	set yaml value "points.points" from "stats" to ({points::%{_p}%} + yaml value "points.points" from "stats")
 	set yaml value "%{_ID}%.time.duration" from "file" to "%difference between now and {currentGameStats::%{_p}%::duration}%"
 	set yaml value "%{_ID}%.time.timePlayed" from "file" to "%now%"
-	set yaml value "points.points" from "stats" to ({points::%{_p}%} + yaml value "points.points" from "stats")
 	set yaml value "%{_ID}%.extracted" from "file" to "%{currentGameStats::%{_p}%::extracted}%"
 	if {currentGameStats::%{_p}%::extracted} is true:
 		set yaml value "other.extracts" from "stats" to (1 + yaml value "other.extracts" from "stats")
 	else:
 		set yaml value "other.deaths" from "stats" to (1 + yaml value "other.deaths" from "stats")
+	set yaml value "other.gamesPlayed" from "stats" to (1 + yaml value "other.gamesPlayed" from "stats")
 
 	delete {currentGameStats::%{_p}%::*}
 	delete {pointsBonus::%{_p}%}
