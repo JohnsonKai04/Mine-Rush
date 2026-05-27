@@ -67,6 +67,7 @@ function endGame(p: player) :: boolean:
 	set {validSpawn::active::%{spawnLocation::%{_p}%}%} to false
 	updateLeaderboard({_p}, {points::%{_p}%})
 	deletePlayerVariables({_p})
+	set slot 4 of {_p} to nether star named {customItem::menu::name} with lore {customItem::menu::lore}
 	return true
 
 function deletePlayerVariables(p: player):
