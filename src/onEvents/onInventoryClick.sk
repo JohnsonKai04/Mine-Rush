@@ -171,7 +171,7 @@ on inventory click:
     # ------------------------------------------------------ 
     #          STATS/LEADERBOARD   - OLD CODE REWORK LATER
     # ------------------------------------------------------
-	if {_name} is "Games Played":
+	if {_name} contains "Games Played":
 		cancel event
 		set {_ID} to display name of event-item
 		if event-item is tipped arrow of luck:
@@ -180,13 +180,13 @@ on inventory click:
 			openGamesMenu(player, {_page})
 			stop
 		if {_ID} is set:
-			set {_file} to "mineRushData/playerData/%player's uuid%/game%{_ID}%.yaml"
-			set {_totalPoints} to yaml value "points.totalpoints" from {_file}
-			set {_pointsSpent} to yaml value "points.pointsspent" from {_file}
-			set {_mobKills} to yaml value "other.mobkills" from {_file}
-			set {_commonLootBoxesOpened} to yaml value "other.commonlootboxesopened" from {_file}
-			set {_rareLootBoxesOpened} to yaml value "other.rarelootboxesopened" from {_file}
-			set {_legendaryLootBoxesOpened} to yaml value "other.legendarylootboxesopened" from {_file}
+			load yaml "mineRushData/playerData/%player's uuid%/gameData.yaml" as "file"
+			set {_totalPoints} to yaml value "%{_ID}%.points.totalpoints" from "file"
+			set {_pointsSpent} to yaml value "%{_ID}%.points.pointsspent" from "file"
+			set {_mobKills} to yaml value "%{_ID}%.other.mobkills" from "file"
+			set {_commonLootBoxesOpened} to yaml value "%{_ID}%.lootboxes.commonlootboxesopened" from "file"
+			set {_rareLootBoxesOpened} to yaml value "%{_ID}%.lootboxes.rarelootboxesopened" from "file"
+			set {_legendaryLootBoxesOpened} to yaml value "%{_ID}%.lootboxes.legendarylootboxesopened" from "file"
 
 			send "<gradient:#7C4D24:#4C1420> |----------- Game #%{_ID}% -----------|</gradient>"
 			send " " to player
@@ -200,4 +200,15 @@ on inventory click:
 			send "<gradient:#7C4D24:#4C1420>|-------------------------------------|</gradient>" to player
 			close the inventory of the player
 			unload yaml "mineRushData/playerData/%player's uuid%/game%{_ID}%.yaml"
-		
+	
+	if {_name} contains "Main Menu":
+		cancel event
+		if {_item} contains uncolored "Settings":
+			make player execute command "/settings"
+		else if {_item} contains uncolored "Start Run":
+			make player execute command "/start"
+			close the inventory of the player
+		else if {_item} contains uncolored "Enchants":
+			make player execute command "/enchants"
+		else if {_item} contains uncolored "Previous Runs":
+			make player execute command "/runs"
