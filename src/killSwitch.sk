@@ -1,0 +1,24 @@
+command /killswitch [<text>]:
+	permission: mineRush.admin
+	trigger:
+		if arg-1 is not set:
+			send "Here is everything that is kill switched:" to player
+			loop {killSwitch::*}:
+				send "%loop-index% is %loop-value%" to player
+		else if arg-1 is "reset":
+			delete {killSwitch::*}
+			send "killswitch reseted" to player
+		else if {killSwitch::%arg-1%} is true:
+			delete {killSwitch::%arg-1%}
+		else:
+			set {killSwitch::%arg-1%} to true
+on tab complete of "/killswitch":
+	if player has permission "mineRush.admin":
+		set tab completion to "reset"
+
+
+command /checkVariable [<text>]:
+	permission: mineRush.admin
+	trigger:
+		send "%{%arg-1%}%" to player
+
