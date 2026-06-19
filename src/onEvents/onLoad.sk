@@ -12,6 +12,7 @@ on load:
 	set {color::error} to "<gradient:#F10C31:#8F1D26>"
 	set {color::points} to "<color:#00FF3B>"
 	set {color::leaderboard} to "<!i><gradient:#CC813E:#BF344F>"
+	set {color::menu} to "<!i><gradient:#CC813E:#BF344F>"
 
 	set {deathTitle::1} to "[RIP]"
 	set {deathTitle::2} to "[DEAD]"
