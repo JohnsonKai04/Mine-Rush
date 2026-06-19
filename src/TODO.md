@@ -1,6 +1,7 @@
 ## Issues
 - There are client side mods that hide the players bossbar for some reason right now these mods are (Better F3)
-
+# 6/18/2026
+- [ ] When spawning extract load the chunk and then save.
 # 5/20/2026
 
 - [x] lootbox procc msgs are not formatted correctly
