@@ -48,6 +48,7 @@ command /start:
 			hide icon
 		teleport player to {_location}
 		asyncAircheck(player)
+		set gamemode of player to survival
 		heal player
 		feed player
 
@@ -68,6 +69,7 @@ command /start:
 		set {pointBar::%player%} to boss bar with title " " with color green with progress 0
 		set bar style of {pointBar::%player%} to solid_bar
 		set {pointBar::progress::%player%} to 0
+		set {points::%player%} to 0
 		add player to {pointBar::%player%}
 		if {debugMode::%player%} is true:
 			set {points::%player%} to 24000000
