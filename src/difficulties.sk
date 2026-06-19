@@ -2,10 +2,10 @@ on spawn:
 	if event-entity is a monster:
 		set {_p} to nearest player in radius 80 around event-entity
 		if {inGame::%{_p}%} is true:
-			# Mobs do not spawn for the first 15 minutes
-			#if {difficulty::%{_p}%} is 1:
-				#if {debugMode::%{_p}%} is not true:
-				#	cancel event
+			#Mobs do not spawn for the first 15 minutes
+			if {difficulty::%{_p}%} is 1:
+				if {debugMode::%{_p}%} is not true:
+					cancel event
 			if y-coordinate of location of event-entity is greater than or equal to ({_p}'s y-level + {mobSpawnMaxHeight}):
 				cancel event
 			set max health of event-entity to round((max health of event-entity) * ({difficulty::%{_p}%} / 2))
@@ -13,6 +13,8 @@ on spawn:
 			set {_speed} to event-entity's generic movement speed attribute
 			set event-entity's generic movement speed attribute to ({_speed} * ({difficulty::%{_p}%} / 2))
 			make last spawned entity despawn on chunk unload
+		else:
+			cancel event
 
 function setHealthOfMob(mob: entity, h: number):
 	set {_h} to {_h} / 2
