@@ -53,34 +53,10 @@ command /setup:
 		make console execute command "gamerule keep_inventory true"
 		make console execute command "gamerule immediate_respawn true"
 		make console execute command "gamerule immediate_respawn true"
+		make console execute command "gamerule spawn_phantoms false"
 		wait 1 tick
 		send "%{color::desc}%Make sure to run /generateSpawnPoints [# of spawn points]" to player
 		send "%{color::desc}%25-50 spawn points is recommended depending on storage/player count" to player
-
-command /menu:
-	permission: mineRush.menu
-	trigger:
-		load yaml "mineRushData/playerData/%player's uuid%/stats.yaml" as "stats"
-		open chest inventory with 3 rows named "<b>%{color::desc}%Main Menu" to player
-		set {_inv} to player's current inventory
-
-
-		set slot 13 of {_inv} to emerald named "<!i>%{color::points}%<b>Start Run" with lore "%{color::desc}%Start a new run", and "/start"
-		set slot 14 of {_inv} to enchanted book named "<!i>%{color::points}%<b>Enchants" with lore "%{color::desc}%View all custom enchants", and "/enchants"
-		set slot 12 of {_inv} to command block named "<!i>%{color::points}%<b>Start Run" with lore "%{color::desc}%Opens the settings menu", and "/settings"
-
-		set {_lore::*} to "%{color::leaderboard}%Extracts: %(yaml value "other.extracts" from "stats") ? 0%"
-		add "%{color::leaderboard}%Total Games: %(yaml value "other.totalgames" from "stats") ? 0%" to {_lore::*}
-		add "%{color::leaderboard}%Deaths: %(yaml value "other.deaths" from "stats") ? 0%" to {_lore::*}
-		add "%{color::leaderboard}%Total Points Earned: %(yaml value "points.totalpoints" from "stats") ? 0%" to {_lore::*}
-		add "%{color::leaderboard}%Points Spent: %(yaml value "points.pointsspent" from "stats") ? 0%" to {_lore::*}
-		add "%{color::leaderboard}%Mobs Killed: %(yaml value "other.mobkills" from "stats") ? 0%" to {_lore::*}
-		add "%{color::leaderboard}%Common loot boxes opened: %(yaml value "lootboxes.commonlootboxesopened" from "stats") ? 0%" to {_lore::*}
-		add "%{color::leaderboard}%Rare loot boxes opened: %(yaml value "lootboxes.rarelootboxesopened" from "stats") ? 0%" to {_lore::*}
-		add "%{color::leaderboard}%Legendary Loot Boxes Opened: %(yaml value "lootboxes.legendarylootboxesopened" from "stats") ? 0%" to {_lore::*}
-		
-		set slot 4 of {_inv} to skull of player named "<!i>Stats" with lore {_lore::*}
-		unload yaml "stats"
 
 
 function playRandomMusic(p: player):
