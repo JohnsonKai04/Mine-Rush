@@ -6,11 +6,15 @@ on death of player:
 			clear victim's inventory
 			showDeathScreen(victim)
 			wait 5 seconds
-			set victim's gamemode to survival
+			if {debugMode::%victim%} is true:
+				set victim's gamemode to creative
+			else:
+				set victim's gamemode to adventure
 			wait 1 tick
 			delete {inGame::%victim%}
 			kill victim
-			set {currentGameStats::%victim%::extracted} to false
+			if {currentGameStats::%victim%::extracted} is not true:
+				set {currentGameStats::%victim%::extracted} to false
 			endGame(victim)
 	set death message to deathMsg(victim, "%attacker%")
 
