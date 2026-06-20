@@ -1,0 +1,4 @@
+on disconnect:
+	unload yaml "%{_p}'s uuid%.settings"
+	if {inGame::%player%} is true:
+		set {disconnectTimer::%player%} to now
