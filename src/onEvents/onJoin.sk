@@ -4,6 +4,7 @@ on first join:
 	set slot 4 of {_p} to nether star named {customItem::menu::name} with lore {customItem::menu::lore}
 
 on join:
+	load yaml "mineRushData/playerData/%{_p}'s uuid%/settings.yaml" as "%{_p}'s uuid%.settings"
 	if {disconnectTimer::%player%} is set:
 		if difference between now and {disconnectTimer::%player%} is more than {disconnectTime}:
 			send "<b><gradient:#F10C31:#8F1D26>You were disconnected for more than %{disconnectTime}% causing the run to explode!</gradient></b>" to player

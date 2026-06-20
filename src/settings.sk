@@ -8,14 +8,16 @@ command /settings:
 
 		
 function setDefaultSettings(p: player):
-	set {settings::volume::%{_p}%} to 0.5
-	set {settings::chatEnchantNotif::%{_p}%} to true
-	set {settings::audioEnchantNotif::%{_p}%} to true
-	set {settings::lootboxAnimation::%{_p}%} to true
-	set {settings::startingMusic::%{_p}%} to true
-	set {settings::visualBlock::%{_p}%} to true
-	set {settings::audioBlock::%{_p}%} to true
-	set {settings::damageIndicator::%{_p}%} to true
+	load yaml "mineRushData/playerData/%{_p}'s uuid%/settings.yaml" as "%{_p}'s uuid%.settings"
+	set yaml value "volume" from "settings" to 0.5
+	set yaml value "chatEnchantNotif" from "settings" to true
+	set yaml value "audioEnchantNotif" from "settings" to true
+	set yaml value "lootboxAnimation" from "settings" to true
+	set yaml value "startingMusic" from "settings" to true
+	set yaml value "visualBlock" from "settings" to true
+	set yaml value "audioBlock" from "settings" to true
+	set yaml value "damageIndicator" from "settings" to true
+	save "%{_p}'s uuid%.settings"
 
 
 function openSettingsMenu(p: player):
