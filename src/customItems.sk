@@ -72,15 +72,15 @@ on place of chest:
 	if {inGame::%player%} is true:
 		if formatted name of event-block is formatted name of {lootBox::item::common}:
 			playLootBoxCommonAnimation(player, event-block, 1)
-			add 1 to {currentGameStats::%player%::commonLootBoxesOpened}
+			add 1 to {currentGameStats::%player%::lootboxes::commonLootBoxesOpened}
 
 		if formatted name of event-block is formatted name of {lootBox::item::rare}:
 			playLootBoxRareAnimation(player, event-block, 2)
-			add 1 to {currentGameStats::%player%::rareLootBoxesOpened}
+			add 1 to {currentGameStats::%player%::lootboxes::rareLootBoxesOpened}
 
 		if formatted name of event-block is formatted name of {lootBox::item::legendary}:
 			playLootBoxLegendaryAnimation(player, event-block, 3)
-			add 1 to {currentGameStats::%player%::legendaryLootBoxesOpened}
+			add 1 to {currentGameStats::%player%::lootboxes::legendaryLootBoxesOpened}
 
 
 function asyncPoints(p: player, points: integer):
@@ -148,6 +148,7 @@ function lootBoxRewardPoints(p: player, b: block, m: integer):
 
 	add {_points} to {points::%{_p}%}
 	add {_points} to {currentGameStats::%{_p}%::totalPoints}
+	add {_points} to {currentGameStats::%{_p}%::lootboxes::lootBoxPoints}
 	set {_color::*} to 3 random integers between 0 and 255
 	set {_text} to text component from "+%{_points}%"
 	set color format of {_text} to rgb({_color::1}, {_color::2}, {_color::3})

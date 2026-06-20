@@ -8,6 +8,7 @@ function addPoints(p: player, block: block) :: number:
 	if {ores::*} contains {_blockType}:
 		set {_isOre} to true
 	if {_isOre} is true:
+		add 1 to {currentGameStats::%{_p}%::ores::%{_blockType}%}
 		set {_blockType} to luckyMiner({_p}, {_block})
 		set {_streak} to streak({_p})
 		lootBoxCollector({_p})
@@ -16,10 +17,11 @@ function addPoints(p: player, block: block) :: number:
 	set {_points} to round({blockValue::%{_blockType}%} * (1 + {_streak}))
 	if {_points} is 0:
 		exit
-	else: 
-		add 1 to {currentGameStats::%{_p}%::%{_blockType}%}
+	else if {_isOre} is false: 
+		add 1 to {currentGameStats::%{_p}%::blocks::%{_blockType}%}
 	add {_points} to {points::%{_p}%}
-	add {_points} to {currentGameStats::%{_p}%::totalPoints}
+	add {_points} to {currentGameStats::%{_p}%::points::totalPoints}
+
 
 	# vein miner / oreDuplicate
 	if {_isOre} is true:

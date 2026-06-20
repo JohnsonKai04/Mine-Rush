@@ -13,8 +13,8 @@ on death of player:
 			wait 1 tick
 			delete {inGame::%victim%}
 			kill victim
-			if {currentGameStats::%victim%::extracted} is not true:
-				set {currentGameStats::%victim%::extracted} to false
+			if {currentGameStats::%victim%::misc::extracted} is not true:
+				set {currentGameStats::%victim%::misc::extracted} to false
 			endGame(victim)
 	set death message to deathMsg(victim, "%attacker%")
 
@@ -34,7 +34,7 @@ on right click on beacon:
 		send "<b><gradient:#52F361:#02CEF6:#52F361>Extracting You Now good job %player%. Heres a Bonus For Your Efforts: %{pointsBonus::%player%}%</gradient></b>" to player
 		wait 6 seconds
 		make player vulnerable
-		set {currentGameStats::%player%::extracted} to true
+		set {currentGameStats::%player%::misc::extracted} to true
 		kill player
 		endGame(player)
 

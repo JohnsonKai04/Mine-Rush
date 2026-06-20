@@ -81,7 +81,7 @@ command /start:
 		updatePointsBar(player)
 
 		# Stats
-		set {currentGameStats::%player%::duration} to now
+		set {currentGameStats::%player%::misc::duration} to now
 
 
 		# Starts the difficulty timer (see difficulties.sk)

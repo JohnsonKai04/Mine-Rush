@@ -22,11 +22,14 @@ function chargePlayer(p: player, item: text, multiplier: number = 1) :: boolean:
 	if {_multiplier} is not set:
 		set {_multiplier} to 1
 	if ({cost::%{_item}%} * {_multiplier}) <= {points::%{_p}%}:
+		# Add to stats
+		add 1 to {currentGameStats::%{_p}%::shop::%{_item}%}
+		
 		# Subtracts cost from balance
 		set {points::%{_p}%} to round({points::%{_p}%} - ({cost::%{_item}%} * {_multiplier}))
 
 		# Adds to stat
-		add ({cost::%{_item}%} * {_multiplier}) to {currentGameStats::%{_p}%::pointsSpent}
+		add ({cost::%{_item}%} * {_multiplier}) to {currentGameStats::%{_p}%::points::pointsSpent}
 		playDing({_p})
 
 		# Updates boss bar
