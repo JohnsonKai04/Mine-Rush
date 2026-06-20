@@ -1,6 +1,9 @@
 command /settings:
 	aliases: /options, /configuration
 	trigger:
+		if {killSwitch::settings} is true:
+			killSwitchMsg(player)
+			stop
 		openSettingsMenu(player)
 
 		

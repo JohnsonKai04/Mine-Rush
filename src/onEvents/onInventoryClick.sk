@@ -85,7 +85,7 @@ on inventory click:
 			purchasePickaxe(player, "netherite pickaxe")
 
 		# Enchants
-		else if {_item} contains uncolored "Efficiency ":
+		else if {_item} contains uncolored "Efficiency":
 			purchaseEnchant(player, "pickaxe", "efficiency")
 		else if {_item} contains uncolored "Sharpness":
 			purchaseEnchant(player, "sword", "sharpness")
@@ -102,18 +102,39 @@ on inventory click:
 
 		# Custom enchants
 		else if {_item} contains uncolored "%{veinMiner::name}%":
+			if {killSwitch::veinMiner} is true:
+				killSwitchMsg(player)
+				stop
 			purchaseCustomEnchant(player, "veinMiner")
 		else if {_item} contains uncolored "%{streak::name}%":
+			if {killSwitch::streak} is true:
+				killSwitchMsg(player)
+				stop
 			purchaseCustomEnchant(player, "streak")
 		else if {_item} contains uncolored "%{oreDuplicate::name}%":
+			if {killSwitch::oreDuplicate} is true:
+				killSwitchMsg(player)
+				stop
 			purchaseCustomEnchant(player, "oreDuplicate")
 		else if {_item} contains uncolored "%{luckyMiner::name}%":
+			if {killSwitch::luckyMiner} is true:
+				killSwitchMsg(player)
+				stop
 			purchaseCustomEnchant(player, "luckyMiner")
 		else if {_item} contains uncolored "%{lootBoxCollector::name}%":
+			if {killSwitch::lootBoxCollector} is true:
+				killSwitchMsg(player)
+				stop
 			purchaseCustomEnchant(player, "lootBoxCollector")
 		else if {_item} contains uncolored "%{hungryMiner::name}%":
+			if {killSwitch::hungryMiner} is true:
+				killSwitchMsg(player)
+				stop
 			purchaseCustomEnchant(player, "hungryMiner")
 		else if {_item} contains uncolored "%{fireball::name}%":
+			if {killSwitch::fireball} is true:
+				killSwitchMsg(player)
+				stop
 			purchaseCustomEnchant(player, "fireball")
 
 
@@ -161,8 +182,14 @@ on inventory click:
 
 		# Custom Items
 		else if {_item} is "Golden Head":
+			if {killSwitch::ghead} is true:
+				killSwitchMsg(player)
+				stop
 			purchaseCustomItem(player, stone, "ghead")
 		else if {_item} is "Grappling Hook":
+			if {killSwitch::ghook} is true:
+				killSwitchMsg(player)
+				stop
 			purchaseCustomItem(player, fishing rod, "grappling hook")
 
 		openUtilityShop(player)

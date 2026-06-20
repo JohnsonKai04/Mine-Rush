@@ -4,7 +4,7 @@ command /killswitch [<text>]:
 		if arg-1 is not set:
 			send "Here is everything that is kill switched:" to player
 			loop {killSwitch::*}:
-				send "%loop-index% is %loop-value%" to player
+				send "%loop-index%" to player
 		else if arg-1 is "reset":
 			delete {killSwitch::*}
 			send "killswitch reseted" to player
@@ -14,11 +14,14 @@ command /killswitch [<text>]:
 			set {killSwitch::%arg-1%} to true
 on tab complete of "/killswitch":
 	if player has permission "mineRush.admin":
-		set tab completion to "reset"
+		set tab completion to "reset" and "start" and "shop" and "settings" and "veinMiner" and "streak" and "oreDuplicate" and "luckyMiner" and "lootBoxCollector" and "hungryMiner" and "fireball" and "ghook" and "ghead" and "boosterMenu"
 
 
 command /checkVariable [<text>]:
-	permission: mineRush.admin
+	permission: op
 	trigger:
 		send "%{%arg-1%}%" to player
 
+function killSwitchMsg(p: player):
+	send "%{color::error}%The action you are trying to do has been kill switched please contact the owner for more details. Sorry for the inconvenience." to {_p}
+	playErrorSound({_p})

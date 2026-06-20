@@ -1,6 +1,10 @@
 command /shop:
 	aliases: /s, /market
 	trigger:
+		if {killSwitch::shop} is true:
+			killSwitchMsg(player)
+			stop
+
 		if {inGame::%player%} is not true:
 			send "%{color::error}%Error: This command can only be used when the game has been started" to player
 			stop
