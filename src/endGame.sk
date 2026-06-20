@@ -18,10 +18,6 @@ on death of player:
 			endGame(victim)
 	set death message to deathMsg(victim, "%attacker%")
 
-on disconnect:
-	if {inGame::%player%} is true:
-		set {disconnectTimer::%player%} to now
-
 # Once the player right clicks the beacon they gain invulnerability and gain a 1.2x point bonus to their current points.
 # after 6 seconds endGame() runs
 on right click on beacon:
