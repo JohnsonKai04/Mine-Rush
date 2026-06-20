@@ -1,7 +1,7 @@
 on death of mob:
 	if attacker is player:
 		if {inGame::%attacker%} is true:
-			add 1 to {currentGameStats::%attacker%::mobKills}
+			add 1 to {currentGameStats::%attacker%::misc::mobKills}
 
 
 command /MRshowleaderboard:
@@ -18,29 +18,6 @@ command /MRclearLeaderboard:
 			set {leaderboardPoints::%loop-value%} to 0
 			set {leaderboardPlayer::%loop-value%} to "None"
 		send "LEADERBOARD CLEARED" to player
-
-
-# Retired command need to remake
-command /MRstats [<player>]:
-	trigger:
-		set {_p} to arg-1
-		if arg-1 is not set:
-			set {_p} to the player
-		load yaml "mineRushData/playerData/%{_p}'s uuid%/stats.yaml" as "stats"
-		send "<gradient:#7C4D24:#4C1420>|-----------%{_p}%'s Stats-----------|</gradient>" to player
-		send " " to player
-		send " %{color::leaderboard}%Extracts: %(yaml value "stats.extracts" from "stats") ? 0%" to player
-		send " %{color::leaderboard}%Total Games: %(yaml value "stats.totalgames" from "stats") ? 0%" to player
-		send " %{color::leaderboard}%Deaths: %(yaml value "stats.deaths" from "stats") ? 0%" to player
-		send " %{color::leaderboard}%Total Points Earned: %(yaml value "points.totalpoints" from "stats") ? 0%" to player
-		send " %{color::leaderboard}%Points Spent: %(yaml value "points.pointsspent" from "stats") ? 0%" to player
-		send " %{color::leaderboard}%Mobs Killed: %(yaml value "other.mobkills" from "stats") ? 0%" to player
-		send " %{color::leaderboard}%Common loot boxes opened: %(yaml value "other.commonlootboxesopened" from "stats") ? 0%" to player
-		send " %{color::leaderboard}%Rare loot boxes opened: %(yaml value "other.rarelootboxesopened" from "stats") ? 0%" to player
-		send " %{color::leaderboard}%Legendary Loot Boxes Opened: %(yaml value "other.legendarylootboxesopened" from "stats") ? 0%" to player
-	
-		send " " to player
-		send "<gradient:#7C4D24:#4C1420>|-----------------------------------------| " to player
 
 command /runs:
 	cooldown: 1 second
@@ -106,32 +83,35 @@ function saveDataToFile(p: player) :: boolean:
 			continue
 		set {_completed} to true
 
-	loop {currentGameStats::%{_p}%::*}:
-		if {ores::*} contains loop-index:
-			set yaml value "%{_ID}%.ores.%loop-index%" from "file" to loop-value
-			set yaml value "ores.%loop-index%" from "stats" to (loop-value + yaml value "ores.%loop-index%" from "stats")
-		else if loop-index is "pointsspent", or "totalPoints":
-			set yaml value "%{_ID}%.points.%loop-index%" from "file" to loop-value
-			set yaml value "points.%loop-index%" from "stats" to (loop-value + yaml value "points.%loop-index%" from "stats")
-		else if loop-index contains "lootbox":
-			set yaml value "%{_ID}%.lootboxes.%loop-index%" from "file" to loop-value
-			set yaml value "lootboxes.%loop-index%" from "stats" to (loop-value + yaml value "lootboxes.%loop-index%" from "stats")
-		else if loop-index is "mobkills":
-			set yaml value "%{_ID}%.other.%loop-index%" from "file" to loop-value
-			set yaml value "other.%loop-index%" from "stats" to (loop-value + yaml value "other.%loop-index%" from "stats")
-		else if loop-index is not "duration", or "extracted":
-			set yaml value "%{_ID}%.otherblocks.%loop-index%" from "file" to loop-value
-			set yaml value "otherblocks.%loop-index%" from "stats" to (loop-value + yaml value "otherblocks.%loop-index%" from "stats")
-	set yaml value "%{_ID}%.points.points" from "file" to {points::%{_p}%}
-	set yaml value "points.points" from "stats" to ({points::%{_p}%} + yaml value "points.points" from "stats")
-	set yaml value "%{_ID}%.time.duration" from "file" to "%difference between now and {currentGameStats::%{_p}%::duration}%"
-	set yaml value "%{_ID}%.time.timePlayed" from "file" to "%now%"
-	set yaml value "%{_ID}%.extracted" from "file" to "%{currentGameStats::%{_p}%::extracted}%"
+	# General Stats
+	loop {currentGameStats::%{_p}%::blocks::*}:
+		set yaml value "%{_ID}%.blocks.%loop-index%" from "file" to loop-value
+		set yaml value "blocks.%loop-index%" from "stats" to (loop-value + yaml value "blocks.%loop-index%" from "stats")
+	loop {currentGameStats::%{_p}%::ores::*}:
+		set yaml value "%{_ID}%.ores.%loop-index%" from "file" to loop-value
+		set yaml value "ores.%loop-index%" from "stats" to (loop-value + yaml value "ores.%loop-index%" from "stats")
+	loop {currentGameStats::%{_p}%::lootboxes::*}:
+		set yaml value "%{_ID}%.lootboxes.%loop-index%" from "file" to loop-value
+		set yaml value "lootboxes.%loop-index%" from "stats" to (loop-value + yaml value "lootboxes.%loop-index%" from "stats")
+	loop {currentGameStats::%{_p}%::points::*}:
+		set yaml value "%{_ID}%.points.%loop-index%" from "file" to loop-value
+		set yaml value "points.%loop-index%" from "stats" to (loop-value + yaml value "points.%loop-index%" from "stats")
+	loop {currentGameStats::%{_p}%::misc::*}:
+		set yaml value "%{_ID}%.misc.%loop-index%" from "file" to loop-value
+		set yaml value "misc.%loop-index%" from "stats" to (loop-value + yaml value "misc.%loop-index%" from "stats")
+	loop {currentGameStats::%{_p}%::shop::*}:
+		set yaml value "%{_ID}%.shop.%loop-index%" from "file" to loop-value
+		set yaml value "shop.%loop-index%" from "stats" to (loop-value + yaml value "shop.%loop-index%" from "stats")
+
+	# Time, extractions, and total games played
+	set yaml value "%{_ID}%.misc.duration" from "file" to "%difference between now and {currentGameStats::%{_p}%::duration}%"
+	set yaml value "%{_ID}%.misc.timePlayed" from "file" to "%now%"
 	if {currentGameStats::%{_p}%::extracted} is true:
-		set yaml value "other.extracts" from "stats" to (1 + yaml value "other.extracts" from "stats")
+		set yaml value "misc.extracts" from "stats" to (1 + yaml value "misc.extracts" from "stats")
 	else:
-		set yaml value "other.deaths" from "stats" to (1 + yaml value "other.deaths" from "stats")
-	set yaml value "other.gamesPlayed" from "stats" to (1 + yaml value "other.gamesPlayed" from "stats")
+		set yaml value "misc.deaths" from "stats" to (1 + yaml value "misc.deaths" from "stats")
+	set yaml value "misc.gamesPlayed" from "stats" to (1 + yaml value "misc.gamesPlayed" from "stats")
+
 
 	delete {currentGameStats::%{_p}%::*}
 	delete {pointsBonus::%{_p}%}
