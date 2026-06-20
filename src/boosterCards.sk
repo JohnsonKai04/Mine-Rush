@@ -1,5 +1,8 @@
 command /booster:
 	trigger:
+		if {killSwitch::boosterMenu} is true:
+			killSwitchMsg(player)
+			stop
 		open chest inventory with 3 rows named colored "&6&lBooster Cards" to the player
 		set {_inv} to player's current inventory
 		loop {unlockedCard::%player%::*}:
@@ -19,17 +22,20 @@ command /booster:
 				set slot {_ID} of {_inv} to barrier named "<b><gradient:#F10C31:#8F1D26>Not Unlocked</gradient></b>" with lore "<gradient:#750CF1:#A703B0>Complete runs to unlock a random booster card</gradient>"
 
 command /showcards:
+	permission: op
 	trigger:
 		send "&4Showing all cards you have:"
 		loop {unlockedCard::%player%::*}:
 			send "ID: %loop-index%, level: %{unlockedCard::%player%::%loop-index%}%, Active: %{cardActive::%player%::%loop-index%}%"
 
 command /unlockRandomCard:
+	permission: op
 	trigger:
 		if unlockCard(player) is false:
 			send "error unlocking card" to player
 
 command /clearCards:
+	permission: op
 	trigger:
 		delete {unlockedCard::%player%::*}
 		send "All cards have been deleted!" to player

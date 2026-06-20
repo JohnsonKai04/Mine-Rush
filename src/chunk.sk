@@ -4,6 +4,7 @@ on chunk unload:
 		unload event-chunk without saving
 
 command /generateSpawnPoints [<integer>]:
+	permission: op
 	trigger:
 		set {_overallTime} to now
 		set {stopgen} to false
