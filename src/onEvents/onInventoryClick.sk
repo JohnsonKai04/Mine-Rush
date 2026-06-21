@@ -210,7 +210,7 @@ on inventory click:
 			load yaml "mineRushData/playerData/%player's uuid%/gameData.yaml" as "file"
 			set {_totalPoints} to yaml value "%{_ID}%.points.totalpoints" from "file"
 			set {_pointsSpent} to yaml value "%{_ID}%.points.pointsspent" from "file"
-			set {_mobKills} to yaml value "%{_ID}%.other.mobkills" from "file"
+			set {_mobKills} to yaml value "%{_ID}%.misc.mobkills" from "file"
 			set {_commonLootBoxesOpened} to yaml value "%{_ID}%.lootboxes.commonlootboxesopened" from "file"
 			set {_rareLootBoxesOpened} to yaml value "%{_ID}%.lootboxes.rarelootboxesopened" from "file"
 			set {_legendaryLootBoxesOpened} to yaml value "%{_ID}%.lootboxes.legendarylootboxesopened" from "file"
