@@ -90,7 +90,7 @@ function secondLife(p: player) :: boolean:
 			apply potion effect of speed 2 to {_p} for 10 seconds
 			set {secondLifeUsed::%{_p}%} to true
 			send "<b><gradient:#0CF11B:#E7FF00:#0CF11B>&lSaved by [Second Life]</b></gradient>" to {_p}
-			play sound "item.totem.use" with volume {settings::volume::%{_p}%} to {_p}
+			play sound "item.totem.use" with volume returnSetting({_p}, "volume") to {_p}
 			return true
 	return false
 

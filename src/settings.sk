@@ -4,19 +4,21 @@ command /settings:
 		if {killSwitch::settings} is true:
 			killSwitchMsg(player)
 			stop
+		if returnSetting(player, "volume") is not set:
+			setDefaultSettings(player)
 		openSettingsMenu(player)
 
 		
 function setDefaultSettings(p: player):
 	load yaml "mineRushData/playerData/%{_p}'s uuid%/settings.yaml" as "%{_p}'s uuid%.settings"
-	set yaml value "volume" from "settings" to 0.5
-	set yaml value "chatEnchantNotif" from "settings" to true
-	set yaml value "audioEnchantNotif" from "settings" to true
-	set yaml value "lootboxAnimation" from "settings" to true
-	set yaml value "startingMusic" from "settings" to true
-	set yaml value "visualBlock" from "settings" to true
-	set yaml value "audioBlock" from "settings" to true
-	set yaml value "damageIndicator" from "settings" to true
+	writeSetting({_p}, "volume", 0.5, false)
+	writeSetting({_p}, "chatEnchantNotif", 1, false)
+	writeSetting({_p}, "audioEnchantNotif", 1, false)
+	writeSetting({_p}, "lootboxAnimation", 1, false)
+	writeSetting({_p}, "startingMusic", 1, false)
+	writeSetting({_p}, "visualBlock", 1, false)
+	writeSetting({_p}, "audioBlock", 1, false)
+	writeSetting({_p}, "damageIndicator", 1, false)
 	save "%{_p}'s uuid%.settings"
 
 
@@ -24,14 +26,14 @@ function openSettingsMenu(p: player):
 	open chest inventory with 3 rows named "&6&lSettings" to {_p}
 	set {_inv} to {_p}'s current inventory
 
-	set slot 1 of {_inv} to a sculk sensor named "<b><color:#4ED95D>Volume</color></b>" with lore "<gradient:#750CF1:#A703B0>Currently: <b>%({settings::volume::%{_p}%} * 100)%%%</b></gradient>"
-	set slot 2 of {_inv} to a bell named "<b><color:#4ED95D>Chat Enchant Notification</color></b>" with lore "<gradient:#750CF1:#A703B0>Currently: <b>%{settings::chatEnchantNotif::%{_p}%}%</b></gradient>"
-	set slot 11 of {_inv} to a bell named "<b><color:#4ED95D>Audio Enchant Notification</color></b>" with lore "<gradient:#750CF1:#A703B0>Currently: <b>%{settings::audioEnchantNotif::%{_p}%}%</b></gradient>"
-	set slot 3 of {_inv} to a chest named "<b><color:#4ED95D>Lootbox animation</color></b>" with lore "<gradient:#750CF1:#A703B0>Currently: <b>%{settings::lootboxAnimation::%{_p}%}%</b></gradient>"
-	set slot 4 of {_inv} to a jukebox named "<b><color:#4ED95D>Starting music</color></b>" with lore "<gradient:#750CF1:#A703B0>Currently: <b>%{settings::startingMusic::%{_p}%}%</b></gradient>"
-	set slot 5 of {_inv} to a diamond ore named "<b><color:#4ED95D>Visual block floating effect</color></b>" with lore "<gradient:#750CF1:#A703B0>Currently: <b>%{settings::visualBlock::%{_p}%}%</b></gradient>"
-	set slot 14 of {_inv} to a diamond ore named "<b><color:#4ED95D>Audio block effect</color></b>" with lore "<gradient:#750CF1:#A703B0>Currently: <b>%{settings::audioBlock::%{_p}%}%</b></gradient>"
-	set slot 6 of {_inv} to a iron sword named "<b><color:#4ED95D>Damage indicator</color></b> " with lore "<gradient:#750CF1:#A703B0>Currently: <b>%{settings::damageIndicator::%{_p}%}%</b></gradient>"
+	set slot 1 of {_inv} to a sculk sensor named "<b><color:#4ED95D>Volume</color></b>" with lore "<gradient:#750CF1:#A703B0>Currently: <b>%(returnSetting({_p}, "volume") * 100)%%%</b></gradient>"
+	set slot 2 of {_inv} to a bell named "<b><color:#4ED95D>Chat Enchant Notification</color></b>" with lore "<gradient:#750CF1:#A703B0>Currently: <b>%returnSetting({_p}, "chatEnchantNotif")%</b></gradient>"
+	set slot 11 of {_inv} to a bell named "<b><color:#4ED95D>Audio Enchant Notification</color></b>" with lore "<gradient:#750CF1:#A703B0>Currently: <b>%returnSetting({_p}, "audioEnchantNotif")%</b></gradient>"
+	set slot 3 of {_inv} to a chest named "<b><color:#4ED95D>Lootbox animation</color></b>" with lore "<gradient:#750CF1:#A703B0>Currently: <b>%returnSetting({_p}, "lootboxAnimation")%</b></gradient>"
+	set slot 4 of {_inv} to a jukebox named "<b><color:#4ED95D>Starting music</color></b>" with lore "<gradient:#750CF1:#A703B0>Currently: <b>%returnSetting({_p}, "startingMusic")%</b></gradient>"
+	set slot 5 of {_inv} to a diamond ore named "<b><color:#4ED95D>Visual block floating effect</color></b>" with lore "<gradient:#750CF1:#A703B0>Currently: <b>%returnSetting({_p}, "visualBlock")%</b></gradient>"
+	set slot 14 of {_inv} to a diamond ore named "<b><color:#4ED95D>Audio block effect</color></b>" with lore "<gradient:#750CF1:#A703B0>Currently: <b>%returnSetting({_p}, "audioBlock")%</b></gradient>"
+	set slot 6 of {_inv} to a iron sword named "<b><color:#4ED95D>Damage indicator</color></b> " with lore "<gradient:#750CF1:#A703B0>Currently: <b>%returnSetting({_p}, "damageIndicator")%</b></gradient>"
 
 	set slot 26 of {_inv} to a barrier named "Reset All Settings To Default"
 
@@ -46,5 +48,14 @@ function playErrorSound(p: player):
 
 function playSound(p: player, sound: text, lowP: number, highP: number):
 	set {_pitch} to a random number between {_lowP} and {_highP}
-	play sound {_sound} with volume {settings::volume::%{_p}%} and pitch {_pitch} to {_p}
+	play sound {_sound} with volume returnSetting({_p}, "volume") and pitch {_pitch} to {_p}
 
+	
+function returnSetting(p: player, setting: text) :: number:
+	return yaml value "%{_setting}%" from "%{_p}'s uuid%.settings"
+
+
+function writeSetting(p: player, setting: text, value: number, save: boolean = true):
+	set yaml value "%{_setting}%" from "%{_p}'s uuid%.settings" to {_value}
+	if {_save} is true:
+		save yaml "%{_p}'s uuid%.settings"

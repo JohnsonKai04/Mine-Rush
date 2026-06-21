@@ -60,7 +60,7 @@ command /setup:
 
 
 function playRandomMusic(p: player):
-	play sound "music_disc.creator" or "music_disc.otherside" or "music_disc.pigstep" or "music_disc.lava.chicken" or "music_disc.tears" in jukebox category with volume {settings::%{_p}%::volume} at {_p}
+	play sound "music_disc.creator" or "music_disc.otherside" or "music_disc.pigstep" or "music_disc.lava.chicken" or "music_disc.tears" in jukebox category with volume returnSetting({_p}, "volume") at {_p}
 
 
 function convertToRoman(num: integer) :: text:
@@ -87,6 +87,13 @@ function swapBoolean(v: boolean) :: boolean:
 		return false
 	else:
 		return true
+
+
+function swapBooleanNum(v: integer) :: number:
+	if {_v} is 1:
+		return 0
+	else:
+		return 1
 
 
 # Damage indecators

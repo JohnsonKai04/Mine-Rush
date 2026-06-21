@@ -57,7 +57,7 @@ command /start:
 		heal player
 		feed player
 
-		if {settings::startingMusic::%player%} is true:
+		if returnSetting(player, "startingMusic") is 1:
 			playRandomMusic(player)
 		# Items
 		clear player's inventory

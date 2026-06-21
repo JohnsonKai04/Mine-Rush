@@ -34,13 +34,12 @@ function streak(p: player) :: number:
 
 function oreDuplicate(p: player, b: block):
 	chance of {oreDuplicate::chance::%{customEnchantTier::%{_p}%::oreDuplicate}%}:
-		play sound "BLOCK_AMETHYST_BLOCK_STEP" with volume {settings::volume::%{_p}%} at location of {_b}
+		play sound "BLOCK_AMETHYST_BLOCK_STEP" with volume returnSetting({_p}, "volume") at location of {_b}
 		make 10 of happy villager at location of {_b} with offset vector(0.35, 0.35, 0.35)
 		set {_new} to type of {_b}
 		wait 1 tick
 		set block at location of {_b} to {_new}
-
-		if {settings::chatEnchantNotif::%{_p}%} is true:
+		if returnSetting({_p}, "chatEnchantNotif") is 1:
 			send formatted "<b>%{oreDuplicate::name}% Proc</b>" to {_p}
 
 
@@ -54,11 +53,11 @@ function luckyMiner(p: player, b: block) :: text:
 					set {_typeFound} to true
 			else:
 				set {_typeFound} to false
-				play sound "ENTITY_TURTLE_SHAMBLE" with volume {settings::volume::%{_p}%} at {_b}
+				play sound "ENTITY_TURTLE_SHAMBLE" with volume returnSetting({_p}, "volume") at {_b}
 				set {_newType} to loop-value
 				return {_newType}
 
-		if {settings::chatEnchantNotif::%{_p}%} is true:
+		if returnSetting({_p}, "chatEnchantNotif") is 1:
 			send formatted "<b>%{luckyMiner::name}% Proc</b>" to {_p}
 	return {_currentType}
 
@@ -82,7 +81,7 @@ function lootBoxCollector(p: player):
 function hungryMiner(p: player):
 	chance of {hungryMiner::chance::%{customEnchantTier::%{_p}%::hungryMiner}%}:
 		add 1 to {_p}'s food level
-		if {settings::chatEnchantNotif::%{_p}%} is true:
+		if returnSetting({_p}, "chatEnchantNotif") is 1:
 			send formatted "<b>%{hungryMiner::name}% Proc</b>" to {_p}
 		
 

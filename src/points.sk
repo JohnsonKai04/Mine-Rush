@@ -69,7 +69,7 @@ function phantomOre(p: player, block: block, type: text):
 
 function playItemPickup(p: player):
 	set {_pitch} to a random number between 0.5 and 1.5
-	play sound "entity.item.pickup" with volume {settings::volume::%{_p}%} and pitch {_pitch} to {_p}
+	play sound "entity.item.pickup" with volume returnSetting({_p}, "volume") and pitch {_pitch} to {_p}
 
 function updatePointsBar(p: player):
 	set bar title of {pointBar::%{_p}%} to colored "<b><gradient:#22F10C:#03B08D>Points: %{points::%{_p}%}%</gradient></b>"

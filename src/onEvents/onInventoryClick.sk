@@ -29,25 +29,25 @@ on inventory click:
 				set slot {_volume} of {_inv} to a bell named "<#4ED95D>&l%%%({_volume} * 10)%"
 
 		else if {_item} is "Chat Enchant Notification":
-			set {settings::chatEnchantNotif::%player%} to swapBoolean({settings::chatEnchantNotif::%player%})
+			writeSetting(player, "chatEnchantNotif", swapBooleanNum(returnSetting(player, "chatEnchantNotif")))
 
 		else if {_item} is "Audio Enchant Notification":
-			set {settings::audioEnchantNotif::%player%} to swapBoolean({settings::audioEnchantNotif::%player%})
+			writeSetting(player, "audioEnchantNotif", swapBooleanNum(returnSetting(player, "audioEnchantNotif")))
 
 		else if {_item} is "Lootbox animation":
-			set {settings::lootboxAnimation::%player%} to swapBoolean({settings::lootboxAnimation::%player%})
+			writeSetting(player, "lootboxAnimation", swapBooleanNum(returnSetting(player, "lootboxAnimation")))
 
 		else if {_item} is "Starting music":
-			set {settings::startingMusic::%player%} to swapBoolean({settings::startingMusic::%player%})
+			writeSetting(player, "startingMusic", swapBooleanNum(returnSetting(player, "startingMusic")))
 
 		else if {_item} is "Visual block floating effect":
-			set {settings::visualBlock::%player%} to swapBoolean({settings::visualBlock::%player%})
+			writeSetting(player, "visualBlock", swapBooleanNum(returnSetting(player, "visualBlock")))
 
 		else if {_item} is "Audio block effect":
-			set {settings::audioBlock::%player%} to swapBoolean({settings::audioBlock::%player%})
-		
+			writeSetting(player, "audioBlock", swapBooleanNum(returnSetting(player, "audioBlock")))
+
 		else if {_item} is "Damage indicator":
-			set {settings::damageIndicator::%player%} to swapBoolean({settings::damageIndicator::%player%})
+			writeSetting(player, "damageIndicator", swapBooleanNum(returnSetting(player, "damageIndicator")))
 
 		else if {_item} is "Reset All Settings To Default":
 			setDefaultSettings(player)
@@ -60,7 +60,7 @@ on inventory click:
 
 	if {_name} is "Volume":
 		set {_volume} to index of event-slot / 10
-		set {settings::volume::%player%} to {_volume}
+		writeSetting(player, "volume", {_volume})
 		playDing(player)
 		openSettingsMenu(player)
 		cancel event

@@ -4,7 +4,7 @@ command /killswitch [<text>]:
 		if arg-1 is not set:
 			send "Here is everything that is kill switched:" to player
 			loop {killSwitch::*}:
-				send "%loop-index%" to player
+				send loop-index to player
 		else if arg-1 is "reset":
 			delete {killSwitch::*}
 			send "killswitch reseted" to player
