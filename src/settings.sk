@@ -4,8 +4,6 @@ command /settings:
 		if {killSwitch::settings} is true:
 			killSwitchMsg(player)
 			stop
-		if returnSetting(player, "volume") is not set:
-			setDefaultSettings(player)
 		openSettingsMenu(player)
 
 		
