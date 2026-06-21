@@ -61,8 +61,8 @@ function beginDifficulty5(p: player):
 	send "<gradient:#F50EC9:#F50E0E>Mob Speed/Health/Damage: <b>%({difficulty::%{_p}%} / 2) * 100%%%</b></gradient>" to {_p}
 
 	# Spawns extract:
-	set {_extractLocation::X} to a random integer between -500 and 500
-	set {_extractLocation::Z} to a random integer between -500 and 500
+	set {_extractLocation::X} to a random integer between -50 and 50
+	set {_extractLocation::Z} to a random integer between -50 and 50
 
 	add {_p}'s x coordinate to {_extractLocation::X}
 	add {_p}'s z coordinate to {_extractLocation::Z}
