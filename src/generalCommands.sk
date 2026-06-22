@@ -58,10 +58,17 @@ command /setup:
 		make console execute command "gamerule spread_vines false"
 		make console execute command "gamerule spawner_blocks_work false"
 		make console execute command "gamerule respawn_radius 0"
+		make console execute command "gamerule pvp false"
+		make console execute command "gamerule locator_bar false"
+		make console execute command "gamerule show_advancement_messages false"
 
 		send "%{color::desc}%Make sure to run /generateSpawnPoints [# of spawn points]" to player
 		send "%{color::desc}%25-50 spawn points is recommended depending on storage/player count" to player
 
+
+command /ping:
+	trigger:
+		send "%player's ping%ms" to player
 
 function playRandomMusic(p: player):
 	play sound "music_disc.creator" or "music_disc.otherside" or "music_disc.pigstep" or "music_disc.lava.chicken" or "music_disc.tears" in jukebox category with volume returnSetting({_p}, "volume") at {_p}
