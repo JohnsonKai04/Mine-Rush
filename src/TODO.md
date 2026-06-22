@@ -1,5 +1,18 @@
 ## Issues
 - There are client side mods that hide the players bossbar for some reason right now these mods are (Better F3)
+
+# 6/22/2026 - playtest num 1
+- [ ] previous runs duration still invalid
+- [ ] first difficulty shows mob speed health at 50 should be 0
+- [ ] cycle through music
+- [ ] add more documentation for extract point
+- [ ] make /enchants
+- [ ] remove water caves if possible
+- [ ] add leaderboard
+- [ ] disable natural mob spawns
+- [ ] modify mob scaling
+
+
 # 6/18/2026
 - [ ] When spawning extract load the chunk and then save.
 # 5/20/2026
