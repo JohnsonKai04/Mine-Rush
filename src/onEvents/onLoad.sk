@@ -229,7 +229,6 @@ on load:
 	setPoints("grass block", 1)
 	setPoints("sand", 1)
 	setPoints("gravel", 1)
-	setPoints("andesite", 2)
 	setPoints("diorite", 2)
 	setPoints("granite", 2)
 	setPoints("deepslate", 3)
