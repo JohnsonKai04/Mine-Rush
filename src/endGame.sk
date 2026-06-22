@@ -16,7 +16,6 @@ on death of player:
 			if {currentGameStats::%victim%::misc::extracted} is not true:
 				set {currentGameStats::%victim%::misc::extracted} to false
 			endGame(victim)
-	generateBorder(victim, 50)
 	set death message to deathMsg(victim, "%attacker%")
 
 # Once the player right clicks the beacon they gain invulnerability and gain a 1.2x point bonus to their current points.
@@ -33,6 +32,7 @@ on right click on beacon:
 		make player vulnerable
 		set {currentGameStats::%player%::misc::extracted} to true
 		kill player
+		generateBorder(player, 50)
 		endGame(player)
 
 
@@ -88,10 +88,3 @@ function deletePlayerVariables(p: player):
 	delete {enchantCostMultiplier::%{_p}%::*}
 	delete {secondLifeUsed::%{_p}%}
 	delete {spawnLocation::%{_p}%}
-
-
-command /spawnlocation:
-	permission: op
-	trigger:
-		loop {validSpawn::active::*}:
-			set {validSpawn::active::%loop-iteration%} to false
