@@ -32,7 +32,6 @@ on right click on beacon:
 		make player vulnerable
 		set {currentGameStats::%player%::misc::extracted} to true
 		kill player
-		generateBorder(player, 50)
 		endGame(player)
 
 
@@ -72,6 +71,7 @@ function endGame(p: player) :: boolean:
 	deletePlayerVariables({_p})
 	set slot 4 of {_p} to nether star named {customItem::menu::name} with lore {customItem::menu::lore}
 	unlockCard({_p})
+	generateBorder({_p}, 50)
 	return true
 
 
