@@ -13,6 +13,7 @@ command /MRshowleaderboard:
 				send "&e%loop-value%. &b%{leaderboardPlayer::%loop-value%}% &7- &a&l%{leaderboardPoints::%loop-value%}%" to player
 		send "&6&l----------------------" to player
 
+
 command /MRclearLeaderboard:
 	permission: mineRush.admin
 	trigger:
@@ -20,6 +21,7 @@ command /MRclearLeaderboard:
 			set {leaderboardPoints::%loop-value%} to 0
 			set {leaderboardPlayer::%loop-value%} to "None"
 		send "LEADERBOARD CLEARED" to player
+
 
 command /runs:
 	cooldown: 1 second
