@@ -61,6 +61,8 @@ command /setup:
 		make console execute command "gamerule pvp false"
 		make console execute command "gamerule locator_bar false"
 		make console execute command "gamerule show_advancement_messages false"
+		make console execute command "gamerule spawn_wandering_traders false"
+
 
 		send "%{color::desc}%Make sure to run /generateSpawnPoints [# of spawn points]" to player
 		send "%{color::desc}%25-50 spawn points is recommended depending on storage/player count" to player
@@ -105,3 +107,9 @@ function swapBooleanNum(v: integer) :: number:
 		return 0
 	else:
 		return 1
+
+
+command /printyamlcache:
+	permission: op
+	trigger:
+		send "%currently loaded yaml files%" to player
