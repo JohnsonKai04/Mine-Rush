@@ -5,6 +5,7 @@ on death of mob:
 
 
 command /MRshowleaderboard:
+	permission: mineRush.admin
 	trigger:
 		send "&6&l----Top 10 Players----" to player
 		loop 10 times:
@@ -13,6 +14,7 @@ command /MRshowleaderboard:
 		send "&6&l----------------------" to player
 
 command /MRclearLeaderboard:
+	permission: mineRush.admin
 	trigger:
 		loop 10 times:
 			set {leaderboardPoints::%loop-value%} to 0

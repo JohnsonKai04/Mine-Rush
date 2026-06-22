@@ -56,6 +56,8 @@ command /setup:
 		make console execute command "gamerule spawn_phantoms false"
 		make console execute command "gamerule mob_drops false"
 		make console execute command "gamerule spread_vines false"
+		make console execute command "gamerule spawner_blocks_work false"
+		make console execute command "gamerule respawn_radius 0"
 
 		send "%{color::desc}%Make sure to run /generateSpawnPoints [# of spawn points]" to player
 		send "%{color::desc}%25-50 spawn points is recommended depending on storage/player count" to player
