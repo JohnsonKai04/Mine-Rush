@@ -8,10 +8,10 @@ on spawn:
 					cancel event
 			if y-coordinate of location of event-entity is greater than or equal to ({_p}'s y-level + {mobSpawnMaxHeight}):
 				cancel event
-			set max health of event-entity to round((max health of event-entity) * ({difficulty::%{_p}%} / 2))
+			#set max health of event-entity to round((max health of event-entity) * ({difficulty::%{_p}%} / 2))
 			heal event-entity
-			set {_speed} to event-entity's generic movement speed attribute
-			set event-entity's generic movement speed attribute to ({_speed} * ({difficulty::%{_p}%} / 2))
+			#set {_speed} to event-entity's generic movement speed attribute
+			#set event-entity's generic movement speed attribute to ({_speed} * ({difficulty::%{_p}%} / 2))
 			make last spawned entity despawn on chunk unload
 		else:
 			cancel event
@@ -24,7 +24,7 @@ function setHealthOfMob(mob: entity, h: number):
 function beginDifficulty1(p: player):
 	set {_time} to "%4 * {defaultSpeed}% minutes" parsed as timespan
 	send "<gradient:#00FF11:#C3D705>Difficulty <b>1</b></gradient>" to {_p}
-	send "<gradient:#00FF11:#C3D705>Mob Speed/Health/Damage: <b>%({difficulty::%{_p}%} / 2) * 100%%%</b></gradient>" to {_p}
+	send "<gradient:#00FF11:#C3D705>No Hostile Mobs</b></gradient>" to {_p}
 	send "<gradient:#00FF11:#C3D705>Time Until Extraction: <b>%{_time}%</b></gradient>" to {_p}
 	play sound "item.goat_horn.sound.0" with volume returnSetting({_p}, "volume") at {_p}
 	
