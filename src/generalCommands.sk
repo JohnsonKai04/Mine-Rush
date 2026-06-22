@@ -54,7 +54,9 @@ command /setup:
 		make console execute command "gamerule immediate_respawn true"
 		make console execute command "gamerule immediate_respawn true"
 		make console execute command "gamerule spawn_phantoms false"
-		wait 1 tick
+		make console execute command "gamerule mob_drops false"
+		make console execute command "gamerule spread_vines false"
+
 		send "%{color::desc}%Make sure to run /generateSpawnPoints [# of spawn points]" to player
 		send "%{color::desc}%25-50 spawn points is recommended depending on storage/player count" to player
 
@@ -94,38 +96,3 @@ function swapBooleanNum(v: integer) :: number:
 		return 0
 	else:
 		return 1
-
-
-# Damage indecators
-function spawnIndicator(p: player, l: location, d: number, h: number, maxH: number):
-	# Color of damage indector
-	set {_color} to ((({_h} - {_d}) / {_maxH}) * 100)
-	if {_color} >= 75:
-		set {_color} to "<color:#00FF26>"
-	else if {_color} >= 50:
-		set {_color} to "<color:#F1FF00>"
-	else if {_color} >= 25:
-		set {_color} to "<color:#FF7200>"
-	else:
-		set {_color} to "<color:#FF0000>"
-
-	# Location of damage indicator
-	set {_current} to location above {_l}
-	set {_vector} to vector from {_current} to {_p}
-	set {_distance} to distance between {_current} and {_target}
-	set vector length of {_vector} to 0.5
-	set {_location} to {_current} ~ {_vector}
-	set {_random::*} to 3 random numbers from -0.2 to 0.2
-	set {_location} to {_location} ~ vector({_random::1},{_random::2},{_random::3})
-	spawn an armor stand at {_location} with nbt from "{CustomName: """", CustomNameVisible:1, Invisible:1, NoGravity: 1, Marker: 1b}"
-	if {_d} >= {_maxH}:
-		if {_h} = {_maxH}:
-			set the name of the last spawned armor stand to "<b><shadow:black><rainbow:%random integer between 1 and 5%>[Overkill]</rainbow></shadow></b>"
-		else:
-			set the name of the last spawned armor stand to "%{_color}%%{_d}%</color>"
-	else:
-		set the name of the last spawned armor stand to "%{_color}%%{_d}%</color>"
-	set {_stand} to last spawned armor stand
-	wait 10 ticks
-	teleport {_stand} to location of {_stand} ~ vector(0, -20, 0)
-	kill {_stand}
