@@ -21,6 +21,7 @@ command /menu:
 		set slot 12 of {_inv} to command block named "<!i>%{color::menu}%<b>Settings" with lore "%{color::desc}%Opens the settings menu", and "/settings"
 		set slot 13 of {_inv} to emerald named "<!i>%{color::menu}%<b>Start Run" with lore "%{color::desc}%Start a new run", and "/start"
 		set slot 14 of {_inv} to enchanted book named "<!i>%{color::menu}%<b>Enchants" with lore "%{color::desc}%View all custom enchants", and "/enchants"
+		set slot 15 of {_inv} to flower banner pattern named "<!i>%{color::menu}%<b>Booster Cards" with lore "%{color::desc}%View all booster cards", and "/booster"
 		set slot 22 of {_inv} to grass block named "<!i>%{color::menu}%<b>Previous Runs" with lore "<!i>%{color::desc}%View all past runs", and "/runs"
 
 		unload yaml "stats"

@@ -239,3 +239,5 @@ on inventory click:
 			make player execute command "/enchants"
 		else if {_item} contains uncolored "Previous Runs":
 			make player execute command "/runs"
+		else if {_item} contains uncolored "Booster Cards":
+			make player execute command "/booster"
