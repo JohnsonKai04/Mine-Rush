@@ -17,8 +17,7 @@ function addPoints(p: player, block: block) :: number:
 	set {_points} to round({blockValue::%{_blockType}%} * (1 + {_streak}))
 	if {_points} is 0:
 		exit
-	else if {_isOre} is false: 
-		add 1 to {currentGameStats::%{_p}%::blocks::%{_blockType}%}
+
 	add {_points} to {points::%{_p}%}
 	add {_points} to {currentGameStats::%{_p}%::points::totalPoints}
 
@@ -27,6 +26,8 @@ function addPoints(p: player, block: block) :: number:
 	if {_isOre} is true:
 		oreDuplicate({_p}, {_block})
 		veinMiner({_p}, {_block})
+	else:
+		add 1 to {currentGameStats::%{_p}%::blocks::%{_blockType}%}
 
 	# Update BossBar
 	set {_streakPercentage} to {_streak} * 100
