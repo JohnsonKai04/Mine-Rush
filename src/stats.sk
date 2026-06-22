@@ -104,7 +104,7 @@ function saveDataToFile(p: player) :: boolean:
 		set yaml value "shop.%loop-index%" from "stats" to (loop-value + yaml value "shop.%loop-index%" from "stats")
 
 	# Time, extractions, and total games played
-	set yaml value "%{_ID}%.misc.duration" from "file" to "%difference between now and {currentGameStats::%{_p}%::duration}%"
+	set yaml value "%{_ID}%.misc.duration" from "file" to "%difference between now and {currentGameStats::%{_p}%::misc::duration}%"
 	set yaml value "%{_ID}%.misc.timePlayed" from "file" to "%now%"
 	if {currentGameStats::%{_p}%::extracted} is true:
 		set yaml value "misc.extracts" from "stats" to (1 + yaml value "misc.extracts" from "stats")
