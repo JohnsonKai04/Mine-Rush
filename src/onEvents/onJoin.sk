@@ -1,8 +1,9 @@
 # Sets the default settings for the player located in ../settings.sk
 on first join:
+	set gamemode of player to adventure
 	setDefaultSettings(player)
-	set slot 5 of player to nether star named {customItem::menu::name} with lore {customItem::menu::lore}
-	generateBorder(player, 50)
+	giveMenuItem(player)
+	generateSpawnBorder(player)
 
 on join:
 	load yaml "mineRushData/playerData/%{_p}'s uuid%/settings.yaml" as "%{_p}'s uuid%.settings"
@@ -14,3 +15,7 @@ on join:
 			delete {disconnectTimer::%player%}
 			wait 2 seconds
 			kill player
+	else:
+		wait 1 tick
+		generateSpawnBorder(player)
+		make player invulnerable
