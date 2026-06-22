@@ -60,6 +60,7 @@ command /generateSpawnPoints [<integer>]:
 		set {chunkSaving} to false
 
 command /chunksaving [<boolean>]:
+	permission: op
 	trigger:
 		if arg-1 is true or false:
 			set {chunkSaving} to arg-1
@@ -68,16 +69,19 @@ command /chunksaving [<boolean>]:
 			send "chunkSaving: %{chunkSaving}%" to player
 
 command /stopgen:
+	permission: op
 	trigger:
 		set {stopgen} to true
 
 
 command /viewValidSpawn:
+	permission: op
 	trigger:
 		send "Viewing %size of {validSpawn::location::*}% Different spawns" to player
 		loop {validSpawn::location::*}:
-			send "%loop-value%, %{validSpawn::active::%loop-index%}%" to player
+			send "%loop-value%, is in use: %{validSpawn::active::%loop-index%}%" to player
 
 command /clearValidSpawns:
+	permission: op
 	trigger:
 		delete {validSpawn::*}
