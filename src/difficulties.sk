@@ -22,7 +22,7 @@ function setHealthOfMob(mob: entity, h: number):
 	heal {_mob}
 
 function beginDifficulty1(p: player):
-	set {_time} to "%4 * 8% minutes" parsed as timespan
+	set {_time} to "%4 * {defaultSpeed}% minutes" parsed as timespan
 	send "<gradient:#00FF11:#C3D705>Difficulty <b>1</b></gradient>" to {_p}
 	send "<gradient:#00FF11:#C3D705>Mob Speed/Health/Damage: <b>%({difficulty::%{_p}%} / 2) * 100%%%</b></gradient>" to {_p}
 	send "<gradient:#00FF11:#C3D705>Time Until Extraction: <b>%{_time}%</b></gradient>" to {_p}
@@ -30,7 +30,7 @@ function beginDifficulty1(p: player):
 	
 
 function beginDifficulty2(p: player):
-	set {_time} to "%3 * 8% minutes" parsed as timespan
+	set {_time} to "%3 * {defaultSpeed}% minutes" parsed as timespan
 	send "<gradient:#C3D705:#F5AD0E>Difficulty <b>2</b></gradient>" to {_p}
 	send "<gradient:#C3D705:#F5AD0E>Mob Speed/Health/Damage: <b>%({difficulty::%{_p}%} / 2) * 100%%%</b></gradient>" to {_p}
 	send "<gradient:#C3D705:#F5AD0E>Time Until Extraction: <b>%{_time}%</b></gradient>" to {_p}
@@ -39,7 +39,7 @@ function beginDifficulty2(p: player):
 
 
 function beginDifficulty3(p: player):
-	set {_time} to "%2 * 8% minutes" parsed as timespan
+	set {_time} to "%2 * {defaultSpeed}% minutes" parsed as timespan
 	send "<gradient:#F5AD0E:#F5500E>Difficulty <b>3</b></gradient>" to {_p}
 	send "<gradient:#F5AD0E:#F5500E>Mob Speed/Health/Damage: <b>%({difficulty::%{_p}%} / 2) * 100%%%</b></gradient>" to {_p}
 	send "<gradient:#F5AD0E:#F5500E>Time Until Extraction: <b>%{_time}%</b></gradient>" to {_p}
@@ -49,7 +49,7 @@ function beginDifficulty3(p: player):
 
 
 function beginDifficulty4(p: player):
-	set {_time} to "%1 * 8% minutes" parsed as timespan
+	set {_time} to "%1 * {defaultSpeed}% minutes" parsed as timespan
 	send "<gradient:#F5500E:#F50EC9>Difficulty <b>4</b></gradient>" to {_p}
 	send "<gradient:#F5500E:#F50EC9>Mob Speed/Health/Damage: <b>%({difficulty::%{_p}%} / 2) * 100%%%</b></gradient>" to {_p}
 	send "<gradient:#F5500E:#F50EC9>Time Until Extraction: <b>%{_time}%!</b></gradient>" to {_p}
