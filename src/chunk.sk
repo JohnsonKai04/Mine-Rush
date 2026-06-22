@@ -79,7 +79,7 @@ command /viewValidSpawn:
 	trigger:
 		send "Viewing %size of {validSpawn::location::*}% Different spawns" to player
 		loop {validSpawn::location::*}:
-			send "%loop-value%, is in use: %{validSpawn::active::%loop-index%}%" to player
+			send "%loop-index%: %loop-value%, is in use: %{validSpawn::active::%loop-index%}%" to player
 
 command /clearValidSpawns:
 	permission: op
