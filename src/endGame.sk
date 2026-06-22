@@ -16,6 +16,7 @@ on death of player:
 			if {currentGameStats::%victim%::misc::extracted} is not true:
 				set {currentGameStats::%victim%::misc::extracted} to false
 			endGame(victim)
+	generateBorder(victim, 50)
 	set death message to deathMsg(victim, "%attacker%")
 
 # Once the player right clicks the beacon they gain invulnerability and gain a 1.2x point bonus to their current points.
@@ -47,6 +48,7 @@ function showDeathScreen(p: player):
 	set {_val} to a random integer between 1 and (size of {deathTitle::*})
 	send title "<#AC0C26>%{deathTitle::%{_val}%}%" to {_p}
 
+
 function deathMsg(p: player, k: text) :: text:
 	set {_val} to a random integer between 1 and (size of {deathMsg::*})
 	set {_msg} to {deathMsg::%{_val}%}
@@ -54,6 +56,7 @@ function deathMsg(p: player, k: text) :: text:
 	replace all "[points]" with "%{points::%{_p}%}%" in {_msg}
 	replace all "[killer]" with "%{_k}%" in {_msg}
 	return {_msg}
+
 
 # Param - _p: player that is playing the game
 # Reutrn - returns true if game has ended successfully, false if player not in game
@@ -68,8 +71,9 @@ function endGame(p: player) :: boolean:
 	updateLeaderboard({_p}, {points::%{_p}%})
 	deletePlayerVariables({_p})
 	set slot 4 of {_p} to nether star named {customItem::menu::name} with lore {customItem::menu::lore}
-	generateBorder({_p}, 50)
+	unlockCard({_p})
 	return true
+
 
 function deletePlayerVariables(p: player):
 	delete {difficulty::%{_p}%}
