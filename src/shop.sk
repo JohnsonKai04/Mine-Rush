@@ -185,7 +185,7 @@ function applyCustomEnchant(p: player, enchantName: text) :: boolean:
 function purchaseCustomEnchant(p: player, enchantName: text):
 	set {_check} to 1 + {customEnchantTier::%{_p}%::%{_enchantName}%}
 	if {%{_enchantName}%::chance::%{_check}%} is not set:
-		send "<gradient:#F10C31:#8F1D26>Maxed Level Reached</gradient>!" to {_p}
+		send "<gradient:#F10C31:#8F1D26>Maxed Level Reached!</gradient>" to {_p}
 		playErrorSound({_p})
 
 	else if chargePlayer({_p}, {_enchantName}, {enchantCostMultiplier::%{_p}%::%{_enchantName}%}) is true:
