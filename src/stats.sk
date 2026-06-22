@@ -4,25 +4,6 @@ on death of mob:
 			add 1 to {currentGameStats::%attacker%::misc::mobKills}
 
 
-command /MRshowleaderboard:
-	permission: mineRush.admin
-	trigger:
-		send "&6&l----Top 10 Players----" to player
-		loop 10 times:
-			if {leaderboardPoints::%loop-value%} is not 0: # will not show empty slots. set to -1 if you want empty leaderboard slots to be shown
-				send "&e%loop-value%. &b%{leaderboardPlayer::%loop-value%}% &7- &a&l%{leaderboardPoints::%loop-value%}%" to player
-		send "&6&l----------------------" to player
-
-
-command /MRclearLeaderboard:
-	permission: mineRush.admin
-	trigger:
-		loop 10 times:
-			set {leaderboardPoints::%loop-value%} to 0
-			set {leaderboardPlayer::%loop-value%} to "None"
-		send "LEADERBOARD CLEARED" to player
-
-
 command /runs:
 	cooldown: 1 second
 	trigger:
