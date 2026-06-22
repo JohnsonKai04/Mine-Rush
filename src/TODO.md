@@ -11,6 +11,33 @@
 - [ ] add leaderboard
 - [ ] disable natural mob spawns
 - [ ] modify mob scaling
+- [ ] make extract point spawn mobs around the player before sending them home
+- [ ] save hard coded variables as config values
+- [ ] add iron golems in the shop
+- [ ] rare lootbox is unobtainable
+- [ ] make lootbox animations cooler
+- [ ] if player is shifting fire fireball as second clause
+- [ ] send message to player displaying what booster card they've unlocked
+- [ ] nerf streak to require more ores before multiplier kicks in
+- [ ] a visualizer to see how deep you are
+- [ ] something telling player going deeper = more ores
+- [ ] add more difficult mobs the deeper you go
+- [ ] add support for trial chamber
+- [ ] add expensive feather falling
+- [ ] night vision in /settings
+- [ ] legendary lootbox should display how much points you get depending on the block
+- [ ] stats dont display properly
+- [ ] visually show player has hit max level in shop
+- [ ] points per minute in hotbar
+- [ ] minecart chests and barrels give you items
+- [ ] remove putting items in pots
+- [ ] not allow drinking milk
+- [ ] disallow rightclicking beds
+- [ ] selectable difficulties
+- [ ] make finding caves easier
+
+
+
 
 
 # 6/18/2026
