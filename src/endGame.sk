@@ -18,6 +18,7 @@ on death of player:
 			endGame(victim)
 	set death message to deathMsg(victim, "%attacker%")
 
+
 # Once the player right clicks the beacon they gain invulnerability and gain a 1.2x point bonus to their current points.
 # after 6 seconds endGame() runs
 on right click on beacon:
@@ -25,13 +26,12 @@ on right click on beacon:
 		delete {inGame::%player%}
 		cancel event
 		make player invulnerable
-		set {pointsBonus::%player%} to round(0.2 * {points::%player%})
-		add {pointsBonus::%player%} to {points::%player%}
-		send "<b><gradient:#52F361:#02CEF6:#52F361>Extracting You Now good job %player%. Heres a Bonus For Your Efforts: %{pointsBonus::%player%}%</gradient></b>" to player
+		add {currentGameStats::%player%::points::pointsSpent} to {points::%player%}
+		send "<b><gradient:#52F361:#02CEF6:#52F361>Extracting You Now good job %player%. Heres a Bonus For Your Efforts: %{currentGameStats::%player%::points::pointsSpent}%</gradient></b>" to player
 		wait 6 seconds
-		make player vulnerable
 		set {currentGameStats::%player%::misc::extracted} to true
-		kill player
+		teleport player to {lobbySpawnLoc}
+		clear inventory of player
 		endGame(player)
 
 
@@ -63,6 +63,8 @@ function deathMsg(p: player, k: text) :: text:
 # Updates the leaderboard with the players current points, and adds overall points gained to the stats
 # Clears inventoy and kills the player to return them to spawn
 function endGame(p: player) :: boolean:
+	if {currentGameStats::%{_p}%::misc::extracted} is true:
+		unlockCard({_p})
 	delete {inGame::%{_p}%}
 	saveDataToFile({_p})
 	remove {_p} from {pointBar::%{_p}%}
@@ -70,7 +72,6 @@ function endGame(p: player) :: boolean:
 	updateLeaderboard({_p}, {points::%{_p}%})
 	deletePlayerVariables({_p})
 	set slot 4 of {_p} to nether star named {customItem::menu::name} with lore {customItem::menu::lore}
-	unlockCard({_p})
 	generateBorder({_p}, 50)
 	return true
 
