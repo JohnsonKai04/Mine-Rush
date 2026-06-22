@@ -2,7 +2,6 @@ function giveMenuItem(p: player):
 	set slot 4 of {_p} to nether star named {customItem::menu::name} with lore {customItem::menu::lore}
 
 command /menu:
-	permission: mineRush.menu
 	trigger:
 		load yaml "mineRushData/playerData/%player's uuid%/stats.yaml" as "stats"
 		open chest inventory with 3 rows named "<b>%{color::desc}%Main Menu" to player
@@ -25,3 +24,19 @@ command /menu:
 		set slot 22 of {_inv} to grass block named "<!i>%{color::menu}%<b>Previous Runs" with lore "<!i>%{color::desc}%View all past runs", and "/runs"
 
 		unload yaml "stats"
+
+function generateBorder(p: player, r: integer):
+	wait 1 second
+	set {_location} to location of {_p}
+	set worldborder of {_p} to a virtual worldborder:
+		set worldborder radius to {_r}
+		set world border center of event-worldborder to {_location}
+
+function removeBorder(p: player):
+	reset worldborder of {_p}
+
+
+command /removeborder:
+	permission: mineRush.admin
+	trigger:
+		removeBorder(player)

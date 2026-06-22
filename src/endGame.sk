@@ -68,6 +68,7 @@ function endGame(p: player) :: boolean:
 	updateLeaderboard({_p}, {points::%{_p}%})
 	deletePlayerVariables({_p})
 	set slot 4 of {_p} to nether star named {customItem::menu::name} with lore {customItem::menu::lore}
+	generateBorder({_p}, 50)
 	return true
 
 function deletePlayerVariables(p: player):
@@ -86,6 +87,7 @@ function deletePlayerVariables(p: player):
 
 
 command /spawnlocation:
+	permission: op
 	trigger:
 		loop {validSpawn::active::*}:
 			set {validSpawn::active::%loop-iteration%} to false

@@ -1,6 +1,5 @@
 command /start:
 	aliases: /startgame, /st, /begin
-	permission: mineRush.start
 	cooldown: 10 minutes
 	cooldown storage: {startCooldown::%player%}
 	cooldown message: %{color::error}% You recently started up a game please wait %remaining time% to begin another run.
@@ -32,6 +31,7 @@ command /start:
 		set {validSpawn::active::%{spawnPointer}%} to true  # This puts a lock onto the spawn location so other players cannot spawn here if the pointer loops around
 		set {_location} to {validSpawn::location::%{spawnPointer}%}
 		set {spawnLocation::%player%} to {spawnPointer}
+		removeBorder(player)
 
 		send title "<b><color:#00FF3B>Starting in 5...</color></b>" to player
 		wait 1 second

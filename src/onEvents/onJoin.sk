@@ -1,7 +1,8 @@
 # Sets the default settings for the player located in ../settings.sk
 on first join:
 	setDefaultSettings(player)
-	set slot 4 of {_p} to nether star named {customItem::menu::name} with lore {customItem::menu::lore}
+	set slot 5 of player to nether star named {customItem::menu::name} with lore {customItem::menu::lore}
+	generateBorder(player, 50)
 
 on join:
 	load yaml "mineRushData/playerData/%{_p}'s uuid%/settings.yaml" as "%{_p}'s uuid%.settings"
