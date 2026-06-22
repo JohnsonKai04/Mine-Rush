@@ -1,6 +1,6 @@
 command /start:
-	aliases: /startgame, /st, /begin
-	cooldown: 10 minutes
+	aliases: /startgame, /st, /begin, /startrun
+	cooldown: 5 minutes
 	cooldown storage: {startCooldown::%player%}
 	cooldown message: %{color::error}% You recently started up a game please wait %remaining time% to begin another run.
 	cooldown bypass: mineRush.admin
@@ -54,6 +54,7 @@ command /start:
 		teleport player to {_location}
 		asyncAircheck(player)
 		set gamemode of player to survival
+		make player vulnerable
 		heal player
 		feed player
 
@@ -92,3 +93,8 @@ function asyncAircheck(p: player):
 	while block below {_p} is air:
 		wait 10 ticks
 	remove slow falling from {_p}'s active potion effects
+
+command /cleacooldown [<player>]:
+	permission: op
+	trigger:
+		delete {startCooldown::%player%}
