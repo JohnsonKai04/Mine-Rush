@@ -36,8 +36,44 @@ function generateBorder(p: player, r: integer):
 function removeBorder(p: player):
 	reset worldborder of {_p}
 
+function generateSpawnBorder(p: player):
+	set worldborder of {_p} to a virtual worldborder:
+		set worldborder radius to 50
+		set world border center of event-worldborder to {lobbySpawnLoc}
 
 command /removeborder:
 	permission: mineRush.admin
 	trigger:
 		removeBorder(player)
+
+command /setspawn:
+	permission: mineRush.admin
+	trigger:
+		set {lobbySpawnLoc} to location of player
+
+on rightclick on cake:
+	feed player
+	cancel event
+
+command /buildmode [<player>]:
+	permission: mineRush.admin
+	trigger:
+		if arg-1 is not set:
+			send "%{color::error}%Please specify a player" to player
+			exit
+		if {builderMode::%arg-1%} is not true:
+			set {builderMode::%arg-1%} to true
+			set arg-1's gamemode to creative
+			clear inventory of arg-1
+			send "%{color::points}%You've been set to builder mode use" to arg-1
+			send "%{color::points}%%arg-1% has been set to builder mode" to player
+		else:
+			delete {builderMode::%arg-1%}
+			set arg-1's gamemode to adventure
+			giveMenuItem(arg-1)
+
+
+command /spawn:
+	permission: op
+	trigger:
+		teleport player to {lobbySpawnLoc}
