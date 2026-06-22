@@ -28,9 +28,6 @@ function beginDifficulty1(p: player):
 	send "<gradient:#00FF11:#C3D705>Time Until Extraction: <b>%{_time}%</b></gradient>" to {_p}
 	play sound "item.goat_horn.sound.0" with volume returnSetting({_p}, "volume") at {_p}
 	
-command /test:
-	trigger:
-		beginDifficulty1(player)
 
 function beginDifficulty2(p: player):
 	set {_time} to "%3 * 8% minutes" parsed as timespan
