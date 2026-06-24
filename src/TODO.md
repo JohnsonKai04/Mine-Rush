@@ -2,19 +2,18 @@
 - There are client side mods that hide the players bossbar for some reason right now these mods are (Better F3)
 
 # 6/22/2026 - playtest num 1
-- [ ] previous runs duration still invalid
-- [ ] first difficulty shows mob speed health at 50 should be 0
-- [ ] cycle through music
-- [ ] add more documentation for extract point
-- [ ] make /enchants
+- [x] previous runs duration still invalid
+- [x] first difficulty shows mob speed health at 50 should be 0
+- [x] cycle through music
+- [x] add more documentation for extract point
+- [x] make /enchants
 - [ ] remove water caves if possible
 - [ ] add leaderboard
 - [ ] disable natural mob spawns
-- [ ] modify mob scaling
+- [x] modify mob scaling
 - [ ] make extract point spawn mobs around the player before sending them home
 - [ ] save hard coded variables as config values
 - [ ] add iron golems in the shop
-- [ ] rare lootbox is unobtainable
 - [ ] make lootbox animations cooler
 - [ ] if player is shifting fire fireball as second clause
 - [ ] send message to player displaying what booster card they've unlocked
@@ -26,7 +25,7 @@
 - [ ] add expensive feather falling
 - [ ] night vision in /settings
 - [ ] legendary lootbox should display how much points you get depending on the block
-- [ ] stats dont display properly
+- [x] stats dont display properly
 - [ ] visually show player has hit max level in shop
 - [ ] points per minute in hotbar
 - [ ] minecart chests and barrels give you items
