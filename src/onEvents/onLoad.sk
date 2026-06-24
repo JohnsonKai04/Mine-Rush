@@ -7,12 +7,15 @@ function setPoints(block: text, points: number):
 	set {blockValue::%{_block}%} to {_points}
 
 on load:
+	# Tutorial message:
+	set {tutorialMsg} to formatted "~~~Welcome to Minerush!~~~||Begin a run by using the menu item|Once a run has started mine ores to gain points|Use points in the shop to assist your run|Every %{defaultSpeed}% minutes the difficulty will increase making the run harder|Reach the extract point to get back all the points you've spent|Try to be #1 on the leaderboard|Good Luck"
 	# Color codes will only be stored in variables to make editing easier. After beta this can be removed to conserve memory if needed
 	set {color::desc} to "<!i><gradient:#750CF1:#A703B0>"
 	set {color::error} to "<gradient:#F10C31:#8F1D26>"
 	set {color::points} to "<color:#00FF3B>"
 	set {color::leaderboard} to "<!i><gradient:#CC813E:#BF344F>"
 	set {color::menu} to "<!i><gradient:#CC813E:#BF344F>"
+	set {color::tutorial} to "<b><gradient:#22FF00:#82F331>"
 
 	# Death splash screen
 	set {deathTitle::1} to "[RIP]"
@@ -101,7 +104,7 @@ on load:
 	set {disconnectTime} to 1.5 hours  # The amount of time a player can be disconnected for before killing them inGame
 	set {spawnPointer} to 1
 	set {mobSpawnMaxHeight} to 10 # Mobs spawned x blocks above the player will despawn
-
+	set {difficultyMultiplier} to 1.25
 	# Enchants
 	set {veinMiner::chance::1} to 100%
 	set {veinMiner::name} to formatted "<!i><gradient:#54DAF4:#545EB6>Vein Miner</gradient>"
