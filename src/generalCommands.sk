@@ -72,8 +72,20 @@ command /ping:
 	trigger:
 		send "%player's ping%ms" to player
 
-function playRandomMusic(p: player):
-	play sound "music_disc.creator" or "music_disc.otherside" or "music_disc.pigstep" or "music_disc.lava.chicken" or "music_disc.tears" in jukebox category with volume returnSetting({_p}, "volume") at {_p}
+function loopMusic(p: player):
+	set {_map::*} to "music_disc.creator=176", and "music_disc.otherside=195", and "music_disc.pigstep=148", and "music_disc.lava.chicken=135", and "music_disc.tears=175"
+	set {_song} to a random integer between 1 and size of {_map::*}
+	while {ingame::%{_p}%} is true:
+		if returnSetting({_p}, "startingMusic") is 0:
+			exit
+		while {_song} is {_previousSong}:
+			set {_song} to a random integer between 1 and size of {_map::*}
+
+		set {_previousSong} to {_song}
+		set {_parts::*} to {_map::%{_song}%} split at "="
+		set {_parts::2} to "%{_parts::2}% seconds" parsed as timespan
+		play sound "%{_parts::1}%" in jukebox category with volume returnSetting({_p}, "volume") at {_p}
+		wait {_parts::2}
 
 
 function convertToRoman(num: integer) :: text:
@@ -113,3 +125,25 @@ command /printyamlcache:
 	permission: op
 	trigger:
 		send "%currently loaded yaml files%" to player
+
+
+function returnTutorialMsg(italic: boolean = false) :: texts:
+	set {_text::*} to {tutorialMsg} split at "|"
+	if {_italic} is true:
+		loop {_text::*}:
+			set {_text::%loop-index%} to "<!i>%{color::tutorial}%" + {_text::%loop-index%}
+	else:
+		loop {_text::*}:
+			set {_text::%loop-index%} to "%{color::tutorial}%" + {_text::%loop-index%}
+	return {_text::*}
+
+
+command /feed:
+	permission: op
+	trigger:
+		feed player
+
+command /heal:
+	permission: op
+	trigger:
+		heal player
