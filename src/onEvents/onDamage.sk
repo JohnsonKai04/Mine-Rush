@@ -6,5 +6,4 @@ on damage:
 			spawnIndicator(attacker, location of victim, damage, health of victim, max health of victim)
 	if {inGame::%victim%} is true:
 		if attacker is set:
-			set the damage to damage * ({difficulty::%victim%} / 2)
-
+			set the damage to round(damage * (({difficulty::%{_p}%} - 2) * {difficultyMultiplier}))
