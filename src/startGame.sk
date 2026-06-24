@@ -58,8 +58,10 @@ command /start:
 		heal player
 		feed player
 
-		if returnSetting(player, "startingMusic") is 1:
-			playRandomMusic(player)
+		loopMusic(player)
+		#if returnSetting(player, "tutorial") is 1:
+		#	send returnTutorialMsg(false) to player
+
 		# Items
 		clear player's inventory
 		give nether star named {customItem::shop::name} to player
@@ -98,3 +100,4 @@ command /cleacooldown [<player>]:
 	permission: op
 	trigger:
 		delete {startCooldown::%player%}
+
