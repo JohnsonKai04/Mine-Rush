@@ -1,6 +1,7 @@
 on rightclick holding a stone pickaxe, iron pickaxe, diamond pickaxe, or netherite pickaxe:
 	if {inGame::%player%} is true:
-		fireball(player)
+		if player is sneaking:
+			fireball(player)
 
 		
 function veinMiner(p: player, b: block):

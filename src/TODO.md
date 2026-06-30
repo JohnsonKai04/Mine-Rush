@@ -18,7 +18,7 @@
 - [x] modify mob scaling
 - [x] add iron golems in the shop
 - [x] make lootbox animations cooler
-- [ ] if player is shifting fire fireball as second clause
+- [x] if player is shifting fire fireball as second clause
 - [ ] send message to player displaying what booster card they've unlocked
 - [ ] nerf streak to require more ores before multiplier kicks in
 - [ ] a visualizer to see how deep you are
