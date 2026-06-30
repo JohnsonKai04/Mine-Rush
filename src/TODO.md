@@ -1,20 +1,23 @@
 ## Issues
 - There are client side mods that hide the players bossbar for some reason right now these mods are (Better F3)
 
+# Roadmap updated: 6/30/2026
+- [ ] remove water caves if possible
+- [ ] UHC custom weapons
+- [ ] make extract point spawn mobs around the player before sending them home
+- [ ] selectable difficulties
+
 # 6/22/2026 - playtest num 1
 - [x] previous runs duration still invalid
 - [x] first difficulty shows mob speed health at 50 should be 0
 - [x] cycle through music
 - [x] add more documentation for extract point
 - [x] make /enchants
-- [ ] remove water caves if possible
 - [x] add leaderboard
 - [x] disable natural mob spawns
 - [x] modify mob scaling
-- [ ] make extract point spawn mobs around the player before sending them home
-- [ ] save hard coded variables as config values
-- [ ] add iron golems in the shop
-- [ ] make lootbox animations cooler
+- [x] add iron golems in the shop
+- [x] make lootbox animations cooler
 - [ ] if player is shifting fire fireball as second clause
 - [ ] send message to player displaying what booster card they've unlocked
 - [ ] nerf streak to require more ores before multiplier kicks in
@@ -32,15 +35,14 @@
 - [ ] remove putting items in pots
 - [ ] not allow drinking milk
 - [ ] disallow rightclicking beds
-- [ ] selectable difficulties
-- [ ] make finding caves easier
+- [ ] make finding caves easier - maps
 
 
 
 
 
 # 6/18/2026
-- [ ] When spawning extract load the chunk and then save.
+- [x] When spawning extract load the chunk and then save.
 # 5/20/2026
 
 - [x] lootbox procc msgs are not formatted correctly
@@ -56,8 +58,8 @@
 ## QOL
 - [x] Damage indecators
 - [x] Create an array of 100 different spawning points preloaded to avoid needing to load lots of chunks
-- [ ] UHC custom weapons
-- [ ] dont store pointbar in variable use minecraft boss bar id's
+
+- [x] dont store pointbar in variable use minecraft boss bar id's
 ## Anticheat
 - [ ] Create a custom anticheat that collects data to determine if a run wasnt legit
 

@@ -7,7 +7,7 @@ command /shop:
 
 		if {inGame::%player%} is not true:
 			send "%{color::error}%Error: This command can only be used when the game has been started" to player
-			stop
+			#stop
 
 		open chest inventory with 3 rows named "<gradient:#00FF30:#E7FF00>Shop</gradient>" to player
 		set {_inv} to player's current inventory
@@ -227,6 +227,7 @@ function openUtilityShop(p: player):
 	# Utility
 	set slot 29 of {_inv} to 8 tnt named "<!i><b>TNT</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::tnt}% Points"
 	set slot 38 of {_inv} to shield named "<!i><b>Shield</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::shield}% Points"
+	set slot 39 of {_inv} to iron golem spawn egg named "<!i><b>Iron Golem</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::iron golem}% Points"
 
 	# Custom items
 	set slot 33 of {_inv} to fishing rod named "<!i><b>Grappling Hook</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::grappling hook}% Points"

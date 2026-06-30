@@ -185,6 +185,7 @@ on load:
 	setPrice("scaffolding", 100)
 	setPrice("tnt", 150)
 	setPrice("shield", 300)
+	setPrice("iron golem", 600)
 
 	# Pickaxes
 	setPrice("iron pickaxe", 300)
