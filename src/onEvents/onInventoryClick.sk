@@ -246,6 +246,15 @@ on inventory click:
 			make player execute command "/booster"
 		else if {_item} contains uncolored "Enchants":
 			make player execute command "/enchants"
+		else if {_item} contains uncolored "Leaderboard":
+			make player execute command "/leaderboard"
 	
 	if {_name} contains "Custom Enchantments":
 		cancel event
+
+	if {_name} contains "Leaderboard":
+		cancel event
+		if event-item is tipped arrow of luck:
+			set {_page::*} to uncolored name of event-item split at " "
+			set {_page} to ({_page::2} parsed as an integer) - 1 # -1 for offset
+			openLeaderboard(player, {_page})

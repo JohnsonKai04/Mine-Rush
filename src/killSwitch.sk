@@ -14,7 +14,7 @@ command /killswitch [<text>]:
 			set {killSwitch::%arg-1%} to true
 on tab complete of "/killswitch":
 	if player has permission "mineRush.admin":
-		set tab completion to "reset" and "start" and "shop" and "settings" and "veinMiner" and "streak" and "oreDuplicate" and "luckyMiner" and "lootBoxCollector" and "hungryMiner" and "fireball" and "ghook" and "ghead" and "boosterMenu" and "join"
+		set tab completion to "reset" and "start" and "shop" and "settings" and "veinMiner" and "streak" and "oreDuplicate" and "luckyMiner" and "lootBoxCollector" and "hungryMiner" and "fireball" and "ghook" and "ghead" and "boosterMenu" and "join" and "leaderboard"
 
 
 command /checkVariable [<text>]:

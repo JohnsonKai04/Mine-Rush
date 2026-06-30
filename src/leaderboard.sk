@@ -1,0 +1,63 @@
+on load:
+	load yaml "mineRushData/leaderboard.yaml" as "leaderboard"
+
+function insertEntree(p: text, points: number, ID: integer, i: integer = 1):
+	# Base case
+	if yaml path "%{_i}%.points" in "leaderboard" does not have value:
+		set yaml value "%{_i}%.points" from "leaderboard" to {_points}
+		set yaml value "%{_i}%.player" from "leaderboard" to {_p}
+		set yaml value "%{_i}%.ID" from "leaderboard" to {_ID}
+		save yaml "leaderboard"
+		exit
+
+	# Recursive case
+	if {_points} is greater than yaml value "%{_i}%.points" from "leaderboard":
+		set {_pPoints} to yaml value "%{_i}%.points" from "leaderboard"
+		set {_pPlayer} to yaml value "%{_i}%.player" from "leaderboard"
+		set {_pID} to yaml value "%{_i}%.ID" from "leaderboard"
+
+		set yaml value "%{_i}%.points" from "leaderboard" to {_points}
+		set yaml value "%{_i}%.player" from "leaderboard" to {_p}
+		set yaml value "%{_i}%.ID" from "leaderboard" to {_ID}
+		save yaml "leaderboard"
+		insertEntree({_pPlayer}, {_pPoints}, {_pID}, {_i}+1)
+	else:
+		insertEntree({_p}, {_points}, {_ID}, {_i}+1)
+
+
+function openLeaderboard(p: player, page: integer = 0):
+	open chest inventory with 4 rows named "Leaderboard" to {_p}
+	set {_inv} to {_p}'s current inventory
+	set {_end} to false
+	set {_ID} to (27 * {_page})
+	while {_end} is false:
+		add 1 to {_ID}
+		set {_slot} to {_ID} - (27 * {_page})
+		if {_slot} = 28:
+			set {_end} to true
+			set slot 35 of {_inv} to tipped arrow of luck named "&aPage %{_page} + 2%"
+		else:
+			if yaml path "%{_ID}%" in "leaderboard" has a value:
+				set {_name} to yaml value "%{_ID}%.player" from "leaderboard"
+				set {_skull} to skull of {_name}
+				set {_points} to yaml value "%{_ID}%.points" from "leaderboard"
+				set slot ({_slot} - 1) of {_inv} to skull of ({_name} parsed as offline player) named "%{_ID}%. %{_name}%" with lore "%{_points}%"
+		if {_page} >= 1:
+			set slot 27 of {_inv} to tipped arrow of luck named "&aPage %{_page}%"
+
+			
+command /leaderboard:
+	trigger:
+		if {killSwitch::leaderboard} is true:
+			killSwitchMsg(player)
+			exit
+		openLeaderboard(player)
+
+
+command /populateLeaderboard [<integer>]:
+	permission: op
+	trigger:
+		loop arg-1 times:
+			set {_val} to a random integer between 1 and 10000000
+			insertEntree(name of player, {_val}, -1)
+			wait 1 tick

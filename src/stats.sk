@@ -14,7 +14,7 @@ function openGamesMenu(p: player, page: int = 0):
 	open chest inventory with 6 rows named "&6&lGames Played" to {_p}
 	set {_inv} to {_p}'s current inventory
 	set {_end} to false
-	set {_ID} to ((45 * {_page}) + {_ID})
+	set {_ID} to (45 * {_page})
 	while {_end} is false:
 		add 1 to {_ID}
 		set {_slot} to {_ID} - (45 * {_page})
@@ -32,29 +32,6 @@ function openGamesMenu(p: player, page: int = 0):
 		if {_page} >= 1:
 			set slot 45 of {_inv} to tipped arrow of luck named "&aPage %{_page}%"
 		unload yaml "file"
-
-# Param - _p: player that is playing
-# Param - _points: the points the player has earned through playing the game, this will be shown on the leaderboard
-# Runs through the leaderboard and checks where to put the player on the leaderboard of 10 slots. Sorts the leaderboard whenever finished
-function updateLeaderboard(p: player, points: number):
-	set {_insertAt} to 0
-
-	loop 10 times:
-		if {_insertAt} is 0:
-			if {_points} > {leaderboardPoints::%loop-value%}:
-				set {_insertAt} to loop-value
-
-	if {_insertAt} is 0:
-		stop
-
-	loop 10 times:
-		set {_i} to 11 - loop-value
-		if {_i} > {_insertAt}:
-			set {leaderboardPoints::%{_i}%} to {leaderboardPoints::%{_i}-1%}
-			set {leaderboardPlayer::%{_i}%} to {leaderboardPlayer::%{_i}-1%}
-
-	set {leaderboardPoints::%{_insertAt}%} to {_points}
-	set {leaderboardPlayer::%{_insertAt}%} to {_p}
 
 
 function saveDataToFile(p: player) :: boolean:
@@ -97,6 +74,8 @@ function saveDataToFile(p: player) :: boolean:
 		set yaml value "misc.deaths" from "stats" to (1 + yaml value "misc.deaths" from "stats")
 	set yaml value "misc.gamesPlayed" from "stats" to (1 + yaml value "misc.gamesPlayed" from "stats")
 
+
+	insertEntree(name of {_p}, {points::%{_p}%}, {_ID})
 
 	delete {currentGameStats::%{_p}%::*}
 	delete {pointsBonus::%{_p}%}
