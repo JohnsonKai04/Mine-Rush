@@ -26,7 +26,7 @@ function insertEntree(p: text, points: number, ID: integer, i: integer = 1):
 
 
 function openLeaderboard(p: player, page: integer = 0):
-	open chest inventory with 4 rows named "Leaderboard" to {_p}
+	open chest inventory with 4 rows named formatted "%{color::leaderboardTitle}%Leaderboard" to {_p}
 	set {_inv} to {_p}'s current inventory
 	set {_end} to false
 	set {_ID} to (27 * {_page})
@@ -41,7 +41,7 @@ function openLeaderboard(p: player, page: integer = 0):
 				set {_name} to yaml value "%{_ID}%.player" from "leaderboard"
 				set {_skull} to skull of {_name}
 				set {_points} to yaml value "%{_ID}%.points" from "leaderboard"
-				set slot ({_slot} - 1) of {_inv} to skull of ({_name} parsed as offline player) named "%{_ID}%. %{_name}%" with lore "%{_points}%"
+				set slot ({_slot} - 1) of {_inv} to skull of ({_name} parsed as offline player) named "%{color::leaderboard}%%{_ID}%. %{_name}%" with lore "<b>%{color::desc}%%{_points}% Points</b>"
 			else:
 				set {_end} to true
 		if {_page} >= 1:

@@ -13,9 +13,10 @@ on load:
 	set {color::desc} to "<!i><gradient:#750CF1:#A703B0>"
 	set {color::error} to "<gradient:#F10C31:#8F1D26>"
 	set {color::points} to "<color:#00FF3B>"
-	set {color::leaderboard} to "<!i><gradient:#CC813E:#BF344F>"
+	set {color::leaderboardTitle} to "<!i><b><gradient:#CC813E:#BF344F>"
 	set {color::menu} to "<!i><gradient:#CC813E:#BF344F>"
 	set {color::tutorial} to "<b><gradient:#22FF00:#82F331>"
+	set {color::leaderboard} to "<!i><b><gradient:#5AF352:#ABE504>"
 
 	# Death splash screen
 	set {deathTitle::1} to "[RIP]"
