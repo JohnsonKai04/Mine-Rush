@@ -31,8 +31,7 @@ command /showcards:
 command /unlockRandomCard:
 	permission: op
 	trigger:
-		if unlockCard(player) is false:
-			send "error unlocking card" to player
+		send unlockCard(player) to player
 
 command /clearCards:
 	permission: op
@@ -48,7 +47,7 @@ function activateCard(p: player, ID: integer):
 		set {cardActive::%{_p}%::%loop-index%} to false
 	set {cardActive::%{_p}%::%{_ID}%} to true
 
-function unlockCard(p: player) :: boolean:
+function unlockCard(p: player) :: text:
 	set {_unlockable} to false
 	# Checks to see if the player has unlocked all cards
 	loop {card::*}:
@@ -61,8 +60,7 @@ function unlockCard(p: player) :: boolean:
 		if {unlockedCard::%{_p}%::%{_ID}%} is not equal to {cardMaxLevel::%{_ID}%}:
 			add 1 to {unlockedCard::%{_p}%::%{_ID}%}
 			set {cardActive::%{_p}%::%{_ID}%} to false
-			return true
-	return false
+			return "%name of {card::%{_ID}%}% lvl %{unlockedCard::%{_p}%::%{_ID}%}%"
 
 
 # Booster card implimentation

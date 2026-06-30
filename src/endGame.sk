@@ -32,6 +32,8 @@ on right click on beacon:
 		set {currentGameStats::%player%::misc::extracted} to true
 		teleport player to {lobbySpawnLoc}
 		clear inventory of player
+		send "%{color::points}%[Booster Cards] You've unlocked: " + unlockCard(player) to player
+		playDing(player)
 		endGame(player)
 
 
@@ -63,8 +65,6 @@ function deathMsg(p: player, k: text) :: text:
 # Updates the leaderboard with the players current points, and adds overall points gained to the stats
 # Clears inventoy and kills the player to return them to spawn
 function endGame(p: player) :: boolean:
-	if {currentGameStats::%{_p}%::misc::extracted} is true:
-		unlockCard({_p})
 	delete {inGame::%{_p}%}
 	saveDataToFile({_p})
 	remove {_p} from {pointBar::%{_p}%}
