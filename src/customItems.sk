@@ -100,16 +100,19 @@ function playLootBoxCommonAnimation(p: player, b: block, m: integer):
 		set {_pitch} to a random number between -1 and 2
 		play sound "block.amethyst_block.chime" with volume returnSetting({_p}, "volume") and pitch {_pitch} at location of {_b}
 		wait 10 ticks
-
+	make 5 of explosion at {_loc}
 	lootBoxRewardPoints({_p}, {_b}, {_m})
 
 
 function playLootBoxRareAnimation(p: player, b: block, m: integer):
+	set {_loc} to location 0.5 blocks above {_b}
 	loop 10 times:
 		make 30 of block particle using chest at location of {_b} with offset vector(0.5, 0.2, 0.5)
 		play sound "block.anvil.hit" with volume returnSetting({_p}, "volume") at location of {_b}
 		wait 0.5 second
 	open lid of {_b}
+	wait 0.1 seconds
+	launch ball large colored red or blue or green or yellow or pink at {_loc} with duration 2
 	wait 2 seconds
 	lootBoxRewardPoints({_p}, {_b}, {_m})
 
