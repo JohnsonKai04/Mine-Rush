@@ -16,6 +16,8 @@ on spawn:
 			make last spawned entity despawn on chunk unload
 		else:
 			cancel event
+	if event-entity is a animal:
+		cancel event
 
 function setHealthOfMob(mob: entity, h: number):
 	set {_h} to {_h} / 2

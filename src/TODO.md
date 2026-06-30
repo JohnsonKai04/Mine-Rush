@@ -8,8 +8,8 @@
 - [x] add more documentation for extract point
 - [x] make /enchants
 - [ ] remove water caves if possible
-- [ ] add leaderboard
-- [ ] disable natural mob spawns
+- [x] add leaderboard
+- [x] disable natural mob spawns
 - [x] modify mob scaling
 - [ ] make extract point spawn mobs around the player before sending them home
 - [ ] save hard coded variables as config values
