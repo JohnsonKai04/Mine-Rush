@@ -42,10 +42,12 @@ function openLeaderboard(p: player, page: integer = 0):
 				set {_skull} to skull of {_name}
 				set {_points} to yaml value "%{_ID}%.points" from "leaderboard"
 				set slot ({_slot} - 1) of {_inv} to skull of ({_name} parsed as offline player) named "%{_ID}%. %{_name}%" with lore "%{_points}%"
+			else:
+				set {_end} to true
 		if {_page} >= 1:
 			set slot 27 of {_inv} to tipped arrow of luck named "&aPage %{_page}%"
 
-			
+
 command /leaderboard:
 	trigger:
 		if {killSwitch::leaderboard} is true:
