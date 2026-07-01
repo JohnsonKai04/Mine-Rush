@@ -40,6 +40,27 @@ on rightclick on Chest:
 		cancel event
 
 
+on player move:
+	if {inGame::%player%} is true:
+		set title of player's fastboard to "Depth Meter"
+		if mod(round(player's y-level), 2) is not 0:
+			set line 1 of player's fastboard to "  ⊢  "
+			set line 2 of player's fastboard to "  |   %round(player's y-level + 2)% "
+			set line 3 of player's fastboard to "  ⊢  "
+			set line 4 of player's fastboard to "  |  ←%round(player's y-level)% "
+			set line 5 of player's fastboard to "  ⊢  "
+			set line 6 of player's fastboard to "  |   %round(player's y-level - 2)% "
+			set line 7 of player's fastboard to "  ⊢  "
+		else:
+			set line 1 of player's fastboard to "  |  "
+			set line 2 of player's fastboard to "  ⊢  %round(player's y-level + 2)% "
+			set line 3 of player's fastboard to "  |  "
+			set line 4 of player's fastboard to "  ⊢ ←%round(player's y-level)% "
+			set line 5 of player's fastboard to "  |  "
+			set line 6 of player's fastboard to "  ⊢  %round(player's y-level - 2)% "
+			set line 7 of player's fastboard to "  |  "
+
+
 function giveRandomLootbox(p: player, l: location):
 	set {_b} to block at {_l}
 	give {_p} {lootBox::item::common} or {lootBox::item::rare} or {lootBox::item::legendary}
