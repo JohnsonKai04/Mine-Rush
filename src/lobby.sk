@@ -83,7 +83,7 @@ command /spawn:
 function openEnchantsMenu(p: player):
 	open chest inventory with 3 rows named "<b>%{color::desc}%Custom Enchantments" to {_p}
 	set {_inv} to {_p}'s current inventory
-	set slot 10 of {_inv} to enchanted book named "<b>%{streak::name}%" with lore "%{color::desc}%lvl <b>1-1", and "%{color::desc}%After mining an ore, being to build a point multiplier dependent of", and "%{color::desc}%the amount of ore mined within the last 10 seconds with a maximum multiplier of +25%%."
+	set slot 10 of {_inv} to enchanted book named "<b>%{streak::name}%" with lore "%{color::desc}%lvl <b>1-1", and "%{color::desc}%After mining an ore, begin to build a point multiplier dependent of", and "%{color::desc}%the amount of ore mined within the last 10 seconds with a maximum multiplier of +25%%."
 	set slot 11 of {_inv} to enchanted book named "<b>%{veinMiner::name}%" with lore "%{color::desc}%lvl <b>1-1", and "%{color::desc}%After mining an ore, any ore of the same type will also be mined."
 	set slot 12 of {_inv} to enchanted book named "<b>%{oreDuplicate::name}%" with lore "%{color::desc}%lvl <b>1-5", and "%{color::desc}%After mining an ore, have a chance of <b>0.5%%/0.75%%/1.0%%/1.25%%/1.5%%", and "%{color::desc}%for the ore respawn."
 	set slot 13 of {_inv} to enchanted book named "<b>%{luckyMiner::name}%" with lore "%{color::desc}%lvl <b>1-5", and "%{color::desc}%After mining an ore, have a chance of <b>0.5%%/1.0%%/2.0%%/4.0%%/5.0%%", and "%{color::desc}%to recieve a higher value ore."

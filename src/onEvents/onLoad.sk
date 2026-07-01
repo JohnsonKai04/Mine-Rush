@@ -111,6 +111,7 @@ on load:
 	set {veinMiner::name} to formatted "<!i><gradient:#54DAF4:#545EB6>Vein Miner</gradient>"
 	
 	set {streak::chance::1} to 100%
+	set {streak::min} to 0.02
 	set {streak::max} to 0.25
 	set {streak::name} to formatted "<!i><gradient:#303F88:#E03BE0>Streak</gradient>"
 	

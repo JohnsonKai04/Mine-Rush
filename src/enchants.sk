@@ -25,12 +25,15 @@ function streak(p: player) :: number:
 	chance of {streak::chance::%{customEnchantTier::%{_p}%::streak}%}:
 		if {streak::timer::%{_p}%} is more than or equal to 10 seconds ago:
 			if {streak::value::%{_p}%} is less than {streak::max}:
-				add 0.010 to {streak::value::%{_p}%}
+				add 0.002 to {streak::value::%{_p}%}
 		else:
-			set {streak::value::%{_p}%} to 0.001
+			set {streak::value::%{_p}%} to 0.002
 
 		set {streak::timer::%{_p}%} to now
-		return {streak::value::%{_p}%}
+		if {streak::value::%{_p}%} is less than {streak::min}:
+			return 0
+		else:
+			return {streak::value::%{_p}%}
 
 
 function oreDuplicate(p: player, b: block):
