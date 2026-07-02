@@ -42,24 +42,37 @@ on rightclick on Chest:
 
 on player move:
 	if {inGame::%player%} is true:
-		set title of player's fastboard to "Depth Meter"
-		if mod(round(player's y-level), 2) is not 0:
-			set line 1 of player's fastboard to "  ⊢  "
-			set line 2 of player's fastboard to "  |   %round(player's y-level + 2)% "
-			set line 3 of player's fastboard to "  ⊢  "
-			set line 4 of player's fastboard to "  |  ←%round(player's y-level)% "
-			set line 5 of player's fastboard to "  ⊢  "
-			set line 6 of player's fastboard to "  |   %round(player's y-level - 2)% "
-			set line 7 of player's fastboard to "  ⊢  "
-		else:
-			set line 1 of player's fastboard to "  |  "
-			set line 2 of player's fastboard to "  ⊢  %round(player's y-level + 2)% "
-			set line 3 of player's fastboard to "  |  "
-			set line 4 of player's fastboard to "  ⊢ ←%round(player's y-level)% "
-			set line 5 of player's fastboard to "  |  "
-			set line 6 of player's fastboard to "  ⊢  %round(player's y-level - 2)% "
-			set line 7 of player's fastboard to "  |  "
+		if returnSetting(player, "depthmeter") is 1:
+			set {_y} to round(player's y-level)
+			set {_y2p} to {_y} + 2
+			set {_y2m} to {_y} - 2
+			set {_color} to returnDepthColor({_y})
+			set title of player's fastboard to "Depth Meter"
+			if mod(round(player's y-level), 2) is not 0:
+				set line 1 of player's fastboard to mini message from "%{_color}%  ⊢  "
+				set line 2 of player's fastboard to mini message from "%{_color}%  |   %{_y2p}% "
+				set line 3 of player's fastboard to mini message from "%{_color}%  ⊢  "
+				set line 4 of player's fastboard to mini message from "%{_color}%  |  ←%{_y}% "
+				set line 5 of player's fastboard to mini message from "%{_color}%  ⊢  "
+				set line 6 of player's fastboard to mini message from "%{_color}%  |   %{_y2m}% "
+				set line 7 of player's fastboard to mini message from "%{_color}%  ⊢  "
+			else:
+				set line 1 of player's fastboard to mini message from "%{_color}%  |  "
+				set line 2 of player's fastboard to mini message from "%{_color}%  ⊢  %{_y2p}% "
+				set line 3 of player's fastboard to mini message from "%{_color}%  |  "
+				set line 4 of player's fastboard to mini message from "%{_color}%  ⊢ ←%{_y}% "
+				set line 5 of player's fastboard to mini message from "%{_color}%  |  "
+				set line 6 of player's fastboard to mini message from "%{_color}%  ⊢  %{_y2m}% "
+				set line 7 of player's fastboard to mini message from "%{_color}%  |  "
 
+
+function returnDepthColor(y: number) :: text:
+	if {_y} > 20:
+		return "<green>"
+	else if {_y} > -20:
+		return "<gold>"
+	else:
+		return "<red>"
 
 function giveRandomLootbox(p: player, l: location):
 	set {_b} to block at {_l}
