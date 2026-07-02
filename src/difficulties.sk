@@ -1,15 +1,16 @@
 on spawn:
 	if event-entity is a monster:
 		set {_p} to nearest player in radius 80 around event-entity
+		set {_y} to {_p}'s y-level
 		if {inGame::%{_p}%} is true:
 			#Mobs do not spawn for the first 15 minutes
 			if {difficulty::%{_p}%} is 1:
 				if {debugMode::%{_p}%} is not true:
 					cancel event
-			if y-coordinate of location of event-entity is greater than or equal to ({_p}'s y-level + {mobSpawnMaxHeight}):
+			if y-coordinate of location of event-entity is greater than or equal to {mobSpawnMaxHeight}:
 				cancel event
 			set {_speed} to event-entity's generic movement speed attribute
-			set max health of event-entity to round((max health of event-entity) * (({difficulty::%{_p}%} - 2) * {difficultyMultiplier}))
+			set max health of event-entity to round((max health of event-entity) * (({difficulty::%{_p}%} - 2) * ({difficultyMultiplier} + returnDepthScaling({_y}))))
 			set event-entity's generic movement speed attribute to ({_speed} * (({difficulty::%{_p}%} - 2) * {difficultyMultiplier}))
 			
 			heal event-entity
@@ -19,10 +20,18 @@ on spawn:
 	if event-entity is a animal:
 		cancel event
 
-function setHealthOfMob(mob: entity, h: number):
-	set {_h} to {_h} / 2
-	set max health of {_mob} to {_h}
-	heal {_mob}
+function returnDepthScaling(y: number) :: integer:
+	if {_y} > 20:
+		return 0
+	else if {_y} > -20:
+		return 0.05
+	else:
+		return 0.1
+
+#function setHealthOfMob(mob: entity, h: number):
+#	set {_h} to {_h} / 2
+#	set max health of {_mob} to {_h}
+#	heal {_mob}
 
 function beginDifficulty1(p: player):
 	set {_time} to "%4 * {defaultSpeed}% minutes" parsed as timespan
