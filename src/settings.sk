@@ -23,7 +23,7 @@ function setDefaultSettings(p: player):
 
 
 function openSettingsMenu(p: player):
-	open chest inventory with 3 rows named "&6&lSettings" to {_p}
+	open chest inventory with 3 rows named "%{color::inventoryName}%Settings" to {_p}
 	set {_inv} to {_p}'s current inventory
 
 	set slot 1 of {_inv} to a sculk sensor named "<b><color:#4ED95D>Volume</color></b>" with lore "%{color::desc}%Currently: <b>%(returnSetting({_p}, "volume") * 100)%%%</b>"

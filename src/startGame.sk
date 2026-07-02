@@ -57,7 +57,7 @@ command /start:
 		make player vulnerable
 		heal player
 		feed player
-
+		toggle player's fastboard
 		loopMusic(player)
 		#if returnSetting(player, "tutorial") is 1:
 		#	send returnTutorialMsg(false) to player

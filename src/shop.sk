@@ -9,7 +9,7 @@ command /shop:
 			send "%{color::error}%Error: This command can only be used when the game has been started" to player
 			#stop
 
-		open chest inventory with 3 rows named "<gradient:#00FF30:#E7FF00>Shop</gradient>" to player
+		open chest inventory with 3 rows named formatted "%{color::inventoryName}%Shop" to player
 		set {_inv} to player's current inventory
 
 		set slot 11 of {_inv} to a totem of undying named "<color:#006EFF>Utility</color>" with lore "%{color::desc}%Click to open the Utility shop"
@@ -212,7 +212,7 @@ function purchaseCustomItem(p: player, item: item, cItem: text):
 			give {_p} {_item} named {customItem::grappling hook::name} with lore {customItem::grappling hook::lore}
 
 function openUtilityShop(p: player):
-	open chest inventory with 6 rows named "<b><color:#006EFF>Utility Shop,</color></b> &2&l%{points::%{_p}%}%" to {_p}
+	open chest inventory with 6 rows named "%{color::inventoryName}%Utility Shop, %{color::points}%%{points::%{_p}%}%" to {_p}
 	set {_inv} to {_p}'s current inventory
 
 	# Blocks
@@ -234,7 +234,7 @@ function openUtilityShop(p: player):
 	set slot 42 of {_inv} to golden apple named "<!i><b>Golden Head</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::ghead}% Points"
 
 function openUpgradeShop(p: player):
-	open chest inventory with 6 rows named "<b><color:#FF4800>Upgrade Shop,</b> %{color::points}%%{points::%{_p}%}%</color>" to {_p}
+	open chest inventory with 6 rows named "%{color::inventoryName}%Upgrade Shop, %{color::points}%%{points::%{_p}%}%" to {_p}
 	set {_inv} to {_p}'s current inventory
 
 	# Pickaxes

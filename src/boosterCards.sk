@@ -3,7 +3,7 @@ command /booster:
 		if {killSwitch::boosterMenu} is true:
 			killSwitchMsg(player)
 			stop
-		open chest inventory with 3 rows named colored "&6&lBooster Cards" to the player
+		open chest inventory with 3 rows named colored "%{color::inventoryName}%Booster Cards" to the player
 		set {_inv} to player's current inventory
 		loop {unlockedCard::%player%::*}:
 			set {_ID} to loop-index parsed as integer

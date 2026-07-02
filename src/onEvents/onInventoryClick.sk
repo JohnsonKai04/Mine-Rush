@@ -21,7 +21,7 @@ on inventory click:
     # ------------------------------------------------------
 	if {_name} is "Settings":
 		if {_item} is "Volume":
-			open chest inventory with 2 row named "&6&lVolume" to player
+			open chest inventory with 2 row named "%{color::inventoryName}%Volume" to player
 			set {_inv} to player's current inventory
 			# Volume level 0% - 100%
 			loop 11 times:
@@ -73,9 +73,9 @@ on inventory click:
     #          SHOP
     # ------------------------------------------------------
 	if {_name} is "Shop":
-		if {_item} contains uncolored "Utilies":
+		if {_item} is "Utility":
 			openUtilityShop(player)
-		if {_item} contains uncolored "Upgrades":
+		if {_item} is "Upgrades":
 			openUpgradeShop(player)
 		cancel event
 

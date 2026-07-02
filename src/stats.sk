@@ -11,7 +11,7 @@ command /runs:
 
 
 function openGamesMenu(p: player, page: int = 0):
-	open chest inventory with 6 rows named "&6&lGames Played" to {_p}
+	open chest inventory with 6 rows named "%{color::inventoryName}%Games Played" to {_p}
 	set {_inv} to {_p}'s current inventory
 	set {_end} to false
 	set {_ID} to (45 * {_page})

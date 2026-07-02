@@ -4,7 +4,7 @@ function giveMenuItem(p: player):
 command /menu:
 	trigger:
 		load yaml "mineRushData/playerData/%player's uuid%/stats.yaml" as "stats"
-		open chest inventory with 3 rows named "<b>%{color::desc}%Main Menu" to player
+		open chest inventory with 3 rows named "%{color::inventoryName}%Main Menu" to player
 		set {_inv} to player's current inventory
 		
 		set {_lore::*} to "%{color::leaderboard}%Extracts: %(yaml value "misc.extracts" from "stats") ? 0%"
@@ -18,12 +18,12 @@ command /menu:
 		add "%{color::leaderboard}%Legendary Loot Boxes Opened: %(yaml value "lootboxes.legendarylootboxesopened" from "stats") ? 0%" to {_lore::*}
 		set slot 0 of {_inv} to book named "<!i><color:yellow><b>Tutorial" with lore returnTutorialMsg(true)
 		set slot 4 of {_inv} to skull of player named "<!i><color:yellow><b>Stats" with lore {_lore::*}
-		set slot 11 of {_inv} to map named "<!i>%{color::menu}%<b>Leaderboard" with lore "%{color::desc}%Opens up the leaderboard", and "/leaderboard"
-		set slot 12 of {_inv} to command block named "<!i>%{color::menu}%<b>Settings" with lore "%{color::desc}%Opens the settings menu", and "/settings"
-		set slot 13 of {_inv} to emerald named "<!i>%{color::menu}%<b>Start Run" with lore "%{color::desc}%Start a new run", and "/start"
-		set slot 14 of {_inv} to enchanted book named "<!i>%{color::menu}%<b>Enchants" with lore "%{color::desc}%View all custom enchants", and "/enchants"
-		set slot 15 of {_inv} to flower banner pattern named "<!i>%{color::menu}%<b>Booster Cards" with lore "%{color::desc}%View all booster cards", and "/booster"
-		set slot 22 of {_inv} to grass block named "<!i>%{color::menu}%<b>Previous Runs" with lore "<!i>%{color::desc}%View all past runs", and "/runs"
+		set slot 11 of {_inv} to map named "<!i>%{color::menu}%<b>Leaderboard" with lore "%{color::desc}%Opens up the leaderboard", and "%{color::subdesc}%/leaderboard"
+		set slot 12 of {_inv} to command block named "<!i>%{color::menu}%<b>Settings" with lore "%{color::desc}%Opens the settings menu", and "%{color::subdesc}%/settings"
+		set slot 13 of {_inv} to emerald named "<!i>%{color::menu}%<b>Start Run" with lore "%{color::desc}%Start a new run", and "%{color::subdesc}%/start"
+		set slot 14 of {_inv} to enchanted book named "<!i>%{color::menu}%<b>Enchants" with lore "%{color::desc}%View all custom enchants", and "%{color::subdesc}%/enchants"
+		set slot 15 of {_inv} to flower banner pattern named "<!i>%{color::menu}%<b>Booster Cards" with lore "%{color::desc}%View all booster cards", and "%{color::subdesc}%/booster"
+		set slot 22 of {_inv} to grass block named "<!i>%{color::menu}%<b>Previous Runs" with lore "<!i>%{color::desc}%View all past runs", and "%{color::subdesc}%/runs"
 
 		unload yaml "stats"
 
@@ -81,7 +81,7 @@ command /spawn:
 
 
 function openEnchantsMenu(p: player):
-	open chest inventory with 3 rows named "<b>%{color::desc}%Custom Enchantments" to {_p}
+	open chest inventory with 3 rows named "%{color::inventoryName}%Custom Enchantments" to {_p}
 	set {_inv} to {_p}'s current inventory
 	set slot 10 of {_inv} to enchanted book named "<b>%{streak::name}%" with lore "%{color::desc}%lvl <b>1-1", and "%{color::desc}%After mining an ore, begin to build a point multiplier dependent of", and "%{color::desc}%the amount of ore mined within the last 10 seconds with a maximum multiplier of +25%%."
 	set slot 11 of {_inv} to enchanted book named "<b>%{veinMiner::name}%" with lore "%{color::desc}%lvl <b>1-1", and "%{color::desc}%After mining an ore, any ore of the same type will also be mined."
