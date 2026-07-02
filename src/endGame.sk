@@ -56,7 +56,7 @@ function deathMsg(p: player, k: text) :: text:
 	replace all "[player]" with "%{_p}%" in {_msg}
 	replace all "[points]" with "%{points::%{_p}%}%" in {_msg}
 	replace all "[killer]" with "%{_k}%" in {_msg}
-	return {_msg}
+	return "%{color::death}%☠ " + {_msg}
 
 
 # Param - _p: player that is playing the game
@@ -73,6 +73,7 @@ function endGame(p: player) :: boolean:
 	set slot 4 of {_p} to nether star named {customItem::menu::name} with lore {customItem::menu::lore}
 	generateBorder({_p}, 50)
 	clear fastboard of {_p}
+	toggle {_p}'s fastboard
 	return true
 
 
@@ -95,3 +96,4 @@ command /resetfastboard:
 	permission: op
 	trigger:
 		clear fastboard of player
+		toggle player's fastboard
