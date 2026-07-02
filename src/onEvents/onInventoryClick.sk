@@ -30,6 +30,7 @@ on inventory click:
 
 		else if {_item} is "Chat Enchant Notification":
 			writeSetting(player, "chatEnchantNotif", swapBooleanNum(returnSetting(player, "chatEnchantNotif")))
+			send "meow" to player
 
 		else if {_item} is "Audio Enchant Notification":
 			writeSetting(player, "audioEnchantNotif", swapBooleanNum(returnSetting(player, "audioEnchantNotif")))
@@ -49,8 +50,8 @@ on inventory click:
 		else if {_item} is "Damage indicator":
 			writeSetting(player, "damageIndicator", swapBooleanNum(returnSetting(player, "damageIndicator")))
 
-		#else if {_item} is "Tutorial Message":
-		#	writeSetting(player, "tutorial", swapBooleanNum(returnSetting(player, "tutorial")))
+		else if {_item} is "Depth Meter":
+			writeSetting(player, "depthmeter", swapBooleanNum(returnSetting(player, "depthmeter")))
 
 		else if {_item} is "Reset All Settings To Default":
 			setDefaultSettings(player)

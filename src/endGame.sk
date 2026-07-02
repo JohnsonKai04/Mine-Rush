@@ -72,6 +72,7 @@ function endGame(p: player) :: boolean:
 	deletePlayerVariables({_p})
 	set slot 4 of {_p} to nether star named {customItem::menu::name} with lore {customItem::menu::lore}
 	generateBorder({_p}, 50)
+	clear fastboard of {_p}
 	return true
 
 
@@ -88,3 +89,9 @@ function deletePlayerVariables(p: player):
 	delete {enchantCostMultiplier::%{_p}%::*}
 	delete {secondLifeUsed::%{_p}%}
 	delete {spawnLocation::%{_p}%}
+
+
+command /resetfastboard:
+	permission: op
+	trigger:
+		clear fastboard of player
