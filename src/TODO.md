@@ -6,6 +6,7 @@
 - [ ] UHC custom weapons
 - [ ] make extract point spawn mobs around the player before sending them home
 - [ ] selectable difficulties
+- [ ] add expensive feather falling - Possibly wont add to increase risk factor
 
 # 6/22/2026 - playtest num 1
 - [x] previous runs duration still invalid
@@ -21,11 +22,10 @@
 - [x] if player is shifting fire fireball as second clause
 - [x] send message to player displaying what booster card they've unlocked
 - [x] nerf streak to require more ores before multiplier kicks in
-- [ ] a visualizer to see how deep you are
-- [ ] something telling player going deeper = more ores
-- [ ] add more difficult mobs the deeper you go
+- [x] a visualizer to see how deep you are
+- [x] something telling player going deeper = more ores
+- [x] add more difficult mobs the deeper you go
 - [ ] add support for trial chamber
-- [ ] add expensive feather falling
 - [ ] night vision in /settings
 - [ ] legendary lootbox should display how much points you get depending on the block
 - [x] stats dont display properly
