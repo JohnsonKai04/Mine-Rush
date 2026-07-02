@@ -8,13 +8,13 @@ function setPoints(block: text, points: number):
 
 on load:
 	# Tutorial message:
-	set {tutorialMsg} to formatted "~~~Welcome to Minerush!~~~||Begin a run by using the menu item|Once a run has started mine ores to gain points|Use points in the shop to assist your run|Every %{defaultSpeed}% minutes the difficulty will increase making the run harder|Reach the extract point to get back all the points you've spent|Try to be #1 on the leaderboard|Good Luck"
+	set {tutorialMsg} to formatted "|Begin a run by using the menu item|Once a run has started mine ores to gain points|Use points in the shop to assist your run|Every %{defaultSpeed}% minutes the difficulty will increase making the run harder|You'll find larger ore veins but more difficult enemies the deeper you go|Reach the extract point to get back all the points you've spent|Try to be #1 on the leaderboard|Good Luck"
 	# Color codes will only be stored in variables to make editing easier. After beta this can be removed to conserve memory if needed
-	set {color::desc} to "<!i><gradient:#750CF1:#A703B0>"
+	set {color::desc} to "<!i><color:#5FE2C5>"
 	set {color::error} to "<gradient:#F10C31:#8F1D26>"
 	set {color::points} to "<color:#00FF3B>"
 	set {color::leaderboardTitle} to "<!i><b><gradient:#CC813E:#BF344F>"
-	set {color::menu} to "<!i><gradient:#CC813E:#BF344F>"
+	set {color::menu} to "<!i><yellow>"
 	set {color::tutorial} to "<b><gradient:#22FF00:#82F331>"
 	set {color::leaderboard} to "<!i><b><gradient:#5AF352:#ABE504>"
 
