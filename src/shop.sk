@@ -12,8 +12,8 @@ command /shop:
 		open chest inventory with 3 rows named "<gradient:#00FF30:#E7FF00>Shop</gradient>" to player
 		set {_inv} to player's current inventory
 
-		set slot 11 of {_inv} to a totem of undying named "<color:#006EFF>Utilies</color>" with lore "<gradient:#750CF1:#A703B0>Click to open the uility shop</gradient>"
-		set slot 15 of {_inv} to a diamond pickaxe named "<color:#006EFF>Upgrades</color>" with lore "<gradient:#750CF1:#A703B0>Click to open the upgrade shop</gradient>"
+		set slot 11 of {_inv} to a totem of undying named "<color:#006EFF>Utility</color>" with lore "%{color::desc}%Click to open the Utility shop"
+		set slot 15 of {_inv} to a diamond pickaxe named "<color:#006EFF>Upgrades</color>" with lore "%{color::desc}%Click to open the Upgrade shop"
 
 # Param - _p: player that is purchasing from the shop
 # Param - _item: name of the item that the player is buying, this will be used to match the item with a price
