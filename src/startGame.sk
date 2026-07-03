@@ -31,23 +31,35 @@ command /start:
 		set {validSpawn::active::%{spawnPointer}%} to true  # This puts a lock onto the spawn location so other players cannot spawn here if the pointer loops around
 		set {_location} to {validSpawn::location::%{spawnPointer}%}
 		set {spawnLocation::%player%} to {spawnPointer}
-		removeBorder(player)
 
 		send title "<b><color:#00FF3B>Starting in 5...</color></b>" to player
+		playDing(player)
 		wait 1 second
 		send title "<b><color:#E7FF00>Starting in 4...</color></b>" to player
+		playDing(player)
 		wait 1 second
 		send title "<b><color:#FFC400>Starting in 3...</color></b>" to player
 		apply potion effect of blindness to the player for 6 seconds:
 			hide particles
 			hide icon
+		playDing(player)
 		wait 1 second
 		send title "<b><color:#FF7200>Starting in 2...</color></b>" to player
+		playDing(player)
 		wait 1 second
 		send title "<b><color:#FF3E00>Starting in 1...</color></b>" to player
+		playDing(player)
 		wait 1 second
 		send title "<b><rainbow>Good Luck</rainbow></b>" to player
-		
+		removeBorder(player)
+		playDing(player)
+		wait 0.4 seconds
+		playDing(player)
+		wait 0.4 seconds
+		playDing(player)
+		wait 0.2 seconds
+
+
 		apply potion effect of slow falling to the player for 90 seconds:
 			hide particles
 			hide icon
@@ -87,7 +99,7 @@ command /start:
 
 		# Stats
 		set {currentGameStats::%player%::misc::duration} to now
-
+		set {currentGameStats::%player%::points::points} to 0
 
 		# Starts the difficulty timer (see difficulties.sk)
 		difficultyBegin(player)
@@ -98,8 +110,8 @@ function asyncAircheck(p: player):
 		wait 10 ticks
 	remove slow falling from {_p}'s active potion effects
 
-command /cleacooldown [<player>]:
+command /clearcooldown [<player>]:
 	permission: op
 	trigger:
-		delete {startCooldown::%player%}
+		delete {startCooldown::%arg-1%}
 
