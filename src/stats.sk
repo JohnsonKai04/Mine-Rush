@@ -80,6 +80,10 @@ function saveDataToFile(p: player) :: boolean:
 	set yaml value "misc.gamesPlayed" from "stats" to (1 + yaml value "misc.gamesPlayed" from "stats")
 	set yaml value "misc.name" from "stats" to "%{_p}'s name%"
 
+	loop {cardActive::%{_p}%::*}:
+		if loop-value is true:
+			set yaml value "%{_ID}%.misc.booster" from "file" to "%uncolored name of {card::%loop-index%}% %{unlockedCard::%{_p}%::%loop-index%}%"
+
 	save yaml "file"
 	save yaml "stats"
 	unload yaml "file"
