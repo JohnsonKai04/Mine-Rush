@@ -98,19 +98,19 @@ function sendStats(p: player, ID: integer, placement: integer = -0):
 	set {_legendaryLootBoxesOpened} to yaml value "%{_ID}%.lootboxes.legendarylootboxesopened" from "file"
 
 	if {_placement} is -0:
-		send "<gradient:#7C4D24:#4C1420> |----------- Game #%{_ID}% -----------|</gradient>" to {_p}
+		send "%{color::leaderboardTitle}% |----------- Game #%{_ID}% -----------|" to {_p}
 		send " " to {_p}
 	else:
-		send "<gradient:#7C4D24:#4C1420> |-------- Final Scores: --------|gradient>" to {_p}
+		send "%{color::leaderboardTitle}% |-------- Final Scores: --------|" to {_p}
 		send " " to {_p}
-		send " <gradient:#CC813E:#BF344F>Placement:      #%{_placement}%" to {_p}
-	send " <gradient:#CC813E:#BF344F>Points:          %{_totalPoints} ? 0%</gradient>" to {_p}
-	send " <gradient:#CC813E:#BF344F>Points Spent:                 %{_pointsSpent} ? 0%</gradient>" to {_p}
-	send " <gradient:#CC813E:#BF344F>Mobs Killed:                  %{_mobKills} ? 0%</gradient>" to {_p}
-	send " <gradient:#CC813E:#BF344F>Common loot boxes opened:     %{_commonLootBoxesOpened} ? 0%</gradient>" to {_p}
-	send " <gradient:#CC813E:#BF344F>Rare loot boxes opened:       %{_rareLootBoxesOpened} ? 0%</gradient>" to {_p}
-	send " <gradient:#CC813E:#BF344F>Legendary Loot Boxes Opened:  %{_legendaryLootBoxesOpened} ? 0%</gradient>" to {_p}
+		send " %{color::leaderboardTitle}%Placement:  #%{_placement}%" to {_p}
+	send " %{color::leaderboardTitle}%Points:  %{_totalPoints} ? 0%</gradient>" to {_p}
+	send " %{color::leaderboardTitle}%Points Spent:  %{_pointsSpent} ? 0%</gradient>" to {_p}
+	send " %{color::leaderboardTitle}%Mobs Killed:  %{_mobKills} ? 0%</gradient>" to {_p}
+	send " %{color::leaderboardTitle}%Common loot boxes opened:  %{_commonLootBoxesOpened} ? 0%</gradient>" to {_p}
+	send " %{color::leaderboardTitle}%Rare loot boxes opened:  %{_rareLootBoxesOpened} ? 0%</gradient>" to {_p}
+	send " %{color::leaderboardTitle}%Legendary Loot Boxes Opened:  %{_legendaryLootBoxesOpened} ? 0%</gradient>" to {_p}
 	send " " to {_p}
-	send "<gradient:#7C4D24:#4C1420>|-------------------------------------|</gradient>" to {_p}
+	send "%{color::leaderboardTitle}%|--------------------------------|</gradient>" to {_p}
 	close the inventory of {_p}
 	unload yaml "mineRushData/playerData/%{_p}'s uuid%/game%{_ID}%.yaml"
