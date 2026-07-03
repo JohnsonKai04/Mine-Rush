@@ -71,8 +71,9 @@ function saveDataToFile(p: player) :: boolean:
 	# Time, extractions, and total games played
 	set yaml value "%{_ID}%.misc.duration" from "file" to "%difference between now and {currentGameStats::%{_p}%::misc::duration}%"
 	set yaml value "%{_ID}%.misc.timePlayed" from "file" to "%now%"
-	if {currentGameStats::%{_p}%::extracted} is true:
+	if {currentGameStats::%{_p}%::misc::extracted} is true:
 		set yaml value "misc.extracts" from "stats" to (1 + yaml value "misc.extracts" from "stats")
+		send "extracted" to {_p}
 	else:
 		set yaml value "misc.deaths" from "stats" to (1 + yaml value "misc.deaths" from "stats")
 

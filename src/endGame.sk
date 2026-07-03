@@ -23,6 +23,7 @@ on death of player:
 # after 6 seconds endGame() runs
 on right click on beacon:
 	if {inGame::%player%} is true:
+		set {currentGameStats::%player%::misc::extracted} to true
 		delete {inGame::%player%}
 		cancel event
 		make player invulnerable
@@ -30,7 +31,6 @@ on right click on beacon:
 		send "<b><gradient:#52F361:#02CEF6:#52F361>Extracting You Now good job %player%. Heres a Bonus For Your Efforts: %{currentGameStats::%player%::points::pointsSpent} ? 0%</gradient></b>" to player
 		send " " to player
 		wait 6 seconds
-		set {currentGameStats::%player%::misc::extracted} to true
 		teleport player to {lobbySpawnLoc}
 		clear inventory of player
 		send "%{color::points}%[Booster Cards] You've unlocked: " + unlockCard(player) to player
