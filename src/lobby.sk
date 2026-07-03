@@ -94,3 +94,9 @@ function openEnchantsMenu(p: player):
 command /enchants:
 	trigger:
 		openEnchantsMenu(player)
+
+
+function setSpawnTab(p: player):
+	load yaml "mineRushData/playerData/%{_p}'s uuid%/stats.yaml" as "stats"
+	set {_p}'s tab list name to "%{_p}'s name% %{color::death}%☠ %yaml value "misc.deaths" from "stats"% %{color::points}%$%shortNum(yaml value "points.totalpoints" from "stats")%"
+	unload yaml "stats"
