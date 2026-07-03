@@ -75,7 +75,9 @@ function saveDataToFile(p: player) :: boolean:
 		set yaml value "misc.extracts" from "stats" to (1 + yaml value "misc.extracts" from "stats")
 	else:
 		set yaml value "misc.deaths" from "stats" to (1 + yaml value "misc.deaths" from "stats")
+
 	set yaml value "misc.gamesPlayed" from "stats" to (1 + yaml value "misc.gamesPlayed" from "stats")
+	set yaml value "misc.name" from "stats" to "%{_p}'s name%"
 
 	save yaml "file"
 	save yaml "stats"
@@ -97,11 +99,12 @@ function sendStats(p: player, ID: integer, placement: integer = -0):
 	set {_rareLootBoxesOpened} to yaml value "%{_ID}%.lootboxes.rarelootboxesopened" from "file"
 	set {_legendaryLootBoxesOpened} to yaml value "%{_ID}%.lootboxes.legendarylootboxesopened" from "file"
 
+	send " " to {_p}
 	if {_placement} is -0:
 		send "%{color::leaderboardTitle}% |----------- Game #%{_ID}% -----------|" to {_p}
 		send " " to {_p}
 	else:
-		send "%{color::leaderboardTitle}% |-------- Final Scores: --------|" to {_p}
+		send "%{color::leaderboardTitle}% |-------- Post Game Summary! --------|" to {_p}
 		send " " to {_p}
 		send " %{color::leaderboardTitle}%Placement:  #%{_placement}%" to {_p}
 	send " %{color::leaderboardTitle}%Points:  %{_totalPoints} ? 0%</gradient>" to {_p}
