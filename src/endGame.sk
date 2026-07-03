@@ -27,7 +27,8 @@ on right click on beacon:
 		cancel event
 		make player invulnerable
 		add {currentGameStats::%player%::points::pointsSpent} to {points::%player%}
-		send "<b><gradient:#52F361:#02CEF6:#52F361>Extracting You Now good job %player%. Heres a Bonus For Your Efforts: %{currentGameStats::%player%::points::pointsSpent}%</gradient></b>" to player
+		send "<b><gradient:#52F361:#02CEF6:#52F361>Extracting You Now good job %player%. Heres a Bonus For Your Efforts: %{currentGameStats::%player%::points::pointsSpent} ? 0%</gradient></b>" to player
+		send " " to player
 		wait 6 seconds
 		set {currentGameStats::%player%::misc::extracted} to true
 		teleport player to {lobbySpawnLoc}
@@ -54,7 +55,7 @@ function deathMsg(p: player, k: text) :: text:
 	set {_val} to a random integer between 1 and (size of {deathMsg::*})
 	set {_msg} to {deathMsg::%{_val}%}
 	replace all "[player]" with "%{_p}%" in {_msg}
-	replace all "[points]" with "%{points::%{_p}%}%" in {_msg}
+	replace all "[points]" with "%{currentGameStats::%{_p}%::points::points}%" in {_msg}
 	replace all "[killer]" with "%{_k}%" in {_msg}
 	return "%{color::death}%☠ " + {_msg}
 
@@ -74,12 +75,12 @@ function endGame(p: player) :: boolean:
 	generateBorder({_p}, 50)
 	clear fastboard of {_p}
 	toggle {_p}'s fastboard
+	set {_p}'s tab list name to "%{_p}'s name%"
 	return true
 
 
 function deletePlayerVariables(p: player):
 	delete {difficulty::%{_p}%}
-	delete {points::%{_p}%}
 	delete {pickaxe::tier::%{_p}%}
 	delete {sword::tier::%{_p}%}
 	delete {armor::tier::%{_p}%}
@@ -90,7 +91,6 @@ function deletePlayerVariables(p: player):
 	delete {enchantCostMultiplier::%{_p}%::*}
 	delete {secondLifeUsed::%{_p}%}
 	delete {spawnLocation::%{_p}%}
-
 
 command /resetfastboard:
 	permission: op

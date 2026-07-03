@@ -149,7 +149,7 @@ function lootBoxRewardPoints(p: player, b: block, m: integer):
 	else:
 		set {_points} to a random integer between ({lootBoxPoints::7} * {_m}) and ({lootBoxPoints::8} * {_m})
 
-	add {_points} to {points::%{_p}%}
+	add {_points} to {currentGameStats::%{_p}%::points::points}
 	add {_points} to {currentGameStats::%{_p}%::totalPoints}
 	add {_points} to {currentGameStats::%{_p}%::lootboxes::lootBoxPoints}
 	set {_color::*} to 3 random integers between 0 and 255
