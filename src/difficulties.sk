@@ -45,7 +45,7 @@ function beginDifficulty1(p: player):
 function beginDifficulty2(p: player):
 	set {_time} to "%3 * {defaultSpeed}% minutes" parsed as timespan
 	send "<gradient:#C3D705:#F5AD0E>Difficulty <b>2</b></gradient>" to {_p}
-	send "<gradient:#C3D705:#F5AD0E>Mob Speed/Health/Damage: <b>%({difficulty::%{_p}%} / 2) * 100%%%</b></gradient>" to {_p}
+	send "<gradient:#C3D705:#F5AD0E>Mob Speed/Health/Damage: <b>1x</b></gradient>" to {_p}
 	send "<gradient:#C3D705:#F5AD0E>Time Until Extraction: <b>%{_time}%</b></gradient>" to {_p}
 	play sound "item.goat_horn.sound.1" with volume returnSetting({_p}, "volume") at {_p}
 	set bar color of {pointBar::%{_p}%} to yellow
