@@ -76,6 +76,7 @@ function endGame(p: player) :: boolean:
 	clear fastboard of {_p}
 	toggle {_p}'s fastboard
 	set {_p}'s tab list name to "%{_p}'s name%"
+	make {_p} invulnerable
 	return true
 
 
