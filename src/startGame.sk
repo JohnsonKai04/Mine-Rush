@@ -59,8 +59,10 @@ command /start:
 		feed player
 		toggle player's fastboard
 		loopMusic(player)
-		#if returnSetting(player, "tutorial") is 1:
-		#	send returnTutorialMsg(false) to player
+		if returnSetting(player, "nightvision") is 1:
+			apply potion effect of night vision to the player for 60 minutes:
+				hide particles
+				hide icon
 
 		# Items
 		clear player's inventory
