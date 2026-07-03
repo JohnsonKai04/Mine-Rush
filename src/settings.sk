@@ -19,6 +19,7 @@ function setDefaultSettings(p: player):
 	writeSetting({_p}, "damageIndicator", 1, false)
 	writeSetting({_p}, "tutorial", 1, false)
 	writeSetting({_p}, "depthmeter", 1, false)
+	writeSetting({_p}, "nightvision", 0, false)
 	save "%{_p}'s uuid%.settings"
 
 
@@ -26,16 +27,16 @@ function openSettingsMenu(p: player):
 	open chest inventory with 3 rows named "%{color::inventoryName}%Settings" to {_p}
 	set {_inv} to {_p}'s current inventory
 
-	set slot 1 of {_inv} to a sculk sensor named "<b><color:#4ED95D>Volume</color></b>" with lore "%{color::desc}%Currently: <b>%(returnSetting({_p}, "volume") * 100)%%%</b>"
-	set slot 2 of {_inv} to a bell named "<b><color:#4ED95D>Chat Enchant Notification</color></b>" with lore "%{color::desc}%Currently: <b>%returnSetting({_p}, "chatEnchantNotif")%</b></gradient>"
-	set slot 11 of {_inv} to a bell named "<b><color:#4ED95D>Audio Enchant Notification</color></b>" with lore "%{color::desc}%Currently: <b>%returnSetting({_p}, "audioEnchantNotif")%</b></gradient>"
-	set slot 3 of {_inv} to a chest named "<b><color:#4ED95D>Lootbox animation</color></b>" with lore "%{color::desc}%Currently: <b>%returnSetting({_p}, "lootboxAnimation")%</b></gradient>"
-	set slot 4 of {_inv} to a jukebox named "<b><color:#4ED95D>Starting music</color></b>" with lore "%{color::desc}%Currently: <b>%returnSetting({_p}, "startingMusic")%</b></gradient>"
-	set slot 5 of {_inv} to a diamond ore named "<b><color:#4ED95D>Visual block floating effect</color></b>" with lore "%{color::desc}%Currently: <b>%returnSetting({_p}, "visualBlock")%</b></gradient>"
-	set slot 14 of {_inv} to a diamond ore named "<b><color:#4ED95D>Audio block effect</color></b>" with lore "%{color::desc}%Currently: <b>%returnSetting({_p}, "audioBlock")%</b></gradient>"
-	set slot 6 of {_inv} to a iron sword named "<b><color:#4ED95D>Damage indicator</color></b>" with lore "%{color::desc}%Currently: <b>%returnSetting({_p}, "damageIndicator")%</b></gradient>"
-	set slot 7 of {_inv} to a compass named "<b><color:#4ED95D>Depth Meter</color></b>" with lore "%{color::desc}%Currently: <b>%returnSetting({_p}, "depthmeter")%</b></gradient>"
-
+	set slot 1 of {_inv} to a sculk sensor named "%{color::item}%Volume" with lore "%{color::desc}%Currently: <b>%(returnSetting({_p}, "volume") * 100)%%%</b>"
+	set slot 2 of {_inv} to a bell named "%{color::item}%Chat Enchant Notification" with lore "%{color::desc}%Currently: <b>%returnSetting({_p}, "chatEnchantNotif")%"
+	set slot 11 of {_inv} to a bell named "%{color::item}%Audio Enchant Notification" with lore "%{color::desc}%Currently: <b>%returnSetting({_p}, "audioEnchantNotif")%"
+	set slot 3 of {_inv} to a chest named "%{color::item}%Lootbox animation" with lore "%{color::desc}%Currently: <b>%returnSetting({_p}, "lootboxAnimation")%"
+	set slot 4 of {_inv} to a jukebox named "%{color::item}%Starting music" with lore "%{color::desc}%Currently: <b>%returnSetting({_p}, "startingMusic")%"
+	set slot 5 of {_inv} to a diamond ore named "%{color::item}%Visual block floating effect" with lore "%{color::desc}%Currently: <b>%returnSetting({_p}, "visualBlock")%"
+	set slot 14 of {_inv} to a diamond ore named "%{color::item}%Audio block effect" with lore "%{color::desc}%Currently: <b>%returnSetting({_p}, "audioBlock")%"
+	set slot 6 of {_inv} to a iron sword named "%{color::item}%Damage indicator" with lore "%{color::desc}%Currently: <b>%returnSetting({_p}, "damageIndicator")%"
+	set slot 7 of {_inv} to a compass named "%{color::item}%Depth Meter" with lore "%{color::desc}%Currently: <b>%returnSetting({_p}, "depthmeter")%"
+	set slot 8 of {_inv} to a ender eye named "%{color::item}%Night Vision" with lore "%{color::desc}%Currently: <b>%returnSetting({_p}, "nightvision")%"
 	set slot 26 of {_inv} to a barrier named "Reset All Settings To Default"
 
 
