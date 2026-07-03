@@ -241,10 +241,8 @@ on load:
 	setPoints("gravel", 1)
 	setPoints("diorite", 2)
 	setPoints("granite", 2)
-	setPoints("deepslate", 3)
-	setPoints("tuff", 3)
-	setPoints("netherrack", 1)
-	setPoints("end stone", 4)
+	setPoints("deepslate", 1)
+	setPoints("tuff", 1)
 
 	# Basic ores
 	setPoints("coal ore", 10)
@@ -266,7 +264,7 @@ on load:
 	# Rare ores
 	setPoints("diamond ore", 70)
 	setPoints("deepslate diamond ore", 80)
-	setPoints("emerald ore", 60)
+	setPoints("emerald ore", 100)
 	setPoints("deepslate emerald ore", 800)
 	setPoints("nether gold ore", 25)
 	setPoints("ancient debris", 600)
