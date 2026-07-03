@@ -43,8 +43,7 @@ function cardActive(p: player, ID: integer) :: boolean:
 	return {cardActive::%{_p}%::%{_ID}%}
 
 function activateCard(p: player, ID: integer):
-	loop {unlockedCard::%{_p}%::*}:
-		set {cardActive::%{_p}%::%loop-index%} to false
+	delete {cardActive::%{_p}%::*}
 	set {cardActive::%{_p}%::%{_ID}%} to true
 
 function unlockCard(p: player) :: text:
