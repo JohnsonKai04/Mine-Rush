@@ -72,21 +72,6 @@ command /ping:
 	trigger:
 		send "%player's ping%ms" to player
 
-function loopMusic(p: player):
-	set {_map::*} to "music_disc.creator=176", and "music_disc.otherside=195", and "music_disc.pigstep=148", and "music_disc.lava.chicken=135", and "music_disc.tears=175"
-	set {_song} to a random integer between 1 and size of {_map::*}
-	while {ingame::%{_p}%} is true:
-		if returnSetting({_p}, "startingMusic") is 0:
-			exit
-		while {_song} is {_previousSong}:
-			set {_song} to a random integer between 1 and size of {_map::*}
-
-		set {_previousSong} to {_song}
-		set {_parts::*} to {_map::%{_song}%} split at "="
-		set {_parts::2} to "%{_parts::2}% seconds" parsed as timespan
-		play sound "%{_parts::1}%" in jukebox category with volume returnSetting({_p}, "volume") at {_p}
-		wait {_parts::2}
-
 
 function convertToRoman(num: integer) :: text:
     set {_roman} to ""
