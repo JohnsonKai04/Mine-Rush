@@ -20,6 +20,7 @@ on load:
 	set {color::death} to "<color:#D44040>"
 	set {color::subdesc} to "<color:#63B7A4>"
 	set {color::inventoryName} to "<aqua><b>"
+	set {color::item} to "<b><color:#4ED95D>"
 
 	# Death splash screen
 	set {deathTitle::1} to "[RIP]"
