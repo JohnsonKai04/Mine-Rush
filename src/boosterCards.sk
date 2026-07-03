@@ -82,14 +82,15 @@ function bloodLustCard(p: player):
 # Implimented in endGame.sk
 function secondLife(p: player) :: boolean:
 	if {cardActive::%{_p}%::2} is true:
-		chance of 50%:
-			set health of {_p} to 5
-			apply potion effect of regeneration 3 to {_p} for 10 seconds
-			apply potion effect of speed 2 to {_p} for 10 seconds
-			set {secondLifeUsed::%{_p}%} to true
-			send "<b><gradient:#0CF11B:#E7FF00:#0CF11B>&lSaved by [Second Life]</b></gradient>" to {_p}
-			play sound "item.totem.use" with volume returnSetting({_p}, "volume") to {_p}
-			return true
+		if {secondLifeUsed::%{_p}%} is not true:
+			chance of 50%:
+				set health of {_p} to 5
+				apply potion effect of regeneration 3 to {_p} for 10 seconds
+				apply potion effect of speed 2 to {_p} for 10 seconds
+				set {secondLifeUsed::%{_p}%} to true
+				send "<b><gradient:#0CF11B:#E7FF00:#0CF11B>Saved by [Second Life]" to {_p}
+				play sound "item.totem.use" with volume returnSetting({_p}, "volume") to {_p}
+				return true
 	return false
 
 # Implimented in startGame.sk
