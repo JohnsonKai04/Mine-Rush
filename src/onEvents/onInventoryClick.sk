@@ -214,26 +214,7 @@ on inventory click:
 			openGamesMenu(player, {_page})
 			stop
 		if {_ID} is set:
-			load yaml "mineRushData/playerData/%player's uuid%/gameData.yaml" as "file"
-			set {_totalPoints} to yaml value "%{_ID}%.points.totalpoints" from "file"
-			set {_pointsSpent} to yaml value "%{_ID}%.points.pointsspent" from "file"
-			set {_mobKills} to yaml value "%{_ID}%.misc.mobkills" from "file"
-			set {_commonLootBoxesOpened} to yaml value "%{_ID}%.lootboxes.commonlootboxesopened" from "file"
-			set {_rareLootBoxesOpened} to yaml value "%{_ID}%.lootboxes.rarelootboxesopened" from "file"
-			set {_legendaryLootBoxesOpened} to yaml value "%{_ID}%.lootboxes.legendarylootboxesopened" from "file"
-
-			send "<gradient:#7C4D24:#4C1420> |----------- Game #%{_ID}% -----------|</gradient>"
-			send " " to player
-			send " <gradient:#CC813E:#BF344F>Total Points Earned:          %{_totalPoints} ? 0%</gradient>" to player
-			send " <gradient:#CC813E:#BF344F>Points Spent:                 %{_pointsSpent} ? 0%</gradient>" to player
-			send " <gradient:#CC813E:#BF344F>Mobs Killed:                  %{_mobKills} ? 0%</gradient>" to player
-			send " <gradient:#CC813E:#BF344F>Common loot boxes opened:     %{_commonLootBoxesOpened} ? 0%</gradient>" to player
-			send " <gradient:#CC813E:#BF344F>Rare loot boxes opened:       %{_rareLootBoxesOpened} ? 0%</gradient>" to player
-			send " <gradient:#CC813E:#BF344F>Legendary Loot Boxes Opened:  %{_legendaryLootBoxesOpened} ? 0%</gradient>" to player
-			send " " to player
-			send "<gradient:#7C4D24:#4C1420>|-------------------------------------|</gradient>" to player
-			close the inventory of the player
-			unload yaml "mineRushData/playerData/%player's uuid%/game%{_ID}%.yaml"
+			sendStats(player, ({_ID} parsed as an integer))
 	
 	if {_name} contains "Main Menu":
 		cancel event

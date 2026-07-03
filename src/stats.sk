@@ -35,6 +35,9 @@ function openGamesMenu(p: player, page: int = 0):
 
 
 function saveDataToFile(p: player) :: boolean:
+	if {debugMode::%{_p}%} is true:
+		delete {currentGameStats::%{_p}%::*}
+		exit
 	set {_ID} to 0
 	load yaml "mineRushData/playerData/%{_p}'s uuid%/gameData.yaml" as "file"
 	load yaml "mineRushData/playerData/%{_p}'s uuid%/stats.yaml" as "stats"
@@ -74,12 +77,40 @@ function saveDataToFile(p: player) :: boolean:
 		set yaml value "misc.deaths" from "stats" to (1 + yaml value "misc.deaths" from "stats")
 	set yaml value "misc.gamesPlayed" from "stats" to (1 + yaml value "misc.gamesPlayed" from "stats")
 
-
-	insertEntree(name of {_p}, {points::%{_p}%}, {_ID})
-
-	delete {currentGameStats::%{_p}%::*}
-	delete {pointsBonus::%{_p}%}
 	save yaml "file"
 	save yaml "stats"
 	unload yaml "file"
 	unload yaml "stats"
+
+	set {_placement} to insertEntree(name of {_p}, {currentGameStats::%{_p}%::points::points}, {_ID})
+	sendStats({_p}, {_ID}, {_placement})
+
+	delete {currentGameStats::%{_p}%::*}
+
+# Spec: Specific game being requested
+function sendStats(p: player, ID: integer, placement: integer = -0):
+	load yaml "mineRushData/playerData/%{_p}'s uuid%/gameData.yaml" as "file"
+	set {_totalPoints} to yaml value "%{_ID}%.points.points" from "file"
+	set {_pointsSpent} to yaml value "%{_ID}%.points.pointsspent" from "file"
+	set {_mobKills} to yaml value "%{_ID}%.misc.mobkills" from "file"
+	set {_commonLootBoxesOpened} to yaml value "%{_ID}%.lootboxes.commonlootboxesopened" from "file"
+	set {_rareLootBoxesOpened} to yaml value "%{_ID}%.lootboxes.rarelootboxesopened" from "file"
+	set {_legendaryLootBoxesOpened} to yaml value "%{_ID}%.lootboxes.legendarylootboxesopened" from "file"
+
+	if {_placement} is -0:
+		send "<gradient:#7C4D24:#4C1420> |----------- Game #%{_ID}% -----------|</gradient>" to {_p}
+		send " " to {_p}
+	else:
+		send "<gradient:#7C4D24:#4C1420> |-------- Final Scores: --------|gradient>" to {_p}
+		send " " to {_p}
+		send " <gradient:#CC813E:#BF344F>Placement:      #%{_placement}%" to {_p}
+	send " <gradient:#CC813E:#BF344F>Points:          %{_totalPoints} ? 0%</gradient>" to {_p}
+	send " <gradient:#CC813E:#BF344F>Points Spent:                 %{_pointsSpent} ? 0%</gradient>" to {_p}
+	send " <gradient:#CC813E:#BF344F>Mobs Killed:                  %{_mobKills} ? 0%</gradient>" to {_p}
+	send " <gradient:#CC813E:#BF344F>Common loot boxes opened:     %{_commonLootBoxesOpened} ? 0%</gradient>" to {_p}
+	send " <gradient:#CC813E:#BF344F>Rare loot boxes opened:       %{_rareLootBoxesOpened} ? 0%</gradient>" to {_p}
+	send " <gradient:#CC813E:#BF344F>Legendary Loot Boxes Opened:  %{_legendaryLootBoxesOpened} ? 0%</gradient>" to {_p}
+	send " " to {_p}
+	send "<gradient:#7C4D24:#4C1420>|-------------------------------------|</gradient>" to {_p}
+	close the inventory of {_p}
+	unload yaml "mineRushData/playerData/%{_p}'s uuid%/game%{_ID}%.yaml"
