@@ -1,12 +1,15 @@
 ## Issues
 - There are client side mods that hide the players bossbar for some reason right now these mods are (Better F3)
 
-# Roadmap updated: 6/30/2026
+# Roadmap updated: 7/2/2026
 - [ ] remove water caves if possible
 - [ ] UHC custom weapons
 - [ ] make extract point spawn mobs around the player before sending them home
 - [ ] selectable difficulties
 - [ ] add expensive feather falling - Possibly wont add to increase risk factor
+- [ ] make finding caves easier - Maps must be opened by the player
+- [ ] add support for trial chamber
+
 
 # 6/22/2026 - playtest num 1
 - [x] previous runs duration still invalid
@@ -25,17 +28,15 @@
 - [x] a visualizer to see how deep you are
 - [x] something telling player going deeper = more ores
 - [x] add more difficult mobs the deeper you go
-- [ ] add support for trial chamber
 - [x] night vision in /settings
 - [x] stats dont display properly
 - [x] visually show player has hit max level in shop
 - [ ] points per minute in hotbar
-- [ ] minecart chests and barrels give you items
-- [ ] remove putting items in pots
-- [ ] not allow drinking milk
-- [ ] disallow rightclicking beds
-- [ ] make finding caves easier - maps
-
+- [x] minecart chests and barrels give you items
+- [x] remove putting items in pots
+- [x] not allow drinking milk
+- [x] disallow rightclicking beds
+- [x] end of run stats
 
 
 
