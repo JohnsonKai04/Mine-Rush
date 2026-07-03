@@ -23,7 +23,7 @@ on break of chest:
 # Awards the player with a lootbox whenever they find a chest minecart
 on rightclick on entity:
 	if {inGame::%player%} is true:
-		if name of event-entity is "Minecart with Chest":
+		if name of event-entity contains "Minecart with Chest" or "minecart":
 			giveRandomLootbox(player, location of event-entity)
 			kill event-entity
 			cancel event
@@ -38,6 +38,16 @@ on rightclick on Chest:
 		if {_lootbox} is not true:
 			giveRandomLootbox(player, location of event-block)
 		cancel event
+
+on rightclick on barrel or decorated pot or flower pot or cow:
+	cancel event
+
+on break of decorated pot:
+	cancel event
+
+command /test:
+	trigger:
+		give player 1 filled map
 
 
 on player move:
@@ -64,6 +74,13 @@ on player move:
 				set line 5 of player's fastboard to mini message from "%{_color}%  |  "
 				set line 6 of player's fastboard to mini message from "%{_color}%  ⊢  %{_y2m}% "
 				set line 7 of player's fastboard to mini message from "%{_color}%  |  "
+
+
+# Prevent the player from using beds
+on respawn:
+	teleport player to {lobbySpawnLoc}
+	wait 1 tick
+	generateSpawnBorder(player)
 
 
 function returnDepthColor(y: number) :: text:
