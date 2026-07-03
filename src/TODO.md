@@ -9,6 +9,7 @@
 - [ ] add expensive feather falling - Possibly wont add to increase risk factor
 - [ ] make finding caves easier - Maps must be opened by the player
 - [ ] add support for trial chamber
+- [x] Music disc audio becomes distorted the farther players are from 0,0. only generate valid spawns within 2mx2m
 
 
 # 6/22/2026 - playtest num 1
