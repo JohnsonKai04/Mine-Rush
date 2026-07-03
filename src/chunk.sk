@@ -15,8 +15,8 @@ command /generateSpawnPoints [<integer>]:
 			while {_isValid} is not set:
 				set {_isValid} to true
 				add 1 to {_counter}
-				set {_spawningLocationX} to a random integer between -25000000 and 25000000
-				set {_spawningLocationZ} to a random integer between -25000000 and 25000000
+				set {_spawningLocationX} to a random integer between -2000000 and 2000000
+				set {_spawningLocationZ} to a random integer between -2000000 and 2000000
 				set {_waterCheck} to location at {_spawningLocationX}, 62, {_spawningLocationZ} in world "world"
 				set {_spawningLocation} to location at {_spawningLocationX}, {spawningHeight}, {_spawningLocationZ} in world "world"
 
@@ -25,6 +25,10 @@ command /generateSpawnPoints [<integer>]:
 				
 				if block at {_spawningLocation} is not air:
 					delete {_isValid}
+
+				loop {validSpawn::location::*}:
+					if distance between {_spawningLocation} and loop-value-2 is less than 10000:
+						delete {_isValid}
 				
 				if {_counter} >= 10:
 					send "<gradient:#F10C31:#8F1D26>Error: no valid spawns found" to player
