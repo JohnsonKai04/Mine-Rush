@@ -26,10 +26,9 @@
 - [x] something telling player going deeper = more ores
 - [x] add more difficult mobs the deeper you go
 - [ ] add support for trial chamber
-- [ ] night vision in /settings
-- [ ] legendary lootbox should display how much points you get depending on the block
+- [x] night vision in /settings
 - [x] stats dont display properly
-- [ ] visually show player has hit max level in shop
+- [x] visually show player has hit max level in shop
 - [ ] points per minute in hotbar
 - [ ] minecart chests and barrels give you items
 - [ ] remove putting items in pots
