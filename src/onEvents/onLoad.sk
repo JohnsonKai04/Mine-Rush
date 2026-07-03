@@ -180,7 +180,8 @@ on load:
 		add 1 to {totalCards}
 
 	# Prices (used by shop.sk)
-
+	delete {blockValue::*}
+	delete {cost::*}
 	# General
 	setPrice("cooked beef", 150)
 	setPrice("ladder", 90)
@@ -245,14 +246,14 @@ on load:
 	setPoints("tuff", 1)
 
 	# Basic ores
-	setPoints("coal ore", 10)
-	setPoints("deepslate coal ore", 12)
-	setPoints("iron ore", 20)
-	setPoints("deepslate iron ore", 25)
+	setPoints("coal ore", 8)
+	setPoints("deepslate coal ore", 10)
+	setPoints("iron ore", 15)
+	setPoints("deepslate iron ore", 18)
 	setPoints("raw iron block", 150)
-	setPoints("copper ore", 15)
-	setPoints("deepslate copper ore", 18)
-	setPoints("raw copper block", 130)
+	setPoints("copper ore", 8)
+	setPoints("deepslate copper ore", 10)
+	setPoints("raw copper block", 100)
 	setPoints("gold ore", 30)
 	setPoints("deepslate gold ore", 35)
 	setPoints("raw gold block", 200)
