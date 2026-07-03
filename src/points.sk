@@ -99,3 +99,9 @@ function shortNum(n: number) :: text:
 		set {_text} to first (length of {_text} - 2) characters of {_text}
 
 	return "%{_text}%%{_suffix}%"
+
+
+command /togglefastboard:
+	permission: op
+	trigger:
+		toggle player's fastboard
