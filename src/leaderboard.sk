@@ -1,14 +1,14 @@
 on load:
 	load yaml "mineRushData/leaderboard.yaml" as "leaderboard"
 
-function insertEntree(p: text, points: number, ID: integer, i: integer = 1):
+function insertEntree(p: text, points: number, ID: integer, i: integer = 1) :: integer:
 	# Base case
 	if yaml path "%{_i}%.points" in "leaderboard" does not have value:
 		set yaml value "%{_i}%.points" from "leaderboard" to {_points}
 		set yaml value "%{_i}%.player" from "leaderboard" to {_p}
 		set yaml value "%{_i}%.ID" from "leaderboard" to {_ID}
 		save yaml "leaderboard"
-		exit
+		return {_i}
 
 	# Recursive case
 	if {_points} is greater than yaml value "%{_i}%.points" from "leaderboard":
@@ -21,8 +21,9 @@ function insertEntree(p: text, points: number, ID: integer, i: integer = 1):
 		set yaml value "%{_i}%.ID" from "leaderboard" to {_ID}
 		save yaml "leaderboard"
 		insertEntree({_pPlayer}, {_pPoints}, {_pID}, {_i}+1)
+		return {_i}
 	else:
-		insertEntree({_p}, {_points}, {_ID}, {_i}+1)
+		return insertEntree({_p}, {_points}, {_ID}, {_i}+1)
 
 
 function openLeaderboard(p: player, page: integer = 0):
@@ -63,3 +64,11 @@ command /populateLeaderboard [<integer>]:
 			set {_val} to a random integer between 1 and 10000000
 			insertEntree(name of player, {_val}, -1)
 			wait 1 tick
+
+
+command /clearLeaderboard:
+	permission: op
+	trigger:
+		delete yaml "leaderboard"
+		save yaml "leaderboard"
+		load yaml "mineRushData/leaderboard.yaml" as "leaderboard"
