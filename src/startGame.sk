@@ -70,7 +70,6 @@ command /start:
 		heal player
 		feed player
 		toggle player's fastboard
-		loopMusic(player)
 		if returnSetting(player, "nightvision") is 1:
 			apply potion effect of night vision to the player for 60 minutes:
 				hide particles
@@ -103,6 +102,8 @@ command /start:
 
 		# Starts the difficulty timer (see difficulties.sk)
 		difficultyBegin(player)
+		wait 3 seconds
+		loopMusic(player)
 
 
 function asyncAircheck(p: player):
