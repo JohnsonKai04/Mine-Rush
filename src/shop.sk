@@ -246,19 +246,38 @@ function openUpgradeShop(p: player):
 		set slot 1 of {_inv} to netherite pickaxe named "<!i><b>Netherite Pickaxe</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::netherite pickaxe}% Points"
 
 	# Pickaxe enchants
-	#if {enchantCostMultiplier::%{_p}%::efficiency} is set:
 	set slot 2 of {_inv} to enchanted book named "<!i><b>Efficiency %convertToRoman({enchantTier::%{_p}%::efficiency} + 1)%</b>" with lore "%{color::desc}%Cost: %{color::points}%%({cost::efficiency} * ({enchantCostMultiplier::%{_p}%::efficiency} ? 1))% Points"
-	#else:
-	#	set slot 2 of {_inv} to enchanted book named "<!i><b>Efficiency I</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::efficiency}% Points"
 
 	# Pickaxe enchants custom
-	set slot 3 of {_inv} to enchanted book named "%{veinMiner::name}% %convertToRoman({customEnchantTier::%{_p}%::veinMiner} + 1)%" with lore "%{color::desc}%Cost: %{color::points}%%({cost::veinMiner} * ({enchantCostMultiplier::%{_p}%::veinMiner} ? 1))% Points"
-	set slot 4 of {_inv} to enchanted book named "%{streak::name}% %convertToRoman({customEnchantTier::%{_p}%::streak} + 1)%" with lore "%{color::desc}%Cost: %{color::points}%%({cost::streak} * ({enchantCostMultiplier::%{_p}%::streak} ? 1))% Points"
-	set slot 5 of {_inv} to enchanted book named "%{oreDuplicate::name}% %convertToRoman({customEnchantTier::%{_p}%::oreDuplicate} + 1)%" with lore "%{color::desc}%Cost: %{color::points}%%({cost::oreDuplicate} * ({enchantCostMultiplier::%{_p}%::oreDuplicate} ? 1))% Points"
-	set slot 6 of {_inv} to enchanted book named "%{luckyMiner::name}% %convertToRoman({customEnchantTier::%{_p}%::luckyMiner} + 1)%" with lore "%{color::desc}%Cost: %{color::points}%%({cost::luckyMiner} * ({enchantCostMultiplier::%{_p}%::luckyMiner} ? 1))% Points"
-	set slot 7 of {_inv} to enchanted book named "%{lootBoxCollector::name}% %convertToRoman({customEnchantTier::%{_p}%::lootBoxCollector} + 1)%" with lore "%{color::desc}%Cost: %{color::points}%%({cost::lootBoxCollector} * ({enchantCostMultiplier::%{_p}%::lootBoxCollector} ? 1))% Points"
-	set slot 8 of {_inv} to enchanted book named "%{hungryMiner::name}% %convertToRoman({customEnchantTier::%{_p}%::hungryMiner} + 1)%" with lore "%{color::desc}%Cost: %{color::points}%%({cost::hungryMiner} * ({enchantCostMultiplier::%{_p}%::hungryMiner} ? 1))% Points"
-	set slot 11 of {_inv} to enchanted book named "%{fireball::name}% %convertToRoman({customEnchantTier::%{_p}%::fireball} + 1)%" with lore "%{color::desc}%Cost: %{color::points}%%({cost::fireball} * ({enchantCostMultiplier::%{_p}%::fireball} ? 1))% Points"
+	if {customEnchantTier::%{_p}%::veinMiner} is not 1:
+		set slot 3 of {_inv} to enchanted book named "%{veinMiner::name}% %convertToRoman({customEnchantTier::%{_p}%::veinMiner} + 1)%" with lore "%{color::desc}%Cost: %{color::points}%%({cost::veinMiner} * ({enchantCostMultiplier::%{_p}%::veinMiner} ? 1))% Points"
+	else:
+		set slot 3 of {_inv} to enchanted book named "%{veinMiner::name}% MAX LEVEL"
+	if {customEnchantTier::%{_p}%::streak} is not 1:
+		set slot 4 of {_inv} to enchanted book named "%{streak::name}% %convertToRoman({customEnchantTier::%{_p}%::streak} + 1)%" with lore "%{color::desc}%Cost: %{color::points}%%({cost::streak} * ({enchantCostMultiplier::%{_p}%::streak} ? 1))% Points"
+	else:
+		set slot 4 of {_inv} to enchanted book named "%{streak::name}% MAX LEVEL"
+	if {customEnchantTier::%{_p}%::oreDuplicate} is not 5:
+		set slot 5 of {_inv} to enchanted book named "%{oreDuplicate::name}% %convertToRoman({customEnchantTier::%{_p}%::oreDuplicate} + 1)%" with lore "%{color::desc}%Cost: %{color::points}%%({cost::oreDuplicate} * ({enchantCostMultiplier::%{_p}%::oreDuplicate} ? 1))% Points"
+	else:
+		set slot 5 of {_inv} to enchanted book named "%{oreDuplicate::name}% MAX LEVEL"
+	if {customEnchantTier::%{_p}%::luckyMiner} is not 5:
+		set slot 6 of {_inv} to enchanted book named "%{luckyMiner::name}% %convertToRoman({customEnchantTier::%{_p}%::luckyMiner} + 1)%" with lore "%{color::desc}%Cost: %{color::points}%%({cost::luckyMiner} * ({enchantCostMultiplier::%{_p}%::luckyMiner} ? 1))% Points"
+	else:
+		set slot 6 of {_inv} to enchanted book named "%{luckyMiner::name}% MAX LEVEL"	
+	if {customEnchantTier::%{_p}%::lootBoxCollector} is not 5:
+		set slot 7 of {_inv} to enchanted book named "%{lootBoxCollector::name}% %convertToRoman({customEnchantTier::%{_p}%::lootBoxCollector} + 1)%" with lore "%{color::desc}%Cost: %{color::points}%%({cost::lootBoxCollector} * ({enchantCostMultiplier::%{_p}%::lootBoxCollector} ? 1))% Points"
+	else:
+		set slot 7 of {_inv} to enchanted book named "%{lootBoxCollector::name}% MAX LEVEL"
+	if {customEnchantTier::%{_p}%::hungryMiner} is not 1:
+		set slot 8 of {_inv} to enchanted book named "%{hungryMiner::name}% %convertToRoman({customEnchantTier::%{_p}%::hungryMiner} + 1)%" with lore "%{color::desc}%Cost: %{color::points}%%({cost::hungryMiner} * ({enchantCostMultiplier::%{_p}%::hungryMiner} ? 1))% Points"
+	else:
+		set slot 8 of {_inv} to enchanted book named "%{hungryMiner::name}% MAX LEVEL"
+	if {customEnchantTier::%{_p}%::fireball} is not 3:
+		set slot 11 of {_inv} to enchanted book named "%{fireball::name}% %convertToRoman({customEnchantTier::%{_p}%::fireball} + 1)%" with lore "%{color::desc}%Cost: %{color::points}%%({cost::fireball} * ({enchantCostMultiplier::%{_p}%::fireball} ? 1))% Points"
+	else:
+		set slot 11 of {_inv} to enchanted book named "%{fireball::name}% MAX LEVEL"
+
 
 	# Swords
 	if {sword::tier::%{_p}%} is not set:
