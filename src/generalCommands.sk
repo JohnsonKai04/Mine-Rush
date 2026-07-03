@@ -66,7 +66,7 @@ command /setup:
 
 		send "%{color::desc}%Make sure to run /generateSpawnPoints [# of spawn points]" to player
 		send "%{color::desc}%25-50 spawn points is recommended depending on storage/player count" to player
-
+		send "%{color::desc}%Run /setspawn" to player
 
 command /ping:
 	trigger:
