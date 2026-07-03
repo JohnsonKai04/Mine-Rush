@@ -55,5 +55,20 @@ function loopMusic(p: player):
 		play sound "%{_parts::1}%" in jukebox category with volume returnSetting({_p}, "volume") at {_p}
 		loop {_parts::2} times:
 			if {ingame::%{_p}%} is not true:
+				make console execute command "stopsound %{_p}%"
 				exit
 			wait 1 second
+
+
+at 3:30am in real time:
+	broadcast "%{color::error}%Server restarting in 30 Minutes starting new games has been killswitched"
+	make console execute command "killswitch start"
+
+at 3:45am in real time:
+	broadcast "%{color::error}%Server restarting in 45 Minutes"
+
+at 3:55am in real time:
+	broadcast "%{color::error}%Server restarting in 5 Minutes"
+
+at 4:10am in real time:
+	make console execute command "killswitch start"
