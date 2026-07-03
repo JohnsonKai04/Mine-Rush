@@ -18,7 +18,7 @@ function addPoints(p: player, block: block) :: number:
 	if {_points} is 0:
 		exit
 
-	add {_points} to {points::%{_p}%}
+	add {_points} to {currentGameStats::%{_p}%::points::points}
 	add {_points} to {currentGameStats::%{_p}%::points::totalPoints}
 
 
@@ -72,5 +72,25 @@ function playItemPickup(p: player):
 	set {_pitch} to a random number between 0.5 and 1.5
 	play sound "entity.item.pickup" with volume returnSetting({_p}, "volume") and pitch {_pitch} to {_p}
 
+
 function updatePointsBar(p: player):
-	set bar title of {pointBar::%{_p}%} to colored "<b><gradient:#22F10C:#03B08D>Points: %{points::%{_p}%}%</gradient></b>"
+	set bar title of {pointBar::%{_p}%} to colored "<b><gradient:#22F10C:#03B08D>Points: %{currentGameStats::%{_p}%::points::points}%</gradient></b>"
+	set {_p}'s tab list name to "%{_p}'s name% %{color::death}%⬆%{difficulty::%{_p}%}% %{color::points}%$%shortNum({currentGameStats::%{_p}%::points::points})%"
+
+
+function shortNum(n: number) :: text:
+	if {_n} >= 1000000:
+		set {_result} to round(({_n} / 1000000) * 10) / 10
+		set {_suffix} to "m"
+	else if {_n} >= 1000:
+		set {_result} to round(({_n} / 1000) * 10) / 10
+		set {_suffix} to "k"
+	else:
+		return "%{_n}%"
+
+	set {_text} to "%{_result}%"
+
+	if {_text} contains ".0":
+		set {_text} to first (length of {_text} - 2) characters of {_text}
+
+	return "%{_text}%%{_suffix}%"
