@@ -74,11 +74,13 @@ function playItemPickup(p: player):
 
 
 function updatePointsBar(p: player):
-	set bar title of {pointBar::%{_p}%} to colored "<b><gradient:#22F10C:#03B08D>Points: %{currentGameStats::%{_p}%::points::points}%</gradient></b>"
-	set {_p}'s tab list name to "%{_p}'s name% %{color::death}%⬆%{difficulty::%{_p}%}% %{color::points}%$%shortNum({currentGameStats::%{_p}%::points::points})%"
+	set bar title of {pointBar::%{_p}%} to colored "<b><gradient:#22F10C:#03B08D>Points: %{currentGameStats::%{_p}%::points::points} ? 0%</gradient></b>"
+	set {_p}'s tab list name to "%{_p}'s name% %{color::death}%⬆%{difficulty::%{_p}%} ? 1% %{color::points}%$%shortNum({currentGameStats::%{_p}%::points::points})%"
 
 
 function shortNum(n: number) :: text:
+	if {_n} is not set:
+		return "0"
 	if {_n} >= 1000000:
 		set {_result} to round(({_n} / 1000000) * 10) / 10
 		set {_suffix} to "m"
