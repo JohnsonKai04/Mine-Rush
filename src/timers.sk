@@ -72,3 +72,30 @@ at 3:55am in real time:
 
 at 4:10am in real time:
 	make console execute command "killswitch start"
+
+every 25 minutes in world "world":
+	add 1 to {tip}
+	loop all players:
+		if returnSetting(loop-player, "tips") is 1:
+			send " " to loop-player
+			if {tip} is 1:
+				send "%{tipPrefix}%Please report any bugs you find or features you would like added! Not sure if its a bug? Report it!" to loop-player
+			else if {tip} is 2:
+				send "%{tipPrefix}%Did you know you can change many settings such as disabiling tips in the menu or /settings?" to loop-player
+			else if {tip} is 3:
+				send "%{tipPrefix}%Mobs gain 10%% more health depending on how deep you are so be cautious" to loop-player
+			else if {tip} is 4:
+				send "%{tipPrefix}%All ore values, shop prices, booster cards, and everything are subject to change. Due to being in beta all runs may be subject to deletion" to loop-player
+			else if {tip} is 5:
+				send "%{tipPrefix}%Every time you extract you gain or level up a random booster card" to loop-player
+			else if {tip} is 6:
+				send "%{tipPrefix}%Try to extract when given the option, greeding may not be as rewarding as it seems" to loop-player
+			else if {tip} is 7:
+				send "%{tipPrefix}%Night vision is disabled by default. If you would like it find it in /settings" to loop-player
+			else if {tip} is 8:
+				send "%{tipPrefix}%Currently the deep dark rewards less ores than intended this is a bug which will hopefully be resolved by next playtest" to loop-player
+			else if {tip} is 9:
+				send "%{tipPrefix}%Some client side mods such as ""simple F3"" can visually break the point bar." to loop-player
+			else:
+				delete {tip}
+			send " " to loop-player

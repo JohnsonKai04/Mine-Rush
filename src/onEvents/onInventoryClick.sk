@@ -56,6 +56,9 @@ on inventory click:
 		else if {_item} is "Night Vision":
 			writeSetting(player, "nightvision", swapBooleanNum(returnSetting(player, "nightvision")))
 
+		else if {_item} is "Tips":
+			writeSetting(player, "tips", swapBooleanNum(returnSetting(player, "tips")))
+
 		else if {_item} is "Reset All Settings To Default":
 			setDefaultSettings(player)
 
