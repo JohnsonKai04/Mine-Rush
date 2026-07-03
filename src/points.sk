@@ -81,7 +81,10 @@ function updatePointsBar(p: player):
 function shortNum(n: number) :: text:
 	if {_n} is not set:
 		return "0"
-	if {_n} >= 1000000:
+	if {_n} >= 1000000000:
+		set {_result} to round(({_n} / 1000000000) * 10) / 10
+		set {_suffix} to "b"
+	else if {_n} >= 1000000:
 		set {_result} to round(({_n} / 1000000) * 10) / 10
 		set {_suffix} to "m"
 	else if {_n} >= 1000:
