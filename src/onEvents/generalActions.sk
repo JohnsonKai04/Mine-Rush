@@ -45,10 +45,6 @@ on rightclick on barrel or decorated pot or flower pot or cow:
 on break of decorated pot:
 	cancel event
 
-command /test:
-	trigger:
-		give player 1 filled map
-
 
 on player move:
 	if {inGame::%player%} is true:
@@ -57,7 +53,7 @@ on player move:
 			set {_y2p} to {_y} + 2
 			set {_y2m} to {_y} - 2
 			set {_color} to returnDepthColor({_y})
-			set title of player's fastboard to "Depth Meter"
+			set title of player's fastboard to mini message from "%{_color}%⏲ Depth Meter ⏲"
 			if mod(round(player's y-level), 2) is not 0:
 				set line 1 of player's fastboard to mini message from "%{_color}%  ⊢  "
 				set line 2 of player's fastboard to mini message from "%{_color}%  |   %{_y2p}% "
