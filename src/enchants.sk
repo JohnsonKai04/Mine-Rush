@@ -59,10 +59,9 @@ function luckyMiner(p: player, b: block) :: text:
 				set {_typeFound} to false
 				play sound "ENTITY_TURTLE_SHAMBLE" with volume returnSetting({_p}, "volume") at {_b}
 				set {_newType} to loop-value
+				if returnSetting({_p}, "chatEnchantNotif") is 1:
+					send formatted "<b>%{luckyMiner::name}% Proc</b>" to {_p}
 				return {_newType}
-
-		if returnSetting({_p}, "chatEnchantNotif") is 1:
-			send formatted "<b>%{luckyMiner::name}% Proc</b>" to {_p}
 	return {_currentType}
 
 
