@@ -36,7 +36,7 @@ function addPoints(p: player, block: block) :: number:
 	else:
 		send action bar colored "<b><gradient:#22F10C:#03B08D>+%{_points}% Points</gradient></b>" to {_p}
 	updatePointsBar({_p})
-	if {settings::visualBlock::%{_p}%} is true:
+	if {setting::%{_p}%::visualBlock} is 1:
 		phantomOre({_p}, {_block}, {_blockType})
 	return {_points}
 
@@ -60,7 +60,7 @@ function phantomOre(p: player, block: block, type: text):
 		else:
 			stop loop
 		wait 1 tick
-	if {settings::audioBlock::%{_p}%} is true:
+	if {setting::%{_p}%::audioBlock} is 1:
 		playItemPickup({_p})
 	wait 2 ticks
 	set {_killZone} to location of {_p} ~ vector(0, -20, 0)
@@ -70,7 +70,7 @@ function phantomOre(p: player, block: block, type: text):
 
 function playItemPickup(p: player):
 	set {_pitch} to a random number between 0.5 and 1.5
-	play sound "entity.item.pickup" with volume returnSetting({_p}, "volume") and pitch {_pitch} to {_p}
+	play sound "entity.item.pickup" with volume {setting::%{_p}%::volume} and pitch {_pitch} to {_p}
 
 
 function updatePointsBar(p: player):

@@ -98,7 +98,7 @@ function playLootBoxCommonAnimation(p: player, b: block, m: integer):
 		make 5 of glow at {_loc} with offset vector({_i}, 0.2, {_i})
 		make 5 of scrape at {_loc} with offset vector({_i}, 0.2, {_i})
 		set {_pitch} to a random number between -1 and 2
-		play sound "block.amethyst_block.chime" with volume returnSetting({_p}, "volume") and pitch {_pitch} at location of {_b}
+		play sound "block.amethyst_block.chime" with volume {setting::%{_p}%::volume} and pitch {_pitch} at location of {_b}
 		wait 10 ticks
 	make 5 of explosion at {_loc}
 	lootBoxRewardPoints({_p}, {_b}, {_m})
@@ -108,7 +108,7 @@ function playLootBoxRareAnimation(p: player, b: block, m: integer):
 	set {_loc} to location 0.5 blocks above {_b}
 	loop 10 times:
 		make 30 of block particle using chest at location of {_b} with offset vector(0.5, 0.2, 0.5)
-		play sound "block.anvil.hit" with volume returnSetting({_p}, "volume") at location of {_b}
+		play sound "block.anvil.hit" with volume {setting::%{_p}%::volume} at location of {_b}
 		wait 0.5 second
 	open lid of {_b}
 	wait 0.1 seconds
@@ -125,7 +125,7 @@ function playLootBoxLegendaryAnimation(p: player, b: block, m: integer):
 	loop 10 times:
 		set {_stand}'s helmet to iron block or gold block or diamond block or emerald block
 		set {_pitch} to a random number between -1 and 1
-		play sound "block.note_block.bell" with volume returnSetting({_p}, "volume") and pitch {_pitch} at {_loc}
+		play sound "block.note_block.bell" with volume {setting::%{_p}%::volume} and pitch {_pitch} at {_loc}
 		wait 0.5 seconds
 
 	wait 0.5 seconds

@@ -69,7 +69,6 @@ command /start:
 		make player vulnerable
 		heal player
 		feed player
-		toggle player's fastboard
 		if returnSetting(player, "nightvision") is 1:
 			apply potion effect of night vision to the player for 60 minutes:
 				hide particles
@@ -102,6 +101,11 @@ command /start:
 
 		# Starts the difficulty timer (see difficulties.sk)
 		difficultyBegin(player)
+
+		set {setting::%player%::visualBlock} to returnSetting(player, "visualBlock")
+		set {setting::%player%::audioBlock} to returnSetting(player, "audioBlock")
+
+
 		wait 3 seconds
 		loopMusic(player)
 
@@ -116,3 +120,8 @@ command /clearcooldown [<player>]:
 	trigger:
 		delete {startCooldown::%arg-1%}
 
+
+function setSettings(p: player):
+	set {setting::%{_p}%::visualBlock} to returnSetting({_p}, "visualBlock")
+	set {setting::%{_p}%::audioBlock} to returnSetting({_p}, "audioBlock")
+	set {setting::%{_p}%::volume} to returnSetting({_p}, "volume")

@@ -38,7 +38,7 @@ function streak(p: player) :: number:
 
 function oreDuplicate(p: player, b: block):
 	chance of {oreDuplicate::chance::%{customEnchantTier::%{_p}%::oreDuplicate}%}:
-		play sound "BLOCK_AMETHYST_BLOCK_STEP" with volume returnSetting({_p}, "volume") at location of {_b}
+		play sound "BLOCK_AMETHYST_BLOCK_STEP" with volume {setting::%{_p}%::volume} at location of {_b}
 		make 10 of happy villager at location of {_b} with offset vector(0.35, 0.35, 0.35)
 		set {_new} to type of {_b}
 		wait 1 tick
@@ -57,7 +57,7 @@ function luckyMiner(p: player, b: block) :: text:
 					set {_typeFound} to true
 			else:
 				set {_typeFound} to false
-				play sound "ENTITY_TURTLE_SHAMBLE" with volume returnSetting({_p}, "volume") at {_b}
+				play sound "ENTITY_TURTLE_SHAMBLE" with volume {setting::%{_p}%::volume} at {_b}
 				set {_newType} to loop-value
 				if returnSetting({_p}, "chatEnchantNotif") is 1:
 					send formatted "<b>%{luckyMiner::name}% Proc</b>" to {_p}

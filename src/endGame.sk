@@ -69,7 +69,6 @@ function endGame(p: player) :: boolean:
 	set slot 4 of {_p} to nether star named {customItem::menu::name} with lore {customItem::menu::lore}
 	generateBorder({_p}, 50)
 	clear fastboard of {_p}
-	toggle {_p}'s fastboard
 	set {_p}'s tab list name to "%{_p}'s name%"
 	make {_p} invulnerable
 	set {_p}'s gamemode to adventure
@@ -89,9 +88,9 @@ function deletePlayerVariables(p: player):
 	delete {enchantCostMultiplier::%{_p}%::*}
 	delete {secondLifeUsed::%{_p}%}
 	delete {spawnLocation::%{_p}%}
+	delete {setting::%{_p}%::*}
 
 command /resetfastboard:
-	permission: op
 	trigger:
 		clear fastboard of player
 		toggle player's fastboard

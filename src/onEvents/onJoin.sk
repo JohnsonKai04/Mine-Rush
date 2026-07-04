@@ -7,11 +7,12 @@ on first join:
 	send returnTutorialMsg() to player
 
 on join:
+	setSpawnTab(player)
 	if {killSwitch::join} is true:
 		if player does not have permission "mineRush.admin":
 			kick the player due to "Server is currently under maintenance please try again later :3"
 			exit
-	load yaml "mineRushData/playerData/%{_p}'s uuid%/settings.yaml" as "%{_p}'s uuid%.settings"
+
 	if {disconnectTimer::%player%} is set:
 		if difference between now and {disconnectTimer::%player%} is more than {disconnectTime}:
 			send "<b><gradient:#F10C31:#8F1D26>You were disconnected for more than %{disconnectTime}% causing the run to explode!</gradient></b>" to player
@@ -21,5 +22,6 @@ on join:
 		exit
 	if {inGame::%player%} is not true:
 		wait 1 tick
+		load yaml "mineRushData/playerData/%{_p}'s uuid%/settings.yaml" as "%{_p}'s uuid%.settings"
 		generateSpawnBorder(player)
 		make player invulnerable

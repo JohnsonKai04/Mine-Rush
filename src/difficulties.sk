@@ -10,8 +10,8 @@ on spawn:
 			if y-coordinate of location of event-entity is greater than or equal to {mobSpawnMaxHeight}:
 				cancel event
 			set {_speed} to event-entity's generic movement speed attribute
-			set max health of event-entity to round((max health of event-entity) * (({difficulty::%{_p}%} - 2) * ({difficultyMultiplier} + returnDepthScaling({_y}))))
-			set event-entity's generic movement speed attribute to ({_speed} * (({difficulty::%{_p}%} - 2) * {difficultyMultiplier}))
+			set max health of event-entity to round((max health of event-entity) * {difficultyMultiplier}^({difficulty::%{_p}%} - 1))
+			set event-entity's generic movement speed attribute to ({_speed} * {difficultyMultiplier}^({difficulty::%{_p}%} - 1))
 			
 			heal event-entity
 			make last spawned entity despawn on chunk unload
@@ -39,7 +39,7 @@ function beginDifficulty1(p: player):
 	send "<gradient:#00FF11:#C3D705>Difficulty <b>1</b></gradient>" to {_p}
 	send "<gradient:#00FF11:#C3D705>No Hostile Mobs</gradient>" to {_p}
 	send "<gradient:#00FF11:#C3D705>Time Until Extraction: <b>%{_time}%</b></gradient>" to {_p}
-	play sound "item.goat_horn.sound.0" with volume returnSetting({_p}, "volume") at {_p}
+	play sound "item.goat_horn.sound.0" with volume {setting::%{_p}%::volume} at {_p}
 	
 
 function beginDifficulty2(p: player):
@@ -47,16 +47,16 @@ function beginDifficulty2(p: player):
 	send "<gradient:#C3D705:#F5AD0E>Difficulty <b>2</b></gradient>" to {_p}
 	send "<gradient:#C3D705:#F5AD0E>Mob Speed/Health/Damage: <b>1x</b></gradient>" to {_p}
 	send "<gradient:#C3D705:#F5AD0E>Time Until Extraction: <b>%{_time}%</b></gradient>" to {_p}
-	play sound "item.goat_horn.sound.1" with volume returnSetting({_p}, "volume") at {_p}
+	play sound "item.goat_horn.sound.1" with volume {setting::%{_p}%::volume} at {_p}
 	set bar color of {pointBar::%{_p}%} to yellow
 
 
 function beginDifficulty3(p: player):
 	set {_time} to "%2 * {defaultSpeed}% minutes" parsed as timespan
 	send "<gradient:#F5AD0E:#F5500E>Difficulty <b>3</b></gradient>" to {_p}
-	send "<gradient:#F5AD0E:#F5500E>Mob Speed/Health/Damage: <b>%({difficulty::%{_p}%} - 2) * {difficultyMultiplier}%x</b></gradient>" to {_p}
+	send "<gradient:#F5AD0E:#F5500E>Mob Speed/Health/Damage: <b>%{difficultyMultiplier}^({difficulty::%{_p}%} - 1)%x</b></gradient>" to {_p}
 	send "<gradient:#F5AD0E:#F5500E>Time Until Extraction: <b>%{_time}%</b></gradient>" to {_p}
-	play sound "item.goat_horn.sound.2" with volume returnSetting({_p}, "volume") at {_p}
+	play sound "item.goat_horn.sound.2" with volume {setting::%{_p}%::volume} at {_p}
 	set bar color of {pointBar::%{_p}%} to red
 
 
@@ -64,16 +64,16 @@ function beginDifficulty3(p: player):
 function beginDifficulty4(p: player):
 	set {_time} to "%1 * {defaultSpeed}% minutes" parsed as timespan
 	send "<gradient:#F5500E:#F50EC9>Difficulty <b>4</b></gradient>" to {_p}
-	send "<gradient:#F5500E:#F50EC9>Mob Speed/Health/Damage: <b>%({difficulty::%{_p}%} - 2) * {difficultyMultiplier}%x</b></gradient>" to {_p}
+	send "<gradient:#F5500E:#F50EC9>Mob Speed/Health/Damage: <b>%{difficultyMultiplier}^({difficulty::%{_p}%} - 1)%x</b></gradient>" to {_p}
 	send "<gradient:#F5500E:#F50EC9>Time Until Extraction: <b>%{_time}%!</b></gradient>" to {_p}
-	play sound "item.goat_horn.sound.3" with volume returnSetting({_p}, "volume") at {_p}
+	play sound "item.goat_horn.sound.3" with volume {setting::%{_p}%::volume} at {_p}
 	set bar color of {pointBar::%{_p}%} to blue
 
 
 
 function beginDifficulty5(p: player):
 	send "<gradient:#F50EC9:#F50E0E>Difficulty <b>5</b></gradient>" to {_p}
-	send "<gradient:#F50EC9:#F50E0E>Mob Speed/Health/Damage: <b>%({difficulty::%{_p}%} - 2) * {difficultyMultiplier}%x</b></gradient>" to {_p}
+	send "<gradient:#F50EC9:#F50E0E>Mob Speed/Health/Damage: <b>%{difficultyMultiplier}^({difficulty::%{_p}%} - 1)%x</b></gradient>" to {_p}
 
 	# Spawns extract:
 	set {_extractLocation::X} to a random integer between -50 and 50
@@ -95,14 +95,14 @@ function beginDifficulty5(p: player):
 	give {_p} compass named {customItem::ExtractionCompass::Name} with lore {customItem::ExtractionCompass::Lore}
 	set {_p}'s compass target to {_validSpawn}
 	send "<gradient:#F50EC9:#F50E0E>Extract Location Spawned at: <b>%{_validSpawn}%</b></gradient>" to {_p}
-	play sound "item.goat_horn.sound.6" with volume returnSetting({_p}, "volume") at {_p}
+	play sound "item.goat_horn.sound.6" with volume {setting::%{_p}%::volume} at {_p}
 	set bar color of {pointBar::%{_p}%} to white
 
 function beginDifficulty6(p: player):
 	send "<gradient:#F50E0E:#2D0EF5>Difficulty <b>6</b></gradient>" to {_p}
 	send "<gradient:#F50E0E:#2D0EF5>Mob Speed/Health/Damage: <b>%({difficulty::%{_p}%} - 2) * {difficultyMultiplier}%x</b></gradient>" to {_p}
 	send "<gradient:#F50E0E:#2D0EF5>Radiation is Begining to Set in...</gradient>" to {_p}
-	play sound "item.goat_horn.sound.5" with volume returnSetting({_p}, "volume") at {_p}
+	play sound "item.goat_horn.sound.5" with volume {setting::%{_p}%::volume} at {_p}
 	wait 30 seconds
 
 	apply infinite poison to {_p}:
