@@ -199,7 +199,7 @@ on load:
 	setPrice("torch", 50)
 	setPrice("water bucket", 100)
 	setPrice("scaffolding", 100)
-	setPrice("tnt", 150)
+	setPrice("tnt", 600)
 	setPrice("shield", 300)
 	setPrice("iron golem", 600)
 
@@ -229,13 +229,13 @@ on load:
 	setPrice("sweeping edge", 100)
 
 	# custom enchants
-	setPrice("veinMiner", 1000)
-	setPrice("streak", 20000)
+	setPrice("veinMiner", 2500)
+	setPrice("streak", 10000)
 	setPrice("oreDuplicate", 2000)
 	setPrice("luckyMiner", 1000)
-	setPrice("lootBoxCollector", 500)
-	setPrice("hungryMiner", 5000)
-	setPrice("fireball", 10000)
+	setPrice("lootBoxCollector", 5000)
+	setPrice("hungryMiner", 800)
+	setPrice("fireball", 5000)
 
 	# Custom Items
 	setPrice("ghead", 150)
@@ -249,8 +249,9 @@ on load:
 	setPoints("grass block", 1)
 	setPoints("sand", 1)
 	setPoints("gravel", 1)
-	setPoints("diorite", 2)
-	setPoints("granite", 2)
+	setPoints("diorite", 1)
+	setPoints("andesite", 1)
+	setPoints("granite", 1)
 	setPoints("deepslate", 1)
 	setPoints("tuff", 1)
 
