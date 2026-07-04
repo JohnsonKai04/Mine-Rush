@@ -16,6 +16,7 @@
 - [x] lucky miner doesnt send message when procced
 - [x] damage on mobs is broken
 - [x] extracting doesnt give points back + gamemode doesnt change back to adventure
+- [ ] spectact player see what they see
 
 # 6/22/2026 - playtest num 1
 - [x] previous runs duration still invalid
