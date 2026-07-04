@@ -72,7 +72,7 @@ function lootBoxCollector(p: player):
 			give {_p} {lootBox::item::common}
 			
 			send formatted "<b>+1 %name of {lootBox::item::common}%</b>" to {_p}
-		else if {_cha nce} >= 15: # 35% chance
+		else if {_chance} >= 15: # 35% chance
 			give {_p} {lootBox::item::rare}
 			send formatted "<b>+1 %name of {lootBox::item::rare}%</b>" to {_p}
 
