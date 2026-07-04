@@ -7,7 +7,7 @@ command /shop:
 
 		if {inGame::%player%} is not true:
 			send "%{color::error}%Error: This command can only be used when the game has been started" to player
-			#stop
+			stop
 
 		open chest inventory with 3 rows named formatted "%{color::inventoryName}%Shop" to player
 		set {_inv} to player's current inventory
