@@ -11,6 +11,11 @@
 - [ ] add support for trial chamber
 - [x] Music disc audio becomes distorted the farther players are from 0,0. only generate valid spawns within 2mx2m
 
+# 7/3/2026 - Playtest num 2
+- [x] lootboxes should obvously give different amounts
+- [x] lucky miner doesnt send message when procced
+- [x] damage on mobs is broken
+- [x] extracting doesnt give points back + gamemode doesnt change back to adventure
 
 # 6/22/2026 - playtest num 1
 - [x] previous runs duration still invalid
