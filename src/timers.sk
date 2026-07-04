@@ -55,7 +55,6 @@ function loopMusic(p: player):
 		play sound "%{_parts::1}%" in jukebox category with volume returnSetting({_p}, "volume") at {_p}
 		loop {_parts::2} times:
 			if {ingame::%{_p}%} is not true:
-				make console execute command "stopsound %{_p}%"
 				exit
 			wait 1 second
 
