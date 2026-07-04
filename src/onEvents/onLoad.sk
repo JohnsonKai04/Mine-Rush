@@ -75,8 +75,6 @@ on load:
 	add "nether gold ore" to {ores::*}
 	add "ancient debris" to {ores::*}
 
-	loop 10 times:
-		set {lootBoxPoints::%loop-iteration%} to 750 * loop-iteration
 	# Pickaxe Names
 	set {pickaxe::tier::stone} to "<!i><color:#00E0FF><b>Stone Pickaxe</b></color>"
 	set {pickaxe::tier::iron} to "<!i><color:#00E0FF><b>Iron Pickaxe</b></color>"
@@ -149,6 +147,14 @@ on load:
 	set {lootBox::item::rare} to a chest named "<!i><gradient:#0F158E:#4CCCD1>Rare Box</gradient>" with lore {lootBox::item::lore}
 	set {lootBox::chance::rare} to 35
 	set {lootBox::item::legendary} to a chest named "<!i><gradient:#FA0AEA:#E71829>Legendary Box</gradient>" with lore {lootBox::item::lore}
+
+	set {lootBox::min::common} to 50
+	set {lootBox::min::rare} to 750
+	set {lootBox::min::legendary} to 2000
+
+	set {lootBox::max::common} to 750
+	set {lootBox::max::rare} to 2000
+	set {lootBox::max::legendary} to 5000
 
 	set {hungryMiner::hungerPoints} to 1
 	set {hungryMiner::chance::1} to 1%

@@ -140,14 +140,12 @@ function lootBoxRewardPoints(p: player, b: block, m: integer):
 
 	set {_base} to 100
 	set {_chance} to a random integer between 1 and {_base}
-	if {_chance} <= ({_base} - 50):
-		set {_points} to a random integer between ({lootBoxPoints::1} * {_m}) and ({lootBoxPoints::2} * {_m})
-	else if {_chance} <= ({_base} - 75):
-		set {_points} to a random integer between ({lootBoxPoints::3} * {_m}) and ({lootBoxPoints::4} * {_m})
-	else if {_chance} <= ({_base} - 95):
-		set {_points} to a random integer between ({lootBoxPoints::5} * {_m}) and ({lootBoxPoints::6} * {_m})
-	else:
-		set {_points} to a random integer between ({lootBoxPoints::7} * {_m}) and ({lootBoxPoints::8} * {_m})
+	if {_m} is 1:
+		set {_points} to a random integer between {lootBox::min::common} and {lootBox::max::common}
+	else if {_m} is 2:
+		set {_points} to a random integer between {lootBox::min::rare} and {lootBox::max::rare}
+	else if {_m} is 3:
+		set {_points} to a random integer between {lootBox::min::legendary} and {lootBox::max::legendary}
 
 	add {_points} to {currentGameStats::%{_p}%::points::points}
 	add {_points} to {currentGameStats::%{_p}%::totalPoints}
