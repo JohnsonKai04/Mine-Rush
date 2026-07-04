@@ -1,12 +1,10 @@
 # Buffs mobs on harder difficulties, adds damage indecators, adds the bloodLustCard integration
 on damage:
-	set {_damage} to round(damage * (({difficulty::%victim%} - 2) * {difficultyMultiplier}))
-
 	if {inGame::%attacker%} is true:
 		bloodLustCard(attacker)
 		if returnSetting(attacker, "damageIndicator") is 1:
-			spawnIndicator(attacker, location of victim, {_damage}, health of victim, max health of victim)
+			spawnIndicator(attacker, location of victim, damage, health of victim, max health of victim)
 	if {inGame::%victim%} is true:
 		if attacker is set:
 			if attacker is not player:
-				set the damage to {_damage}
+				set the damage to round(damage * (({difficulty::%victim%} - 2) * {difficultyMultiplier}))
