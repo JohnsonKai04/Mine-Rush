@@ -6,11 +6,6 @@ on death of player:
 			clear victim's inventory
 			showDeathScreen(victim)
 			wait 5 seconds
-			if {debugMode::%victim%} is true:
-				set victim's gamemode to creative
-			else:
-				set victim's gamemode to adventure
-			wait 1 tick
 			delete {inGame::%victim%}
 			kill victim
 			if {currentGameStats::%victim%::misc::extracted} is not true:
@@ -27,7 +22,7 @@ on right click on beacon:
 		delete {inGame::%player%}
 		cancel event
 		make player invulnerable
-		add {currentGameStats::%player%::points::pointsSpent} to {points::%player%}
+		add {currentGameStats::%player%::points::pointsSpent} to {currentGameStats::%player%::points::points}
 		send "<b><gradient:#52F361:#02CEF6:#52F361>Extracting You Now good job %player%. Heres a Bonus For Your Efforts: %{currentGameStats::%player%::points::pointsSpent} ? 0%</gradient></b>" to player
 		send " " to player
 		wait 6 seconds
@@ -77,6 +72,8 @@ function endGame(p: player) :: boolean:
 	toggle {_p}'s fastboard
 	set {_p}'s tab list name to "%{_p}'s name%"
 	make {_p} invulnerable
+	set {_p}'s gamemode to adventure
+	setSpawnTab({_p})
 	return true
 
 
