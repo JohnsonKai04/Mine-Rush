@@ -68,10 +68,23 @@ function setGamerules(world: world):
 	set gamerule minecraft:show_advancement_messages of {_world} to false
 	set gamerule minecraft:spawn_wandering_traders of {_world} to false
 
+
+command /enableWorldGen:
+	permission: op
+	trigger:
+		if {worldGen} is not true:
+			set {worldGen} to true
+		else:
+			set {worldGen} to false
+
+
 every 5 minutes:
 	if {generatingWorlds} is true:
 		exit
 	if size of {worldArray::*} is less than 20:
-		send "There are currently only %size of {worldArray::*} ? 0% Worlds avalible Generating %50 - size of {worldArray::*}% new ones" to console
-		set {_i} to 50 - size of {worldArray::*}
-		#generateWorlds({_i}, false)
+		if {worldGen} is true:
+			send "There are currently only %size of {worldArray::*} ? 0% Worlds avalible Generating %50 - size of {worldArray::*}% new ones" to console
+			set {_i} to 50 - size of {worldArray::*}
+			generateWorlds({_i}, false)
+		else:
+			send "Please enable world generation using /enableWorldGen" to console
