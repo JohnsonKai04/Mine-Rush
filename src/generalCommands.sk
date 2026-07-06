@@ -43,29 +43,9 @@ on tab complete of "/MRdebug":
 command /setup:
 	permission: mineRush.admin
 	trigger:
-		make console execute command "gamerule advance_time false"
-		make console execute command "gamerule advance_weather false"
-		make console execute command "gamerule allow_entering_nether_using_portals false"
-		make console execute command "gamerule block_drops false"
-		make console execute command "gamerule entity_drops false"
-		make console execute command "gamerule fire_spread_radius_around_player 0"
-		make console execute command "gamerule immediate_respawn true"
-		make console execute command "gamerule keep_inventory true"
-		make console execute command "gamerule immediate_respawn true"
-		make console execute command "gamerule immediate_respawn true"
-		make console execute command "gamerule spawn_phantoms false"
-		make console execute command "gamerule mob_drops false"
-		make console execute command "gamerule spread_vines false"
-		make console execute command "gamerule spawner_blocks_work false"
-		make console execute command "gamerule respawn_radius 0"
-		make console execute command "gamerule pvp false"
-		make console execute command "gamerule locator_bar false"
-		make console execute command "gamerule show_advancement_messages false"
-		make console execute command "gamerule spawn_wandering_traders false"
-
-
-		send "%{color::desc}%Make sure to run /generateSpawnPoints [# of spawn points]" to player
-		send "%{color::desc}%25-50 spawn points is recommended depending on storage/player count" to player
+		setGamerules(world("world"))
+		send "%{color::desc}%Make sure to run /generateWorlds [# of spawn points]" to player
+		send "%{color::desc}%50 worlds is recommended depending on storage/player count" to player
 		send "%{color::desc}%Run /setspawn" to player
 
 command /ping:
@@ -132,3 +112,15 @@ command /heal:
 	permission: op
 	trigger:
 		heal player
+
+
+command /tpsmonitor:
+	permission: op
+	trigger:
+		if {tpsMonitor} is true:
+			set {tpsMonitor} to false
+		else:
+			set {tpsMonitor} to true
+		while {tpsMonitor} is true:
+			send "%average tick time%" to player
+			wait 0.5 seconds

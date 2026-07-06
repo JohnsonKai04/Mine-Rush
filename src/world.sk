@@ -1,0 +1,77 @@
+# i - The amount of worlds to be generated
+function generateWorlds(i: integer, debug: boolean = false) :: boolean:
+	add 1 to {worldIDPointer}
+	set {generatingWorlds} to true
+	set {_ID} to {worldIDPointer}
+	set {_overallTime} to now
+	loop {_i} times:
+		# Generates new world
+		set {_w} to a new world creator with key "run_%{_ID}%:overworld"
+		set environment of {_w} to overworld
+		load world from creator {_w}
+
+		set {_world} to world "run_%{_ID}%_overworld"
+		setGamerules({_world})
+		set {_timer} to now
+
+		async load chunks within location(1000, 0, 1000, {_world}) and location(-1000, 0, -1000, {_world})
+		add {_ID} to {worldarray::*}
+		if {_debug} is true:
+			add 1 to {_worldcount}
+			broadcast "(%{_worldcount}%/%{_i}%) This generation took: %difference between now and {_timer}% "
+
+	if {_debug} is true:
+		broadcast "<color:green>All %{_i}% spawn points have been generated with a time of %difference between now and {_overallTime}%"
+	set {generatingWorlds} to false
+
+
+command /generateWorlds [<integer>]:
+	permission: op
+	trigger:
+		generateWorlds(arg-1, true)
+
+
+command /tpworld [<integer>]:
+	permission: op
+	trigger:
+		teleport player to location(0,100,0, world("run_%arg-1%_overworld"))
+
+# Finds the next avalible world
+function findWorld() :: location:
+	loop {worldArray::*}:
+		delete {worldArray::%loop-index%}
+		return location(0,100,0, world("run_%loop-value%_overworld"))
+
+
+
+function returnWorldID(p: player) :: integer:
+	set {_parts::*} to "%name of (world of {_p})%" split at "_"
+	return {_parts::2} parsed as an integer
+
+
+function setGamerules(world: world):
+	set gamerule minecraft:advance_time of {_world} to false
+	set gamerule minecraft:advance_weather of {_world} to false
+	set gamerule minecraft:allow_entering_nether_using_portals of {_world} to false
+	set gamerule minecraft:block_drops of {_world} to false
+	set gamerule minecraft:entity_drops of {_world} to false
+	set gamerule minecraft:fire_spread_radius_around_player of {_world} to 0
+	set gamerule minecraft:immediate_respawn of {_world} to true
+	set gamerule minecraft:keep_inventory of {_world} to true
+	set gamerule minecraft:spawn_phantoms of {_world} to false
+	set gamerule minecraft:mob_drops of {_world} to false
+	set gamerule minecraft:spread_vines of {_world} to false
+	set gamerule minecraft:spawner_blocks_work of {_world} to false
+	set gamerule minecraft:respawn_radius of {_world} to 0
+	set gamerule minecraft:pvp of {_world} to false
+	set gamerule minecraft:locator_bar of {_world} to false
+	set gamerule minecraft:show_advancement_messages of {_world} to false
+	set gamerule minecraft:spawn_wandering_traders of {_world} to false
+
+every 5 minutes:
+	if {generatingWorlds} is true:
+		exit
+	if size of {worldArray::*} is less than 20:
+		send "There are currently only %size of {worldArray::*} ? 0% Worlds avalible Generating %50 - size of {worldArray::*}% new ones" to console
+		set {_i} to 50 - size of {worldArray::*}
+		#generateWorlds({_i}, false)

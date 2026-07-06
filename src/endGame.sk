@@ -41,6 +41,7 @@ command /endGame:
 		else:
 			send "Error: you are not ingame" to player
 
+
 function showDeathScreen(p: player):
 	set {_val} to a random integer between 1 and (size of {deathTitle::*})
 	send title "<#AC0C26>%{deathTitle::%{_val}%}%" to {_p}
@@ -52,6 +53,8 @@ function deathMsg(p: player, k: text) :: text:
 	replace all "[player]" with "%{_p}%" in {_msg}
 	replace all "[points]" with "%{currentGameStats::%{_p}%::points::points}%" in {_msg}
 	replace all "[killer]" with "%{_k}%" in {_msg}
+	replace all "[ranItem]" with "%random element of all available itemTypes%" in {_msg}
+	replace all "[ranBlock]" with "%random element of all available itemTypes%" in {_msg}
 	return "%{color::death}%☠ " + {_msg}
 
 
@@ -89,6 +92,7 @@ function deletePlayerVariables(p: player):
 	delete {secondLifeUsed::%{_p}%}
 	delete {spawnLocation::%{_p}%}
 	delete {setting::%{_p}%::*}
+
 
 command /resetfastboard:
 	trigger:

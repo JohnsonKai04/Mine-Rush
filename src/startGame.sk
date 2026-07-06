@@ -15,22 +15,8 @@ command /start:
 			playErrorSound(player)
 			stop
 
-		# Find spawn location using pointers
-		set {_found} to false
-		while {_found} is false:
-			add 1 to {spawnPointer}
-			# Loops back to the first set of coordinates
-			if {spawnPointer} is greater than or equal to size of {validSpawn::location::*}:
-				set {spawnPointer} to 1
-			if {validSpawn::active::%{spawnPointer}%} is false:
-				set {_found} to true
-			wait 1 tick
-		
-		# All pointer checks passed
-		set {inGame::%player%} to true
-		set {validSpawn::active::%{spawnPointer}%} to true  # This puts a lock onto the spawn location so other players cannot spawn here if the pointer loops around
-		set {_location} to {validSpawn::location::%{spawnPointer}%}
-		set {spawnLocation::%player%} to {spawnPointer}
+		# Player is now considered "inGame"	
+		set {inGame::%player%} to true 
 
 		send title "<b><color:#00FF3B>Starting in 5...</color></b>" to player
 		playDing(player)
@@ -51,7 +37,6 @@ command /start:
 		playDing(player)
 		wait 1 second
 		send title "<b><rainbow>Good Luck</rainbow></b>" to player
-		removeBorder(player)
 		playDing(player)
 		wait 0.4 seconds
 		playDing(player)
@@ -63,7 +48,18 @@ command /start:
 		apply potion effect of slow falling to the player for 90 seconds:
 			hide particles
 			hide icon
-		teleport player to {_location}
+
+		# Teleports player to world
+		set {_world} to findWorld()
+		if {_world} is not set:
+			send "%{color::error}%[ERROR] There are no generated worlds avalible to play on please notify NotAWatermelon as this is a bug" to player
+			send "%{color::error}%[ERROR] %player% Tried to start a run but there were no avalible worlds" to console
+			delete {inGame::%player%}
+			stop
+		
+		teleport player to {_world}
+		wait 1 tick
+
 		asyncAircheck(player)
 		set gamemode of player to survival
 		make player vulnerable
@@ -98,6 +94,7 @@ command /start:
 		# Stats
 		set {currentGameStats::%player%::misc::duration} to now
 		set {currentGameStats::%player%::points::points} to 0
+		set {currentGameStats::%player%::misc::worldID} to returnWorldID(player)
 
 		# Starts the difficulty timer (see difficulties.sk)
 		difficultyBegin(player)

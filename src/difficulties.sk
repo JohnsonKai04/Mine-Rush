@@ -1,3 +1,8 @@
+on pre creature spawn of a slime or animal:
+	cancel event
+	abort creature spawn
+
+
 on spawn:
 	if event-entity is a monster:
 		set {_p} to nearest player in radius 80 around event-entity
@@ -82,12 +87,12 @@ function beginDifficulty5(p: player):
 	add {_p}'s x coordinate to {_extractLocation::X}
 	add {_p}'s z coordinate to {_extractLocation::Z}
 	set {_extractLocation::Y} to 310
-	set {_validSpawn} to location at {_extractLocation::X}, {_extractLocation::Y}, {_extractLocation::Z} in world "world"
+	set {_validSpawn} to location at {_extractLocation::X}, {_extractLocation::Y}, {_extractLocation::Z} in {_p}'s world
 	wait 1 second # waits for server to catch up
 
 	while block at {_validSpawn} is air:
 		set {_extractLocation::Y} to {_extractLocation::Y} - 1
-		set {_validSpawn} to location at {_extractLocation::X}, {_extractLocation::Y}, {_extractLocation::Z} in world "world"
+		set {_validSpawn} to location at {_extractLocation::X}, {_extractLocation::Y}, {_extractLocation::Z} in {_p}'s world
 
 	set block at {_validSpawn} to beacon
 	loop blocks within {_validSpawn} ~ vector(-1,-1,-1) and {_validSpawn} ~ vector(1,-1,1):
