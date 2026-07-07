@@ -10,6 +10,8 @@
 - [ ] make finding caves easier - Maps must be opened by the player
 - [ ] add support for trial chamber
 - [x] Music disc audio becomes distorted the farther players are from 0,0. only generate valid spawns within 2mx2m
+- [ ] custom music https://www.reddit.com/r/C418/comments/1342bkf/is_there_a_way_to_add_some_more_tracks_to_the/
+- [ ] dialogs https://skripthub.net/docs/?id=14436
 
 # 7/3/2026 - Playtest num 2
 - [x] lootboxes should obvously give different amounts
@@ -29,7 +31,8 @@
 - [ ] upgrading to netherite possibly removes all pickaxe efficieny enchants
 - [ ] allow players to move items around in their inventory
 - [ ] allow droping items unless it is armor, pickaxe, or the menu item
-- [ ] custom music https://www.reddit.com/r/C418/comments/1342bkf/is_there_a_way_to_add_some_more_tracks_to_the/
+- [ ] allow players to move around items in their inventorys when in the shop. Addtionally add a safeguard when players move said items so they do not charge themselves or buy things on accident
+
 
 # 6/22/2026 - playtest num 1
 - [x] previous runs duration still invalid
