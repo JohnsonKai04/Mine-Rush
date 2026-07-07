@@ -34,6 +34,7 @@ on right click on beacon:
 
 
 command /endGame:
+	aliases: /stopgame, /endrun, /finish, /leave
 	cooldown: 2 seconds
 	trigger:
 		if {inGame::%player%} is true: 
