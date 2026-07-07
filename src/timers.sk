@@ -93,8 +93,7 @@ every 25 minutes in world "world":
 				send "%{tipPrefix}%Night vision is disabled by default. If you would like it find it in /settings" to loop-player
 			else if {tip} is 8:
 				send "%{tipPrefix}%Currently the deep dark rewards less ores than intended this is a bug which will hopefully be resolved by next playtest" to loop-player
-			else if {tip} is 9:
-				send "%{tipPrefix}%Some client side mods such as ""simple F3"" can visually break the point bar." to loop-player
 			else:
+				send "%{tipPrefix}%Some client side mods such as ""simple F3"" can visually break the point bar." to loop-player
 				delete {tip}
 			send " " to loop-player
