@@ -29,8 +29,12 @@ function generateWorlds(i: integer, debug: boolean = false, dev: boolean = false
 command /generateWorlds [<integer>]:
 	permission: op
 	trigger:
-		generateWorlds(arg-1, true)
-
+		loop 8 times:
+			generateWorlds(arg-1, true)
+			wait 1 second
+# 8 = 7.4 min
+# 5 = 7 min
+# 1 = 13 min
 
 command /tpworld [<integer>]:
 	permission: op
@@ -40,7 +44,7 @@ command /tpworld [<integer>]:
 command /generatedevworld:
 	permission: op
 	trigger:
-		# Deleting world file is an error in SkBee a issue has been created fix when it is patched
+		set {_timer} to now
 		if world "dev_overworld" exists:
 			send "meow Ts exists" to player
 			unload world "dev_overworld"
@@ -56,7 +60,7 @@ command /generatedevworld:
 
 		async load chunks within location(500, 0, 500, {_world}) and location(-500, 0, -500, {_world})
 
-		send "Dev world has been created" to player
+		send "Dev world has been created this took %difference between now and {_timer}%" to player
 
 # Finds the next avalible world
 function findWorld() :: location:
