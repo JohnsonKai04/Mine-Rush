@@ -1,7 +1,9 @@
 # Prevents the player from droping items
 on drop:
-	if {debugMode::%player%} is not true:
-		cancel event
+	loop {DropBlacklist::*}:
+		if unformatted name of event-item is unformatted loop-value:
+			cancel event
+			exit
 
 # Awards points to the nearest player when an explosion happens
 on explosion:
