@@ -1,248 +1,249 @@
 on inventory click:
-	set {_name} to uncolored name of event-inventory
-	set {_item} to uncolored name of event-item
-    # ------------------------------------------------------
-    #          BOOSTER CARDS
-    # ------------------------------------------------------
-	if {_name} is "Booster Cards":
-		cancel event
-		if {inGame::%player%} is true:
-			send "<gradient:#F10C31:#8F1D26> Error: You cannot enable booster cards while in a run </gradient>" to {_p}
-			playErrorSound(player)
-			stop
-		if event-item is set:
-			if event-item is not a barrier:
-				set {_ID} to index of event-slot
-				activateCard(player, {_ID})
-				make player execute command "/booster"
+	if type of event-inventory is not player inventory:
+		set {_name} to uncolored name of event-inventory
+		set {_item} to uncolored name of event-item
+		# ------------------------------------------------------
+		#          BOOSTER CARDS
+		# ------------------------------------------------------
+		if {_name} is "Booster Cards":
+			cancel event
+			if {inGame::%player%} is true:
+				send "<gradient:#F10C31:#8F1D26> Error: You cannot enable booster cards while in a run </gradient>" to {_p}
+				playErrorSound(player)
+				stop
+			if event-item is set:
+				if event-item is not a barrier:
+					set {_ID} to index of event-slot
+					activateCard(player, {_ID})
+					make player execute command "/booster"
 
-    # ------------------------------------------------------
-    #          SETTINGS
-    # ------------------------------------------------------
-	if {_name} is "Settings":
-		if {_item} is "Volume":
-			open chest inventory with 2 row named "%{color::inventoryName}%Volume" to player
-			set {_inv} to player's current inventory
-			# Volume level 0% - 100%
-			loop 11 times:
-				set {_volume} to loop-value - 1 # -1 for inventory offset
-				set slot {_volume} of {_inv} to a bell named "<#4ED95D>&l%%%({_volume} * 10)%"
+		# ------------------------------------------------------
+		#          SETTINGS
+		# ------------------------------------------------------
+		if {_name} is "Settings":
+			if {_item} is "Volume":
+				open chest inventory with 2 row named "%{color::inventoryName}%Volume" to player
+				set {_inv} to player's current inventory
+				# Volume level 0% - 100%
+				loop 11 times:
+					set {_volume} to loop-value - 1 # -1 for inventory offset
+					set slot {_volume} of {_inv} to a bell named "<#4ED95D>&l%%%({_volume} * 10)%"
 
-		else if {_item} is "Chat Enchant Notification":
-			writeSetting(player, "chatEnchantNotif", swapBooleanNum(returnSetting(player, "chatEnchantNotif")))
-			send "meow" to player
+			else if {_item} is "Chat Enchant Notification":
+				writeSetting(player, "chatEnchantNotif", swapBooleanNum(returnSetting(player, "chatEnchantNotif")))
+				send "meow" to player
 
-		else if {_item} is "Audio Enchant Notification":
-			writeSetting(player, "audioEnchantNotif", swapBooleanNum(returnSetting(player, "audioEnchantNotif")))
+			else if {_item} is "Audio Enchant Notification":
+				writeSetting(player, "audioEnchantNotif", swapBooleanNum(returnSetting(player, "audioEnchantNotif")))
 
-		else if {_item} is "Lootbox animation":
-			writeSetting(player, "lootboxAnimation", swapBooleanNum(returnSetting(player, "lootboxAnimation")))
+			else if {_item} is "Lootbox animation":
+				writeSetting(player, "lootboxAnimation", swapBooleanNum(returnSetting(player, "lootboxAnimation")))
 
-		else if {_item} is "Starting music":
-			writeSetting(player, "startingMusic", swapBooleanNum(returnSetting(player, "startingMusic")))
+			else if {_item} is "Starting music":
+				writeSetting(player, "startingMusic", swapBooleanNum(returnSetting(player, "startingMusic")))
 
-		else if {_item} is "Visual block floating effect":
-			writeSetting(player, "visualBlock", swapBooleanNum(returnSetting(player, "visualBlock")))
+			else if {_item} is "Visual block floating effect":
+				writeSetting(player, "visualBlock", swapBooleanNum(returnSetting(player, "visualBlock")))
 
-		else if {_item} is "Audio block effect":
-			writeSetting(player, "audioBlock", swapBooleanNum(returnSetting(player, "audioBlock")))
+			else if {_item} is "Audio block effect":
+				writeSetting(player, "audioBlock", swapBooleanNum(returnSetting(player, "audioBlock")))
 
-		else if {_item} is "Damage indicator":
-			writeSetting(player, "damageIndicator", swapBooleanNum(returnSetting(player, "damageIndicator")))
+			else if {_item} is "Damage indicator":
+				writeSetting(player, "damageIndicator", swapBooleanNum(returnSetting(player, "damageIndicator")))
 
-		else if {_item} is "Depth Meter":
-			writeSetting(player, "depthmeter", swapBooleanNum(returnSetting(player, "depthmeter")))
+			else if {_item} is "Depth Meter":
+				writeSetting(player, "depthmeter", swapBooleanNum(returnSetting(player, "depthmeter")))
 
-		else if {_item} is "Night Vision":
-			writeSetting(player, "nightvision", swapBooleanNum(returnSetting(player, "nightvision")))
+			else if {_item} is "Night Vision":
+				writeSetting(player, "nightvision", swapBooleanNum(returnSetting(player, "nightvision")))
 
-		else if {_item} is "Tips":
-			writeSetting(player, "tips", swapBooleanNum(returnSetting(player, "tips")))
+			else if {_item} is "Tips":
+				writeSetting(player, "tips", swapBooleanNum(returnSetting(player, "tips")))
 
-		else if {_item} is "Reset All Settings To Default":
-			setDefaultSettings(player)
+			else if {_item} is "Reset All Settings To Default":
+				setDefaultSettings(player)
 
-		if display name of event-item is set:
-			if display name of event-item does not contain "volume":
-				playDing(player)
-				openSettingsMenu(player)
-		cancel event
+			if display name of event-item is set:
+				if display name of event-item does not contain "volume":
+					playDing(player)
+					openSettingsMenu(player)
+			cancel event
 
-	if {_name} is "Volume":
-		set {_volume} to index of event-slot / 10
-		writeSetting(player, "volume", {_volume})
-		playDing(player)
-		openSettingsMenu(player)
-		cancel event
-        
-    # ------------------------------------------------------
-    #          SHOP
-    # ------------------------------------------------------
-	if {_name} is "Shop":
-		if {_item} is "Utility":
-			openUtilityShop(player)
-		if {_item} is "Upgrades":
+		if {_name} is "Volume":
+			set {_volume} to index of event-slot / 10
+			writeSetting(player, "volume", {_volume})
+			playDing(player)
+			openSettingsMenu(player)
+			cancel event
+			
+		# ------------------------------------------------------
+		#          SHOP
+		# ------------------------------------------------------
+		if {_name} is "Shop":
+			if {_item} is "Utility":
+				openUtilityShop(player)
+			if {_item} is "Upgrades":
+				openUpgradeShop(player)
+			cancel event
+
+		if {_name} contains "Upgrade Shop":
+			# Pickaxes
+			if {_item} contains uncolored "Iron Pickaxe":
+				purchasePickaxe(player, "iron pickaxe")
+			else if {_item} contains uncolored "Diamond Pickaxe":
+				purchasePickaxe(player, "diamond pickaxe")
+			else if {_item} contains uncolored "Netherite Pickaxe":
+				purchasePickaxe(player, "netherite pickaxe")
+
+			# Enchants
+			else if {_item} contains uncolored "Efficiency":
+				purchaseEnchant(player, "pickaxe", "efficiency")
+			else if {_item} contains uncolored "Sharpness":
+				purchaseEnchant(player, "sword", "sharpness")
+			else if {_item} contains uncolored "Fire Aspect":
+				purchaseEnchant(player, "sword", "fire aspect")
+			else if {_item} contains uncolored "Sweeping Edge":
+				purchaseEnchant(player, "sword", "sweeping edge")
+			else if {_item} contains uncolored "Knockback":
+				purchaseEnchant(player, "sword", "knockback")
+			else if {_item} contains uncolored "Protection":
+				purchaseEnchant(player, "armor", "protection")
+			else if {_item} contains uncolored "Thorns":
+				purchaseEnchant(player, "armor", "thorns")
+
+			# Custom enchants
+			else if {_item} contains uncolored "%{veinMiner::name}%":
+				if {killSwitch::veinMiner} is true:
+					killSwitchMsg(player)
+					stop
+				purchaseCustomEnchant(player, "veinMiner")
+			else if {_item} contains uncolored "%{streak::name}%":
+				if {killSwitch::streak} is true:
+					killSwitchMsg(player)
+					stop
+				purchaseCustomEnchant(player, "streak")
+			else if {_item} contains uncolored "%{oreDuplicate::name}%":
+				if {killSwitch::oreDuplicate} is true:
+					killSwitchMsg(player)
+					stop
+				purchaseCustomEnchant(player, "oreDuplicate")
+			else if {_item} contains uncolored "%{luckyMiner::name}%":
+				if {killSwitch::luckyMiner} is true:
+					killSwitchMsg(player)
+					stop
+				purchaseCustomEnchant(player, "luckyMiner")
+			else if {_item} contains uncolored "%{lootBoxCollector::name}%":
+				if {killSwitch::lootBoxCollector} is true:
+					killSwitchMsg(player)
+					stop
+				purchaseCustomEnchant(player, "lootBoxCollector")
+			else if {_item} contains uncolored "%{hungryMiner::name}%":
+				if {killSwitch::hungryMiner} is true:
+					killSwitchMsg(player)
+					stop
+				purchaseCustomEnchant(player, "hungryMiner")
+			else if {_item} contains uncolored "%{fireball::name}%":
+				if {killSwitch::fireball} is true:
+					killSwitchMsg(player)
+					stop
+				purchaseCustomEnchant(player, "fireball")
+
+
+			# Swords
+			else if {_item} contains uncolored "Stone Sword":
+				purchaseWeapon(player, "stone sword")
+			else if {_item} contains uncolored "Iron Sword":
+				purchaseWeapon(player, "iron sword")
+			else if {_item} contains uncolored "Diamond Sword":
+				purchaseWeapon(player, "diamond sword")
+			else if {_item} contains uncolored "Netherite Sword":
+				purchaseWeapon(player, "netherite sword")
+
+			# Armor
+			else if {_item} contains uncolored "Leather Armor":
+				purchaseArmor(player, "leather armor")
+			else if {_item} contains uncolored "Iron Armor":
+				purchaseArmor(player, "iron armor")
+			else if {_item} contains uncolored "Diamond Armor":
+				purchaseArmor(player, "diamond armor")
+
 			openUpgradeShop(player)
-		cancel event
+			cancel event
 
-	if {_name} contains "Upgrade Shop":
-		# Pickaxes
-		if {_item} contains uncolored "Iron Pickaxe":
-			purchasePickaxe(player, "iron pickaxe")
-		else if {_item} contains uncolored "Diamond Pickaxe":
-			purchasePickaxe(player, "diamond pickaxe")
-		else if {_item} contains uncolored "Netherite Pickaxe":
-			purchasePickaxe(player, "netherite pickaxe")
+		if {_name} contains "Utility Shop":
+			# General items
+			if {_item} is "Steak":
+				purchaseItem(player, "cooked beef", 16)
+			else if {_item} is "Ladder":
+				purchaseItem(player, "ladder", 16)
+			else if {_item} is "Wind charges":
+				purchaseItem(player, "wind charge", 8)
+			else if {_item} is "Andesite":
+				purchaseItem(player, "andesite", 64)
+			else if {_item} is "Torches":
+				purchaseItem(player, "torch", 32)
+			else if {_item} is "Water Bucket":
+				purchaseItem(player, "water bucket", 1)
+			else if {_item} is "Scaffolding":
+				purchaseItem(player, "scaffolding", 32)
+			else if {_item} is "Tnt":
+				purchaseItem(player, "tnt", 8)
+			else if {_item} is "Shield":
+				purchaseItem(player, "shield", 1)
 
-		# Enchants
-		else if {_item} contains uncolored "Efficiency":
-			purchaseEnchant(player, "pickaxe", "efficiency")
-		else if {_item} contains uncolored "Sharpness":
-			purchaseEnchant(player, "sword", "sharpness")
-		else if {_item} contains uncolored "Fire Aspect":
-			purchaseEnchant(player, "sword", "fire aspect")
-		else if {_item} contains uncolored "Sweeping Edge":
-			purchaseEnchant(player, "sword", "sweeping edge")
-		else if {_item} contains uncolored "Knockback":
-			purchaseEnchant(player, "sword", "knockback")
-		else if {_item} contains uncolored "Protection":
-			purchaseEnchant(player, "armor", "protection")
-		else if {_item} contains uncolored "Thorns":
-			purchaseEnchant(player, "armor", "thorns")
+			# Custom Items
+			else if {_item} is "Golden Head":
+				if {killSwitch::ghead} is true:
+					killSwitchMsg(player)
+					stop
+				purchaseCustomItem(player, stone, "ghead")
+			else if {_item} is "Grappling Hook":
+				if {killSwitch::ghook} is true:
+					killSwitchMsg(player)
+					stop
+				purchaseCustomItem(player, fishing rod, "grappling hook")
 
-		# Custom enchants
-		else if {_item} contains uncolored "%{veinMiner::name}%":
-			if {killSwitch::veinMiner} is true:
-				killSwitchMsg(player)
+			openUtilityShop(player)
+			cancel event
+
+		# ------------------------------------------------------ 
+		#          STATS/LEADERBOARD   - OLD CODE REWORK LATER
+		# ------------------------------------------------------
+		if {_name} contains "Games Played":
+			cancel event
+			set {_ID} to display name of event-item
+			if event-item is tipped arrow of luck:
+				set {_page::*} to uncolored name of event-item split at " "
+				set {_page} to ({_page::2} parsed as an integer) - 1 # -1 for offset
+				openGamesMenu(player, {_page})
 				stop
-			purchaseCustomEnchant(player, "veinMiner")
-		else if {_item} contains uncolored "%{streak::name}%":
-			if {killSwitch::streak} is true:
-				killSwitchMsg(player)
-				stop
-			purchaseCustomEnchant(player, "streak")
-		else if {_item} contains uncolored "%{oreDuplicate::name}%":
-			if {killSwitch::oreDuplicate} is true:
-				killSwitchMsg(player)
-				stop
-			purchaseCustomEnchant(player, "oreDuplicate")
-		else if {_item} contains uncolored "%{luckyMiner::name}%":
-			if {killSwitch::luckyMiner} is true:
-				killSwitchMsg(player)
-				stop
-			purchaseCustomEnchant(player, "luckyMiner")
-		else if {_item} contains uncolored "%{lootBoxCollector::name}%":
-			if {killSwitch::lootBoxCollector} is true:
-				killSwitchMsg(player)
-				stop
-			purchaseCustomEnchant(player, "lootBoxCollector")
-		else if {_item} contains uncolored "%{hungryMiner::name}%":
-			if {killSwitch::hungryMiner} is true:
-				killSwitchMsg(player)
-				stop
-			purchaseCustomEnchant(player, "hungryMiner")
-		else if {_item} contains uncolored "%{fireball::name}%":
-			if {killSwitch::fireball} is true:
-				killSwitchMsg(player)
-				stop
-			purchaseCustomEnchant(player, "fireball")
+			if {_ID} is set:
+				sendStats(player, ({_ID} parsed as an integer))
+		
+		if {_name} contains "Main Menu":
+			cancel event
+			if {_item} contains uncolored "Settings":
+				make player execute command "/settings"
+			else if {_item} contains uncolored "Start Run":
+				make player execute command "/start"
+				close the inventory of the player
+			else if {_item} contains uncolored "Enchants":
+				make player execute command "/enchants"
+			else if {_item} contains uncolored "Previous Runs":
+				make player execute command "/runs"
+			else if {_item} contains uncolored "Booster Cards":
+				make player execute command "/booster"
+			else if {_item} contains uncolored "Enchants":
+				make player execute command "/enchants"
+			else if {_item} contains uncolored "Leaderboard":
+				make player execute command "/leaderboard"
+		
+		if {_name} contains "Custom Enchantments":
+			cancel event
 
-
-		# Swords
-		else if {_item} contains uncolored "Stone Sword":
-			purchaseWeapon(player, "stone sword")
-		else if {_item} contains uncolored "Iron Sword":
-			purchaseWeapon(player, "iron sword")
-		else if {_item} contains uncolored "Diamond Sword":
-			purchaseWeapon(player, "diamond sword")
-		else if {_item} contains uncolored "Netherite Sword":
-			purchaseWeapon(player, "netherite sword")
-
-		# Armor
-		else if {_item} contains uncolored "Leather Armor":
-			purchaseArmor(player, "leather armor")
-		else if {_item} contains uncolored "Iron Armor":
-			purchaseArmor(player, "iron armor")
-		else if {_item} contains uncolored "Diamond Armor":
-			purchaseArmor(player, "diamond armor")
-
-		openUpgradeShop(player)
-		cancel event
-
-	if {_name} contains "Utility Shop":
-		# General items
-		if {_item} is "Steak":
-			purchaseItem(player, "cooked beef", 16)
-		else if {_item} is "Ladder":
-			purchaseItem(player, "ladder", 16)
-		else if {_item} is "Wind charges":
-			purchaseItem(player, "wind charge", 8)
-		else if {_item} is "Andesite":
-			purchaseItem(player, "andesite", 64)
-		else if {_item} is "Torches":
-			purchaseItem(player, "torch", 32)
-		else if {_item} is "Water Bucket":
-			purchaseItem(player, "water bucket", 1)
-		else if {_item} is "Scaffolding":
-			purchaseItem(player, "scaffolding", 32)
-		else if {_item} is "Tnt":
-			purchaseItem(player, "tnt", 8)
-		else if {_item} is "Shield":
-			purchaseItem(player, "shield", 1)
-
-		# Custom Items
-		else if {_item} is "Golden Head":
-			if {killSwitch::ghead} is true:
-				killSwitchMsg(player)
-				stop
-			purchaseCustomItem(player, stone, "ghead")
-		else if {_item} is "Grappling Hook":
-			if {killSwitch::ghook} is true:
-				killSwitchMsg(player)
-				stop
-			purchaseCustomItem(player, fishing rod, "grappling hook")
-
-		openUtilityShop(player)
-		cancel event
-
-    # ------------------------------------------------------ 
-    #          STATS/LEADERBOARD   - OLD CODE REWORK LATER
-    # ------------------------------------------------------
-	if {_name} contains "Games Played":
-		cancel event
-		set {_ID} to display name of event-item
-		if event-item is tipped arrow of luck:
-			set {_page::*} to uncolored name of event-item split at " "
-			set {_page} to ({_page::2} parsed as an integer) - 1 # -1 for offset
-			openGamesMenu(player, {_page})
-			stop
-		if {_ID} is set:
-			sendStats(player, ({_ID} parsed as an integer))
-	
-	if {_name} contains "Main Menu":
-		cancel event
-		if {_item} contains uncolored "Settings":
-			make player execute command "/settings"
-		else if {_item} contains uncolored "Start Run":
-			make player execute command "/start"
-			close the inventory of the player
-		else if {_item} contains uncolored "Enchants":
-			make player execute command "/enchants"
-		else if {_item} contains uncolored "Previous Runs":
-			make player execute command "/runs"
-		else if {_item} contains uncolored "Booster Cards":
-			make player execute command "/booster"
-		else if {_item} contains uncolored "Enchants":
-			make player execute command "/enchants"
-		else if {_item} contains uncolored "Leaderboard":
-			make player execute command "/leaderboard"
-	
-	if {_name} contains "Custom Enchantments":
-		cancel event
-
-	if {_name} contains "Leaderboard":
-		cancel event
-		if event-item is tipped arrow of luck:
-			set {_page::*} to uncolored name of event-item split at " "
-			set {_page} to ({_page::2} parsed as an integer) - 1 # -1 for offset
-			openLeaderboard(player, {_page})
+		if {_name} contains "Leaderboard":
+			cancel event
+			if event-item is tipped arrow of luck:
+				set {_page::*} to uncolored name of event-item split at " "
+				set {_page} to ({_page::2} parsed as an integer) - 1 # -1 for offset
+				openLeaderboard(player, {_page})
