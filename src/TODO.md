@@ -12,6 +12,8 @@
 - [x] Music disc audio becomes distorted the farther players are from 0,0. only generate valid spawns within 2mx2m
 - [ ] custom music https://www.reddit.com/r/C418/comments/1342bkf/is_there_a_way_to_add_some_more_tracks_to_the/
 - [ ] dialogs https://skripthub.net/docs/?id=14436
+- [ ] manaquins at spawn displaying the top 3 players on the leaderboard
+- [ ] Custom caverns or structures can be located by purchasing a compass?
 
 # 7/3/2026 - Playtest num 2
 - [x] lootboxes should obvously give different amounts
