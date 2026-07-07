@@ -1,5 +1,5 @@
 # i - The amount of worlds to be generated
-function generateWorlds(i: integer, debug: boolean = false) :: boolean:
+function generateWorlds(i: integer, debug: boolean = false, dev: boolean = false) :: boolean:
 	set {generatingWorlds} to true
 	set {_overallTime} to now
 	loop {_i} times:
@@ -36,6 +36,25 @@ command /tpworld [<integer>]:
 	permission: op
 	trigger:
 		teleport player to location(0,100,0, world("run_%arg-1%_overworld"))
+
+
+command /generatedevworld:
+	permission: op
+	trigger:
+		# Deleting world file is an error in SkBee a issue has been created fix when it is patched
+		#if world file "dev_overworld" exists:
+		#	delete world file for with key "dev:overworld"
+		wait 1 tick
+		set {_w} to a new world creator with key "dev:overworld"
+		set environment of {_w} to overworld
+		load world from creator {_w}
+
+		set {_world} to world "dev_overworld"
+		setGamerules({_world})
+
+		async load chunks within location(500, 0, 500, {_world}) and location(-500, 0, -500, {_world})
+
+		send "Dev world has been created" to player
 
 # Finds the next avalible world
 function findWorld() :: location:
