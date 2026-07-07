@@ -105,3 +105,10 @@ command /togglefastboard:
 	permission: op
 	trigger:
 		toggle player's fastboard
+
+
+command /givepoints [<integer>]:
+	permission: op
+	trigger:
+		add arg-1 to {currentGameStats::%player%::points::points}
+		updatePointsBar(player)
