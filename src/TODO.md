@@ -27,11 +27,11 @@
     - https://skripthub.net/docs/?id=11634 
 - [ ] more death messages https://skripthub.net/docs/?id=10573
 - [ ] add fire protection
-- [ ] fix monster spawner not rewarding points
-- [ ] upgrading to netherite possibly removes all pickaxe efficieny enchants
-- [ ] allow players to move items around in their inventory
-- [ ] allow droping items unless it is armor, pickaxe, or the menu item
-- [ ] allow players to move around items in their inventorys when in the shop. Addtionally add a safeguard when players move said items so they do not charge themselves or buy things on accident
+- [x] fix monster spawner not rewarding points
+- [x] upgrading to netherite possibly removes all pickaxe efficieny enchants
+- [x] allow players to move items around in their inventory
+- [x] allow droping items unless it is armor, pickaxe, or the menu item
+- [x] allow players to move around items in their inventorys when in the shop. Addtionally add a safeguard when players move said items so they do not charge themselves or buy things on accident
 
 
 # 6/22/2026 - playtest num 1
