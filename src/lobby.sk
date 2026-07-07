@@ -27,34 +27,15 @@ command /menu:
 
 		unload yaml "stats"
 
-function generateBorder(p: player, r: integer):
-	wait 1 second
-	set {_location} to location of {_p}
-	set worldborder of {_p} to a virtual worldborder:
-		set worldborder radius to {_r}
-		set world border center of event-worldborder to {_location}
-
-function removeBorder(p: player):
-	reset worldborder of {_p}
-
-function generateSpawnBorder(p: player):
-	set worldborder of {_p} to a virtual worldborder:
-		set worldborder radius to 50
-		set world border center of event-worldborder to {lobbySpawnLoc}
-
-command /removeborder:
-	permission: mineRush.admin
-	trigger:
-		removeBorder(player)
 
 command /setspawn:
 	permission: mineRush.admin
 	trigger:
 		set {lobbySpawnLoc} to location of player
-
-on rightclick on cake:
-	feed player
-	cancel event
+		set worldborder of world "world" to a worldborder:
+			set worldborder radius of event-worldborder to 100
+			set worldborder center of event-worldborder to {lobbySpawnLoc}
+			set worldborder warning distance of event-worldborder to 0
 
 command /buildmode [<player>]:
 	permission: mineRush.admin
@@ -98,10 +79,5 @@ command /enchants:
 
 function setSpawnTab(p: player):
 	load yaml "mineRushData/playerData/%{_p}'s uuid%/stats.yaml" as "stats"
-	set {_p}'s tab list name to "%{_p}'s name% %{color::death}%☠ %yaml value "misc.deaths" from "stats"% %{color::points}%$%shortNum(yaml value "points.totalpoints" from "stats")%"
+	set {_p}'s tab list name to "%{_p}'s name% %{color::death}%☠ %yaml value "misc.deaths" from "stats" ? 0% %{color::points} ? 0%$%shortNum(yaml value "points.totalpoints" from "stats")%"
 	unload yaml "stats"
-
-command /spawnBorder:
-	permission: op
-	trigger:
-		generateSpawnBorder(player)

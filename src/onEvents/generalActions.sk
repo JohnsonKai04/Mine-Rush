@@ -76,7 +76,6 @@ on player move:
 on respawn:
 	teleport player to {lobbySpawnLoc}
 	wait 1 tick
-	generateSpawnBorder(player)
 
 
 function returnDepthColor(y: number) :: text:

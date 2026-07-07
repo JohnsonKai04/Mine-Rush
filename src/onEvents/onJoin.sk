@@ -3,17 +3,14 @@ on first join:
 	set gamemode of player to adventure
 	setDefaultSettings(player)
 	giveMenuItem(player)
-	generateSpawnBorder(player)
 	send returnTutorialMsg() to player
 
 on join:
-	setSpawnTab(player)
 	if {killSwitch::join} is true:
 		if player does not have permission "mineRush.admin":
 			kick the player due to "Server is currently under maintenance please try again later :3"
 			exit
-
-	wait 1 tick
+	setSpawnTab(player)
 	load yaml "mineRushData/playerData/%player's uuid%/settings.yaml" as "%player's uuid%.settings"
 	if {inGame::%player%} is true:
 		if {debugMode::%player%} is not set:
@@ -24,5 +21,4 @@ on join:
 
 	if {inGame::%player%} is not true:
 		wait 1 tick
-		generateSpawnBorder(player)
 		make player invulnerable

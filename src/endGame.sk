@@ -70,7 +70,6 @@ function endGame(p: player) :: boolean:
 	set {validSpawn::active::%{spawnLocation::%{_p}%}%} to false
 	deletePlayerVariables({_p})
 	set slot 4 of {_p} to nether star named {customItem::menu::name} with lore {customItem::menu::lore}
-	generateBorder({_p}, 50)
 	clear fastboard of {_p}
 	set {_p}'s tab list name to "%{_p}'s name%"
 	make {_p} invulnerable
