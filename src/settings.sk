@@ -8,7 +8,6 @@ command /settings:
 
 		
 function setDefaultSettings(p: player):
-	load yaml "mineRushData/playerData/%{_p}'s uuid%/settings.yaml" as "%{_p}'s uuid%.settings"
 	writeSetting({_p}, "volume", 0.5, false)
 	writeSetting({_p}, "chatEnchantNotif", 1, false)
 	writeSetting({_p}, "audioEnchantNotif", 1, false)
