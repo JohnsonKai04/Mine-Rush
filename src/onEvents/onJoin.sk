@@ -8,19 +8,20 @@ on first join:
 
 on join:
 	setSpawnTab(player)
-	load yaml "mineRushData/playerData/%{_p}'s uuid%/settings.yaml" as "%{_p}'s uuid%.settings"
 	if {killSwitch::join} is true:
 		if player does not have permission "mineRush.admin":
 			kick the player due to "Server is currently under maintenance please try again later :3"
 			exit
 
-	if {disconnectTimer::%player%} is set:
-		if difference between now and {disconnectTimer::%player%} is more than {disconnectTime}:
-			send "<b><gradient:#F10C31:#8F1D26>You were disconnected for more than %{disconnectTime}% causing the run to explode!</gradient></b>" to player
+	wait 1 tick
+	load yaml "mineRushData/playerData/%player's uuid%/settings.yaml" as "%player's uuid%.settings"
+	if {inGame::%player%} is true:
+		if {debugMode::%player%} is not set:
+			send "<b><gradient:#F10C31:#8F1D26>You disconnected causing the run to explode!</gradient></b>" to player
 			wait 2 seconds
 			kill player
-		delete {disconnectTimer::%player%}
-		exit
+			exit
+
 	if {inGame::%player%} is not true:
 		wait 1 tick
 		generateSpawnBorder(player)
