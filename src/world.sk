@@ -1,10 +1,11 @@
 # i - The amount of worlds to be generated
 function generateWorlds(i: integer, debug: boolean = false) :: boolean:
-	add 1 to {worldIDPointer}
 	set {generatingWorlds} to true
-	set {_ID} to {worldIDPointer}
 	set {_overallTime} to now
 	loop {_i} times:
+		add 1 to {worldIDPointer}
+		set {_ID} to {worldIDPointer}
+
 		# Generates new world
 		set {_w} to a new world creator with key "run_%{_ID}%:overworld"
 		set environment of {_w} to overworld
