@@ -51,7 +51,7 @@ command /start:
 
 		# Teleports player to world
 		if {debugMode::%player%} is true:
-			set {_world} to location(0,150,0, world("dev_overworld"))
+			set {_world} to location(0,{spawningHeight},0, world("dev_overworld"))
 			givePoints(player, 25000000)
 		else:
 			set {_world} to findWorld()
@@ -101,10 +101,6 @@ command /start:
 		# Starts the difficulty timer (see difficulties.sk)
 		difficultyBegin(player)
 
-		set {setting::%player%::visualBlock} to returnSetting(player, "visualBlock")
-		set {setting::%player%::audioBlock} to returnSetting(player, "audioBlock")
-
-
 		wait 3 seconds
 		loopMusic(player)
 
@@ -118,9 +114,3 @@ command /clearcooldown [<player>]:
 	permission: op
 	trigger:
 		delete {startCooldown::%arg-1%}
-
-
-function setSettings(p: player):
-	set {setting::%{_p}%::visualBlock} to returnSetting({_p}, "visualBlock")
-	set {setting::%{_p}%::audioBlock} to returnSetting({_p}, "audioBlock")
-	set {setting::%{_p}%::volume} to returnSetting({_p}, "volume")
