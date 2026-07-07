@@ -17,14 +17,19 @@
 - [x] damage on mobs is broken
 - [x] extracting doesnt give points back + gamemode doesnt change back to adventure
 - [ ] spectact player see what they see
-- [ ] create worlds on another server then transfer them to the main server. figure out how to tp players between worlds.
+- [x] create worlds on another server then transfer them to the main server. figure out how to tp players between worlds.
     -  Skbee contains a world generation feature which utilizes dimensions. When the server is empty or when daily restarts happen generate X amount of worlds. if the server reaches a threshhold new worlds will be generated followed by lag which will need to be told to the player
     -  Allow players to enter the nether. when entering the portal they will be teleported to a brand new nether which will have difficult mobs but higher value ores.
     - Account for game rules within the world as they may be per dimension 
     - Teleport the player to 0,100,0
     - https://skripthub.net/docs/?id=11634 
 - [ ] more death messages https://skripthub.net/docs/?id=10573
-- [ ] 
+- [ ] add fire protection
+- [ ] fix monster spawner not rewarding points
+- [ ] upgrading to netherite possibly removes all pickaxe efficieny enchants
+- [ ] allow players to move items around in their inventory
+- [ ] allow droping items unless it is armor, pickaxe, or the menu item
+- [ ] custom music https://www.reddit.com/r/C418/comments/1342bkf/is_there_a_way_to_add_some_more_tracks_to_the/
 
 # 6/22/2026 - playtest num 1
 - [x] previous runs duration still invalid
