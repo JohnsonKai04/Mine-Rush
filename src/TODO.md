@@ -7,7 +7,7 @@
 - [ ] make extract point spawn mobs around the player before sending them home
 - [ ] selectable difficulties
 - [ ] add expensive feather falling - Possibly wont add to increase risk factor
-- [ ] make finding caves easier - Maps must be opened by the player
+- [x] make finding caves easier - Maps must be opened by the player - For now this is 
 - [ ] add support for trial chamber
 - [x] Music disc audio becomes distorted the farther players are from 0,0. only generate valid spawns within 2mx2m
 - [ ] custom music https://www.reddit.com/r/C418/comments/1342bkf/is_there_a_way_to_add_some_more_tracks_to_the/
