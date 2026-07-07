@@ -110,5 +110,8 @@ command /togglefastboard:
 command /givepoints [<integer>]:
 	permission: op
 	trigger:
-		add arg-1 to {currentGameStats::%player%::points::points}
-		updatePointsBar(player)
+		givePoints(player, arg-1)
+
+function givePoints(p: player, points: integer):
+	add {_points} to {currentGameStats::%{_p}%::points::points}
+	updatePointsBar({_p})
