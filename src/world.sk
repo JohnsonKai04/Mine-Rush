@@ -84,8 +84,8 @@ every 5 minutes:
 		exit
 	if size of {worldArray::*} is less than 20:
 		if {worldGen} is true:
-			send "There are currently only %size of {worldArray::*} ? 0% Worlds avalible Generating %50 - size of {worldArray::*}% new ones" to console
+			send "[MineRush Warning] There are currently only %size of {worldArray::*} ? 0% Worlds avalible. Generating %50 - size of {worldArray::*}% new ones" to console
 			set {_i} to 50 - size of {worldArray::*}
 			generateWorlds({_i}, false)
 		else:
-			send "Please enable world generation using /enableWorldGen" to console
+			send "[MineRush Error] Please enable world generation using /enableWorldGen" to console
