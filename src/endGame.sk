@@ -91,7 +91,6 @@ function deletePlayerVariables(p: player):
 	delete {enchantCostMultiplier::%{_p}%::*}
 	delete {secondLifeUsed::%{_p}%}
 	delete {spawnLocation::%{_p}%}
-	delete {setting::%{_p}%::*}
 
 
 command /resetfastboard:

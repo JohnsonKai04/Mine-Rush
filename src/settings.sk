@@ -55,11 +55,15 @@ function playSound(p: player, sound: text, lowP: number, highP: number):
 
 	
 function returnSetting(p: player, setting: text) :: number:
-	return yaml value "%{_setting}%" from "%{_p}'s uuid%.settings"
+	#return yaml value "%{_setting}%" from "%{_p}'s uuid%.settings"
+	if {setting::%{_p}%::%{_setting}%} is not set:
+		set {setting::%{_p}%::%{_setting}%} to yaml value "%{_setting}%" from "%{_p}'s uuid%.settings"
+	return {setting::%{_p}%::%{_setting}%}
 
 
 function writeSetting(p: player, setting: text, value: number, save: boolean = true):
 	set yaml value "%{_setting}%" from "%{_p}'s uuid%.settings" to {_value}
+	set {setting::%{_p}%::%{_setting}%} to {_value}
 	if {_save} is true:
 		save yaml "%{_p}'s uuid%.settings"
 

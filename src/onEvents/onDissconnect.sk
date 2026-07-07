@@ -1,2 +1,3 @@
 on disconnect:
-	unload yaml "%{_p}'s uuid%.settings"
+	unload yaml "%player's uuid%.settings"
+	delete {setting::%player%::*}
