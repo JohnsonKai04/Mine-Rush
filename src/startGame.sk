@@ -50,13 +50,17 @@ command /start:
 			hide icon
 
 		# Teleports player to world
-		set {_world} to findWorld()
-		if {_world} is not set:
-			send "%{color::error}%[ERROR] There are no generated worlds avalible to play on please notify NotAWatermelon as this is a bug" to player
-			send "%{color::error}%[ERROR] %player% Tried to start a run but there were no avalible worlds" to console
-			delete {inGame::%player%}
-			stop
-		
+		if {debugMode::%player%} is true:
+			set {_world} to location(0,150,0, world("dev_overworld"))
+			givePoints(player, 25000000)
+		else:
+			set {_world} to findWorld()
+			if {_world} is not set:
+				send "%{color::error}%[ERROR] There are no generated worlds avalible to play on please notify NotAWatermelon as this is a bug" to player
+				send "%{color::error}%[ERROR] %player% Tried to start a run but there were no avalible worlds" to console
+				delete {inGame::%player%}
+				stop
+			
 		teleport player to {_world}
 		wait 1 tick
 
@@ -87,8 +91,6 @@ command /start:
 		set {pointBar::progress::%player%} to 0
 		set {points::%player%} to 0
 		add player to {pointBar::%player%}
-		if {debugMode::%player%} is true:
-			set {points::%player%} to 24000000
 		updatePointsBar(player)
 
 		# Stats
