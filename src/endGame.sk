@@ -49,13 +49,11 @@ function showDeathScreen(p: player):
 
 
 function deathMsg(p: player, k: text) :: text:
-	set {_val} to a random integer between 1 and (size of {deathMsg::*})
-	set {_msg} to {deathMsg::%{_val}%}
+	set {_msg} to a random element in {deathMsg::*}
 	replace all "[player]" with "%{_p}%" in {_msg}
-	replace all "[points]" with "%{currentGameStats::%{_p}%::points::points}%" in {_msg}
+	replace all "[points]" with "%{currentGameStats::%{_p}%::points::points} ? 0%" in {_msg}
 	replace all "[killer]" with "%{_k}%" in {_msg}
 	replace all "[ranItem]" with "%random element of all available itemTypes%" in {_msg}
-	replace all "[ranBlock]" with "%random element of all available itemTypes%" in {_msg}
 	return "%{color::death}%☠ " + {_msg}
 
 

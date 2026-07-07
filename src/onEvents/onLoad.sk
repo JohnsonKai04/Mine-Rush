@@ -44,6 +44,7 @@ on load:
 	# [player] - the player who Died
 	# [killer] - the entity that killed the player
 	# [points] - amount of points the player has
+	delete {deathMsg::*}
 	set {deathMsg::1} to "[player] Should play roblox instead"
 	set {deathMsg::2} to "[player] Died from the grind"
 	set {deathMsg::3} to "[player] Got a job"
@@ -54,6 +55,7 @@ on load:
 	set {deathMsg::8} to "[player] was slain by a tropical fish"
 	set {deathMsg::9} to "[player] was slain by a villager"
 	set {deathMsg::10} to "[player] passed out while trying to mine %a random element out of {ores::*}%"
+	set {deathMsg::11} to "[player] died from falling on [ranItem]"
 
 	set {ores::*} to "coal ore"
 	add "deepslate coal ore" to {ores::*}
