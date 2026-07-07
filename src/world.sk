@@ -37,13 +37,15 @@ command /tpworld [<integer>]:
 	trigger:
 		teleport player to location(0,100,0, world("run_%arg-1%_overworld"))
 
-
 command /generatedevworld:
 	permission: op
 	trigger:
 		# Deleting world file is an error in SkBee a issue has been created fix when it is patched
-		#if world file "dev_overworld" exists:
-		#	delete world file for with key "dev:overworld"
+		if world "dev_overworld" exists:
+			send "meow Ts exists" to player
+			unload world "dev_overworld"
+			wait 1 tick
+			delete world file for world with key mc key from "dev:overworld"
 		wait 1 tick
 		set {_w} to a new world creator with key "dev:overworld"
 		set environment of {_w} to overworld
