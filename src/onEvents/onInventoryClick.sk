@@ -40,6 +40,7 @@ on inventory click:
 				writeSetting(player, "lootboxAnimation", swapBooleanNum(returnSetting(player, "lootboxAnimation")))
 
 			else if {_item} is "Starting music":
+				stop all sounds in the jukebox category for player
 				writeSetting(player, "startingMusic", swapBooleanNum(returnSetting(player, "startingMusic")))
 
 			else if {_item} is "Visual block floating effect":
