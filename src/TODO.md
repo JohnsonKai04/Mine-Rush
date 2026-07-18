@@ -27,7 +27,7 @@
     - Account for game rules within the world as they may be per dimension 
     - Teleport the player to 0,100,0
     - https://skripthub.net/docs/?id=11634 
-- [ ] more death messages https://skripthub.net/docs/?id=10573
+- [x] more death messages https://skripthub.net/docs/?id=10573
 - [ ] add fire protection
 - [x] fix monster spawner not rewarding points
 - [x] upgrading to netherite possibly removes all pickaxe efficieny enchants
