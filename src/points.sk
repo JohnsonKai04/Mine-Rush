@@ -5,7 +5,6 @@ on break:
 		
 function addPoints(p: player, block: block) :: number:
 	set {_blockType} to "%type of {_block}%"
-	send {_blockType} to {_p}
 	if {ores::*} contains {_blockType}:
 		set {_isOre} to true
 	if {_isOre} is true:
