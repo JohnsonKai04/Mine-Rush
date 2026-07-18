@@ -52,14 +52,18 @@ command /start:
 		# Teleports player to world
 		if {debugMode::%player%} is true:
 			set {_world} to location(0,{spawningHeight},0, world("dev_overworld"))
+			send "Sending to dev world" to player
 			givePoints(player, 25000000)
 		else:
-			set {_world} to findWorld()
+			if {worldIDPointer} is not set:
+				set {worldIDPointer} to 1
+			set {_world} to retRunLoc({worldIDPointer})
 			if {_world} is not set:
 				send "%{color::error}%[ERROR] There are no generated worlds avalible to play on please notify NotAWatermelon as this is a bug" to player
 				send "%{color::error}%[ERROR] %player% Tried to start a run but there were no avalible worlds" to console
 				delete {inGame::%player%}
 				stop
+			add 1 to {worldIDPointer}
 			
 		teleport player to {_world}
 		wait 1 tick
@@ -89,15 +93,13 @@ command /start:
 		set {pointBar::%player%} to boss bar with title " " with color green with progress 0
 		set bar style of {pointBar::%player%} to solid_bar
 		set {pointBar::progress::%player%} to 0
-		set {points::%player%} to 0
 		add player to {pointBar::%player%}
 		updatePointsBar(player)
 
 		# Stats
 		set {currentGameStats::%player%::misc::duration} to now
-		set {currentGameStats::%player%::points::points} to 0
 		set {currentGameStats::%player%::misc::worldID} to returnWorldID(player)
-
+		givePoints(player, 0)
 		# Starts the difficulty timer (see difficulties.sk)
 		difficultyBegin(player)
 
@@ -114,3 +116,8 @@ command /clearcooldown [<player>]:
 	permission: op
 	trigger:
 		delete {startCooldown::%arg-1%}
+
+command /test:
+	trigger:
+		delete {worldIDPointer}
+		send {worldIDPointer} to player

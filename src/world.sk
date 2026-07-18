@@ -1,41 +1,3 @@
-# i - The amount of worlds to be generated
-function generateWorlds(i: integer, debug: boolean = false, dev: boolean = false) :: boolean:
-	set {generatingWorlds} to true
-	set {_overallTime} to now
-	loop {_i} times:
-		add 1 to {worldIDPointer}
-		set {_ID} to {worldIDPointer}
-
-		# Generates new world
-		set {_w} to a new world creator with key "run_%{_ID}%:overworld"
-		set environment of {_w} to overworld
-		load world from creator {_w}
-
-		set {_world} to world "run_%{_ID}%_overworld"
-		setGamerules({_world})
-		set {_timer} to now
-
-		async load chunks within location(1000, 0, 1000, {_world}) and location(-1000, 0, -1000, {_world})
-		add {_ID} to {worldarray::*}
-		if {_debug} is true:
-			add 1 to {_worldcount}
-			broadcast "(%{_worldcount}%/%{_i}%) This generation took: %difference between now and {_timer}% "
-
-	if {_debug} is true:
-		broadcast "<color:green>All %{_i}% spawn points have been generated with a time of %difference between now and {_overallTime}%"
-	set {generatingWorlds} to false
-
-
-command /generateWorlds [<integer>]:
-	permission: op
-	trigger:
-		loop 8 times:
-			generateWorlds(arg-1, true)
-			wait 1 second
-# 8 = 7.4 min
-# 5 = 7 min
-# 1 = 13 min
-
 command /tpworld [<integer>]:
 	permission: op
 	trigger:
@@ -45,11 +7,6 @@ command /generatedevworld:
 	permission: op
 	trigger:
 		set {_timer} to now
-		if world "dev_overworld" exists:
-			send "meow Ts exists" to player
-			unload world "dev_overworld"
-			wait 1 tick
-			delete world file for world with key mc key from "dev:overworld"
 		wait 1 tick
 		set {_w} to a new world creator with key "dev:overworld"
 		set environment of {_w} to overworld
@@ -63,11 +20,17 @@ command /generatedevworld:
 		send "Dev world has been created this took %difference between now and {_timer}%" to player
 
 # Finds the next avalible world
-function findWorld() :: location:
-	loop {worldArray::*}:
-		delete {worldArray::%loop-index%}
-		return location(0,100,0, world("run_%loop-value%_overworld"))
+function setWorldPointer() :: integer:
+	while {_unset} is not set:
+		add 1 to {_count}
+		if ("run_%{_count}%_overworld" parsed as world) is set:
+			set {worldIDPointer} to {_count}
+			return {worldIDPointer}
+		wait 1 tick
 
+
+function retRunLoc(ID: integer) :: location:
+	return location(0,100,0, world("run_%{_ID}%_overworld"))
 
 
 function returnWorldID(p: player) :: integer:
@@ -95,22 +58,7 @@ function setGamerules(world: world):
 	set gamerule minecraft:spawn_wandering_traders of {_world} to false
 
 
-command /enableWorldGen:
-	permission: op
+command /addWorld [<integer>]:
+	permission: console
 	trigger:
-		if {worldGen} is not true:
-			set {worldGen} to true
-		else:
-			set {worldGen} to false
-
-
-every 5 minutes:
-	if {generatingWorlds} is true:
-		exit
-	if size of {worldArray::*} is less than 20:
-		if {worldGen} is true:
-			send "[MineRush Warning] There are currently only %size of {worldArray::*} ? 0% Worlds avalible. Generating %50 - size of {worldArray::*}% new ones" to console
-			set {_i} to 50 - size of {worldArray::*}
-			generateWorlds({_i}, false)
-		else:
-			send "[MineRush Error] Please enable world generation using /enableWorldGen" to console
+		add arg-1 to {worldArray::*}

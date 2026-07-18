@@ -123,6 +123,7 @@ on load:
 	set {mobSpawnMaxHeight} to 10 # Mobs spawned x blocks above the player will despawn
 	set {difficultyMultiplier} to 1.25
 	set {tipPrefix} to "<gradient:#3ECC8D:#34BF4E><b>[Tips] </b>"
+	set {maxWorlds} to 50
 
 
 	# Enchants
