@@ -1,6 +1,7 @@
 command /tpworld [<integer>]:
 	permission: op
 	trigger:
+		loadRun(arg-1)
 		teleport player to location(0,100,0, world("run_%arg-1%_overworld"))
 
 command /generatedevworld:
@@ -19,19 +20,17 @@ command /generatedevworld:
 
 		send "Dev world has been created this took %difference between now and {_timer}%" to player
 
-# Finds the next avalible world
-function setWorldPointer() :: integer:
-	while {_unset} is not set:
-		add 1 to {_count}
-		if ("run_%{_count}%_overworld" parsed as world) is set:
-			set {worldIDPointer} to {_count}
-			return {worldIDPointer}
-		wait 1 tick
-
 
 function retRunLoc(ID: integer) :: location:
 	return location(0,100,0, world("run_%{_ID}%_overworld"))
 
+function loadRun(ID: integer):
+	if {_ID} is -1:
+		load world "dev_overworld"
+		setGamerules(world "dev_overworld")
+	else:
+		load world "run_%{_ID}%_overworld"
+		setGamerules(world "run_%{_ID}%_overworld")
 
 function returnWorldID(p: player) :: integer:
 	set {_parts::*} to "%name of (world of {_p})%" split at "_"
@@ -58,7 +57,49 @@ function setGamerules(world: world):
 	set gamerule minecraft:spawn_wandering_traders of {_world} to false
 
 
-command /addWorld [<integer>]:
+command /updateworldarray [<integer>] [<integer>]:
 	permission: console
 	trigger:
-		add arg-1 to {worldArray::*}
+		set {worldArray::%arg-1%} to false
+		set {genServerWorldAmount} to arg-2
+
+
+function deleteRun(ID: integer):
+	if {keepRuns} is not true:
+		wait 30 seconds
+		unload world "run_%{_ID}%_overworld"
+		send "%{msg::info}% Unloaded run %{_ID}%" to console
+		wait 5 seconds
+		load yaml "flags/%{_ID}%.flag" as "flag"
+		unload yaml "flag"
+		send "%{msg::info}% Deleted run %{_ID}%" to console
+
+function retNextRunID() :: integer:
+	loop {worldArray::*}:
+		return loop-value
+
+command /wipeworlds:
+	trigger:
+		delete {worldArray::*}
+		delete {genServerWorldAmount}
+
+# command /test:
+# 	trigger:
+# 		delete {worldArray::*}
+# 		set {_id} to 9
+# 		while {_apple} is not set:
+# 			if {_id} is 60:
+# 				stop
+# 			set {worldArray::%{_id}%} to false
+# 			add 1 to {_id}
+
+command /listworlds:
+	permission: op
+	trigger:
+		send "There are %size of {worldArray::*}%/%{maxWorlds}% world's. Currently there are %{genServerWorldAmount}% worlds on the gen server" to player
+		loop {worldArray::*}:
+			send "%loop-index% %loop-value%" to player
+
+command /test:
+	trigger:
+		delete {inGame::*}

@@ -2,6 +2,7 @@ on death of player:
 	if {inGame::%victim%} is true:
 		cancel event
 		if secondLife(victim) is false:
+			deleteRun(returnWorldID(victim))
 			set victim's gamemode to spectator
 			clear victim's inventory
 			showDeathScreen(victim)
@@ -18,6 +19,7 @@ on death of player:
 # after 6 seconds endGame() runs
 on right click on beacon:
 	if {inGame::%player%} is true:
+		deleteRun(returnWorldID(player))
 		set {currentGameStats::%player%::misc::extracted} to true
 		delete {inGame::%player%}
 		cancel event
