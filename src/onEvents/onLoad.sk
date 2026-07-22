@@ -10,6 +10,8 @@ on load:
 	# Tutorial message:
 	set {tutorialMsg} to formatted "|Begin a run by using the menu item|Once a run has started mine ores to gain points|Use points in the shop to assist your run|Every %{defaultSpeed}% minutes the difficulty will increase making the run harder|You'll find larger ore veins but more difficult enemies the deeper you go|Reach the extract point to get back all the points you've spent|Try to be #1 on the leaderboard|Good Luck"
 	# Color codes will only be stored in variables to make editing easier. After beta this can be removed to conserve memory if needed
+	
+	delete {color::*}
 	set {color::desc} to "<!i><color:#5FE2C5>"
 	set {color::error} to "<gradient:#F10C31:#8F1D26>"
 	set {color::points} to "<color:#00FF3B>"
@@ -22,7 +24,13 @@ on load:
 	set {color::inventoryName} to "<aqua><b>"
 	set {color::item} to "<b><color:#4ED95D>"
 
+	delete {msg::*}
+	set {msg::error} to "<color:red>[Error] "
+	set {msg::warning} to "<color:gold>[Warning]</color> "
+	set {msg::info} to "<color:green>[Info]</color> "
+
 	# Death splash screen
+	delete {deathTitle::*}
 	set {deathTitle::1} to "[RIP]"
 	set {deathTitle::2} to "[DEAD]"
 	set {deathTitle::3} to "[DEAD] lol"
@@ -57,7 +65,8 @@ on load:
 	set {deathMsg::10} to "[player] passed out while trying to mine %a random element out of {ores::*}%"
 	set {deathMsg::11} to "[player] died from falling on [ranItem]"
 
-	set {ores::*} to "coal ore"
+	delete {ores::*}
+	add "coal ore" to {ores::*}
 	add "deepslate coal ore" to {ores::*}
 	add "copper ore" to {ores::*}
 	add "deepslate copper ore" to {ores::*}
