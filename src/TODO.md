@@ -35,6 +35,8 @@
 - [x] allow droping items unless it is armor, pickaxe, or the menu item
 - [x] allow players to move around items in their inventorys when in the shop. Addtionally add a safeguard when players move said items so they do not charge themselves or buy things on accident
 
+- [x] Load world when players are not on
+    - Worlds that have been previously loaded onto the server dont lag when they get loaded back up
 
 # 6/22/2026 - playtest num 1
 - [x] previous runs duration still invalid
