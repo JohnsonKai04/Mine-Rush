@@ -5,37 +5,58 @@ command /start:
 	cooldown message: %{color::error}% You recently started up a game please wait %remaining time% to begin another run.
 	cooldown bypass: mineRush.admin
 	trigger:
+		# Validation checks --------------------------------------------------------------------------------------
 		if {killSwitch::start} is true:
 			killSwitchMsg(player)
 			delete {startCooldown::%player%}
 			stop
-
+		
 		if {inGame::%player%} is true:
 			send "%{color::error}%Game already started use /stopGame" to player
 			playErrorSound(player)
 			stop
 
-		# Player is now considered "inGame"	
+		# Sets the world and the ID --------------------------------------------------------------------------------------
+		if {debugMode::%player%} is true:
+			set {_ID} to -1
+			set {_world} to location(0,{spawningHeight},0, world("dev_overworld"))
+			send "Sending to dev world" to player
+		else:
+			set {_ID} to retNextRunID()
+			if {_ID} is not set:
+				send "%{msg::error}% There are no generated worlds avalible to play on please notify NotAWatermelon as this is a bug" to player
+				send "%{msg::error}% %player% Tried to start a run but there were no avalible worlds" to console
+				stop
+			delete {worldArray::%{_ID}%}
+
+
+		# All checks have passed and the player is considered in game
 		set {inGame::%player%} to true 
 
+		# Begins teleporting the player --------------------------------------------------------------------------------------
 		send title "<b><color:#00FF3B>Starting in 5...</color></b>" to player
 		playDing(player)
 		wait 1 second
+
 		send title "<b><color:#E7FF00>Starting in 4...</color></b>" to player
 		playDing(player)
 		wait 1 second
+
 		send title "<b><color:#FFC400>Starting in 3...</color></b>" to player
 		apply potion effect of blindness to the player for 6 seconds:
 			hide particles
 			hide icon
 		playDing(player)
 		wait 1 second
+
 		send title "<b><color:#FF7200>Starting in 2...</color></b>" to player
 		playDing(player)
 		wait 1 second
+
 		send title "<b><color:#FF3E00>Starting in 1...</color></b>" to player
 		playDing(player)
 		wait 1 second
+
 		send title "<b><rainbow>Good Luck</rainbow></b>" to player
 		playDing(player)
 		wait 0.4 seconds
@@ -43,31 +64,19 @@ command /start:
 		wait 0.4 seconds
 		playDing(player)
 		wait 0.2 seconds
-
-
 		apply potion effect of slow falling to the player for 90 seconds:
 			hide particles
 			hide icon
 
-		# Teleports player to world
-		if {debugMode::%player%} is true:
-			set {_world} to location(0,{spawningHeight},0, world("dev_overworld"))
-			send "Sending to dev world" to player
-			givePoints(player, 25000000)
-		else:
-			if {worldIDPointer} is not set:
-				set {worldIDPointer} to 1
-			set {_world} to retRunLoc({worldIDPointer})
-			if {_world} is not set:
-				send "%{color::error}%[ERROR] There are no generated worlds avalible to play on please notify NotAWatermelon as this is a bug" to player
-				send "%{color::error}%[ERROR] %player% Tried to start a run but there were no avalible worlds" to console
-				delete {inGame::%player%}
-				stop
-			add 1 to {worldIDPointer}
-			
-		teleport player to {_world}
-		wait 1 tick
 
+		# Teleports player to world --------------------------------------------------------------------------------------
+		loadRun({_ID})
+		if {_world} is not set:
+			set {_world} to retRunLoc({_ID})
+		send "%{msg::info}%%player% has started run ID: %{_ID} ? -1%" to console
+		teleport player to {_world}
+
+		# removes players slow falling when hitting the ground
 		asyncAircheck(player)
 		set gamemode of player to survival
 		make player vulnerable
@@ -78,28 +87,29 @@ command /start:
 				hide particles
 				hide icon
 
-		# Items
+		# Items --------------------------------------------------------------------------------------
 		clear player's inventory
 		give nether star named {customItem::shop::name} to player
 		give unbreakable stone pickaxe named {pickaxe::tier::stone} to player
 		give 16 cooked beef to player
 
-		# Booster card implimentation
+		# Booster card implimentation --------------------------------------------------------------------------------------
 		veinMinerCard(player)
 		extractionExpertCard(player)
 		headMasterCard(player)
 
-		# Boss bar
+		# Boss bar --------------------------------------------------------------------------------------
 		set {pointBar::%player%} to boss bar with title " " with color green with progress 0
 		set bar style of {pointBar::%player%} to solid_bar
 		set {pointBar::progress::%player%} to 0
 		add player to {pointBar::%player%}
 		updatePointsBar(player)
 
-		# Stats
+		# Stats --------------------------------------------------------------------------------------
 		set {currentGameStats::%player%::misc::duration} to now
 		set {currentGameStats::%player%::misc::worldID} to returnWorldID(player)
 		givePoints(player, 0)
+
 		# Starts the difficulty timer (see difficulties.sk)
 		difficultyBegin(player)
 
@@ -108,6 +118,7 @@ command /start:
 
 
 function asyncAircheck(p: player):
+	wait 1 tick
 	while block below {_p} is air:
 		wait 10 ticks
 	remove slow falling from {_p}'s active potion effects
@@ -116,8 +127,3 @@ command /clearcooldown [<player>]:
 	permission: op
 	trigger:
 		delete {startCooldown::%arg-1%}
-
-command /test:
-	trigger:
-		delete {worldIDPointer}
-		send {worldIDPointer} to player
