@@ -97,3 +97,22 @@ every 25 minutes in world "world":
 				send "%{tipPrefix}%Some client side mods such as ""simple F3"" can visually break the point bar." to loop-player
 				delete {tip}
 			send " " to loop-player
+
+
+every 2 minutes in world "world":
+	loop {inGame::*}:
+		exit
+	loop {worldArray::*}:
+		if loop-value is false:
+			broadcast "Preloading in progress server will lag while this is happening"
+			set {_found} to true
+			exit loop
+	if {_found} is not true:
+		exit
+	loop {worldArray::*}:
+		if loop-value is false:
+			load world "run_%loop-index%_overworld"
+			wait 1 second
+			unload world "run_%loop-index%_overworld"
+			set {worldArray::%loop-index%} to true
+	broadcast "Preloading completed!"
