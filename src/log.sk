@@ -1,0 +1,6 @@
+function log(txt: text):
+    send {_txt} to console
+
+function debugMsg(p: player, txt: text):
+    if {debugMode::%{_p}%} is true:
+        send {_txt} to {_p}
