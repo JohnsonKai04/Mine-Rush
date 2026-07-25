@@ -1,0 +1,12 @@
+command /settexture [<text>]:
+    permission: minerush.admin
+    trigger:
+        set player's tool to applyTexture(player's tool, arg-1)
+
+function applyTexture(item: item, texture: text) :: item:
+    set item model of {_item} to "minerush:%{_texture}%"
+    return {_item}
+
+function resetTexture(item: item) :: item:
+    reset item model of {_item}
+    return {_item}
