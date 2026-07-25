@@ -83,23 +83,9 @@ command /wipeworlds:
 		delete {worldArray::*}
 		delete {genServerWorldAmount}
 
-# command /test:
-# 	trigger:
-# 		delete {worldArray::*}
-# 		set {_id} to 9
-# 		while {_apple} is not set:
-# 			if {_id} is 60:
-# 				stop
-# 			set {worldArray::%{_id}%} to false
-# 			add 1 to {_id}
-
 command /listworlds:
 	permission: op
 	trigger:
 		send "There are %size of {worldArray::*}%/%{maxWorlds}% world's. Currently there are %{genServerWorldAmount}% worlds on the gen server" to player
 		loop {worldArray::*}:
 			send "%loop-index% %loop-value%" to player
-
-command /test:
-	trigger:
-		delete {inGame::*}
