@@ -82,34 +82,24 @@ function purchaseArmor(p: player, item: text):
 # Param - _p: player buying
 # Param - _item: level of pickaxe they are buying
 # loops players inventory to find the pickaxe they have based off of the name, removes the old pickaxes and gives the new, updates the variable with their current pickaxe level
-function purchasePickaxe(p: player, item: text):
+function purchasePickaxe(p: player, item: text, upgrade: text):
+	set {_name::*} to {_upgrade} split at " "
+
 	if chargePlayer({_p}, {_item}) is true:
 		loop all items in the inventory of {_p}:
-			loop enchantments of loop-item:
-				set {_enchant::%loop-iteration-2%} to loop-value-2
-
-			if name of loop-item is {pickaxe::tier::stone}:
-				set {_found} to true
-				set {pickaxe::tier::%{_p}%} to "iron"
+			if uncolored name of loop-item is {_item}:
+				send "found" to {_p}
+				loop enchantments of loop-item:
+					add loop-value-2 to {_enchants::*}
+				set {pickaxe::tier::%{_p}%} to {_name::1}
 				set loop-item to air
-				give unbreakable iron pickaxe named {pickaxe::tier::iron} to {_p}
-			else if name of loop-item is {pickaxe::tier::iron}:
-				set {_found} to true
-				set {pickaxe::tier::%{_p}%} to "diamond"
-				set loop-item to air
-				give unbreakable diamond pickaxe named {pickaxe::tier::diamond} to {_p}
-			else if name of loop-item is {pickaxe::tier::diamond}:
-				set {_found} to true
-				set {pickaxe::tier::%{_p}%} to "netherite"
-				set loop-item to air
-				give unbreakable netherite pickaxe named {pickaxe::tier::netherite} to {_p}
-
-			if {_found} is true:
+				give unbreakable {_upgrade} named {pickaxe::tier::%{_name::1}%} to {_p}
 				loop {_enchant::*}:
-					enchant loop-item with {_enchant::%loop-iteration-2%}
+					enchant loop-item-1 with loop-value-2
 				loop {customEnchantTier::%{_p}%::*}:
 					applyCustomEnchant({_p}, loop-index)
 				stop loop
+			send "%loop-item% is not %{_item}%" to {_p}
 	make {_p} execute command "/shop"
 
 # Param - _p: player buying

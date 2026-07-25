@@ -90,11 +90,11 @@ on inventory click:
 		if {_name} contains "Upgrade Shop":
 			# Pickaxes
 			if {_item} contains uncolored "Iron Pickaxe":
-				purchasePickaxe(player, "iron pickaxe")
+				purchasePickaxe(player, "stone pickaxe", "iron pickaxe")
 			else if {_item} contains uncolored "Diamond Pickaxe":
-				purchasePickaxe(player, "diamond pickaxe")
+				purchasePickaxe(player, "iron pickaxe", "diamond pickaxe")
 			else if {_item} contains uncolored "Netherite Pickaxe":
-				purchasePickaxe(player, "netherite pickaxe")
+				purchasePickaxe(player, "diamond pickaxe", "netherite pickaxe")
 
 			# Enchants
 			else if {_item} contains uncolored "Efficiency":
