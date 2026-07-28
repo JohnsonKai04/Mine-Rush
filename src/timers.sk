@@ -1,6 +1,8 @@
 # RELOAD WITH CAUTION ANY PLAYERS IN GAME WILL BE BUGGED
 
 
+# REDO THIS AND TURN IT INTO A EVERY 1 SECONDS
+
 # Param - _p: player playing the game
 # Desc: 6 Different difficulties Peaceful, Easy, Medium, Hard, Extreme, Chaos
 # Default time inbetween difficulties is 8 minutes (is set in onLoad.sk)
