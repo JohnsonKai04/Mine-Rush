@@ -88,18 +88,20 @@ function purchasePickaxe(p: player, item: text, upgrade: text):
 	if chargePlayer({_p}, {_item}) is true:
 		loop all items in the inventory of {_p}:
 			if uncolored name of loop-item is {_item}:
-				send "found" to {_p}
 				loop enchantments of loop-item:
 					add loop-value-2 to {_enchants::*}
 				set {pickaxe::tier::%{_p}%} to {_name::1}
 				set loop-item to air
-				give unbreakable {_upgrade} named {pickaxe::tier::%{_name::1}%} to {_p}
-				loop {_enchant::*}:
+				set {_pickaxe} to ({_upgrade} parsed as an item type) named {pickaxe::tier::%{_name::1}%}
+				# Custom skin
+				if {_upgrade} is not "iron pickaxe", or "diamond pickaxe", or "netherite pickaxe":
+					set {_pickaxe} to applyTexture({_pickaxe}, {_name::1})
+				give {_pickaxe} to {_p}
+				loop {_enchants::*}:
 					enchant loop-item-1 with loop-value-2
 				loop {customEnchantTier::%{_p}%::*}:
 					applyCustomEnchant({_p}, loop-index)
 				stop loop
-			send "%loop-item% is not %{_item}%" to {_p}
 	make {_p} execute command "/shop"
 
 # Param - _p: player buying
