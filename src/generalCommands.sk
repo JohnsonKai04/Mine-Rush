@@ -113,6 +113,15 @@ command /heal:
 	trigger:
 		heal player
 
+command /god:
+	permission: op
+	trigger:
+		if player is invulnerable:
+			make player vulnerable
+		else:
+			make player invulnerable
+
+
 
 command /tpsmonitor:
 	permission: op
