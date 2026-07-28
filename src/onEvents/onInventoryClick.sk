@@ -248,3 +248,14 @@ on inventory click:
 				set {_page::*} to uncolored name of event-item split at " "
 				set {_page} to ({_page::2} parsed as an integer) - 1 # -1 for offset
 				openLeaderboard(player, {_page})
+
+
+
+command /test:
+	trigger:
+		apply attribute modifier to player's tool:
+			id: "minecraft:regular_mul_friction_modifier"
+			attribute: friction modifier
+			amount: 13.0
+			slot: mainhand_slot_group
+			operation: add_multiplied_total
