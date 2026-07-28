@@ -22,7 +22,7 @@ command /generatedevworld:
 
 
 function retRunLoc(ID: integer) :: location:
-	return location(0,100,0, world("run_%{_ID}%_overworld"))
+	return location(0,150,0, world("run_%{_ID}%_overworld"))
 
 function loadRun(ID: integer):
 	if {_ID} is -1:
@@ -66,13 +66,15 @@ command /updateworldarray [<integer>] [<integer>]:
 
 function deleteRun(ID: integer):
 	if {keepRuns} is not true:
-		wait 30 seconds
-		unload world "run_%{_ID}%_overworld"
-		send "%{msg::info}% Unloaded run %{_ID}%" to console
-		wait 5 seconds
-		load yaml "flags/%{_ID}%.flag" as "flag"
-		unload yaml "flag"
-		send "%{msg::info}% Deleted run %{_ID}%" to console
+		if {_ID} is not -1:
+			broadcast {_ID} ? 0
+			wait 30 seconds
+			unload world "run_%{_ID}%_overworld"
+			send "%{msg::info}% Unloaded run %{_ID}%" to console
+			wait 5 seconds
+			load yaml "flags/%{_ID}%.flag" as "flag"
+			unload yaml "flag"
+			send "%{msg::info}% Deleted run %{_ID}%" to console
 
 function retNextRunID() :: integer:
 	loop {worldArray::*}:
