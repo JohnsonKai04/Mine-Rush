@@ -14,6 +14,7 @@ command /start:
 		if {inGame::%player%} is true:
 			send "%{color::error}%Game already started use /stopGame" to player
 			playErrorSound(player)
+			delete {startCooldown::%player%}
 			stop
 
 		# Sets the world and the ID --------------------------------------------------------------------------------------
@@ -30,6 +31,7 @@ command /start:
 				stop
 			givePoints(player, 0)
 			delete {worldArray::%{_ID}%}
+			delete {startCooldown::%player%}
 
 
 		# All checks have passed and the player is considered in game
