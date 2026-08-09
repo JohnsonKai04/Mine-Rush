@@ -78,16 +78,5 @@ function deleteRun(ID: integer):
 
 function retNextRunID() :: integer:
 	loop {worldArray::*}:
-		return loop-value
-
-command /wipeworlds:
-	trigger:
-		delete {worldArray::*}
-		delete {genServerWorldAmount}
-
-command /listworlds:
-	permission: op
-	trigger:
-		send "There are %size of {worldArray::*}%/%{maxWorlds}% world's. Currently there are %{genServerWorldAmount}% worlds on the gen server" to player
-		loop {worldArray::*}:
-			send "%loop-index% %loop-value%" to player
+		if loop-value is true:
+			return loop-index parsed as an integer
