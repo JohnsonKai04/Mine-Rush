@@ -133,3 +133,52 @@ command /tpsmonitor:
 		while {tpsMonitor} is true:
 			send "%average tick time%" to player
 			wait 0.5 seconds
+
+
+command /spectate [<player>]:
+	usage: %{color::error}%Please select a player from the list, if there are none then there are no players ingame
+	trigger:
+		if {inGame::%player%} is true:
+			send "%{color::error}%You cannot spectate a player while in a run" to player
+			playErrorSound(player)
+			stop
+		if {inGame::%arg-1%} is not true:
+			send "%{color::error}%That player is not currently in a run" to player
+			playErrorSound(player)
+			stop
+
+		send "%{color::desc}%Now spectating %arg-1%" to player
+		set gamemode of player to spectator
+		set {spectating::%player%} to arg-1
+		set spectator target of player to arg-1
+
+on tab complete of "/spectate":
+	loop all players:
+		if {inGame::%loop-player%} is true:
+			add "%loop-player%" to {_players::*}
+	set tab completion to {_players}
+
+on player stop spectating:
+	if {spectating::%player%} is set:
+		delete {spectating::%player%}
+		teleport player to {lobbySpawnLoc}
+		set gamemode of player to adventure
+
+on start spectating:
+	if {spectating::%player%} is not set:
+		cancel event
+
+
+command /debug:
+	permission: admin
+	trigger:
+		send "All players inGame %size of {inGame::*}%: %indexes of {inGame::*} ? "None"%" to player
+		send "All players spectating %size of {spectating::*}%: %indexes of {spectating::*} ? "None"%" to player
+		send "There are %size of {worldArray::*}%/%{maxWorlds}% world's. There are %{genServerWorldAmount}% worlds on the gen server" to player
+		send "Next RunID: %retNextRunID()%" to player
+
+
+on command:
+	if {spectating::%player%} is set:
+		send "%{color::error}%You cannot use any commands while spectating"
+		cancel event
