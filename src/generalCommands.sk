@@ -136,15 +136,21 @@ command /tpsmonitor:
 
 
 command /spectate [<player>]:
-	usage: %{color::error}%Please select a player from the list, if there are none then there are no players ingame
+	cooldown: 15 seconds
+	cooldown message: %{color::error}%Please wait %remaining time% before spectating another player.
+	cooldown storage: {spectateCooldown::%player%}
+	cooldown bypass: op
+	usage: %{color::error}%Please select a player from the list, if there are none then there are no players in a run
 	trigger:
 		if {inGame::%player%} is true:
 			send "%{color::error}%You cannot spectate a player while in a run" to player
 			playErrorSound(player)
+			delete {spectateCooldown::%player%}
 			stop
 		if {inGame::%arg-1%} is not true:
 			send "%{color::error}%That player is not currently in a run" to player
 			playErrorSound(player)
+			delete {spectateCooldown::%player%}
 			stop
 
 		send "%{color::desc}%Now spectating %arg-1%" to player
@@ -180,5 +186,5 @@ command /debug:
 
 on command:
 	if {spectating::%player%} is set:
-		send "%{color::error}%You cannot use any commands while spectating"
+		send "%{color::error}%You cannot use any commands while spectating" to player
 		cancel event
