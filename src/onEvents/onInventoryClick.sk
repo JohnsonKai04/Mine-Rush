@@ -251,11 +251,11 @@ on inventory click:
 
 
 
-command /test:
-	trigger:
-		apply attribute modifier to player's tool:
-			id: "minecraft:regular_mul_friction_modifier"
-			attribute: friction modifier
-			amount: 13.0
-			slot: mainhand_slot_group
-			operation: add_multiplied_total
+# command /test:
+# 	trigger:
+# 		apply attribute modifier to player's tool:
+# 			id: "minecraft:regular_mul_friction_modifier"
+# 			attribute: friction modifier
+# 			amount: 13.0
+# 			slot: mainhand_slot_group
+# 			operation: add_multiplied_total
