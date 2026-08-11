@@ -65,8 +65,15 @@
 - [x] disallow rightclicking beds
 - [x] end of run stats
 
-
-
+# Playtest 3
+- [x] pickaxe breaks
+- [ ] featherfalling + fire
+- [ ] firework injurs people lmao
+- [x] dif 2 mobs do no damage
+- [ ] Add wolfs in shop
+- [ ] Move TNT/Extract charm to lootboxes
+- [ ] add player heads with arrows
+- [ ] be able to cancel extractor item
 
 # 6/18/2026
 - [x] When spawning extract load the chunk and then save.
