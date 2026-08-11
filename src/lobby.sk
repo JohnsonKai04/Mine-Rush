@@ -79,5 +79,10 @@ command /enchants:
 
 function setSpawnTab(p: player):
 	load yaml "mineRushData/playerData/%{_p}'s uuid%/stats.yaml" as "stats"
-	set {_p}'s tab list name to "%{_p}'s name% %{color::death}%☠ %yaml value "misc.deaths" from "stats" ? 0% %{color::points} ? 0%$%shortNum(yaml value "points.totalpoints" from "stats")%"
+	set {_p}'s tab list name to "%{_p}'s name% %{color::death}%☠ %(yaml value "misc.deaths" from "stats") ? 0% %{color::points} ? 0%$%shortNum(yaml value "points.totalpoints" from "stats")%"
 	unload yaml "stats"
+
+command /setspawntab:
+	permission: op
+	trigger:
+		setSpawnTab(player)
