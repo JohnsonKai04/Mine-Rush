@@ -18,7 +18,7 @@ function setDefaultSettings(p: player):
 	writeSetting({_p}, "damageIndicator", 1, false)
 	writeSetting({_p}, "tutorial", 1, false)
 	writeSetting({_p}, "depthmeter", 1, false)
-	writeSetting({_p}, "nightvision", 0, false)
+	writeSetting({_p}, "nightvision", 1, false)
 	writeSetting({_p}, "tips", 1, false)
 	save "%{_p}'s uuid%.settings"
 
