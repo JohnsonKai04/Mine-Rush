@@ -135,7 +135,7 @@ command /tpsmonitor:
 			wait 0.5 seconds
 
 
-command /spectate [<player>]:
+command /spec [<player>]:
 	cooldown: 15 seconds
 	cooldown message: %{color::error}%Please wait %remaining time% before spectating another player.
 	cooldown storage: {spectateCooldown::%player%}
@@ -156,6 +156,7 @@ command /spectate [<player>]:
 		send "%{color::desc}%Now spectating %arg-1%" to player
 		set gamemode of player to spectator
 		set {spectating::%player%} to arg-1
+		wait 1 second
 		set spectator target of player to arg-1
 
 on tab complete of "/spectate":
@@ -166,12 +167,14 @@ on tab complete of "/spectate":
 
 on player stop spectating:
 	if {spectating::%player%} is set:
-		delete {spectating::%player%}
 		teleport player to {lobbySpawnLoc}
 		set gamemode of player to adventure
+		wait 1 tick
+		delete {spectating::%player%}
 
 on start spectating:
 	if {spectating::%player%} is not set:
+		send "no"
 		cancel event
 
 
@@ -188,3 +191,12 @@ on command:
 	if {spectating::%player%} is set:
 		send "%{color::error}%You cannot use any commands while spectating" to player
 		cancel event
+
+
+command /fix [<player>]:
+	permission: op
+	trigger:
+		if arg-1 is not set:
+			repair the player's tool
+		else:
+			repair arg-1's tool
