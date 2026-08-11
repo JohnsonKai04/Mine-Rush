@@ -18,9 +18,10 @@ on spawn:
 			if y-coordinate of location of event-entity is greater than or equal to ({mobSpawnMaxHeight} + {_y}):
 				cancel event
 			set {_speed} to event-entity's generic movement speed attribute
+			set {_damage} to event-entity's attack damage attribute
 			set max health of event-entity to round((max health of event-entity) * {difficultyMultiplier}^({difficulty::%{_p}%} - 1))
 			set event-entity's generic movement speed attribute to ({_speed} * {difficultyMultiplier}^({difficulty::%{_p}%} - 1))
-			
+			set event-entity's attack damage attribute to ({_damage} * {difficultyMultiplier}^({difficulty::%{_p}%} - 1))
 			heal event-entity
 			make last spawned entity despawn on chunk unload
 		else:
