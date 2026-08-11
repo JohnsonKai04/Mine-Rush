@@ -4,7 +4,6 @@ on damage:
 		bloodLustCard(attacker)
 		if returnSetting(attacker, "damageIndicator") is 1:
 			spawnIndicator(attacker, location of victim, damage, health of victim, max health of victim)
-	if {inGame::%victim%} is true:
-		if attacker is set:
-			if attacker is not player:
-				set the damage to round(damage * (({difficulty::%victim%} - 2) * {difficultyMultiplier}))
+
+on damage of player by firework:
+	cancel event
