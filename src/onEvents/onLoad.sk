@@ -5,6 +5,7 @@ function setPrice(item: text, price: number):
 # Sets point value to given block
 function setPoints(block: text, points: number):
 	set {blockValue::%{_block}%} to {_points}
+	set yaml value "%{_block}%" from "points" to {_points}
 
 on load:
 	# Tutorial message:
@@ -215,6 +216,7 @@ on load:
 	# Prices (used by shop.sk)
 	delete {blockValue::*}
 	delete {cost::*}
+
 	# General
 	setPrice("cooked beef", 150)
 	setPrice("ladder", 90)
@@ -267,6 +269,7 @@ on load:
 
 	# Points allocated by blocks in range from 1 - 1000. These are the points set BEFORE any multipliers
 	# Common blocks
+	load yaml "mineRushData/points.yaml" as "points"
 	setPoints("stone", 1)
 	setPoints("cobblestone", 1)
 	setPoints("dirt", 1)
@@ -314,3 +317,4 @@ on load:
 	setPoints("dripstone block", 4)
 	setPoints("clay", 5)
 	setPoints("spawner", 2000)
+	unload yaml "points"
