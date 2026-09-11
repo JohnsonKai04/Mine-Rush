@@ -1,0 +1,30 @@
+on pre creature spawn of a slime or animal:
+	abort creature spawn
+	cancel event
+
+
+on spawn:
+	if event-entity is a monster:
+		set {_p} to nearest player in radius 80 around event-entity
+		set {_y} to {_p}'s y-level
+		if {_y} is greater than 60:
+			if y-coordinate of location of event-entity is less than ({_y} - {mobSpawnMaxHeight}):
+				cancel event
+		if {inGame::%{_p}%} is true:
+			#Mobs do not spawn for the first difficulty
+			if {difficulty::%{_p}%} is 1:
+				if {debugMode::%{_p}%} is not true:
+					cancel event
+			if y-coordinate of location of event-entity is greater than or equal to ({mobSpawnMaxHeight} + {_y}):
+				cancel event
+			set {_speed} to event-entity's generic movement speed attribute
+			set {_damage} to event-entity's attack damage attribute
+			set max health of event-entity to round((max health of event-entity) * {difficultyMultiplier}^({difficulty::%{_p}%} - 1))
+			set event-entity's generic movement speed attribute to ({_speed} * {difficultyMultiplier}^({difficulty::%{_p}%} - 1))
+			set event-entity's attack damage attribute to ({_damage} * {difficultyMultiplier}^({difficulty::%{_p}%} - 1))
+			heal event-entity
+			make last spawned entity despawn on chunk unload
+		else:
+			cancel event
+	if event-entity is a animal:
+		cancel event
