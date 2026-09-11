@@ -67,7 +67,6 @@ command /updateworldarray [<integer>] [<integer>]:
 function deleteRun(ID: integer):
 	if {keepRuns} is not true:
 		if {_ID} is not -1:
-			broadcast {_ID} ? 0
 			wait 30 seconds
 			unload world "run_%{_ID}%_overworld"
 			send "%{msg::info}% Unloaded run %{_ID}%" to console
