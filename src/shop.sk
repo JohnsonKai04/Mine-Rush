@@ -6,8 +6,9 @@ command /shop:
 			stop
 
 		if {inGame::%player%} is not true:
-			send "%{color::error}%Error: This command can only be used when the game has been started" to player
-			stop
+			if {debugMode::%player%} is not true:
+				send "%{color::error}%Error: This command can only be used when the game has been started" to player
+				stop
 
 		open chest inventory with 3 rows named formatted "%{color::inventoryName}%Shop" to player
 		set {_inv} to player's current inventory
@@ -217,7 +218,6 @@ function openUtilityShop(p: player):
 	set slot 16 of {_inv} to 32 scaffolding named "<!i><b>Scaffolding</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::scaffolding}% Points"
 
 	# Utility
-	set slot 29 of {_inv} to 8 tnt named "<!i><b>TNT</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::tnt}% Points"
 	set slot 38 of {_inv} to shield named "<!i><b>Shield</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::shield}% Points"
 	set slot 39 of {_inv} to iron golem spawn egg named "<!i><b>Iron Golem</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::iron golem}% Points"
 
