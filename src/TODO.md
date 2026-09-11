@@ -71,7 +71,7 @@
 - [ ] firework injurs people lmao
 - [x] dif 2 mobs do no damage
 - [ ] Add wolfs in shop
-- [ ] Move TNT/Extract charm to lootboxes
+- [1/2] Move TNT/Extract charm to lootboxes
 - [ ] add player heads with arrows
 - [ ] be able to cancel extractor item
 
