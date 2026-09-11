@@ -44,8 +44,6 @@ command /setup:
 	permission: mineRush.admin
 	trigger:
 		setGamerules(world("world"))
-		send "%{color::desc}%Make sure to run /generateWorlds [# of spawn points]" to player
-		send "%{color::desc}%50 worlds is recommended depending on storage/player count" to player
 		send "%{color::desc}%Run /setspawn" to player
 
 command /ping:
