@@ -73,14 +73,20 @@ on place of chest:
 		if formatted name of event-block is formatted name of {lootBox::item::common}:
 			playLootBoxCommonAnimation(player, event-block, 1)
 			add 1 to {currentGameStats::%player%::lootboxes::commonLootBoxesOpened}
+			wait 5 seconds
+			lootBoxRewardPoints(player, event-block, 1)
 
 		if formatted name of event-block is formatted name of {lootBox::item::rare}:
 			playLootBoxRareAnimation(player, event-block, 2)
 			add 1 to {currentGameStats::%player%::lootboxes::rareLootBoxesOpened}
+			wait 7.1 seconds
+			lootBoxRewardPoints(player, event-block, 2)
 
 		if formatted name of event-block is formatted name of {lootBox::item::legendary}:
 			playLootBoxLegendaryAnimation(player, event-block, 3)
 			add 1 to {currentGameStats::%player%::lootboxes::legendaryLootBoxesOpened}
+			wait 5.6 seconds
+			lootBoxRewardPoints(player, event-block, 3)
 
 
 function asyncPoints(p: player, points: integer):
@@ -101,7 +107,7 @@ function playLootBoxCommonAnimation(p: player, b: block, m: integer):
 		play sound "block.amethyst_block.chime" with volume returnSetting({_p}, "volume") and pitch {_pitch} at location of {_b}
 		wait 10 ticks
 	make 5 of explosion at {_loc}
-	lootBoxRewardPoints({_p}, {_b}, {_m})
+	set block at {_b} to air
 
 
 function playLootBoxRareAnimation(p: player, b: block, m: integer):
@@ -109,12 +115,12 @@ function playLootBoxRareAnimation(p: player, b: block, m: integer):
 	loop 10 times:
 		make 30 of block particle using chest at location of {_b} with offset vector(0.5, 0.2, 0.5)
 		play sound "block.anvil.hit" with volume returnSetting({_p}, "volume") at location of {_b}
-		wait 0.5 second
+		wait 10 ticks
 	open lid of {_b}
 	wait 0.1 seconds
 	launch ball large colored red or blue or green or yellow or pink at {_loc} with duration 2
 	wait 2 seconds
-	lootBoxRewardPoints({_p}, {_b}, {_m})
+	set block at {_b} to air
 
 
 function playLootBoxLegendaryAnimation(p: player, b: block, m: integer):
@@ -126,32 +132,33 @@ function playLootBoxLegendaryAnimation(p: player, b: block, m: integer):
 		set {_stand}'s helmet to iron block or gold block or diamond block or emerald block
 		set {_pitch} to a random number between -1 and 1
 		play sound "block.note_block.bell" with volume returnSetting({_p}, "volume") and pitch {_pitch} at {_loc}
-		wait 0.5 seconds
+		wait 10 ticks
 
-	wait 0.5 seconds
+	wait 10 ticks
 	launch ball large colored red, and black at {_loc} with duration 0
 	wait 2 ticks
 	kill {_stand}
-	lootBoxRewardPoints({_p}, {_b}, {_m})
+	set block at {_b} to air	
 
 
 function lootBoxRewardPoints(p: player, b: block, m: integer):
-	set block at {_b} to air
-
-	set {_base} to 100
-	set {_chance} to a random integer between 1 and {_base}
 	if {_m} is 1:
 		set {_points} to a random integer between {lootBox::min::common} and {lootBox::max::common}
 	else if {_m} is 2:
 		set {_points} to a random integer between {lootBox::min::rare} and {lootBox::max::rare}
-	else if {_m} is 3:
+	else:
 		set {_points} to a random integer between {lootBox::min::legendary} and {lootBox::max::legendary}
 
-	add {_points} to {currentGameStats::%{_p}%::points::points}
-	add {_points} to {currentGameStats::%{_p}%::totalPoints}
-	add {_points} to {currentGameStats::%{_p}%::lootboxes::lootBoxPoints}
+	chance of 30%:
+		set {_amount} to {_m} * 3
+		give {_p} {_amount} of tnt
+		set {_text} to text component from "+%{_amount}% TNT"
+	else:
+		add {_points} to {currentGameStats::%{_p}%::points::points}
+		add {_points} to {currentGameStats::%{_p}%::totalPoints}
+		add {_points} to {currentGameStats::%{_p}%::lootboxes::lootBoxPoints}
+		set {_text} to text component from "+%{_points}%"
+		updatePointsBar({_p})
 	set {_color::*} to 3 random integers between 0 and 255
-	set {_text} to text component from "+%{_points}%"
 	set color format of {_text} to rgb({_color::1}, {_color::2}, {_color::3})
 	send title "%{_text}%" to {_p}
-	updatePointsBar({_p})
