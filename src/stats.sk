@@ -1,39 +1,3 @@
-on death of mob:
-	if attacker is player:
-		if {inGame::%attacker%} is true:
-			add 1 to {currentGameStats::%attacker%::misc::mobKills}
-
-
-command /runs:
-	cooldown: 1 second
-	trigger:
-		openGamesMenu(player, 0)
-
-
-function openGamesMenu(p: player, page: int = 0):
-	open chest inventory with 6 rows named "%{color::inventoryName}%Games Played" to {_p}
-	set {_inv} to {_p}'s current inventory
-	set {_end} to false
-	set {_ID} to (45 * {_page})
-	while {_end} is false:
-		add 1 to {_ID}
-		set {_slot} to {_ID} - (45 * {_page})
-		load yaml "mineRushData/playerData/%{_p}'s uuid%/gameData.yaml" as "file"
-		if {_slot} = 46:
-			set {_end} to true
-			set slot 53 of {_inv} to tipped arrow of luck named "&aPage %{_page} + 2%"
-		else:
-			if yaml path "%{_ID}%" in "file" has a value:
-				set {_ore} to random element out of {ores::*} parsed as an item
-				set {_timePlayed} to yaml value "%{_ID}%.misc.timePlayed" from "file"
-				set slot ({_slot} - 1) of {_inv} to {_ore} named "%{_ID}%" with lore "<#CC813E>P<#CB7840>l<#C96F42>a<#C86644>y<#C65D46>e<#C55548>d <#C2434C>o<#C03A4E>n<#BF3150>: %{_timePlayed}%"
-			else:
-				set {_end} to true
-		if {_page} >= 1:
-			set slot 45 of {_inv} to tipped arrow of luck named "&aPage %{_page}%"
-		unload yaml "file"
-
-
 function saveDataToFile(p: player) :: boolean:
 	if {debugMode::%{_p}%} is true:
 		delete {currentGameStats::%{_p}%::*}
@@ -89,7 +53,6 @@ function saveDataToFile(p: player) :: boolean:
 	unload yaml "file"
 	unload yaml "stats"
 
-	set {_placement} to insertEntree(name of {_p}, {currentGameStats::%{_p}%::points::points}, {_ID})
 	sendStats({_p}, {_ID}, {_placement})
 
 	delete {currentGameStats::%{_p}%::*}

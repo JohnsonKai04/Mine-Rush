@@ -28,3 +28,8 @@ on spawn:
 	if event-entity is a animal:
 		if event-entity is not a wolf:
 			cancel event
+
+on death of mob:
+	if attacker is player:
+		if {inGame::%attacker%} is true:
+			add 1 to {currentGameStats::%attacker%::misc::mobKills}
