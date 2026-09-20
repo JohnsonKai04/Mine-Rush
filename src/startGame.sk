@@ -12,7 +12,7 @@ command /start:
 			delete {startCooldown::%player%}
 			stop
 		
-		if {inGame::%player%} is true:
+		if state(player) is 1:
 			send "%{color::error}%Game already started use /stopGame" to player
 			playErrorSound(player)
 			delete {startCooldown::%player%}
@@ -36,7 +36,7 @@ command /start:
 
 
 		# All checks have passed and the player is considered in game
-		set {inGame::%player%} to true 
+		setState(player, 1) 
 
 		# Begins teleporting the player --------------------------------------------------------------------------------------
 		send title "<b><color:#00FF3B>Starting in 5...</color></b>" to player

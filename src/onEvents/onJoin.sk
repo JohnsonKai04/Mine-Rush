@@ -10,18 +10,18 @@ on join:
 		if player does not have permission "mineRush.admin":
 			kick the player due to "Server is currently under maintenance please try again later :3"
 			exit
-	setSpawnTab(player)
 	load yaml "mineRushData/playerData/%player's uuid%/settings.yaml" as "%player's uuid%.settings"
 	if yaml path "volume" in "%player's uuid%.settings" does not exist:
 		setDefaultSettings(player)
 
-	if {inGame::%player%} is true:
-		if {debugMode::%player%} is not set:
-			send "<b><gradient:#F10C31:#8F1D26>You disconnected causing the run to explode!</gradient></b>" to player
-			wait 2 seconds
-			kill player
-			exit
+	if state(player) is 1:
+		send "<b><gradient:#F10C31:#8F1D26>You disconnected causing the run to explode!</gradient></b>" to player
+		wait 2 seconds
+		kill player
+		exit
 
-	if {inGame::%player%} is not true:
+	if state(player) is not set:
 		wait 1 tick
 		make player invulnerable
+
+	setSpawnTab(player)

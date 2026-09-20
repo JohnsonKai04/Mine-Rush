@@ -1,6 +1,6 @@
 # Buffs mobs on harder difficulties, adds damage indecators, adds the bloodLustCard integration
 on damage:
-	if {inGame::%attacker%} is true:
+	if state(attacker) is 1:
 		bloodLustCard(attacker)
 		if returnSetting(attacker, "damageIndicator") is 1:
 			spawnIndicator(attacker, location of victim, damage, health of victim, max health of victim)

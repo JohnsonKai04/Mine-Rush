@@ -10,7 +10,7 @@ on spawn:
 		if {_y} is greater than 60:
 			if y-coordinate of location of event-entity is less than ({_y} - {mobSpawnMaxHeight}):
 				cancel event
-		if {inGame::%{_p}%} is true:
+		if state({_p}) is 1:
 			#Mobs do not spawn for the first difficulty
 			if {difficulty::%{_p}%} is 1:
 				cancel event
@@ -31,5 +31,5 @@ on spawn:
 
 on death of mob:
 	if attacker is player:
-		if {inGame::%attacker%} is true:
+		if state(attacker) is 1:
 			add 1 to {currentGameStats::%attacker%::misc::mobKills}

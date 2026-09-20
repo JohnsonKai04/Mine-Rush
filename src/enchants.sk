@@ -1,5 +1,5 @@
 on rightclick holding a stone pickaxe, iron pickaxe, diamond pickaxe, or netherite pickaxe:
-	if {inGame::%player%} is true:
+	if state(player) is 1:
 		if player is sneaking:
 			fireball(player)
 

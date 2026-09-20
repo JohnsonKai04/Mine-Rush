@@ -1,5 +1,5 @@
 on break:
-	if {inGame::%player%} is true:
+	if state(player) is 1:
 		addPoints(player, event-block)
 
 		

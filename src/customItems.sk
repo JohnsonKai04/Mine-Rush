@@ -1,6 +1,6 @@
 # Custom instant ignight tnt
 on place of tnt:
-	if {inGame::%player%} is true:
+	if state(player) is 1:
 		remove 1 tnt from player
 		set event-block to air
 		spawn primed tnt at event-location
@@ -78,7 +78,7 @@ on right click using player head or recovery compass or nether star or bone:
 
 
 on place of chest:
-	if {inGame::%player%} is true:
+	if state(player) is 1:
 		if formatted name of event-block is formatted name of {lootBox::item::common}:
 			playLootBoxCommonAnimation(player, event-block, 1)
 			add 1 to {currentGameStats::%player%::lootboxes::commonLootBoxesOpened}

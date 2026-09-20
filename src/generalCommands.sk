@@ -2,7 +2,7 @@ command /leaderboard:
 	trigger:
 		close the inventory of the player
 		send " " to player
-		send "<color:#00FF83><b>Visit: <color:#00FFEA><u><b>https://stats.notamelon.com/leaderboard</u><color:#00FF83><b> to see all leaderboard entrees!" to player
+		send "<color:#00FF83><b>Visit: <color:#00FFEA><u><b>https://stats.notamelon.com/leaderboard</u><color:#00FF83><b> to see all leaderboard entrees and specific runs!" to player
 		send " " to player
 		playDing(player)
 
@@ -12,13 +12,13 @@ command /rename [<text>]:
 		set name of player's tool to arg-1
 		send "Name set to: %arg-1%" to player
 
-command /setingame [<boolean>]:
+command /setstate [<integer>]:
 	permission: mineRush.admin
 	trigger:
-		set {inGame::%player%} to arg-1
-		send "inGame set to: %arg-1%" to player
-on tab complete of "/setingame":
-	set tab completion to "true" and "false"
+		setState(player, arg-1)
+		send "state set to: %arg-1%" to player
+on tab complete of "/setstate":
+	set tab completion to "1" and "2" and "3" and "4" and "5"
 
 command /setdifficulty [<number>]:
 	permission: mineRush.admin
@@ -148,12 +148,12 @@ command /spec [<player>]:
 	cooldown bypass: op
 	usage: %{color::error}%Please select a player from the list, if there are none then there are no players in a run
 	trigger:
-		if {inGame::%player%} is true:
+		if state(player) is 1:
 			send "%{color::error}%You cannot spectate a player while in a run" to player
 			playErrorSound(player)
 			delete {spectateCooldown::%player%}
 			stop
-		if {inGame::%arg-1%} is not true:
+		if state(arg-1) is not 1:
 			send "%{color::error}%That player is not currently in a run" to player
 			playErrorSound(player)
 			delete {spectateCooldown::%player%}
@@ -169,7 +169,7 @@ command /spec [<player>]:
 
 on tab complete of "/spectate":
 	loop all players:
-		if {inGame::%loop-player%} is true:
+		if state(loop-player) is 1:
 			add "%loop-player%" to {_players::*}
 	set tab completion to {_players}
 
@@ -190,8 +190,9 @@ on start spectating:
 command /debug:
 	permission: admin
 	trigger:
-		send "All players inGame %size of {inGame::*}%: %indexes of {inGame::*} ? "None"%" to player
-		send "All players spectating %size of {spectating::*}%: %indexes of {spectating::*} ? "None"%" to player
+		send "Player summary:" to player
+		loop {state::*}:
+			send "%loop-index%: %loop-value%" to player
 		send "There are %size of {worldArray::*}%/%{maxWorlds}% world's. There are %{genServerWorldAmount}% worlds on the gen server" to player
 		send "Next RunID: %retNextRunID()%" to player
 

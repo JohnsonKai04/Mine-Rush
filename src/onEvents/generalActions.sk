@@ -8,7 +8,7 @@ on drop:
 # Awards points to the nearest player when an explosion happens
 on explosion:
 	set {_p} to nearest player in radius 50 around event-position
-	if {inGame::%{_p}%} is true:
+	if state({_p}) is 1:
 		if event-entity is tnt or large fireball:
 			set {_loc} to event-position
 			set {_points} to 0
@@ -19,12 +19,12 @@ on explosion:
 
 # Prevents the player from breaking lootboxes/chests
 on break of chest:
-	if {inGame::%player%} is true:
+	if state(player) is 1:
 		cancel event
 
 # Awards the player with a lootbox whenever they find a chest minecart
 on rightclick on entity:
-	if {inGame::%player%} is true:
+	if state(player) is 1:
 		if name of event-entity contains "Minecart with Chest" or "minecart":
 			giveRandomLootbox(player, location of event-entity)
 			kill event-entity
@@ -32,7 +32,7 @@ on rightclick on entity:
 
 # Awards the player with a lootbox whenever they find a chest
 on rightclick on Chest:
-	if {inGame::%player%} is true:
+	if state(player) is 1:
 		loop {lootBox::item::*}:
 			if formatted name of event-block is formatted name of {lootBox::item::%loop-index%}:
 				set {_lootbox} to true
@@ -49,7 +49,7 @@ on break of decorated pot:
 
 
 on player move:
-	if {inGame::%player%} is true:
+	if state(player) is 1:
 		if returnSetting(player, "depthmeter") is 1:
 			set {_y} to round(player's y-level)
 			set {_y2p} to {_y} + 2

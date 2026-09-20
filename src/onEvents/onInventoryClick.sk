@@ -7,7 +7,7 @@ on inventory click:
 		# ------------------------------------------------------
 		if {_name} is "Booster Cards":
 			cancel event
-			if {inGame::%player%} is true:
+			if state(player) is 1:
 				send "<gradient:#F10C31:#8F1D26> Error: You cannot enable booster cards while in a run </gradient>" to {_p}
 				playErrorSound(player)
 				stop

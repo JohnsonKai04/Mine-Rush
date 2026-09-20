@@ -1,5 +1,5 @@
 on death of player:
-	if {inGame::%victim%} is true:
+	if state(victim) is 1:
 		cancel event
 		if secondLife(victim) is false:
 			deleteRun(returnWorldID(victim))
@@ -7,21 +7,22 @@ on death of player:
 			clear victim's inventory
 			showDeathScreen(victim)
 			wait 5 seconds
-			delete {inGame::%victim%}
+			setState(victim, 2)
 			kill victim
 			if {currentGameStats::%victim%::misc::extracted} is not true:
 				set {currentGameStats::%victim%::misc::extracted} to false
 			endGame(victim)
-	set death message to deathMsg(victim, "%attacker%")
+	if state(victim) is 2:
+		set death message to deathMsg(victim, "%attacker%")
 
 
 # Once the player right clicks the beacon they gain invulnerability and gain a 1.2x point bonus to their current points.
 # after 6 seconds endGame() runs
 on right click on beacon:
-	if {inGame::%player%} is true:
+	if state(player) is 1:
 		deleteRun(returnWorldID(player))
 		set {currentGameStats::%player%::misc::extracted} to true
-		delete {inGame::%player%}
+		setState(player, 3)
 		cancel event
 		make player invulnerable
 		add {currentGameStats::%player%::points::pointsSpent} to {currentGameStats::%player%::points::points}
@@ -41,10 +42,10 @@ command /endGame:
 	aliases: /stopgame, /endrun, /finish, /leave
 	cooldown: 2 seconds
 	trigger:
-		if {inGame::%player%} is true: 
+		if state(player) is 1: 
 			kill player
 		else:
-			send "Error: you are not ingame" to player
+			send "%{color::error}%Error: you are not in a run" to player
 
 
 function showDeathScreen(p: player):
@@ -67,7 +68,6 @@ function deathMsg(p: player, k: text) :: text:
 # Updates the leaderboard with the players current points, and adds overall points gained to the stats
 # Clears inventoy and kills the player to return them to spawn
 function endGame(p: player) :: boolean:
-	delete {inGame::%{_p}%}
 	saveDataToFile({_p})
 	remove {_p} from {pointBar::%{_p}%}
 	set {validSpawn::active::%{spawnLocation::%{_p}%}%} to false
