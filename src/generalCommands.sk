@@ -1,3 +1,11 @@
+command /leaderboard:
+	trigger:
+		close the inventory of the player
+		send " " to player
+		send "<color:#00FF83><b>Visit: <color:#00FFEA><u><b>https://stats.notamelon.com/leaderboard</u><color:#00FF83><b> to see all leaderboard entrees!" to player
+		send " " to player
+		playDing(player)
+
 command /rename [<text>]:
 	permission: mineRush.admin
 	trigger:
@@ -151,6 +159,8 @@ command /spec [<player>]:
 			delete {spectateCooldown::%player%}
 			stop
 
+		log("%player% began spectating %arg-1%")
+
 		send "%{color::desc}%Now spectating %arg-1%" to player
 		set gamemode of player to spectator
 		set {spectating::%player%} to arg-1
@@ -165,6 +175,7 @@ on tab complete of "/spectate":
 
 on player stop spectating:
 	if {spectating::%player%} is set:
+		log("%player% stopped spectating %{spectating::%player%}%")
 		teleport player to {lobbySpawnLoc}
 		set gamemode of player to adventure
 		wait 1 tick

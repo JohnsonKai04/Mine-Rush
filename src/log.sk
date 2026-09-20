@@ -1,5 +1,19 @@
-function log(txt: text):
-    send {_txt} to console
+# General = Commands, states, warnings
+# 
+#
+function log(txt: text, f: text = "general", s: number = 0):
+    set {_file} to "%now formatted as "yy/MM/dd"%.log"
+    replace "/" in {_file} with "-"
+    set {_file} to {_f} + "/" + {_file}
+
+    if {_s} is 1:
+        log {_txt} to file {_file} with a severity of warning
+        send "<color:#FFE300>[Warning] %{_txt}%" to console
+    else if {_s} is 2:
+        log {_txt} to file {_file} with a severity of severe
+        send "<color:#FF0000>[Severe] %{_txt}%" to console
+    else:
+        log {_txt} to file {_file}
 
 function debugMsg(p: player, txt: text):
     if {debugMode::%{_p}%} is true:

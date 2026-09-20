@@ -10,8 +10,10 @@ command /killswitch [<text>]:
 			send "killswitch reseted" to player
 		else if {killSwitch::%arg-1%} is true:
 			delete {killSwitch::%arg-1%}
+			log("%{killSwitch::%arg-1%}% has been removed from the kill switch list")
 		else:
 			set {killSwitch::%arg-1%} to true
+			log("%{killSwitch::%arg-1%}% has been killswitched")
 on tab complete of "/killswitch":
 	if player has permission "mineRush.admin":
 		set tab completion to "reset" and "start" and "shop" and "settings" and "veinMiner" and "streak" and "oreDuplicate" and "luckyMiner" and "lootBoxCollector" and "hungryMiner" and "fireball" and "ghook" and "ghead" and "boosterMenu" and "join" and "leaderboard"
@@ -23,5 +25,5 @@ command /checkVariable [<text>]:
 		send "%{%arg-1%}%" to player
 
 function killSwitchMsg(p: player):
-	send "%{color::error}%The action you are trying to do has been kill switched please contact the owner for more details. Sorry for the inconvenience." to {_p}
+	send "%{color::error}%The action you are trying to do has been disabled please contact the owner for more details. Sorry for the inconvenience." to {_p}
 	playErrorSound({_p})

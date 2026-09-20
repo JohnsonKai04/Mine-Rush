@@ -55,6 +55,7 @@ function setGamerules(world: world):
 	set gamerule minecraft:locator_bar of {_world} to false
 	set gamerule minecraft:show_advancement_messages of {_world} to false
 	set gamerule minecraft:spawn_wandering_traders of {_world} to false
+	log("Gamerules set for %{_world}%")
 
 
 command /updateworldarray [<integer>] [<integer>]:
@@ -69,11 +70,11 @@ function deleteRun(ID: integer):
 		if {_ID} is not -1:
 			wait 30 seconds
 			unload world "run_%{_ID}%_overworld"
-			send "%{msg::info}% Unloaded run %{_ID}%" to console
+			log("Unloaded run %{_ID}%")
 			wait 5 seconds
 			load yaml "flags/%{_ID}%.flag" as "flag"
 			unload yaml "flag"
-			send "%{msg::info}% Deleted run %{_ID}%" to console
+			log("Deleted run %{_ID}%")
 
 function retNextRunID() :: integer:
 	loop {worldArray::*}:

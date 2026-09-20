@@ -8,6 +8,7 @@ command /start:
 		# Validation checks --------------------------------------------------------------------------------------
 		if {killSwitch::start} is true:
 			killSwitchMsg(player)
+			log("%player% tried to start a run but starting a run is kill switched", "generic", 1)
 			delete {startCooldown::%player%}
 			stop
 		
@@ -27,7 +28,7 @@ command /start:
 			set {_ID} to retNextRunID()
 			if {_ID} is not set:
 				send "%{msg::error}% There are no generated worlds avalible to play on please notify NotAWatermelon as this is a bug" to player
-				send "%{msg::error}% %player% Tried to start a run but there were no avalible worlds" to console
+				log("%player% tried to start a run but there were no avalible worlds", "generic", 2)
 				stop
 			givePoints(player, 0)
 			delete {worldArray::%{_ID}%}
@@ -77,8 +78,8 @@ command /start:
 		loadRun({_ID})
 		if {_world} is not set:
 			set {_world} to retRunLoc({_ID})
-		send "%{msg::info}%%player% has started run ID: %{_ID} ? -1%" to console
 		teleport player to {_world}
+		log("%player% is starting run with world ID %{_ID}%")
 
 		# removes players slow falling when hitting the ground
 		asyncAircheck(player)
