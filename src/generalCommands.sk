@@ -198,3 +198,8 @@ command /fix [<player>]:
 			repair the player's tool
 		else:
 			repair arg-1's tool
+
+command /entity:
+	permission: op
+	trigger:
+		send health of target entity to player

@@ -25,6 +25,7 @@ Card names: <b><color:#F10CCF> @ </color></b>
 [Selected]: <b><gradient:#0CF11B:#E7FF00:#0CF11B> @ </color></b>
 Difficulties: <#00FF11><#C3D705><#F5AD0E><#F5500E><#F50EC9><#2D0EF5><#F50E0E>
 Settings: <b><color:#4ED95D> @ </color></b>
+Wolf Name: <b><color:#DBCDF0> @ </color></b>
 
 
 Damage indicator %75: <color:#00FF26> @ </color>

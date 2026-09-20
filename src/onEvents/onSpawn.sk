@@ -13,8 +13,7 @@ on spawn:
 		if {inGame::%{_p}%} is true:
 			#Mobs do not spawn for the first difficulty
 			if {difficulty::%{_p}%} is 1:
-				if {debugMode::%{_p}%} is not true:
-					cancel event
+				cancel event
 			if y-coordinate of location of event-entity is greater than or equal to ({mobSpawnMaxHeight} + {_y}):
 				cancel event
 			set {_speed} to event-entity's generic movement speed attribute
@@ -27,4 +26,5 @@ on spawn:
 		else:
 			cancel event
 	if event-entity is a animal:
-		cancel event
+		if event-entity is not a wolf:
+			cancel event

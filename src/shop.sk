@@ -203,6 +203,8 @@ function purchaseCustomItem(p: player, item: item, cItem: text):
 			give {_p} skull of ({goldenSkullPlayerName} parsed as offline player) named {customItem::ghead::name} with lore {customItem::ghead::lore}
 		else if {_cItem} is "grappling hook":
 			give {_p} {_item} named {customItem::grappling hook::name} with lore {customItem::grappling hook::lore}
+		else if {_cItem} is "wolf":
+			give {_p} {_item} named {customItem::wolf::name} with lore {customItem::wolf::lore}
 
 function openUtilityShop(p: player):
 	open chest inventory with 6 rows named "%{color::inventoryName}%Utility Shop, %{color::points}%%{currentGameStats::%{_p}%::points::points}%" to {_p}
@@ -218,6 +220,7 @@ function openUtilityShop(p: player):
 	set slot 16 of {_inv} to 32 scaffolding named "<!i><b>Scaffolding</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::scaffolding}% Points"
 
 	# Utility
+	set slot 29 of {_inv} to bone named "<!i><b>Wolf</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::wolf}% Points"
 	set slot 38 of {_inv} to shield named "<!i><b>Shield</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::shield}% Points"
 	set slot 39 of {_inv} to iron golem spawn egg named "<!i><b>Iron Golem</b>" with lore "%{color::desc}%Cost: %{color::points}%%{cost::iron golem}% Points"
 

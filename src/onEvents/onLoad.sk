@@ -110,6 +110,8 @@ on load:
 	set {customItem::shop::name} to "<!i><b><gradient:#6176BB:#83D4FF>Shop Menu</gradient></b>"
 	set {customItem::menu::name} to "<!i><b><gradient:#6176BB:#83D4FF>Menu</gradient></b>"
 	set {customItem::menu::lore} to "<!i>%{color::desc}%Right click to open the main menu"
+	set {customItem::wolf::lore} to "<!i>%{color::desc}%Right click to spawn a tamed wolf"
+	set {customItem::wolf::name} to "<!i><b><color:#DBCDF0>Wolf's Bone</color></b>"
 
 	# Drop blacklist
 	set {DropBlacklist::*} to {pickaxe::tier::stone}
@@ -226,6 +228,7 @@ on load:
 	setPrice("water bucket", 100)
 	setPrice("scaffolding", 100)
 	setPrice("tnt", 600)
+	setPrice("wolf", 200)
 	setPrice("shield", 300)
 	setPrice("iron golem", 600)
 

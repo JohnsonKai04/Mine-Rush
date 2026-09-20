@@ -29,7 +29,7 @@ on damage:
 			delete {inFlight::%victim%}
 
 # Golden Heads / Extractor
-on right click using player head or recovery compass or nether star:
+on right click using player head or recovery compass or nether star or bone:
 	if uncolored name of player's held item is uncolored {customItem::ghead::Name}:
 		cancel event
 		heal player by 2 hearts
@@ -66,6 +66,15 @@ on right click using player head or recovery compass or nether star:
 		make player execute command "/shop"
 	if uncolored name of player's held item is uncolored {customItem::menu::name}:
 		make player execute command "/menu"
+	if uncolored name of player's held item is uncolored {customItem::wolf::name}:
+		spawn wolf at location of player
+		set {_wolf} to last spawned wolf
+		wait 1 tick
+		set owner of {_wolf} to player
+		set max health of {_wolf} to 40
+		heal {_wolf}
+		remove 1 of player's held item from player's inventory
+
 
 
 on place of chest:

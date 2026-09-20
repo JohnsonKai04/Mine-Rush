@@ -74,6 +74,7 @@ function endGame(p: player) :: boolean:
 	clear fastboard of {_p}
 	set {_p}'s tab list name to "%{_p}'s name%"
 	make {_p} invulnerable
+	delete {_p}'s active potion effects
 	set {_p}'s gamemode to adventure
 	setSpawnTab({_p})
 	return true

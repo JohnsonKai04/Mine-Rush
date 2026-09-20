@@ -187,6 +187,10 @@ on inventory click:
 				purchaseItem(player, "water bucket", 1)
 			else if {_item} is "Scaffolding":
 				purchaseItem(player, "scaffolding", 32)
+			else if {_item} is "Wolf":
+				purchaseCustomItem(player, bone, "wolf")
+			else if {_item} is "Iron Golem":
+				purchaseItem(player, "iron golem spawn egg", 1)
 			else if {_item} is "Tnt":
 				purchaseItem(player, "tnt", 8)
 			else if {_item} is "Shield":

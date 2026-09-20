@@ -67,13 +67,11 @@
 
 # Playtest 3
 - [x] pickaxe breaks
-- [ ] featherfalling + fire
-- [ ] firework injurs people lmao
+- [x] firework injurs people lmao
 - [x] dif 2 mobs do no damage
-- [ ] Add wolfs in shop
+- [x] Add wolfs in shop
 - [1/2] Move TNT/Extract charm to lootboxes
-- [ ] add player heads with arrows
-- [ ] be able to cancel extractor item
+- [] add player heads with arrows
 
 # 6/18/2026
 - [x] When spawning extract load the chunk and then save.
