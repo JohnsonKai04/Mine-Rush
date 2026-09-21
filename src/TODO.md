@@ -1,12 +1,15 @@
 ## Issues
 - There are client side mods that hide the players bossbar for some reason right now these mods are (Better F3)
 
-# Roadmap updated: 7/2/2026
-- [ ] remove water caves if possible
+
+# Final Stretch updated: 9/21/2026
+- [ ] 
+
+
+
+# Roadmap updated: 9/21/2026
 - [ ] UHC custom weapons
 - [ ] make extract point spawn mobs around the player before sending them home
-- [ ] selectable difficulties
-- [ ] add expensive feather falling - Possibly wont add to increase risk factor
 - [x] make finding caves easier - Maps must be opened by the player - For now this is 
 - [ ] add support for trial chamber
 - [x] Music disc audio becomes distorted the farther players are from 0,0. only generate valid spawns within 2mx2m
@@ -20,7 +23,7 @@
 - [x] lucky miner doesnt send message when procced
 - [x] damage on mobs is broken
 - [x] extracting doesnt give points back + gamemode doesnt change back to adventure
-- [ ] spectact player see what they see
+- [x] spectact player see what they see
 - [x] create worlds on another server then transfer them to the main server. figure out how to tp players between worlds.
     -  Skbee contains a world generation feature which utilizes dimensions. When the server is empty or when daily restarts happen generate X amount of worlds. if the server reaches a threshhold new worlds will be generated followed by lag which will need to be told to the player
     -  Allow players to enter the nether. when entering the portal they will be teleported to a brand new nether which will have difficult mobs but higher value ores.
@@ -99,11 +102,11 @@
 - [x] The Extractor
 
 ## Multiplyer support
-- [ ] Validate that multipler players can start their own independent game. Change all variables to include %player% at the end
+- [x] Validate that multipler players can start their own independent game. Change all variables to include %player% at the end
     - [x] All variables have been validated to have %player%
 
 ## Website support
-- [ ] Create a website that hosts the variable infromation from each game
+- [x] Create a website that hosts the variable infromation from each game
 
 ## Enemy
 - [ ] The curroption: Teleports player to parkour area on contact then teleports them back
