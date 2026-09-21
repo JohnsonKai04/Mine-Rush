@@ -1,8 +1,8 @@
 # Sets the default settings for the player located in ../settings.sk
 on first join:
-	set gamemode of player to adventure
+	wait 1 tick
+	setState(player, 0)
 	setDefaultSettings(player)
-	giveMenuItem(player)
 	send returnTutorialMsg() to player
 
 on join:
@@ -20,8 +20,5 @@ on join:
 		kill player
 		exit
 
-	if state(player) is not set:
-		wait 1 tick
-		make player invulnerable
-
-	setSpawnTab(player)
+	wait 1 tick
+	setState(player, 0)
