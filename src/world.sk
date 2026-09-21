@@ -55,6 +55,7 @@ function setGamerules(world: world):
 	set gamerule minecraft:locator_bar of {_world} to false
 	set gamerule minecraft:show_advancement_messages of {_world} to false
 	set gamerule minecraft:spawn_wandering_traders of {_world} to false
+	set gamerule minecraft:command_blocks_work of {_world} to false
 	log("Gamerules set for %{_world}%")
 
 
