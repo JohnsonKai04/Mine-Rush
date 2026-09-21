@@ -1,16 +1,3 @@
-# States:
-# <none> in lobby
-# 1 In Game
-# 2 In Death screen
-# 3 Extracting
-# 4 Building
-# 5 Spectating
-function state(p: player) :: number:
-	return {state::%{_p}%}
-
-function setState(p: player, n: integer):
-	set {state::%{_p}%} to {_n}
-
 function giveMenuItem(p: player):
 	set slot 4 of {_p} to nether star named {customItem::menu::name} with lore {customItem::menu::lore}
 
@@ -44,28 +31,37 @@ command /setspawn:
 	permission: mineRush.admin
 	trigger:
 		set {lobbySpawnLoc} to location of player
-		set worldborder of world "world" to a worldborder:
-			set worldborder radius of event-worldborder to 100
-			set worldborder center of event-worldborder to {lobbySpawnLoc}
-			set worldborder warning distance of event-worldborder to 0
 
-command /buildmode [<player>]:
-	permission: mineRush.admin
+command /addbuild [<text>]:
+	permission: op
 	trigger:
-		if arg-1 is not set:
-			send "%{color::error}%Please specify a player" to player
-			exit
-		if {builderMode::%arg-1%} is not true:
-			set {builderMode::%arg-1%} to true
-			set arg-1's gamemode to creative
-			clear inventory of arg-1
-			send "%{color::points}%You've been set to builder mode use" to arg-1
-			send "%{color::points}%%arg-1% has been set to builder mode" to player
+		if {buildList::*} contains arg-1:
+			send "%arg-1% is already added" to player
 		else:
-			delete {builderMode::%arg-1%}
-			set arg-1's gamemode to adventure
-			giveMenuItem(arg-1)
+			add arg-1 to {buildList::*}
+			send "%arg-1% has been added to the list" to player
 
+command /removebuild [<player>]:
+	permission: op
+	trigger:
+		if {buildList::*} does not contain arg-1:
+			send "%arg-1% is not in the list" to player
+		else:
+			remove arg-1 from {buildList::*}
+			send "%arg-1% has been removed from the list" to player
+
+command /build:
+	aliases: /exit
+	trigger:
+		if {buildList::*} contains name of player:
+			if state(player) is 4:
+				setState(player, 0)
+				send "%{color::points}%Thank you %player% for your help!!!" to player
+			else:	
+				setState(player, 4)
+			exit
+		send "%{color::error}%Incorrect mode or not on list" to player
+		playErrorSound(player)
 
 command /spawn:
 	permission: op

@@ -1,0 +1,43 @@
+# States:
+# <none> in lobby
+# 1 In Game
+# 2 Death screen
+# 3 Extracting
+# 4 Building
+# 5 Spectating
+function state(p: player) :: number:
+	return {state::%{_p}%} ? 0
+
+function setState(p: player, n: integer):
+	set {state::%{_p}%} to {_n}
+	if {_n} is 0: # In Lobby
+		delete {_p}'s active potion effects
+		clear {_p}'s inventory
+		set {_p}'s gamemode to adventure
+		make {_p} invulnerable
+		teleport {_p} to {lobbySpawnLoc}
+		delete {state::%{_p}%}
+		giveMenuItem({_p})
+		setSpawnTab({_p})
+
+	if {_n} is 1: # In a run
+		set {_p}'s gamemode to survival
+		make {_p} vulnerable
+		heal {_p}
+		feed {_p}
+
+	if {_n} is 2: # Death screen
+		set {_p}'s gamemode to spectator
+
+	if {_n} is 3: # Extracting
+		make {_p} invulnerable
+
+	if {_n} is 4: # Building
+		set {_p}'s gamemode to creative
+		clear {_p}'s inventory
+		give debug stick to {_p}
+		send "%{color::points}%You've been set to builder mode use /exit to go back" to {_p}
+		playDing({_p})
+
+	if {_n} is 5: # Spectating
+		set {_p}'s gamemode to spectator
