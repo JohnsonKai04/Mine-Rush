@@ -1,6 +1,6 @@
 command /start:
 	aliases: /startgame, /st, /begin, /startrun
-	cooldown: 5 minutes
+	cooldown: 16 minutes
 	cooldown storage: {startCooldown::%player%}
 	cooldown message: %{color::error}% You recently started up a game please wait %remaining time% to begin another run.
 	cooldown bypass: mineRush.admin
@@ -33,10 +33,6 @@ command /start:
 			givePoints(player, 0)
 			delete {worldArray::%{_ID}%}
 			delete {startCooldown::%player%}
-
-
-		# All checks have passed and the player is considered in game
-		setState(player, 1) 
 
 		# Begins teleporting the player --------------------------------------------------------------------------------------
 		send title "<b><color:#00FF3B>Starting in 5...</color></b>" to player
@@ -73,6 +69,8 @@ command /start:
 			hide particles
 			hide icon
 
+		# All checks have passed and the player is considered in game
+		setState(player, 1)
 
 		# Teleports player to world --------------------------------------------------------------------------------------
 		loadRun({_ID})
