@@ -201,7 +201,7 @@ command /debug:
 		send "Player summary:" to player
 		loop {state::*}:
 			send "%loop-index%: %loop-value%" to player
-		send "There are %size of {worldArray::*}%/%{maxWorlds}% world's. There are %{genServerWorldAmount}% worlds on the gen server" to player
+		send "There are %size of {worldArray::*} - 1%/%{maxWorlds}% world's. There are %{genServerWorldAmount}% worlds on the gen server" to player
 		send "Next RunID: %retNextRunID()%" to player
 
 
