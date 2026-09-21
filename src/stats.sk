@@ -55,6 +55,9 @@ function saveDataToFile(p: player) :: boolean:
 
 	sendStats({_p}, {_ID}, {_placement})
 
+	if {topPoints} < {currentGameStats::%{_p}%::points::points}:
+		set {topPoints} to {currentGameStats::%{_p}%::points::points}
+		set {topPlayer} to {_p}
 	delete {currentGameStats::%{_p}%::*}
 
 # Spec: Specific game being requested

@@ -119,3 +119,7 @@ every 2 minutes in world "world":
 			unload world "run_%loop-index%_overworld"
 			set {worldArray::%loop-index%} to true
 	broadcast "Preloading completed!"
+
+
+on server ping:
+	set the motd to "<b><gradient:#FF4B4B:#FF8B2D:#FFD031:#DCFF39:#6DFF45:#3BFFC7:#58D0FF:#5489FF>Minerush [26.1.2] ┊┊</gradient></b> <gradient:#00FFCC:#26FFB2:#4DFF99:#73FF80:#99FF66:#BFFF4D><b>🥇 </b>%{topPlayer}%: 💎%formatNumber({topPoints})%</gradient>          <color:#FF4B4B>🌟  <color:#6DFF45>⛏  <color:#58D0FF>🌟   <gradient:#FF4B4B:#FF8B2D:#FFD031:#DCFF39:#6DFF45:#3BFFC7:#58D0FF:#5489FF><b><u>Stats.notamelon.com</u></b></gradient>   <color:#FF4B4B>🌟  <color:#6DFF45>⛏  <color:#58D0FF>🌟"
