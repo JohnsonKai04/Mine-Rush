@@ -2,12 +2,11 @@ on death of player:
 	if state(victim) is 1:
 		cancel event
 		if secondLife(victim) is false:
+			setState(victim, 2)
 			deleteRun(returnWorldID(victim))
 			set victim's gamemode to spectator
-			clear victim's inventory
 			showDeathScreen(victim)
 			wait 5 seconds
-			setState(victim, 2)
 			kill victim
 			if {currentGameStats::%victim%::misc::extracted} is not true:
 				set {currentGameStats::%victim%::misc::extracted} to false
@@ -20,17 +19,14 @@ on death of player:
 # after 6 seconds endGame() runs
 on right click on beacon:
 	if state(player) is 1:
+		cancel event
+		setState(player, 3)
 		deleteRun(returnWorldID(player))
 		set {currentGameStats::%player%::misc::extracted} to true
-		setState(player, 3)
-		cancel event
-		make player invulnerable
 		add {currentGameStats::%player%::points::pointsSpent} to {currentGameStats::%player%::points::points}
 		send "<b><gradient:#52F361:#02CEF6:#52F361>Extracting You Now good job %player%. Heres a Bonus For Your Efforts: %{currentGameStats::%player%::points::pointsSpent} ? 0%</gradient></b>" to player
 		send " " to player
 		wait 6 seconds
-		teleport player to {lobbySpawnLoc}
-		clear inventory of player
 		send "%{color::points}%[Booster Cards] You've unlocked: " + unlockCard(player) to player
 		playDing(player)
 		endGame(player)
@@ -72,13 +68,9 @@ function endGame(p: player) :: boolean:
 	remove {_p} from {pointBar::%{_p}%}
 	set {validSpawn::active::%{spawnLocation::%{_p}%}%} to false
 	deletePlayerVariables({_p})
-	set slot 4 of {_p} to nether star named {customItem::menu::name} with lore {customItem::menu::lore}
 	clear fastboard of {_p}
 	set {_p}'s tab list name to "%{_p}'s name%"
-	make {_p} invulnerable
-	delete {_p}'s active potion effects
-	set {_p}'s gamemode to adventure
-	setSpawnTab({_p})
+	setState({_p}, 0)
 	return true
 
 
