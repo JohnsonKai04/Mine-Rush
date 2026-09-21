@@ -6,6 +6,14 @@ command /leaderboard:
 		send " " to player
 		playDing(player)
 
+command /fly:
+	permission: op
+	trigger:
+		if player cannot fly:
+			make player fly
+		else:
+			make player stop flying
+
 command /rename [<text>]:
 	permission: mineRush.admin
 	trigger:
@@ -198,9 +206,16 @@ command /debug:
 
 
 on command:
-	if {spectating::%player%} is set:
+	if state(player) is 5:
 		send "%{color::error}%You cannot use any commands while spectating" to player
+		playErrorSound(player)
 		cancel event
+	if state(player) is 4:
+		if command is not "exit":
+			send "%{color::error}%You cannot use most commands while in buildermode please use /exit to leave" to player
+			playErrorSound(player)
+			cancel event
+
 
 
 command /fix [<player>]:
