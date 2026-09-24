@@ -91,15 +91,24 @@ command /start:
 				hide icon
 
 		# Items --------------------------------------------------------------------------------------
-		clear player's inventory
 		give nether star named {customItem::shop::name} to player
-		give unbreakable stone pickaxe named {pickaxe::tier::stone} to player
+		set {_pickaxe} to unbreakable stone pickaxe named {pickaxe::tier::stone}
+		add hide unbreakable to item flags of {_pickaxe}
+		add hide attributes to item flags of {_pickaxe}
+		give {_pickaxe} to player
 		give 16 cooked beef to player
 
 		# Booster card implimentation --------------------------------------------------------------------------------------
-		veinMinerCard(player)
 		extractionExpertCard(player)
 		headMasterCard(player)
+
+		speedCard(player)
+		healthCard(player)
+		stepCard(player)
+		minionCard(player)
+		reachCard(player)
+		efficiencyCard(player)
+		falldamageCard(player)
 
 		# Boss bar --------------------------------------------------------------------------------------
 		set {pointBar::%player%} to boss bar with title " " with color green with progress 0
