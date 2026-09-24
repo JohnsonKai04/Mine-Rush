@@ -12,9 +12,10 @@ on inventory click:
 				playErrorSound(player)
 				stop
 			if event-item is set:
-				if event-item is not a barrier:
-					set {_ID} to index of event-slot
+				set {_ID} to (index of event-slot - 17)
+				if {unlockedCard::%player%::%{_ID}%} is greater than 0:
 					activateCard(player, {_ID})
+					playDing(player)
 					make player execute command "/booster"
 
 		# ------------------------------------------------------
@@ -22,6 +23,7 @@ on inventory click:
 		# ------------------------------------------------------
 		if {_name} is "Settings":
 			if {_item} is "Volume":
+				playBookSound(player)
 				open chest inventory with 2 row named "%{color::inventoryName}%Volume" to player
 				set {_inv} to player's current inventory
 				# Volume level 0% - 100%
@@ -31,7 +33,6 @@ on inventory click:
 
 			else if {_item} is "Chat Enchant Notification":
 				writeSetting(player, "chatEnchantNotif", swapBooleanNum(returnSetting(player, "chatEnchantNotif")))
-				send "meow" to player
 
 			else if {_item} is "Audio Enchant Notification":
 				writeSetting(player, "audioEnchantNotif", swapBooleanNum(returnSetting(player, "audioEnchantNotif")))
@@ -83,8 +84,10 @@ on inventory click:
 		if {_name} is "Shop":
 			if {_item} is "Utility":
 				openUtilityShop(player)
+				playBookSound(player)
 			if {_item} is "Upgrades":
 				openUpgradeShop(player)
+				playBookSound(player)
 			cancel event
 
 		if {_name} contains "Upgrade Shop":
@@ -212,35 +215,28 @@ on inventory click:
 			cancel event
 
 		# ------------------------------------------------------ 
-		#          STATS/LEADERBOARD   - OLD CODE REWORK LATER
+		#          STATS/LEADERBOARD
 		# ------------------------------------------------------
 		
 		if {_name} contains "Main Menu":
 			cancel event
 			if {_item} contains uncolored "Settings":
 				make player execute command "/settings"
+				playBookSound(player)
 			else if {_item} contains uncolored "Start Run":
 				make player execute command "/start"
 				close the inventory of the player
 			else if {_item} contains uncolored "Enchants":
 				make player execute command "/enchants"
-			else if {_item} contains uncolored "Previous Runs":
-				make player execute command "/runs"
+				playBookSound(player)
 			else if {_item} contains uncolored "Booster Cards":
 				make player execute command "/booster"
+				playBookSound(player)
 			else if {_item} contains uncolored "Enchants":
 				make player execute command "/enchants"
+				playBookSound(player)
 			else if {_item} contains uncolored "Leaderboard":
 				make player execute command "/leaderboard"
 		
 		if {_name} contains "Custom Enchantments":
 			cancel event
-
-# command /test:
-# 	trigger:
-# 		apply attribute modifier to player's tool:
-# 			id: "minecraft:regular_mul_friction_modifier"
-# 			attribute: friction modifier
-# 			amount: 13.0
-# 			slot: mainhand_slot_group
-# 			operation: add_multiplied_total
