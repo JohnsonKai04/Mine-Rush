@@ -1,3 +1,4 @@
 on disconnect:
 	unload yaml "%player's uuid%.settings"
 	delete {setting::%player%::*}
+	delete {boostercard::%player%::*}
