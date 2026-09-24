@@ -27,7 +27,7 @@ on right click on beacon:
 		send "<b><gradient:#52F361:#02CEF6:#52F361>Extracting You Now good job %player%. Heres a Bonus For Your Efforts: %{currentGameStats::%player%::points::pointsSpent} ? 0%</gradient></b>" to player
 		send " " to player
 		wait 6 seconds
-		send "%{color::points}%[Booster Cards] You've unlocked: " + unlockCard(player) to player
+		addBoosterPack(player, 1)
 		playDing(player)
 		endGame(player)
 
@@ -71,6 +71,7 @@ function endGame(p: player) :: boolean:
 	clear fastboard of {_p}
 	set {_p}'s tab list name to "%{_p}'s name%"
 	setState({_p}, 0)
+	resetAttributes({_p})
 	return true
 
 
