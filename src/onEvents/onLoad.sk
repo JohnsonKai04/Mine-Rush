@@ -24,6 +24,9 @@ on load:
 	set {color::subdesc} to "<color:#63B7A4>"
 	set {color::inventoryName} to "<aqua><b>"
 	set {color::item} to "<b><color:#4ED95D>"
+	set {color::cardName} to "<b><color:#F10CCF>"
+	set {color::cardLore} to "<gradient:#750CF1:#A703B0>"
+	set {color::boosterpack} to "<!i><b><gradient:#F623E8:#AF43FD:#486AFA>"
 
 	delete {msg::*}
 	set {msg::error} to "<color:red>[Error] "
@@ -198,17 +201,81 @@ on load:
 
 	# Booster Cards
 
-	set {card::0} to a golden pickaxe named "<b><color:#F10CCF:>Vein Miner</color></b>" with lore "<gradient:#750CF1:#A703B0>Start the run with the vein miner enchant</gradient>"
-	set {card::1} to a redstone named "<b><color:#F10CCF>Blood Lust</color></b>" with lore "<gradient:#750CF1:#A703B0>Randomly receive strength 1 after attacking</gradient>"
-	set {card::2} to a totem of undying named "<b><color:#F10CCF>Second Life</color></b>" with lore "<gradient:#750CF1:#A703B0>Have a 50%% chance of reviving when dying (1 time use per run)</gradient>"
-	set {card::3} to a recovery compass named "<b><color:#F10CCF>Extraction expert</color></b>" with lore "<gradient:#750CF1:#A703B0>Start the run with the Extractor item</gradient>"
-	set {card::4} to a player head named "<b><color:#F10CCF>Head Master</color></b>" with lore "<gradient:#750CF1:#A703B0>Start the run with golden heads</gradient>"
-	set {cardMaxLevel::0} to 1
+	set {cardTutorial} to a book named "%{color::menu}%What Are Booster Cards?" with lore "%{color::desc}%After extracting you will be prompted to select 1 of 3 Booster Cards" and "%{color::desc}%You can find all of your unlocked cards within this menu" and "%{color::desc}%Only one booster card can be used at a time"
+
+	delete {card::*}
+	set {card::1} to a book named "Blood Lust"
+	set {card::2} to a book named "Second Life"
+	set {card::3} to a book named "Extraction expert"
+	set {card::4} to a book named "Head Master"
+	set {card::5} to a book named "Cardio"
+	set {card::6} to a book named "Health Boost"
+	set {card::7} to a book named "Big Step"
+	set {card::8} to a book named "Goblin Mode"
+	set {card::9} to a book named "Long Arms"
+	set {card::10} to a book named "Strong Arms"
+	set {card::11} to a book named "Soft Landing"
+	loop {card::*}:
+		set {card::%loop-index%} to applyTexture({card::%loop-index%}, name of {card::%loop-index%})
+
+
+	delete {cardMaxLevel::*}
+
 	set {cardMaxLevel::1} to 3
+
 	set {cardMaxLevel::2} to 1
+
 	set {cardMaxLevel::3} to 1
+
 	set {cardMaxLevel::4} to 3
 
+	set {cardMaxLevel::5} to 4
+
+	set {cardMaxLevel::6} to 5
+
+	set {cardMaxLevel::7} to 1
+
+	set {cardMaxLevel::8} to 1
+
+	set {cardMaxLevel::9} to 3
+
+	set {cardMaxLevel::10} to 3
+
+	set {cardMaxLevel::11} to 4
+
+	set {cardLevelLore::1::1} to "Have a <u>5%%</u> chance to recieve strength 1 after attacking"
+	set {cardLevelLore::1::2} to "Have a <u>10%%</u> chance to recieve strength 1 after attacking"
+	set {cardLevelLore::1::3} to "Have a <u>15%%</u> chance to recieve strength 1 after attacking"
+	set {cardLevelLore::2::1} to "Have a <u>50%%</u> chance of reviving when dying (1 time use per run)"
+	set {cardLevelLore::2::1} to "Have a <u>100%%</u> chance of reviving when dying (1 time use per run)"
+	set {cardLevelLore::3::1} to "Start the run with the x item and x item"
+	set {cardLevelLore::4::1} to "Start the run with <u>2</u> golden heads"
+	set {cardLevelLore::4::2} to "Start the run with <u>4</u> golden heads"
+	set {cardLevelLore::4::3} to "Start the run with <u>6</u> golden heads"
+	set {cardLevelLore::5::1} to "Recieve a <u>5%%</u> movement speed buff"
+	set {cardLevelLore::5::2} to "Recieve a <u>10%%</u> movement speed buff"
+	set {cardLevelLore::5::3} to "Recieve a <u>15%%</u> movement speed buff"
+	set {cardLevelLore::5::4} to "Recieve a <u>20%%</u> movement speed buff"
+	set {cardLevelLore::6::1} to "Recieve an extra <u>1</u> heart"
+	set {cardLevelLore::6::2} to "Recieve an extra <u>2</u> hearts"
+	set {cardLevelLore::6::3} to "Recieve an extra <u>3</u> hearts"
+	set {cardLevelLore::6::4} to "Recieve an extra <u>4</u> hearts"
+	set {cardLevelLore::6::5} to "Recieve an extra <u>5</u> hearts"
+	set {cardLevelLore::7::1} to "Increase your stephight to a full block"
+	set {cardLevelLore::8::1} to "Loose 2 hearts but half your height"
+	set {cardLevelLore::9::1} to "Be able to mine <u>0.5</u> blocks farther away"
+	set {cardLevelLore::9::2} to "Be able to mine <u>1.0</u> blocks farther away"
+	set {cardLevelLore::9::3} to "Be able to mine <u>1.5</u> blocks farther away"
+	set {cardLevelLore::10::1} to "Increases your base mining speed by <u>10%%</u>"
+	set {cardLevelLore::10::2} to "Increases your base mining speed by <u>20%%</u>"
+	set {cardLevelLore::10::3} to "Increases your base mining speed by <u>30%%</u>"
+	set {cardLevelLore::11::1} to "Reduces fall damage by <u>25%%</u>"
+	set {cardLevelLore::11::2} to "Reduces fall damage by <u>50%%</u>"
+	set {cardLevelLore::11::3} to "Reduces fall damage by <u>75%%</u>"
+	set {cardLevelLore::11::4} to "Reduces fall damage by <u>100%%</u>"
+
+	set {customItem::boosterpack} to a book named "%{color::boosterpack}%Booster Pack" with lore "%{color::desc}%Right click to open this Booster Pack!"
+	set {customItem::boosterpack} to applyTexture({customItem::boosterpack}, "booster_pack")
 
 	# Card ID starts at 0 so we offset the total cards by -1.
 	set {totalCards} to -1
