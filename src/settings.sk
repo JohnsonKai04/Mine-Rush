@@ -39,23 +39,8 @@ function openSettingsMenu(p: player):
 	set slot 7 of {_inv} to a ender eye named "%{color::item}%Night Vision" with lore "%{color::desc}%Currently: <b>%returnYesNo(returnSetting({_p}, "nightvision"))%"
 	set slot 8 of {_inv} to a oak hanging sign named "%{color::item}%Tips" with lore "%{color::desc}%Currently: <b>%returnYesNo(returnSetting({_p}, "tips"))%"
 	set slot 26 of {_inv} to a barrier named "Reset All Settings To Default"
-
-
-function playDing(p: player):
-	playSound({_p}, "entity.experience_orb.pickup", -1, 1)
-
-
-function playErrorSound(p: player):
-	playSound({_p}, "block.note_block.bass", -1, 1)
-
-
-function playSound(p: player, sound: text, lowP: number, highP: number):
-	set {_pitch} to a random number between {_lowP} and {_highP}
-	play sound {_sound} with volume returnSetting({_p}, "volume") and pitch {_pitch} to {_p}
-
 	
 function returnSetting(p: player, setting: text) :: number:
-	#return yaml value "%{_setting}%" from "%{_p}'s uuid%.settings"
 	if {setting::%{_p}%::%{_setting}%} is not set:
 		set {setting::%{_p}%::%{_setting}%} to yaml value "%{_setting}%" from "%{_p}'s uuid%.settings"
 	return {setting::%{_p}%::%{_setting}%}
