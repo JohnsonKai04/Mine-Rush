@@ -3,84 +3,56 @@ command /booster:
 		if {killSwitch::boosterMenu} is true:
 			killSwitchMsg(player)
 			stop
-		open chest inventory with 3 rows named colored "%{color::inventoryName}%Booster Cards" to the player
+		open chest inventory with 5 rows named colored "%{color::inventoryName}%Booster Cards" to the player
 		set {_inv} to player's current inventory
-		loop {unlockedCard::%player%::*}:
-			set {_ID} to loop-index parsed as integer
-			set {_name} to name of {card::%{_ID}%}
-			set {_name} to {_name} + " %convertToRoman({unlockedCard::%player%::%{_ID}%})%"
-			set slot {_ID} of {_inv} to {card::%{_ID}%} named {_name}
-			if {cardActive::%player%::%{_ID}%} is true:
-				set slot {_ID} of {_inv} to {card::%{_ID}%} named ({_name} + " <b><gradient:#0CF11B:#E7FF00:#0CF11B>[Selected]</gradient></b>")
-				enchant slot {_ID} of {_inv} with infinity
-			else:
-				set slot {_ID} of {_inv} to {card::%{_ID}%} named {_name}
-
+		set slot 0 of {_inv} to {cardTutorial}
 		loop {card::*}:
 			set {_ID} to loop-index parsed as integer
-			if slot {_ID} of {_inv} is air:
-				set slot {_ID} of {_inv} to barrier named "<b><gradient:#F10C31:#8F1D26>Not Unlocked</gradient></b>" with lore "<gradient:#750CF1:#A703B0>Complete runs to unlock a random booster card</gradient>"
+			set {_slot} to {_ID} + 17
+			set {_item} to {card::%{_ID}%}
+			set {_cardLevel} to retCardLevel(player, {_ID})
+			set {_isActive} to retActiveCard(player)
 
-command /showcards:
-	permission: op
-	trigger:
-		send "&4Showing all cards you have:"
-		loop {unlockedCard::%player%::*}:
-			send "ID: %loop-index%, level: %{unlockedCard::%player%::%loop-index%}%, Active: %{cardActive::%player%::%loop-index%}%"
+			loop {cardMaxLevel::%{_ID}%} times:
+				if {_cardLevel} is greater than or equal to loop-iteration-2:
+					set {_color} to "<color:green><b>   ✦ "
+				else:
+					set {_color} to "<gradient:#FF0000:#EA1653:#FF0000><!i><b><obf>   ✦ "
 
-command /unlockRandomCard:
-	permission: op
-	trigger:
-		send unlockCard(player) to player
+				set line (loop-iteration-2 * 2) of lore of {_item} to "%{_color}%%{cardLevelLore::%{_ID}%::%loop-iteration-2%}%"
 
-command /clearCards:
-	permission: op
-	trigger:
-		delete {unlockedCard::%player%::*}
-		send "All cards have been deleted!" to player
 
-function cardActive(p: player, ID: integer) :: boolean:
-	return {cardActive::%{_p}%::%{_ID}%}
+			if {_isActive} is true:
+				set name of {_item} to ("<color:#41FF00><!i><b>          ✨ " + (name of {_item}) + " %convertToRoman({_cardLevel})% ✨")
+				enchant {_item} with infinity
+			else if {_cardLevel} is greater than 0:
+				set name of {_item} to ("<gradient:#00B7FF:#0064FF><!i><b>      " + (name of {_item}) + " %convertToRoman({_cardLevel})%")
+			else:
+				set name of {_item} to ("<gradient:#FF0000:#EA1653:#FF0000><!i><b><obf>      " + (name of {_item}))
 
-function activateCard(p: player, ID: integer):
-	delete {cardActive::%{_p}%::*}
-	set {cardActive::%{_p}%::%{_ID}%} to true
+			if {_cardLevel} is greater than 0:
+				set {_texture} to name of loop-value in lowercase
+				replace all " " in {_texture} with "_"
+				set {_item} to applyTexture({_item}, {_texture})
+			else:
+				set {_item} to applyTexture({_item}, "locked_card")
 
-function unlockCard(p: player) :: text:
-	set {_unlockable} to false
-	# Checks to see if the player has unlocked all cards
-	loop {card::*}:
-		if {unlockedCard::%{_p}%::%loop-index%} is not equal to {cardMaxLevel::%loop-index%}:
-			set {_unlockable} to true
+			set item flags of {_item} to hide enchants and hide attributes
 
-	# find a random not unlocked card
-	while {_unlockable} is true:
-		set {_ID} to a random integer between 0 and {totalCards}
-		if {unlockedCard::%{_p}%::%{_ID}%} is not equal to {cardMaxLevel::%{_ID}%}:
-			add 1 to {unlockedCard::%{_p}%::%{_ID}%}
-			set {cardActive::%{_p}%::%{_ID}%} to false
-			return "%name of {card::%{_ID}%}% lvl %{unlockedCard::%{_p}%::%{_ID}%}%"
-
+			set slot {_slot} of {_inv} to {_item}
 
 # Booster card implimentation
 
-# Implimented in startGame.sk
-function veinMinerCard(p: player):
-	if {cardActive::%{_p}%::0} is true:
-		add 1 to {customEnchantTier::%{_p}%::veinMiner}
-		set {enchantCostMultiplier::%{_p}%::%{_enchantName}%} to {customEnchantTier::%{_p}%::%{_enchantName}%} * 2
-		applyCustomEnchant({_p}, "veinMiner")
-
-# Implimented in boosterCards.sk
+# Implimented in onDamage.sk
 function bloodLustCard(p: player):
-	if {cardActive::%{_p}%::1} is true:
+	if retActiveCard({_p}) is 1:
 		chance of (5 * {unlockedCard::%{_p}%::1})%:
 			apply potion effect of strength to {_p} for 10 seconds:
 				hide particles
 
 # Implimented in endGame.sk
 function secondLife(p: player) :: boolean:
-	if {cardActive::%{_p}%::2} is true:
+	if retActiveCard({_p}) is 2:
 		if {secondLifeUsed::%{_p}%} is not true:
 			chance of 50%:
 				set health of {_p} to 5
@@ -94,11 +66,151 @@ function secondLife(p: player) :: boolean:
 
 # Implimented in startGame.sk
 function extractionExpertCard(p: player):
-	if {cardActive::%{_p}%::3} is true:
+	if retActiveCard({_p}) is 3:
 		give {_p} 1 recovery compass named {customItem::Extractor::Name} with lore {customItem::Extractor::Lore}
 
 # Implimented in startGame.sk
 function headMasterCard(p: player):
-	if {cardActive::%{_p}%::4} is true:
-		loop 3 times:
+	if retActiveCard({_p}) is 4:
+		loop ({unlockedCard::%{_p}%::4} * 2) times:
 			give {_p} skull of ({goldenSkullPlayerName} parsed as offline player) named {customItem::ghead::name} with lore {customItem::ghead::lore}
+
+function speedCard(p: player):
+	if retActiveCard({_p}) is 5:
+		set {_p}'s movement speed attribute to (0.1 + (0.005 * ({unlockedCard::%{_p}%::5} ? 0)))
+
+function healthCard(p: player):
+	if retActiveCard({_p}) is 6:
+		set {_p}'s max health attribute to (20 + (({unlockedCard::%{_p}%::6} ? 0) * 2))
+
+function stepCard(p: player):
+	if retActiveCard({_p}) is 7:
+		set {_p}'s step height attribute to 1
+
+function minionCard(p: player):
+	if retActiveCard({_p}) is 8:
+		set {_p}'s max health attribute to 16
+		set {_p}'s scale attribute to 0.5
+		set {_p}'s block interaction range attribute to 5
+
+function reachCard(p: player):
+	if retActiveCard({_p}) is 9:
+		set {_p}'s block interaction range attribute to (4.5 + (0.5 * ({unlockedCard::%{_p}%::9} ? 0)))
+
+function efficiencyCard(p: player):
+	if retActiveCard({_p}) is 10:
+		set {_p}'s block break speed attribute to (1 + (0.1 * ({unlockedCard::%{_p}%::10} ? 0)))
+
+function falldamageCard(p: player):
+	if retActiveCard({_p}) is 11:
+		set {_p}'s fall damage multiplier attribute to (1 - (0.25 * ({unlockedCard::%{_p}%::11} ? 0)))
+
+function resetAttributes(p: player):
+	reset {_p}'s movement speed attribute
+	reset {_p}'s max health attribute
+	reset {_p}'s step height attribute
+	reset {_p}'s scale attribute
+	reset {_p}'s block interaction range attribute
+	reset {_p}'s block break speed attribute
+	reset {_p}'s fall damage multiplier attribute
+
+function loadBoosterInfo(p: player):
+	load yaml "mineRushData/playerData/%{_p}'s uuid%/boosters.yaml" as "%{_p}%_booster"
+
+	loop {card::*}:
+		if yaml value "Card%loop-index%.level" from "%{_p}%_booster" is set:
+			set {boostercard::level::%{_p}%::%loop-index%} to ((yaml value "Card%loop-index%.level" from "stats"))
+	set {boostercard::active::%{_p}%} to yaml value "ActiveCard" from "%{_p}%_booster"
+	set {boosterpacks::%{_p}%} to yaml value "boosterpacks" from "%{_p}%_booster"
+
+	save yaml "%{_p}%_booster"
+	unload yaml "%{_p}%_booster"
+
+# Used whenever we level up a card
+function levelupCard(p: player, ID: integer):
+	load yaml "mineRushData/playerData/%{_p}'s uuid%/boosters.yaml" as "%{_p}%_booster"
+
+	set yaml value "Card%{_ID}%.level" from "%{_p}%_booster" to retCardLevel({_p}, {_ID}) + 1
+	set {boostercard::level::%{_p}%::%{_ID}%} to retCardLevel({_p}, {_ID}) + 1
+
+	save yaml "%{_p}%_booster"
+	unload yaml "%{_p}%_booster"
+
+	#/playsound minecraft:ui.toast.challenge_complete
+
+function activateCard(p: player, ID: integer):
+	set yaml value "ActiveCard" from "%{_p}%_booster" to {_ID}
+	set {boostercard::active::%{_p}%} to {_ID}
+
+function retActiveCard(p: player) :: integer:
+	return {boostercard::active::%{_p}%}
+
+function retCardLevel(p: player, ID: integer) :: integer:
+	return {boostercard::level::%{_p}%::%{_ID}%}
+
+function openBoosterPack(p: player):
+	if {boosterpacks::%{_p}%} is less than or equal to 0:
+		log("%{_p}% Has obtained a booster pack they should not have", "general", 2)
+
+	addBoosterPack({_p}, -1)
+	playBoosterpackAnimation({_p})
+
+function addBoosterPack(p: player, amount: integer):
+	load yaml "mineRushData/playerData/%{_p}'s uuid%/boosters.yaml" as "%{_p}%_booster"
+
+	set yaml value "boosterpacks" from "%{_p}%_booster" to {boosterpacks::%{_p}%} + {_amount}
+	set {boosterpacks::%{_p}%} to {boosterpacks::%{_p}%} + {_amount}
+
+	save yaml "%{_p}%_booster"
+	unload yaml "%{_p}%_booster"
+
+
+command /giveBoosterPack [<integer>]:
+	permission: op
+	trigger:
+		addBoosterPack(player, arg-1)
+		loop {boosterpacks::%player%} times:
+			give player {customItem::boosterpack}
+
+function playBoosterpackAnimation(p: player):
+	set {_loc1} to location of {_p} offset by vector(0.5, 0, 1.5) using local axes
+	set {_loc2} to location of {_p} offset by vector(0, 0, 1.5) using local axes
+	set {_loc3} to location of {_p} offset by vector(-0.5, 0, 1.5) using local axes
+	loop 3 times:
+		set y-coordinate of {_loc%loop-iteration-1%} to y-coordinate of {_p} - 0.75
+		spawn an armor stand at {_loc%loop-iteration-1%} with nbt from "{Invisible: 1, NoGravity: 1, Marker: 1b}"
+		set {_stand::%loop-iteration-1%} to last spawned armor stand
+	loop 60 times:
+		delete {_IDs::*}
+		while size of {_IDs::*} is not 3:
+			set {_ID} to a random integer between 1 and (size of {card::*})
+			if retCardLevel({_p}, {_ID}) is not {cardMaxLevel::%{_ID}%}:
+				add {_ID} to {_IDs::*}
+		loop {_IDs::*}:
+			set {_stand::%loop-iteration-2%}'s helmet to {card::%loop-value-2%}
+		set {_time} to "%1 + (4 * ((loop-iteration-1 / 60) ^ 2))% ticks" parsed as timespan
+		wait {_time}
+
+	loop 3 times:
+		spawn an interaction at {_loc%loop-iteration-1%} offset by vector(0, 2, 0)
+		set {_interaction::%loop-iteration-1%} to last spawned interaction
+		set interaction height of {_interaction::%loop-iteration-1%} to 1
+		set interaction width of {_interaction::%loop-iteration-1%} to 0.5
+		set {interaction::%{_p}%::location::%loop-iteration-1%} to location of {_interaction::%loop-iteration-1%}
+		set {interaction::%{_p}%::card::%loop-iteration-1%} to {_IDs::%loop-iteration-1%}
+
+	wait 10 seconds
+
+	loop {_stand::*}:
+		set {_killZone} to location of loop-value-1 ~ vector(0, -20, 0)
+		teleport loop-value-1 to {_killZone}
+		kill loop-value-1
+
+	loop {_interaction::*}:
+		kill loop-value-1
+	delete {interaction::%{_p}%::*}
+
+on damage of interaction:
+	loop {interaction::%attacker%::location::*}:
+		if location of victim is loop-value:
+			send {interaction::%attacker%::card::%loop-index%} to attacker
