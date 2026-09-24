@@ -28,8 +28,7 @@ on damage:
 			cancel event
 			delete {inFlight::%victim%}
 
-# Golden Heads / Extractor
-on right click using player head or recovery compass or nether star or bone:
+on right click using player head:
 	if uncolored name of player's held item is uncolored {customItem::ghead::Name}:
 		cancel event
 		heal player by 2 hearts
@@ -38,6 +37,11 @@ on right click using player head or recovery compass or nether star or bone:
 		apply potion effect of resistance 1 to the player for 10 seconds:
 			hide particles
 		remove 1 of player's held item from player's inventory
+
+
+
+	
+on right click using recovery compass:
 	if uncolored name of player's held item is uncolored {customItem::Extractor::Name}:
 		if player's y-coordinate is less than 10:
 			set {_height} to block 150 above player
@@ -62,10 +66,16 @@ on right click using player head or recovery compass or nether star or bone:
 				send "<b><gradient:#F10C31:#8F1D26>Error: The teleport location is unsafe!! (Cancelling)</gradient></b>" to player
 		else:
 			send "<b><gradient:#F10C31:#8F1D26>Error: You cannot use this above Y:10</gradient></b>" to player
+
+on right click using recovery compass:
 	if uncolored name of player's held item is uncolored {customItem::shop::name}:
 		make player execute command "/shop"
+
+on right click using nether star:
 	if uncolored name of player's held item is uncolored {customItem::menu::name}:
 		make player execute command "/menu"
+
+on right click using bone:
 	if uncolored name of player's held item is uncolored {customItem::wolf::name}:
 		spawn wolf at location of player
 		set {_wolf} to last spawned wolf
@@ -75,6 +85,12 @@ on right click using player head or recovery compass or nether star or bone:
 		heal {_wolf}
 		remove 1 of player's held item from player's inventory
 
+on right click using book:
+	if uncolored name of player's held item is uncolored name of {customItem::boosterpack}:
+		remove 1 of player's held item from player's inventory
+		openBoosterPack(player)
+	else:
+		send "%uncolored name of player's held item%, %{customItem::boosterpack}%"
 
 
 on place of chest:
