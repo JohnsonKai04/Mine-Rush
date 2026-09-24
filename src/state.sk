@@ -19,8 +19,12 @@ function setState(p: player, n: integer):
 		delete {state::%{_p}%}
 		giveMenuItem({_p})
 		setSpawnTab({_p})
+		loop {boosterpacks::%{_p}%} times:
+			give {_p} {customItem::boosterpack}
+
 
 	if {_n} is 1: # In a run
+		clear {_p}'s inventory
 		set {_p}'s gamemode to survival
 		make {_p} vulnerable
 		heal {_p}
