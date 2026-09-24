@@ -3,6 +3,8 @@
 
 
 # Final Stretch updated: 9/21/2026
+- [ ] Be able to stop runs early using /spawn, /leave, /lobby, /hub, /endgame, /endrun
+- [ ] Hide pickaxe enchants using item flags then add efficiency colored lore
 - [ ] 
 
 
