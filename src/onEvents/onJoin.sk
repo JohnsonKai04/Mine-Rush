@@ -14,6 +14,8 @@ on join:
 	if yaml path "volume" in "%player's uuid%.settings" does not exist:
 		setDefaultSettings(player)
 
+	loadBoosterInfo(player)
+
 	if state(player) is 1:
 		send "<b><gradient:#F10C31:#8F1D26>You disconnected causing the run to explode!</gradient></b>" to player
 		wait 2 seconds
