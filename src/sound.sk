@@ -1,0 +1,16 @@
+function playDing(p: player):
+	playSound({_p}, "entity.experience_orb.pickup", -1, 1)
+
+
+function playErrorSound(p: player):
+	playSound({_p}, "block.note_block.bass", -1, 1)
+
+function playBookSound(p: player):
+	playSound({_p}, "item.book.page_turn", -1, 1)
+
+function playSound(p: player, sound: text, lowP: number, highP: number):
+	set {_pitch} to a random number between {_lowP} and {_highP}
+	play sound {_sound} with volume returnSetting({_p}, "volume") and pitch {_pitch} to {_p}
+
+function playSoundRaw(p: player, sound: text):
+	play sound {_sound} with volume returnSetting({_p}, "volume") to {_p}
