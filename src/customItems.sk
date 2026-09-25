@@ -89,8 +89,6 @@ on right click using book:
 	if uncolored name of player's held item is uncolored name of {customItem::boosterpack}:
 		remove 1 of player's held item from player's inventory
 		openBoosterPack(player)
-	else:
-		send "%uncolored name of player's held item%, %{customItem::boosterpack}%"
 
 
 on place of chest:
