@@ -173,13 +173,16 @@ command /giveBoosterPack [<integer>]:
 			give player {customItem::boosterpack}
 
 function playBoosterpackAnimation(p: player):
-	set {_loc1} to location of {_p} offset by vector(0.5, 0, 1.5) using local axes
-	set {_loc2} to location of {_p} offset by vector(0, 0, 1.5) using local axes
-	set {_loc3} to location of {_p} offset by vector(-0.5, 0, 1.5) using local axes
+	set {_loc1} to location of {_p} offset by vector(1.25, 0, 2) using local axes
+	set {_loc2} to location of {_p} offset by vector(0, 0, 2) using local axes
+	set {_loc3} to location of {_p} offset by vector(-1.25, 0, 2) using local axes
 	loop 3 times:
-		set y-coordinate of {_loc%loop-iteration-1%} to y-coordinate of {_p} - 0.75
-		spawn an armor stand at {_loc%loop-iteration-1%} with nbt from "{Invisible: 1, NoGravity: 1, Marker: 1b}"
-		set {_stand::%loop-iteration-1%} to last spawned armor stand
+		set pitch of {_loc%loop-iteration-1%} to 0
+		set y-coordinate of {_loc%loop-iteration-1%} to y-coordinate of {_p} + 1.25
+		spawn item display at {_loc%loop-iteration-1%}
+		set {_itemDisplay::%loop-iteration-1%} to last spawned item display
+	set {boosterPackAnimation::%{_p}%} to true
+	boosterPackJiggle({_p}, {_loc2})
 	loop 60 times:
 		delete {_IDs::*}
 		while size of {_IDs::*} is not 3:
@@ -187,24 +190,23 @@ function playBoosterpackAnimation(p: player):
 			if retCardLevel({_p}, {_ID}) is not {cardMaxLevel::%{_ID}%}:
 				add {_ID} to {_IDs::*}
 		loop {_IDs::*}:
-			set {_stand::%loop-iteration-2%}'s helmet to {card::%loop-value-2%}
+			set item of {_itemDisplay::%loop-iteration-2%} to {card::%loop-value-2%}
 		set {_time} to "%1 + (4 * ((loop-iteration-1 / 60) ^ 2))% ticks" parsed as timespan
 		wait {_time}
-
+	
+	delete {boosterPackAnimation::%{_p}%}
 	loop 3 times:
-		spawn an interaction at {_loc%loop-iteration-1%} offset by vector(0, 2, 0)
+		spawn an interaction at {_loc%loop-iteration-1%} offset by vector(0, -0.5, 0)
 		set {_interaction::%loop-iteration-1%} to last spawned interaction
 		set interaction height of {_interaction::%loop-iteration-1%} to 1
-		set interaction width of {_interaction::%loop-iteration-1%} to 0.5
+		set interaction width of {_interaction::%loop-iteration-1%} to 0.65
 		set {interaction::%{_p}%::location::%loop-iteration-1%} to location of {_interaction::%loop-iteration-1%}
 		set {interaction::%{_p}%::card::%loop-iteration-1%} to {_IDs::%loop-iteration-1%}
 
 	wait 10 seconds
 
-	loop {_stand::*}:
-		set {_killZone} to location of loop-value-1 ~ vector(0, -20, 0)
-		teleport loop-value-1 to {_killZone}
-		kill loop-value-1
+	loop {_itemDisplay::*}:
+		kill loop-value
 
 	loop {_interaction::*}:
 		kill loop-value-1
@@ -214,3 +216,49 @@ on damage of interaction:
 	loop {interaction::%attacker%::location::*}:
 		if location of victim is loop-value:
 			send {interaction::%attacker%::card::%loop-index%} to attacker
+			loop {interaction::%attacker%::location::*}:
+				kill loop-value
+				delete {interaction::%attacker%::*}
+
+
+command /test:
+	trigger:
+		spawn item display at player
+		set {_itemDisplay} to last spawned item display
+		set item of {_itemDisplay} to {card::2}
+		wait 10 seconds
+		kill {_itemDisplay}
+
+
+function boosterPackJiggle(p: player, loc: location):
+	spawn text display at {_loc} offset by vector(0, 1, 0)
+	set {_textDisplay} to last spawned text display
+	set text opacity of {_textDisplay} to 255
+	set billboard of {_textDisplay} to fixed
+	rotate {_textDisplay} by x 35, y 180, z 0
+	while {boosterPackAnimation::%{_p}%} is true:
+		if {_back} is not true:
+			add 1 to {_rotate}
+			if {_rotate} is more than 3:
+				set {_back} to true
+			rotate {_textDisplay} around z axis by 2 degrees
+		if {_back} is true:
+			subtract 1 from {_rotate}
+			if {_rotate} is less than -3:
+				set {_back} to false
+			rotate {_textDisplay} around z axis by -2 degrees
+		set {_rainbow} to 160 - loop-iteration-1
+		set text of {_textDisplay} to "<rainbow:%{_rainbow}%><b>Rolling..."
+		wait 1 tick
+
+	kill {_textDisplay}
+	spawn text display at {_loc} offset by vector(0, 1, 0)
+	set {_textDisplay} to last spawned text display
+	set text opacity of {_textDisplay} to 255
+	set billboard of {_textDisplay} to fixed
+	rotate {_textDisplay} by x 35, y 180, z 0
+	loop 100 times:
+		set text of {_textDisplay} to "<rainbow>Select 1 of 3 (%(10 - (loop-iteration / 10))%)"
+		wait 0.1 seconds
+	
+	kill {_textDisplay}
