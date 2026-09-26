@@ -139,8 +139,13 @@ function levelupCard(p: player, ID: integer):
 	#/playsound minecraft:ui.toast.challenge_complete
 
 function activateCard(p: player, ID: integer):
+	load yaml "mineRushData/playerData/%{_p}'s uuid%/boosters.yaml" as "%{_p}%_booster"
+	
 	set yaml value "ActiveCard" from "%{_p}%_booster" to {_ID}
 	set {boostercard::active::%{_p}%} to {_ID}
+
+	save yaml "%{_p}%_booster"
+	unload yaml "%{_p}%_booster"
 
 function retActiveCard(p: player) :: integer:
 	return {boostercard::active::%{_p}%}
