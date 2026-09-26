@@ -87,10 +87,14 @@ on right click using bone:
 
 on right click using book:
 	if uncolored name of player's held item is uncolored name of {customItem::boosterpack}:
-		remove 1 of player's held item from player's inventory
-		playSound(player, "block.soul_sand.hit", 2, 2)
-		wait 5 ticks
-		openBoosterPack(player)
+		loop {card::*}:
+			if {boostercard::level::%player%::%loop-index%} is not {cardMaxLevel::%loop-index%}:
+				remove 1 of player's held item from player's inventory
+				playSound(player, "block.soul_sand.hit", 2, 2)
+				wait 5 ticks
+				openBoosterPack(player)
+				stop
+		send " %{color::boosterpack}%You have no more cards to unlock or level up! This pack has not been consumed" to player
 
 on right click using stick:
 	if player has permission "large":
