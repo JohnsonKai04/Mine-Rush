@@ -115,6 +115,8 @@ on load:
 	set {customItem::menu::lore} to "<!i>%{color::desc}%Right click to open the main menu"
 	set {customItem::wolf::lore} to "<!i>%{color::desc}%Right click to spawn a tamed wolf"
 	set {customItem::wolf::name} to "<!i><b><color:#DBCDF0>Wolf's Bone</color></b>"
+	set {customItem::boosterpack} to a book named "%{color::boosterpack}%Booster Pack" with lore "%{color::desc}%Right click to open this Booster Pack!"
+	set {customItem::boosterpack} to applyTexture({customItem::boosterpack}, "booster_pack")
 
 	# Drop blacklist
 	set {DropBlacklist::*} to {pickaxe::tier::stone}
@@ -127,6 +129,7 @@ on load:
 	add {sword::tier::netherite} to {DropBlacklist::*}
 	add {customItem::menu::name} to {DropBlacklist::*}
 	add {customItem::shop::name} to {DropBlacklist::*}
+	add name of {customItem::boosterpack} to {DropBlacklist::*}
 
 	# General
 	set {spawningHeight} to 150 # the hight at which the player spawns once entering the game
@@ -273,9 +276,6 @@ on load:
 	set {cardLevelLore::11::2} to "Reduces fall damage by <u>50%%</u>"
 	set {cardLevelLore::11::3} to "Reduces fall damage by <u>75%%</u>"
 	set {cardLevelLore::11::4} to "Reduces fall damage by <u>100%%</u>"
-
-	set {customItem::boosterpack} to a book named "%{color::boosterpack}%Booster Pack" with lore "%{color::desc}%Right click to open this Booster Pack!"
-	set {customItem::boosterpack} to applyTexture({customItem::boosterpack}, "booster_pack")
 
 	# Card ID starts at 0 so we offset the total cards by -1.
 	set {totalCards} to -1
