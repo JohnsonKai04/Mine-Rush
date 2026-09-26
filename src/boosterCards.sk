@@ -178,6 +178,13 @@ command /giveBoosterPack [<integer>]:
 		loop {boosterpacks::%player%} times:
 			give player {customItem::boosterpack}
 
+command /resetBoostercards:
+	permission: op
+	trigger:
+		load yaml "mineRushData/playerData/%player's uuid%/boosters.yaml" as "%player%_booster"
+		delete yaml "%player%_booster"
+		delete {boostercard::level::%player%::*}
+
 function useBoosterPack(p: player):
 	set {_loc1} to location of {_p} offset by vector(1.25, 0, 2) using local axes
 	set {_loc2} to location of {_p} offset by vector(0, 0, 2) using local axes
