@@ -88,8 +88,17 @@ on right click using bone:
 on right click using book:
 	if uncolored name of player's held item is uncolored name of {customItem::boosterpack}:
 		remove 1 of player's held item from player's inventory
+		playSound(player, "block.soul_sand.hit", 2, 2)
+		wait 5 ticks
 		openBoosterPack(player)
 
+on right click using stick:
+	if player has permission "large":
+		set {_entity} to target entity
+		if player is sneaking:
+			subtract 0.5 from {_entity}'s scale attribute
+		else:
+			add 0.5 to {_entity}'s scale attribute
 
 on place of chest:
 	if state(player) is 1:
