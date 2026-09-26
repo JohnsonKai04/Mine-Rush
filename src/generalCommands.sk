@@ -140,11 +140,11 @@ command /god:
 command /tpsmonitor:
 	permission: op
 	trigger:
-		if {tpsMonitor} is true:
-			set {tpsMonitor} to false
+		if {tpsMonitor::%player%} is true:
+			delete {tpsMonitor::%player%}
 		else:
-			set {tpsMonitor} to true
-		while {tpsMonitor} is true:
+			set {tpsMonitor::%player%} to true
+		while {tpsMonitor::%player%} is true:
 			send "%average tick time%" to player
 			wait 0.5 seconds
 
