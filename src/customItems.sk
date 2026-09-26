@@ -87,14 +87,23 @@ on right click using bone:
 
 on right click using book:
 	if uncolored name of player's held item is uncolored name of {customItem::boosterpack}:
-		loop {card::*}:
-			if {boostercard::level::%player%::%loop-index%} is not {cardMaxLevel::%loop-index%}:
-				remove 1 of player's held item from player's inventory
-				playSound(player, "block.soul_sand.hit", 2, 2)
-				wait 5 ticks
-				openBoosterPack(player)
-				stop
-		send " %{color::boosterpack}%You have no more cards to unlock or level up! This pack has not been consumed" to player
+		if difference between now and {cooldown::boosterpack::%player%} is more than 25 seconds:
+			delete {cooldown::boosterpack::%player%}
+		if {cooldown::boosterpack::%player%} is not set:
+			set {cooldown::boosterpack::%player%} to now
+			loop {card::*}:
+				if {boostercard::level::%player%::%loop-index%} is not {cardMaxLevel::%loop-index%}:
+					remove 1 of player's held item from player's inventory
+					playSound(player, "block.soul_sand.hit", 2, 2)
+					wait 5 ticks
+					openBoosterPack(player)
+					stop
+			send " %{color::boosterpack}%You have no more cards to unlock or level up! This pack has not been consumed" to player
+		else:
+			set {_difference} to difference between {cooldown::boosterpack::%player%} and now
+			set {_remaining} to difference between {_difference} and 25 seconds
+			send "%{color::error}% Please wait %{_remaining}% before opening another pack"
+			playErrorSound(player)
 
 on right click using stick:
 	if player has permission "large":
