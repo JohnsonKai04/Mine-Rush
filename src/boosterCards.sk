@@ -152,8 +152,9 @@ function openBoosterPack(p: player):
 	if {boosterpacks::%{_p}%} is less than or equal to 0:
 		log("%{_p}% Has obtained a booster pack they should not have", "general", 2)
 
+
 	addBoosterPack({_p}, -1)
-	playBoosterpackAnimation({_p})
+	useBoosterPack({_p})
 
 function addBoosterPack(p: player, amount: integer):
 	load yaml "mineRushData/playerData/%{_p}'s uuid%/boosters.yaml" as "%{_p}%_booster"
@@ -172,59 +173,103 @@ command /giveBoosterPack [<integer>]:
 		loop {boosterpacks::%player%} times:
 			give player {customItem::boosterpack}
 
-function playBoosterpackAnimation(p: player):
+function useBoosterPack(p: player):
 	set {_loc1} to location of {_p} offset by vector(1.25, 0, 2) using local axes
 	set {_loc2} to location of {_p} offset by vector(0, 0, 2) using local axes
 	set {_loc3} to location of {_p} offset by vector(-1.25, 0, 2) using local axes
-	loop 3 times:
-		set pitch of {_loc%loop-iteration-1%} to 0
-		set y-coordinate of {_loc%loop-iteration-1%} to y-coordinate of {_p} + 1.25
-		spawn item display at {_loc%loop-iteration-1%}
-		set {_itemDisplay::%loop-iteration-1%} to last spawned item display
-	set {jiggleAnimation::%{_p}%} to true
-	boosterPackJiggle({_p}, {_loc2})
-	loop 60 times:
-		delete {_IDs::*}
-		while size of {_IDs::*} is not 3:
-			set {_ID} to a random integer between 1 and (size of {card::*})
-			if retCardLevel({_p}, {_ID}) is not {cardMaxLevel::%{_ID}%}:
-				add {_ID} to {_IDs::*}
-		loop {_IDs::*}:
-			set item of {_itemDisplay::%loop-iteration-2%} to {card::%loop-value-2%}
-		set {_time} to "%1 + (4 * ((loop-iteration-1 / 60) ^ 2))% ticks" parsed as timespan
-		playDing({_p})
-		wait {_time}
-	
-	delete {jiggleAnimation::%{_p}%}
-	loop 3 times:
-		spawn an interaction at {_loc%loop-iteration-1%} offset by vector(0, -0.5, 0)
-		set {_interaction::%loop-iteration-1%} to last spawned interaction
-		set interaction height of {_interaction::%loop-iteration-1%} to 1
-		set interaction width of {_interaction::%loop-iteration-1%} to 0.65
-		set {interaction::%{_p}%::location::%loop-iteration-1%} to location of {_interaction::%loop-iteration-1%}
-		set {interaction::%{_p}%::card::%loop-iteration-1%} to {_IDs::%loop-iteration-1%}
-		set {itemDisplay::%{_p}%::item::%loop-iteration-1%} to {_itemDisplay::%loop-iteration-1%}
+	set pitch of {_loc1} to 0
+	set pitch of {_loc2} to 0
+	set pitch of {_loc3} to 0
 
-	while {killTextDisplay::%{_p}%} is not true:
+	# ---------------- Begins rolling --------------
+	# Rolls 3 visual booster cards.
+	# Once these cards have finished rolling the while loop below will unlock
+	boosterPackRoll({_p}, {_loc1}, 1)
+	boosterPackRoll({_p}, {_loc2}, 2)
+	boosterPackRoll({_p}, {_loc3}, 3)
+	# Countinously jiggles the rolling text back and forth until BoosterPackRoll finishes
+	boosterPackJiggle({_p}, {_loc2})
+	while {rollingAnimation::%{_p}%} is true:
+		wait 2 ticks
+	
+	# ---------------- Selection screen --------------
+	loop 3 times:
+		spawn an interaction at {_loc%loop-iteration-1%} offset by vector(0, 1, 0)
+		set {interaction::%{_p}%::entity::%loop-iteration-1%} to last spawned interaction
+		set interaction height of {interaction::%{_p}%::entity::%loop-iteration-1%} to 1
+		set interaction width of {interaction::%{_p}%::entity::%loop-iteration-1%} to 0.65
+		set {interaction::%{_p}%::location::%loop-iteration-1%} to location of {interaction::%{_p}%::entity::%loop-iteration-1%}
+
+	# Begins the selection countdown.
+	# If the player selects an option the while loop unlocks and the boosterpackcooldown function dies
+	boosterPackCountdown({_p}, {_loc2}) # Dies when card has been selected
+	while {boosterPackCard::%{_p}%} is not set:
 		wait 2 ticks
 
-	loop {_itemDisplay::*}:
+	# ---------------- After animation --------------
+	levelupCard({_p}, {boosterPackCard::%{_p}%})
+	playSoundRaw({_p}, "ui.toast.challenge_complete")
+	send " " to {_p}
+	send " %{color::boosterpack}%🂴 You've leveled up <u>%name of {card::%{boosterPackCard::%{_p}%}%}%</u> to level %retCardLevel({_p}, {boosterPackCard::%{_p}%})%" to {_p}
+	send " " to {_p}
+
+	# Variable and display cleanup
+	loop {itemDisplay::%{_p}%::item::*}:
 		kill loop-value
-	loop {_interaction::*}:
+	loop {interaction::%{_p}%::entity::*}:
 		kill loop-value
 	delete {interaction::%{_p}%::*}
+	delete {itemDisplay::%{_p}%::*}
+	delete {selectedCard::%{_p}%}
+	delete {boosterPackCard::%{_p}%}
 
-	# After animation plays
-	playSoundRaw({_p}, "ui.toast.challenge_complete")
-	
-
-function boosterPackJiggle(p: player, loc: location):
-	spawn text display at {_loc} offset by vector(0, 1, 0)
+function boosterPackCountdown(p: player, loc: location):
+	spawn text display at {_loc} offset by vector(0, 3, 0)
 	set {_textDisplay} to last spawned text display
 	set text opacity of {_textDisplay} to 255
 	set billboard of {_textDisplay} to fixed
 	rotate {_textDisplay} by x 35, y 180, z 0
-	while {jiggleAnimation::%{_p}%} is true:
+	
+	loop 120 times: # wait time 12 seconds
+		if {boosterPackCard::%{_p}%} is set: # if player has selected a card kill text display early
+			kill {_textDisplay}
+			exit
+		set text of {_textDisplay} to "<rainbow>Select 1 of 3 (%(12 - (loop-iteration / 10))%)"
+		wait 0.1 seconds
+	kill {_textDisplay}
+	set {boosterPackCard::%{_p}%} to {itemDisplay::%{_p}%::id::2}
+	set {selectedCard::%{_p}%} to true
+
+
+
+function boosterPackRoll(p: player, loc: location, num: integer):
+	set {rollingAnimation::%{_p}%} to true
+	set y-coordinate of {_loc} to y-coordinate of {_p} + 1.25
+	spawn item display at {_loc}
+	set {_itemDisplay} to last spawned item display
+	set {itemDisplay::%{_p}%::item::%{_num}%} to {_itemDisplay}
+
+	loop 60 times:
+		set {_found} to false
+		while {_found} is not true:
+			set {_ID} to a random integer between 1 and (size of {card::*})
+			if retCardLevel({_p}, {_ID}) is not {cardMaxLevel::%{_ID}%}:
+				set {_found} to true
+		set item of {_itemDisplay} to {card::%{_ID}%}
+		set {itemDisplay::%{_p}%::id::%{_num}%} to {_ID}
+		set {_time} to "%1 + (4 * ((loop-iteration-1 / 60) ^ 2))% ticks" parsed as timespan
+		if {_num} is 2:
+			playDing({_p})
+		wait {_time}
+	delete {rollingAnimation::%{_p}%}
+
+function boosterPackJiggle(p: player, loc: location):
+	spawn text display at {_loc} offset by vector(0, 3, 0)
+	set {_textDisplay} to last spawned text display
+	set text opacity of {_textDisplay} to 255
+	set billboard of {_textDisplay} to fixed
+	rotate {_textDisplay} by x 35, y 180, z 0
+	while {rollingAnimation::%{_p}%} is true:
 		if {_back} is not true:
 			add 1 to {_rotate}
 			if {_rotate} is more than 3:
@@ -238,33 +283,10 @@ function boosterPackJiggle(p: player, loc: location):
 		set {_rainbow} to 160 - loop-iteration-1
 		set text of {_textDisplay} to "<rainbow:%{_rainbow}%><b>Rolling..."
 		wait 1 tick
-
-	kill {_textDisplay}
-	spawn text display at {_loc} offset by vector(0, 1, 0)
-	set {_textDisplay} to last spawned text display
-	set text opacity of {_textDisplay} to 255
-	set billboard of {_textDisplay} to fixed
-	rotate {_textDisplay} by x 35, y 180, z 0
-	
-	loop 120 times: # Card length 12 seconds
-		if {killTextDisplay::%{_p}%} is true: # signal to exit early
-			delete {killTextDisplay::%{_p}%}
-			kill {_textDisplay}
-			exit
-		set text of {_textDisplay} to "<rainbow>Select 1 of 3 (%(12 - (loop-iteration / 10))%)"
-		wait 0.1 seconds
-	# IF NO CARD WAS SELECTED SEND SIGNAL:
-	set {killTextDisplay::%{_p}%} to true
 	kill {_textDisplay}
 
 on damage of interaction:
 	loop {interaction::%attacker%::location::*}:
 		if location of victim is loop-value:
-			levelupCard(attacker, {interaction::%attacker%::card::%loop-index%})
-			loop {interaction::%attacker%::location::*}:
-				kill loop-value-2
-			loop {itemDisplay::%attacker%::item::*}:
-				kill loop-value-2
-			set {killTextDisplay::%attacker%} to true
-			delete {interaction::%attacker%::*}
-			delete {itemDisplay::%attacker%::*}
+			set {boosterPackCard::%attacker%} to {itemDisplay::%attacker%::id::%loop-iteration%}
+			make 80 of totem of undying at loop-value with offset vector(0.5, 0.2, 0.5)
