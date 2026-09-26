@@ -13,7 +13,7 @@ on inventory click:
 				stop
 			if event-item is set:
 				set {_ID} to (index of event-slot - 17)
-				if {unlockedCard::%player%::%{_ID}%} is greater than 0:
+				if {boostercard::level::%player%::%{_ID}%} is greater than 0:
 					activateCard(player, {_ID})
 					playDing(player)
 					make player execute command "/booster"
