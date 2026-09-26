@@ -119,7 +119,7 @@ function loadBoosterInfo(p: player):
 
 	loop {card::*}:
 		if yaml value "Card%loop-index%.level" from "%{_p}%_booster" is set:
-			set {boostercard::level::%{_p}%::%loop-index%} to ((yaml value "Card%loop-index%.level" from "stats"))
+			set {boostercard::level::%{_p}%::%loop-index%} to ((yaml value "Card%loop-index%.level" from "%{_p}%_booster"))
 	set {boostercard::active::%{_p}%} to yaml value "ActiveCard" from "%{_p}%_booster"
 	set {boosterpacks::%{_p}%} to yaml value "boosterpacks" from "%{_p}%_booster"
 
