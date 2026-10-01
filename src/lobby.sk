@@ -53,12 +53,18 @@ command /removebuild [<player>]:
 command /build:
 	aliases: /exit
 	trigger:
+		if player has permission "op":
+			if {buildList::*} does not contain the name of player:
+				set {_name} to name of player
+				add {_name} to {buildList::*}
 		if {buildList::*} contains name of player:
 			if state(player) is 4:
 				setState(player, 0)
 				send "%{color::points}%Thank you %player% for your help!!!" to player
 			else:	
 				setState(player, 4)
+			exit
+		else if player has permission "op":
 			exit
 		send "%{color::error}%Incorrect mode or not on list" to player
 		playErrorSound(player)
