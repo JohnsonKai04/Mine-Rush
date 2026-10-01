@@ -191,7 +191,6 @@ on player stop spectating:
 
 on start spectating:
 	if {spectating::%player%} is not set:
-		send "no"
 		cancel event
 
 
@@ -230,3 +229,9 @@ command /entity:
 	permission: op
 	trigger:
 		send health of target entity to player
+
+
+command /enchant <enchantment type>:
+	permission: op
+	trigger:
+		enchant player's tool with arg-1
