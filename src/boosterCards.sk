@@ -186,6 +186,7 @@ command /resetBoostercards:
 		delete {boostercard::level::%player%::*}
 
 function useBoosterPack(p: player):
+	set {openingBoosterPack::%{_p}%} to true
 	set {_loc1} to location of {_p} offset by vector(1.25, 0, 2) using local axes
 	set {_loc2} to location of {_p} offset by vector(0, 0, 2) using local axes
 	set {_loc3} to location of {_p} offset by vector(-1.25, 0, 2) using local axes
@@ -234,6 +235,7 @@ function useBoosterPack(p: player):
 	delete {itemDisplay::%{_p}%::*}
 	delete {selectedCard::%{_p}%}
 	delete {boosterPackCard::%{_p}%}
+	delete {openingBoosterPack::%{_p}%}
 
 function boosterPackCountdown(p: player, loc: location):
 	spawn text display at {_loc} offset by vector(0, 3, 0)
