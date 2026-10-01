@@ -67,7 +67,7 @@ on right click using recovery compass:
 		else:
 			send "<b><gradient:#F10C31:#8F1D26>Error: You cannot use this above Y:10</gradient></b>" to player
 
-on right click using recovery compass:
+on right click using nether star:
 	if uncolored name of player's held item is uncolored {customItem::shop::name}:
 		make player execute command "/shop"
 
@@ -86,32 +86,43 @@ on right click using bone:
 		remove 1 of player's held item from player's inventory
 
 on right click using book:
-	if uncolored name of player's held item is uncolored name of {customItem::boosterpack}:
-		if difference between now and {cooldown::boosterpack::%player%} is more than 25 seconds:
-			delete {cooldown::boosterpack::%player%}
-		if {cooldown::boosterpack::%player%} is not set:
-			set {cooldown::boosterpack::%player%} to now
-			loop {card::*}:
-				if {boostercard::level::%player%::%loop-index%} is not {cardMaxLevel::%loop-index%}:
-					remove 1 of player's held item from player's inventory
-					playSound(player, "block.soul_sand.hit", 2, 2)
-					wait 5 ticks
-					openBoosterPack(player)
-					stop
-			send " %{color::boosterpack}%You have no more cards to unlock or level up! This pack has not been consumed" to player
-		else:
-			set {_difference} to difference between {cooldown::boosterpack::%player%} and now
-			set {_remaining} to difference between {_difference} and 25 seconds
-			send "%{color::error}% Please wait %{_remaining}% before opening another pack"
-			playErrorSound(player)
+	if {openingBoosterPack::%player%} is not true:
+		loop {card::*}:
+			if {boostercard::level::%player%::%loop-index%} is not {cardMaxLevel::%loop-index%}:
+				remove 1 of player's held item from player's inventory
+				playSound(player, "block.soul_sand.hit", 2, 2)
+				wait 5 ticks
+				openBoosterPack(player)
+				stop
+		send " %{color::boosterpack}%You have no more cards to unlock or level up! This pack has not been consumed" to player
+	else:
+		send "%{color::error}% You can only open one booster card at a time! Please wait a bit"
+		playErrorSound(player)
+
 
 on right click using stick:
-	if player has permission "large":
-		set {_entity} to target entity
-		if player is sneaking:
-			subtract 0.5 from {_entity}'s scale attribute
-		else:
-			add 0.5 to {_entity}'s scale attribute
+	if player has permission "op":
+		if name of event-item is "Painter":
+			if {block1::%player%} is not set:
+				if type of target block is solid:
+					set {block1::%player%} to type of target block
+					send "Replacing: %type of target block%" to player
+				else:
+					send "%type of target block% is not a solid block" to player
+				exit
+			loop blocks in radius 3 of target block:
+				if loop-block is air or water:
+					continue
+				if loop-block is not solid:
+					continue
+				set loop-block to {block1::%player%}
+
+on left click using stick:
+	if player has permission "op":
+		if name of event-item is "Painter":
+			delete {block1::%player%}
+			send "Reset" to player
+			exit
 
 on place of chest:
 	if state(player) is 1:
