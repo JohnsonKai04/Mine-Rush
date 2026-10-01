@@ -117,6 +117,8 @@ on load:
 	set {customItem::wolf::name} to "<!i><b><color:#DBCDF0>Wolf's Bone</color></b>"
 	set {customItem::boosterpack} to a book named "%{color::boosterpack}%Booster Pack" with lore "%{color::desc}%Right click to open this Booster Pack!"
 	set {customItem::boosterpack} to applyTexture({customItem::boosterpack}, "booster_pack")
+	enchant {customItem::boosterpack} with infinity
+	set item flags of {customItem::boosterpack} to hide enchants
 
 	# Drop blacklist
 	set {DropBlacklist::*} to {pickaxe::tier::stone}
