@@ -305,3 +305,6 @@ on damage of interaction:
 		if location of victim is loop-value:
 			set {boosterPackCard::%attacker%} to {itemDisplay::%attacker%::id::%loop-iteration%}
 			make 80 of totem of undying at loop-value with offset vector(0.5, 0.2, 0.5)
+	if {boosterPackCard::%attacker%} is not set:
+		send "%{color::error}%This is not your booster pack!" to player
+		playErrorSound(player)
