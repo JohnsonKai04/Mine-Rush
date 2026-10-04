@@ -67,7 +67,8 @@ function secondLife(p: player) :: boolean:
 # Implimented in startGame.sk
 function extractionExpertCard(p: player):
 	if retActiveCard({_p}) is 3:
-		give {_p} 1 recovery compass named {customItem::Extractor::Name} with lore {customItem::Extractor::Lore}
+		give {_p} {customItem::extractor}
+		give {_p} {customItem::driller}
 
 # Implimented in startGame.sk
 function headMasterCard(p: player):
