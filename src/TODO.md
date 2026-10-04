@@ -3,9 +3,19 @@
 
 
 # Final Stretch updated: 9/21/2026
-- [ ] Be able to stop runs early using /spawn, /leave, /lobby, /hub, /endgame, /endrun
-- [ ] Hide pickaxe enchants using item flags then add efficiency colored lore
-- [ ] 
+- [x] Be able to stop runs early using /spawn, /leave, /lobby, /hub, /endgame, /endrun
+- [x] Hide pickaxe enchants using item flags then add efficiency colored lore
+- [ ] Playsound when player extracts
+- [ ] End of run
+    - [ ] Display Run information to all players in server
+    - [ ] Playsound when player gets back to spawn
+    - [ ] Tell player to look at stats.notamelon.com
+- [ ] Update tips
+- [ ] Create registration fourm
+- [ ] Update rules page
+- [ ] Update Home page
+
+    
 
 
 
