@@ -25,7 +25,7 @@ on spawn:
 			make last spawned entity despawn on chunk unload
 		else:
 			cancel event
-	if event-entity is a animal:
+	if event-spawnreason is natural:
 		if event-entity is not a wolf:
 			cancel event
 
