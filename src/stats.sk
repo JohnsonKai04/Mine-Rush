@@ -38,7 +38,14 @@ function saveDataToFile(p: player) :: boolean:
 	unload yaml "file"
 	unload yaml "stats"
 
+	add 1 to {runCounter}
+
 	if {topPoints} < {currentGameStats::%{_p}%::points::points}:
 		set {topPoints} to {currentGameStats::%{_p}%::points::points}
 		set {topPlayer} to {_p}
 	delete {currentGameStats::%{_p}%::*}
+
+command /setRunCounter [<integer>]:
+	permission: op
+	trigger:
+		set {runCounter} to arg-1
