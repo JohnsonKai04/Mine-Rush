@@ -39,34 +39,6 @@ on right click using player head:
 		remove 1 of player's held item from player's inventory
 
 
-
-	
-on right click using recovery compass:
-	if uncolored name of player's held item is uncolored {customItem::Extractor::Name}:
-		if player's y-coordinate is less than 10:
-			set {_height} to block 150 above player
-			if block at {_height} is air:
-				remove 1 of player's held item from player's inventory
-				send "<b><gradient:#2E94E4:#0521A4>Teleporting in 3...</gradient></b>" to player
-				playDing(player)
-				wait 1 second
-				send "<b><gradient:#2E94E4:#0521A4>Teleporting in 3...</gradient></b>" to player
-				playDing(player)
-				wait 1 second
-				send "<b><gradient:#2E94E4:#0521A4>Teleporting in 3...</gradient></b>" to player
-				playDing(player)
-				wait 1 second
-				teleport player to {_height}
-				wait 1 tick
-				apply potion effect of slow falling to the player for 90 seconds:
-					hide particles
-					hide icon
-				asyncAircheck(player)
-			else:
-				send "<b><gradient:#F10C31:#8F1D26>Error: The teleport location is unsafe!! (Cancelling)</gradient></b>" to player
-		else:
-			send "<b><gradient:#F10C31:#8F1D26>Error: You cannot use this above Y:10</gradient></b>" to player
-
 on right click using nether star:
 	if uncolored name of player's held item is uncolored {customItem::shop::name}:
 		make player execute command "/shop"
@@ -86,18 +58,77 @@ on right click using bone:
 		remove 1 of player's held item from player's inventory
 
 on right click using book:
-	if {openingBoosterPack::%player%} is not true:
-		loop {card::*}:
-			if {boostercard::level::%player%::%loop-index%} is not {cardMaxLevel::%loop-index%}:
-				remove 1 of player's held item from player's inventory
-				playSound(player, "block.soul_sand.hit", 2, 2)
-				wait 5 ticks
-				openBoosterPack(player)
-				stop
-		send " %{color::boosterpack}%You have no more cards to unlock or level up! This pack has not been consumed" to player
-	else:
-		send "%{color::error}% You can only open one booster card at a time! Please wait a bit"
-		playErrorSound(player)
+	if uncolored name of player's held item is uncolored name of {customItem::boosterPack}:
+		if {openingBoosterPack::%player%} is not true:
+			loop {card::*}:
+				if {boostercard::level::%player%::%loop-index%} is not {cardMaxLevel::%loop-index%}:
+					remove 1 of player's held item from player's inventory
+					playSound(player, "block.soul_sand.hit", 2, 2)
+					wait 5 ticks
+					openBoosterPack(player)
+					stop
+			send " %{color::boosterpack}%You have no more cards to unlock or level up! This pack has not been consumed" to player
+		else:
+			send "%{color::error}% You can only open one booster card at a time! Please wait a bit"
+			playErrorSound(player)
+
+on right click using iron nugget:
+	if uncolored name of player's held item is uncolored name of {customItem::extractor}:
+		set {_height} to block 150 above player
+
+		# If player is too high
+		if player's y-coordinate is more than 10:
+			send "<b><gradient:#F10C31:#8F1D26>Error: You cannot use this above Y:10</gradient></b>" to player
+			playErrorSound(player)
+			exit
+
+		# If player is teleporting into a mountain
+		if block at {_height} is not air:
+			send "<b><gradient:#F10C31:#8F1D26>Error: The teleport location is unsafe!! (Cancelling)</gradient></b>" to player
+			playErrorSound(player)
+			exit
+
+		remove 1 of player's held item from player's inventory
+		send "<b><gradient:#2E94E4:#0521A4>Teleporting to Surface in 3...</gradient></b>" to player
+		playSound(player, "entity.wind_charge.wind_burst", -1, 1)
+		wait 1 second
+		send "<b><gradient:#2E94E4:#0521A4>Teleporting to Surface in 2...</gradient></b>" to player
+		playSound(player, "entity.wind_charge.wind_burst", -1, 1)
+		wait 1 second
+		send "<b><gradient:#2E94E4:#0521A4>Teleporting to Surface in 1...</gradient></b>" to player
+		playSound(player, "entity.wind_charge.wind_burst", -1, 1)
+		wait 1 second
+		teleport player to {_height}
+		wait 1 tick
+		apply potion effect of slow falling to the player for 90 seconds:
+			hide particles
+			hide icon
+		asyncAircheck(player)
+
+	if uncolored name of player's held item is uncolored name of {customItem::driller}:
+		if player's y-coordinate is less than 10:
+			send "%{color::error}%Error: Using this item at your depth would kill you!" to player
+			playErrorSound(player)
+			exit
+
+		remove 1 of player's held item from player's inventory
+		send "<b><gradient:#2E94E4:#0521A4>Drilling in 3...</gradient></b>" to player
+		playSound(player, "block.nether_bricks.break", -1, 1)
+		wait 1 second
+		send "<b><gradient:#2E94E4:#0521A4>Drilling in 2...</gradient></b>" to player
+		playSound(player, "block.nether_bricks.break", -1, 1)
+		wait 1 second
+		send "<b><gradient:#2E94E4:#0521A4>Drilling in 1...</gradient></b>" to player
+		playSound(player, "block.nether_bricks.break", -1, 1)
+		wait 1 second
+		set {_loc} to location of player
+		set y-coordinate of {_loc} to -50
+		loop blocks within {_loc} ~ vector(-2,3,-2) and {_loc} ~ vector(2,-1,2):
+			set loop-block to deepslate
+		loop blocks within {_loc} ~ vector(-1,2,-1) and {_loc} ~ vector(1,0,1):
+			set loop-block to air
+		set block below {_loc} to glowstone
+		teleport player to {_loc}
 
 
 on right click using stick:
