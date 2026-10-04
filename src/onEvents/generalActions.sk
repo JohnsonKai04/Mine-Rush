@@ -4,6 +4,8 @@ on drop:
 		if unformatted name of event-item is unformatted loop-value:
 			cancel event
 			exit
+	if state(player) is 4:
+		cancel event
 
 # Awards points to the nearest player when an explosion happens
 on explosion:
