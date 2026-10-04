@@ -20,10 +20,12 @@ on death of player:
 on right click on beacon:
 	if state(player) is 1:
 		cancel event
+		playSoundRaw(player, "ui.toast.challenge_complete")
 		setState(player, 3)
 		deleteRun(returnWorldID(player))
 		set {currentGameStats::%player%::misc::extracted} to true
 		add {currentGameStats::%player%::points::pointsSpent} to {currentGameStats::%player%::points::points}
+		send " " to player
 		send "<b><gradient:#52F361:#02CEF6:#52F361>Extracting You Now good job %player%. Heres a Bonus For Your Efforts: %{currentGameStats::%player%::points::pointsSpent} ? 0%</gradient></b>" to player
 		send " " to player
 		wait 6 seconds
@@ -58,20 +60,25 @@ function deathMsg(p: player, k: text) :: text:
 	return "%{color::death}%☠ " + {_msg}
 
 
-# Param - _p: player that is playing the game
-# Reutrn - returns true if game has ended successfully, false if player not in game
-# Resets difficulty, tick rate, doTileDrops, bossbar, and all variables that have been changed while playing the game.
-# Updates the leaderboard with the players current points, and adds overall points gained to the stats
-# Clears inventoy and kills the player to return them to spawn
 function endGame(p: player) :: boolean:
+
+	# Saves all player data in the current run to .yaml files
 	saveDataToFile({_p})
-	remove {_p} from {pointBar::%{_p}%}
-	set {validSpawn::active::%{spawnLocation::%{_p}%}%} to false
+
+	# Deletes all variable enchants/armor/ect
 	deletePlayerVariables({_p})
-	clear fastboard of {_p}
-	set {_p}'s tab list name to "%{_p}'s name%"
+
+	# Disables the depth meter of the player
+	if fastboard of {_p} is on:
+		toggle {_p}'s fastboard
+
+	# Sets the state of the player to be in the lobby
 	setState({_p}, 0)
+
+	# Resets players attributes added from boostercards
 	resetAttributes({_p})
+
+	# Endgame has already passed
 	return true
 
 
@@ -82,14 +89,9 @@ function deletePlayerVariables(p: player):
 	delete {armor::tier::%{_p}%}
 	delete {enchantTier::%{_p}%::*}
 	delete {customEnchantTier::%{_p}%::*}
+	remove {_p} from {pointBar::%{_p}%}
 	delete {pointBar::%{_p}%}
 	delete {streak::value::%{_P}%}
 	delete {enchantCostMultiplier::%{_p}%::*}
 	delete {secondLifeUsed::%{_p}%}
 	delete {spawnLocation::%{_p}%}
-
-
-command /resetfastboard:
-	trigger:
-		clear fastboard of player
-		toggle player's fastboard
