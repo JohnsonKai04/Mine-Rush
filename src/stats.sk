@@ -15,74 +15,30 @@ function saveDataToFile(p: player) :: boolean:
 	# General Stats
 	loop {currentGameStats::%{_p}%::blocks::*}:
 		set yaml value "%{_ID}%.blocks.%loop-index%" from "file" to loop-value
-		set yaml value "blocks.%loop-index%" from "stats" to (loop-value + yaml value "blocks.%loop-index%" from "stats")
 	loop {currentGameStats::%{_p}%::ores::*}:
 		set yaml value "%{_ID}%.ores.%loop-index%" from "file" to loop-value
-		set yaml value "ores.%loop-index%" from "stats" to (loop-value + yaml value "ores.%loop-index%" from "stats")
 	loop {currentGameStats::%{_p}%::lootboxes::*}:
 		set yaml value "%{_ID}%.lootboxes.%loop-index%" from "file" to loop-value
-		set yaml value "lootboxes.%loop-index%" from "stats" to (loop-value + yaml value "lootboxes.%loop-index%" from "stats")
 	loop {currentGameStats::%{_p}%::points::*}:
 		set yaml value "%{_ID}%.points.%loop-index%" from "file" to loop-value
-		set yaml value "points.%loop-index%" from "stats" to (loop-value + yaml value "points.%loop-index%" from "stats")
 	loop {currentGameStats::%{_p}%::misc::*}:
 		set yaml value "%{_ID}%.misc.%loop-index%" from "file" to loop-value
-		set yaml value "misc.%loop-index%" from "stats" to (loop-value + yaml value "misc.%loop-index%" from "stats")
 	loop {currentGameStats::%{_p}%::shop::*}:
 		set yaml value "%{_ID}%.shop.%loop-index%" from "file" to loop-value
-		set yaml value "shop.%loop-index%" from "stats" to (loop-value + yaml value "shop.%loop-index%" from "stats")
 
 	# Time, extractions, and total games played
 	set yaml value "%{_ID}%.misc.duration" from "file" to "%difference between now and {currentGameStats::%{_p}%::misc::duration}%"
 	set yaml value "%{_ID}%.misc.timePlayed" from "file" to "%now%"
-	if {currentGameStats::%{_p}%::misc::extracted} is true:
-		set yaml value "misc.extracts" from "stats" to (1 + yaml value "misc.extracts" from "stats")
-		send "extracted" to {_p}
-	else:
-		set yaml value "misc.deaths" from "stats" to (1 + yaml value "misc.deaths" from "stats")
-
-	set yaml value "misc.gamesPlayed" from "stats" to (1 + yaml value "misc.gamesPlayed" from "stats")
 	set yaml value "misc.name" from "stats" to "%{_p}'s name%"
 
-	set yaml value "%{_ID}%.misc.booster" from "file" to "%uncolored name of {card::%retActiveCard({_p})%}% %{unlockedCard::%{_p}%::%retActiveCard({_p})%}%"
+	set yaml value "%{_ID}%.misc.booster" from "file" to "%uncolored name of {card::%retActiveCard({_p})%}% %retCardLevel({_p}, retActiveCard({_p}))%"
 
 	save yaml "file"
 	save yaml "stats"
 	unload yaml "file"
 	unload yaml "stats"
 
-	sendStats({_p}, {_ID}, {_placement})
-
 	if {topPoints} < {currentGameStats::%{_p}%::points::points}:
 		set {topPoints} to {currentGameStats::%{_p}%::points::points}
 		set {topPlayer} to {_p}
 	delete {currentGameStats::%{_p}%::*}
-
-# Spec: Specific game being requested
-function sendStats(p: player, ID: integer, placement: integer = -0):
-	load yaml "mineRushData/playerData/%{_p}'s uuid%/gameData.yaml" as "file"
-	set {_totalPoints} to yaml value "%{_ID}%.points.points" from "file"
-	set {_pointsSpent} to yaml value "%{_ID}%.points.pointsspent" from "file"
-	set {_mobKills} to yaml value "%{_ID}%.misc.mobkills" from "file"
-	set {_commonLootBoxesOpened} to yaml value "%{_ID}%.lootboxes.commonlootboxesopened" from "file"
-	set {_rareLootBoxesOpened} to yaml value "%{_ID}%.lootboxes.rarelootboxesopened" from "file"
-	set {_legendaryLootBoxesOpened} to yaml value "%{_ID}%.lootboxes.legendarylootboxesopened" from "file"
-
-	send " " to {_p}
-	if {_placement} is -0:
-		send "%{color::leaderboardTitle}% |----------- Game #%{_ID}% -----------|" to {_p}
-		send " " to {_p}
-	else:
-		send "%{color::leaderboardTitle}% |-------- Post Game Summary! --------|" to {_p}
-		send " " to {_p}
-		send " %{color::leaderboardTitle}%Placement:  #%{_placement}%" to {_p}
-	send " %{color::leaderboardTitle}%Points:  %{_totalPoints} ? 0%</gradient>" to {_p}
-	send " %{color::leaderboardTitle}%Points Spent:  %{_pointsSpent} ? 0%</gradient>" to {_p}
-	send " %{color::leaderboardTitle}%Mobs Killed:  %{_mobKills} ? 0%</gradient>" to {_p}
-	send " %{color::leaderboardTitle}%Common loot boxes opened:  %{_commonLootBoxesOpened} ? 0%</gradient>" to {_p}
-	send " %{color::leaderboardTitle}%Rare loot boxes opened:  %{_rareLootBoxesOpened} ? 0%</gradient>" to {_p}
-	send " %{color::leaderboardTitle}%Legendary Loot Boxes Opened:  %{_legendaryLootBoxesOpened} ? 0%</gradient>" to {_p}
-	send " " to {_p}
-	send "%{color::leaderboardTitle}%|--------------------------------|</gradient>" to {_p}
-	close the inventory of {_p}
-	unload yaml "mineRushData/playerData/%{_p}'s uuid%/game%{_ID}%.yaml"
