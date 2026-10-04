@@ -393,3 +393,7 @@ on load:
 	setPoints("clay", 5)
 	setPoints("spawner", 2000)
 	unload yaml "points"
+
+on skript start:
+	wait 30 seconds
+	loadAllWorlds()
