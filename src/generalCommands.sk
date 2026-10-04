@@ -203,6 +203,14 @@ command /debug:
 		send "There are %size of {worldArray::*} - 1%/%{maxWorlds}% world's. There are %{genServerWorldAmount}% worlds on the gen server" to player
 		send "Next RunID: %retNextRunID()%" to player
 
+command /top [<integer>]:
+	permission: op
+	trigger:
+		if arg-1 is not set:
+			teleport player 100 blocks above location of player
+		else:
+			teleport player arg-1 blocks above location of player
+		set block below player to glass
 
 on command:
 	if state(player) is 5:
