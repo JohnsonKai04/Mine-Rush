@@ -56,7 +56,6 @@ function setGamerules(world: world):
 	set gamerule minecraft:show_advancement_messages of {_world} to false
 	set gamerule minecraft:spawn_wandering_traders of {_world} to false
 	set gamerule minecraft:command_blocks_work of {_world} to false
-	log("Gamerules set for %{_world}%")
 
 
 command /updateworldarray [<integer>] [<integer>]:
@@ -81,3 +80,11 @@ function retNextRunID() :: integer:
 	loop {worldArray::*}:
 		if loop-value is true:
 			return loop-index parsed as an integer
+
+
+function loadAllWorlds():
+	loop {worldArray::*}:
+		load world "run_%loop-index%_overworld"
+		setGamerules(world "run_%loop-index%_overworld")
+		set {worldArray::%loop-index%} to true
+		wait 20 ticks
