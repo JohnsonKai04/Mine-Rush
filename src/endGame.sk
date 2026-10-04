@@ -61,6 +61,8 @@ function deathMsg(p: player, k: text) :: text:
 
 
 function endGame(p: player) :: boolean:
+	# Send completion message to all players and player
+	endMsg({_p})
 
 	# Saves all player data in the current run to .yaml files
 	saveDataToFile({_p})
@@ -95,3 +97,13 @@ function deletePlayerVariables(p: player):
 	delete {enchantCostMultiplier::%{_p}%::*}
 	delete {secondLifeUsed::%{_p}%}
 	delete {spawnLocation::%{_p}%}
+
+
+function endMsg(p: player):
+	loop all players:
+		if loop-player is not {_p}:
+			send " %{color::leaderboardTitle}%ⓘ %{_p}% has finished a run with a grand total of %{currentGameStats::%{_p}%::points::points}% points!" to loop-player
+	send " " to {_p}
+	send " %{color::leaderboardTitle}%Good job on completeing your run please wait a couple minutes for your run to be shown once it is available view it using this link <u>https://stats.notamelon.com/run/%{runCounter}%</u>." to {_p}
+	send " " to {_p}
+	playDing({_p})
