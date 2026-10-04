@@ -80,20 +80,14 @@ every 25 minutes in world "world":
 		if returnSetting(loop-player, "tips") is 1:
 			send " " to loop-player
 			if {tip} is 1:
-				send "%{tipPrefix}%Please report any bugs you find or features you would like added! Not sure if its a bug? Report it!" to loop-player
+				send "%{tipPrefix}%Please report any bugs you find or features you would like added!" to loop-player
 			else if {tip} is 2:
 				send "%{tipPrefix}%Did you know you can change many settings such as disabiling tips in the menu or /settings?" to loop-player
 			else if {tip} is 3:
-				send "%{tipPrefix}%Mobs gain 10%% more health depending on how deep you are so be cautious" to loop-player
-			else if {tip} is 4:
-				send "%{tipPrefix}%All ore values, shop prices, booster cards, and everything are subject to change. Due to being in beta all runs may be subject to deletion" to loop-player
-			else if {tip} is 5:
 				send "%{tipPrefix}%Every time you extract you gain or level up a random booster card" to loop-player
-			else if {tip} is 6:
-				send "%{tipPrefix}%Try to extract when given the option, greeding may not be as rewarding as it seems" to loop-player
-			else if {tip} is 7:
-				send "%{tipPrefix}%Night vision is disabled by default. If you would like it find it in /settings" to loop-player
-			else if {tip} is 8:
+			else if {tip} is 4:
+				send "%{tipPrefix}%Try to stay as long as possible greeding can be beneficial to an extent" to loop-player
+			else if {tip} is 5:
 				send "%{tipPrefix}%Currently the deep dark rewards less ores than intended this is a bug which will hopefully be resolved by next playtest" to loop-player
 			else:
 				send "%{tipPrefix}%Some client side mods such as ""simple F3"" can visually break the point bar." to loop-player
@@ -102,24 +96,31 @@ every 25 minutes in world "world":
 
 
 every 2 minutes in world "world":
+	# If someone is in a run cancel preloading
 	loop {state::*}:
 		if loop-value is 1:
 			exit
-	loop {worldArray::*}:
-		if loop-value is false:
-			broadcast "Preloading in progress server will lag while this is happening"
-			set {_found} to true
-			exit loop
-	if {_found} is not true:
-		exit
-	loop {worldArray::*}:
-		if loop-value is false:
-			load world "run_%loop-index%_overworld"
-			wait 1 second
-			unload world "run_%loop-index%_overworld"
-			set {worldArray::%loop-index%} to true
-	broadcast "Preloading completed!"
 
+	# Looks for unloaded worlds
+	loop {worldArray::*}:
+		if loop-value is false:
+			add 1 to {_count}
+
+	# If 10% of the total worlds are not loaded then load
+	if {_count} is greater than or equal to (size of {worldArray::*} * 0.1):
+		broadcast "Preloading in progress server will lag while this is happening"
+		loop {worldArray::*}:
+			if loop-value is false:
+				load world "run_%loop-index%_overworld"
+				wait 1 second
+				unload world "run_%loop-index%_overworld"
+				set {worldArray::%loop-index%} to true
+		broadcast "Preloading completed!"
+
+every 1 minute in world "world":
+	loop all players:
+		if state(loop-player) is 0:
+			feed loop-player
 
 on server ping:
 	set the motd to "<b><gradient:#FF4B4B:#FF8B2D:#FFD031:#DCFF39:#6DFF45:#3BFFC7:#58D0FF:#5489FF>Minerush [26.1.2] ┊┊</gradient></b> <gradient:#00FFCC:#26FFB2:#4DFF99:#73FF80:#99FF66:#BFFF4D><b>🥇 </b>%{topPlayer}%: 💎%formatNumber({topPoints})%</gradient>          <color:#FF4B4B>🌟  <color:#6DFF45>⛏  <color:#58D0FF>🌟   <gradient:#FF4B4B:#FF8B2D:#FFD031:#DCFF39:#6DFF45:#3BFFC7:#58D0FF:#5489FF><b><u>Stats.notamelon.com</u></b></gradient>   <color:#FF4B4B>🌟  <color:#6DFF45>⛏  <color:#58D0FF>🌟"
