@@ -1,0 +1,80 @@
+every 1 second:
+	if average tick time is greater than 75: # < 19.5tps
+		if {queueMaxRuns} is set:
+			exit
+		add 1 to {lagCounter} # Used to keep track on how long server's been lagging
+		if {lagCounter} is more than 30: # 30 seconds
+			log("Server TPS is below 20. Begining queue system", "general", 1)
+			delete {lagCounter}
+			set {queueMaxRuns} to -1 # Offset the amount of max runs by 1 to keep tps low
+			loop all players:
+				if state(loop-player) is 1:
+					add 1 to {queueMaxRuns}
+			broadcast "%{color::queue}%[Queue] The automatic queue has been enabled to keep the server stable sorry for any inconvenience!"
+	else: # decreases the lag counter
+		if {lagCounter} is more than 0:
+			remove 1 from {lagCounter}
+		else:
+			delete {lagCounter}
+
+# Keeps queue moving
+every 5 seconds:
+	if {queueMaxRuns} is not set:
+		stop
+	if allowNewRun() is not true:
+		stop
+
+	set {_nextPlayer} to retNextPlayer()
+
+	if {queueTimer} is more than 120:
+		removePlayerQueue({_nextPlayer})
+		delete {queueTimer}
+	if {_nextPlayer} is offline:
+		removePlayerQueue({_nextPlayer})
+
+	
+	add 5 to {queueTimer}
+	send "[Queue] Your up next in the queue type /start to begin your run! You will loose your spot in %120 - {queueTimer}% seconds!" to {_nextPlayer}
+	playDing({_nextPlayer})
+
+
+# Returns the next player in the queue if they are online
+function retNextPlayer() :: player:
+	loop {playerQueue::*}:
+		return loop-value
+
+function addPlayerQueue(p: player):
+	add {_p} to {playerQueue::*}
+
+function removePlayerQueue(p: player):
+	remove {_p} from {playerQueue::*}
+
+function deleteQueue():
+	delete {playerQueue::*}
+
+function retPlaceQueue(p: player) :: integer:
+	loop {playerQueue::*}:
+		add 1 to {_placement}
+		if loop-value is {_p}:
+			return {_placement}
+	return 0
+
+function allowNewRun() :: boolean:
+	loop all players:
+		if state(loop-player) is 1:
+			add 1 to {_inRun}
+	if {_inRun} is less than {queueMaxRuns}:
+		return true
+	return false
+
+function sendQueueMsg(p: player):
+	send "%{color::queue}%[Queue] Your placement in the queue is <b>%{_placement}%</b> out of %size of {playerQueue::*}%" to {_p}
+
+command /queue:
+	trigger:
+		set {_placement} to retPlaceQueue(player)
+		if {_placement} is 0:
+			send "%{color::queue}%[Queue] The queue is currently not active or you are not in"
+			playDing(player)
+			stop
+		sendQueueMsg(player)

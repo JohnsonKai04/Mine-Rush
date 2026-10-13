@@ -12,11 +12,28 @@ command /start:
 			delete {startCooldown::%player%}
 			stop
 		
+		# If player is ingame
 		if state(player) is 1:
 			send "%{color::error}%Game already started use /stopGame" to player
 			playErrorSound(player)
 			delete {startCooldown::%player%}
 			stop
+
+		# If queue is active
+		if {queueMaxRuns} is set:
+			if retPlaceQueue(player) is 0:
+				addPlayerQueue(player)
+				sendQueueMsg(player)
+			if allowNewRun() is not true:
+				sendQueueMsg(player)
+				stop
+			if retNextPlayer() is not player:
+				sendQueueMsg(player)
+				stop
+			removePlayerQueue(player)
+			delete {queueTimer}
+
+
 
 		# Sets the world and the ID --------------------------------------------------------------------------------------
 		if {debugMode::%player%} is true:
