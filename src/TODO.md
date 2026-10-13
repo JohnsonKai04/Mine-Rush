@@ -10,13 +10,14 @@
     - [x] Display Run information to all players in server
     - [x] Playsound when player gets back to spawn
     - [x] Tell player to look at stats.notamelon.com
-- [ ] Update tips
+- [x] Update tips
 - [ ] Create registration fourm
 - [ ] Update rules page
 - [ ] Update Home page
 - [x] if the total worlds in the world array reach 10% unloaded THEN unload (timers.sk)
 - [ ] When right clicking booster card option send informaiton about said card in the chat. (lore of the next card level)
-- [ ] Give people food in spawn every 1 min
+- [x] Give people food in spawn every 1 min
+- [ ] Update queue system where if 30 minutes of empty queue AND stable TPS deactivate the queue
     
 
 
