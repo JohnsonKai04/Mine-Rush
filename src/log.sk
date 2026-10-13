@@ -1,6 +1,7 @@
 # General = Commands, states, warnings
-# 
-#
+# s = 0: Normal log
+# s = 1: Severity level of warning
+# s = 2: Severity level of severe
 function log(txt: text, f: text = "general", s: number = 0):
     set {_file} to "%now formatted as "yy/MM/dd"%.log"
     replace "/" in {_file} with "-"
