@@ -7,6 +7,12 @@ function setPoints(block: text, points: number):
 	set {blockValue::%{_block}%} to {_points}
 	set yaml value "%{_block}%" from "points" to {_points}
 
+on skript start:
+	delete {queueMaxRuns}
+	delete {queueTimer}
+	wait 30 seconds
+	loadAllWorlds()
+
 on load:
 	# Tutorial message:
 	set {tutorialMsg} to formatted "|Begin a run by using the menu item|Once a run has started mine ores to gain points|Use points in the shop to assist your run|Every %{defaultSpeed}% minutes the difficulty will increase making the run harder|You'll find larger ore veins but more difficult enemies the deeper you go|Reach the extract point to get back all the points you've spent|Try to be #1 on the leaderboard|Good Luck"
@@ -27,6 +33,7 @@ on load:
 	set {color::cardName} to "<b><color:#F10CCF>"
 	set {color::cardLore} to "<gradient:#750CF1:#A703B0>"
 	set {color::boosterpack} to "<!i><b><gradient:#F623E8:#AF43FD:#486AFA>"
+	set {color::queue} to "<gradient:#F48154:#B65C54>"
 
 	delete {msg::*}
 	set {msg::error} to "<color:red>[Error] "
@@ -393,7 +400,3 @@ on load:
 	setPoints("clay", 5)
 	setPoints("spawner", 2000)
 	unload yaml "points"
-
-on skript start:
-	wait 30 seconds
-	loadAllWorlds()
