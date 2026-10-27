@@ -1,0 +1,11 @@
+command /test:
+    trigger:
+        set {_sql} to the database "mysql://%{DATABASEIP}%/minerush_stats?user=minerush_app&password=%{DATABASEPASSWORD}%&useSSL=false"
+        execute "SELECT * FROM runs WHERE points > 100000" in {_sql} and store the result in {_output::*}
+        wait 2 seconds
+        set {_error} to sql error
+        send {_error}
+        loop {_output::*}:
+            send loop-value to player
+
+        send "finished"
