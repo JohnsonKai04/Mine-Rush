@@ -17,10 +17,6 @@
 - [x] if the total worlds in the world array reach 10% unloaded THEN unload (timers.sk)
 - [ ] When right clicking booster card option send informaiton about said card in the chat. (lore of the next card level)
 - [x] Give people food in spawn every 1 min
-- [ ] Update queue system where if 30 minutes of empty queue AND stable TPS deactivate the queue
-    
-
-
 
 # Roadmap updated: 9/21/2026
 - [ ] UHC custom weapons
