@@ -128,10 +128,10 @@ command /start:
 		falldamageCard(player)
 
 		# Boss bar --------------------------------------------------------------------------------------
-		set {pointBar::%player%} to boss bar with title " " with color green with progress 0
-		set bar style of {pointBar::%player%} to solid_bar
-		set {pointBar::progress::%player%} to 0
-		add player to {pointBar::%player%}
+		set {pointBar::%player%} to a green boss bar
+		set progress of {pointBar::%player%} to 0
+		set style of {pointBar::%player%} to solid
+		add player to viewer of {pointBar::%player%}
 		updatePointsBar(player)
 
 		# Stats --------------------------------------------------------------------------------------

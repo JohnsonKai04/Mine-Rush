@@ -74,7 +74,7 @@ function playItemPickup(p: player):
 
 
 function updatePointsBar(p: player):
-	set bar title of {pointBar::%{_p}%} to colored "<b><gradient:#22F10C:#03B08D>Points: %{currentGameStats::%{_p}%::points::points} ? 0%</gradient></b>"
+	set title of {pointBar::%{_p}%} to colored "<b><gradient:#22F10C:#03B08D>Points: %{currentGameStats::%{_p}%::points::points} ? 0%</gradient></b>"
 	set {_p}'s tab list name to "%{_p}'s name% %{color::death}%⬆%{difficulty::%{_p}%} ? 1% %{color::points}%$%shortNum({currentGameStats::%{_p}%::points::points})%"
 
 

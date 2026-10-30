@@ -24,7 +24,7 @@ function beginDifficulty2(p: player):
 	send "<gradient:#C3D705:#F5AD0E>Mob Speed/Health/Damage: <b>1x</b></gradient>" to {_p}
 	send "<gradient:#C3D705:#F5AD0E>Time Until Extraction: <b>%{_time}%</b></gradient>" to {_p}
 	play sound "item.goat_horn.sound.1" with volume returnSetting({_p}, "volume") at {_p}
-	set bar color of {pointBar::%{_p}%} to yellow
+	set color of {pointBar::%{_p}%} to yellow
 
 
 function beginDifficulty3(p: player):
@@ -34,7 +34,7 @@ function beginDifficulty3(p: player):
 	send "<gradient:#F5AD0E:#F5500E>Mob Speed/Health/Damage: <b>%{difficultyMultiplier}^({difficulty::%{_p}%} - 1)%x</b></gradient>" to {_p}
 	send "<gradient:#F5AD0E:#F5500E>Time Until Extraction: <b>%{_time}%</b></gradient>" to {_p}
 	play sound "item.goat_horn.sound.2" with volume returnSetting({_p}, "volume") at {_p}
-	set bar color of {pointBar::%{_p}%} to red
+	set color of {pointBar::%{_p}%} to red
 
 
 function beginDifficulty4(p: player):
@@ -44,7 +44,7 @@ function beginDifficulty4(p: player):
 	send "<gradient:#F5500E:#F50EC9>Mob Speed/Health/Damage: <b>%{difficultyMultiplier}^({difficulty::%{_p}%} - 1)%x</b></gradient>" to {_p}
 	send "<gradient:#F5500E:#F50EC9>Time Until Extraction: <b>%{_time}%!</b></gradient>" to {_p}
 	play sound "item.goat_horn.sound.3" with volume returnSetting({_p}, "volume") at {_p}
-	set bar color of {pointBar::%{_p}%} to blue
+	set color of {pointBar::%{_p}%} to blue
 
 
 function beginDifficulty5(p: player):
@@ -74,7 +74,7 @@ function beginDifficulty5(p: player):
 	set {_p}'s compass target to {_validSpawn}
 	send "<gradient:#F50EC9:#F50E0E>Extract Location Spawned at: <b>%{_validSpawn}%</b></gradient>" to {_p}
 	play sound "item.goat_horn.sound.6" with volume returnSetting({_p}, "volume") at {_p}
-	set bar color of {pointBar::%{_p}%} to white
+	set color of {pointBar::%{_p}%} to white
 
 function beginDifficulty6(p: player):
 	send "<gradient:#F50E0E:#2D0EF5>Difficulty <b>6</b></gradient>" to {_p}

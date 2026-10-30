@@ -91,7 +91,7 @@ function deletePlayerVariables(p: player):
 	delete {armor::tier::%{_p}%}
 	delete {enchantTier::%{_p}%::*}
 	delete {customEnchantTier::%{_p}%::*}
-	remove {_p} from {pointBar::%{_p}%}
+	remove {_p} from viewer of {pointBar::%{_p}%}
 	delete {pointBar::%{_p}%}
 	delete {streak::value::%{_P}%}
 	delete {enchantCostMultiplier::%{_p}%::*}
