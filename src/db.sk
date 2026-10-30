@@ -1,11 +1,70 @@
-command /test:
-    trigger:
-        set {_sql} to the database "mysql://%{DATABASEIP}%/minerush_stats?user=minerush_app&password=%{DATABASEPASSWORD}%&useSSL=false"
-        execute "SELECT * FROM runs WHERE points > 100000" in {_sql} and store the result in {_output::*}
-        wait 2 seconds
-        set {_error} to sql error
-        send {_error}
-        loop {_output::*}:
-            send loop-value to player
+on load:
+	set {-minerushDatabase} to the database "mysql://%{DATABASEIP}%/minerush_stats?user=minerush_app&password=%{DATABASEPASSWORD}%&useSSL=false&allowPublicKeyRetrieval=true"
 
-        send "finished"
+function saveRunToDatabase(p: player):
+	if {debugMode::%{_p}%} is true:
+		delete {currentGameStats::%{_p}%::*}
+		exit
+
+	set {_playerUuid} to "%{_p}'s uuid%"
+	set {_playerName} to "%{_p}'s name%"
+	set {_pointsEarned} to {currentGameStats::%{_p}%::points::points} ? 0
+	set {_pointsSpent} to {currentGameStats::%{_p}%::points::pointsSpent} ? 0
+	set {_pointsTotal} to {currentGameStats::%{_p}%::points::totalPoints} ? 0
+	set {_mobKills} to {currentGameStats::%{_p}%::misc::mobKills} ? 0
+	set {_didExtract} to {currentGameStats::%{_p}%::misc::extracted} ? false
+	set {_lootboxPoints} to {currentGameStats::%{_p}%::lootboxes::lootBoxPoints} ? 0
+	set {_commonOpened} to {currentGameStats::%{_p}%::lootboxes::commonLootBoxesOpened} ? 0
+	set {_rareOpened} to {currentGameStats::%{_p}%::lootboxes::rareLootBoxesOpened} ? 0
+	set {_legendaryOpened} to {currentGameStats::%{_p}%::lootboxes::legendaryLootBoxesOpened} ? 0
+	set {_playedAt} to now formatted as "yyyy-MM-dd HH:mm:ss"
+
+	set {_durationSeconds} to 0
+	if {currentGameStats::%{_p}%::misc::duration} is set:
+		set {_durationSeconds} to (unix timestamp of now) - (unix timestamp of {currentGameStats::%{_p}%::misc::duration})
+
+	set {_pointRowNumber} to 0
+	loop {currentGameStats::%{_p}%::blocks::*}:
+		add 1 to {_pointRowNumber}
+		set {_pointRows::%{_pointRowNumber}%::*} to "block", and loop-index, and loop-value
+	loop {currentGameStats::%{_p}%::ores::*}:
+		add 1 to {_pointRowNumber}
+		set {_pointRows::%{_pointRowNumber}%::*} to "ore", and loop-index, and loop-value
+
+	set {_shopRowNumber} to 0
+	loop {currentGameStats::%{_p}%::shop::*}:
+		add 1 to {_shopRowNumber}
+		set {_shopRows::%{_shopRowNumber}%::*} to loop-index, and loop-value
+
+	delete {currentGameStats::%{_p}%::*}
+
+	transaction on {-minerushDatabase}:
+		execute "INSERT INTO players (uuid, username) VALUES (?, ?) ON DUPLICATE KEY UPDATE username = VALUES(username)" in {-minerushDatabase} with arguments {_playerUuid}, and {_playerName}
+		execute "INSERT INTO runs (player_id, run_number, version, points, pointsspent, totalpoints, duration_seconds, mobkills, extracted, played_at, lootboxpoints, commonlootboxesopened, rarelootboxesopened, legendarylootboxesopened) SELECT players.player_id, COALESCE(MAX(runs.run_number), 0) + 1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? FROM players LEFT JOIN runs ON runs.player_id = players.player_id WHERE players.uuid = ? GROUP BY players.player_id" in {-minerushDatabase} with arguments {runVersion}, and {_pointsEarned}, and {_pointsSpent}, and {_pointsTotal}, and {_durationSeconds}, and {_mobKills}, and {_didExtract}, and {_playedAt}, and {_lootboxPoints}, and {_commonOpened}, and {_rareOpened}, and {_legendaryOpened}, and {_playerUuid} and store the result in {_insertedRunCount}
+		if {_insertedRunCount} is 1:
+			if {_pointRowNumber} is greater than 0:
+				execute "INSERT INTO run_points (run_id, category, item_name, quantity) VALUES (LAST_INSERT_ID(), ?, ?, ?)" in {-minerushDatabase} with batch arguments {_pointRows::*}
+			if {_shopRowNumber} is greater than 0:
+				execute "INSERT INTO run_shop (run_id, item_name, quantity) VALUES (LAST_INSERT_ID(), ?, ?)" in {-minerushDatabase} with batch arguments {_shopRows::*}
+
+	if last sql error is set:
+		send "Run upload failed for %{_playerName}%: %last sql error%" to console
+	else if {_insertedRunCount} is not 1:
+		send "Run upload for %{_playerName}% inserted no run" to console
+
+	refreshTopPlayers()
+
+
+function refreshTopPlayers():
+	execute "SELECT players.username AS topPlayerName, runs.points AS topPlayerPoints FROM runs JOIN players ON players.player_id = runs.player_id WHERE players.blacklisted = 0 ORDER BY runs.points DESC, runs.played_at ASC LIMIT 3" in {-minerushDatabase} and store the result in {_topResult::*}
+	if last sql error is set:
+		send "Top players refresh failed: %last sql error%" to console
+		exit
+	loop {_topResult::topPlayerName::*}:
+		set {topPlayer::%loop-index%} to loop-value
+		set {topPoints::%loop-index%} to {_topResult::topPlayerPoints::%loop-index%}
+
+command /refreshTopPlayers:
+	permission: op
+	trigger:
+		refreshTopPlayers()
