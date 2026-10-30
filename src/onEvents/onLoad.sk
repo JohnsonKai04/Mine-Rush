@@ -14,6 +14,7 @@ on skript start:
 	loadAllWorlds()
 
 on load:
+	set {runVersion} to 1.0
 	# Tutorial message:
 	set {tutorialMsg} to formatted "|Begin a run by using the menu item|Once a run has started mine ores to gain points|Use points in the shop to assist your run|Every %{defaultSpeed}% minutes the difficulty will increase making the run harder|You'll find larger ore veins but more difficult enemies the deeper you go|Reach the extract point to get back all the points you've spent|Try to be #1 on the leaderboard|Good Luck"
 	# Color codes will only be stored in variables to make editing easier. After beta this can be removed to conserve memory if needed
