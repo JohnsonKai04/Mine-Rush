@@ -64,8 +64,8 @@ function endGame(p: player) :: boolean:
 	# Send completion message to all players and player
 	endMsg({_p})
 
-	# Saves all player data in the current run to .yaml files
-	saveDataToFile({_p})
+	# Saves all player data in the current run to the database located in db.sk
+	saveRunToDatabase({_p})
 
 	# Deletes all variable enchants/armor/ect
 	deletePlayerVariables({_p})
