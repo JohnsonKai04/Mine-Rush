@@ -34,7 +34,7 @@ function difficultyBegin(p: player):
 		loop 60 times:
 			if state({_p}) is 1:
 				add 1.667 to {pointBar::progress::%{_p}%}
-				set bar progress of {pointBar::%{_p}%} to {pointBar::progress::%{_p}%}
+				set progress of {pointBar::%{_p}%} to {pointBar::progress::%{_p}%}
 				wait "%{defaultSpeed}% seconds" parsed as timespan
 			else:
 				stop # Stops difficulty from increasing
@@ -123,4 +123,4 @@ every 1 minute in world "world":
 			feed loop-player
 
 on server ping:
-	set the motd to "<b><gradient:#FF4B4B:#FF8B2D:#FFD031:#DCFF39:#6DFF45:#3BFFC7:#58D0FF:#5489FF>Minerush [26.1.2] ┊┊</gradient></b> <gradient:#00FFCC:#26FFB2:#4DFF99:#73FF80:#99FF66:#BFFF4D><b>🥇 </b>%{topPlayer}%: 💎%formatNumber({topPoints})%</gradient>          <color:#FF4B4B>🌟  <color:#6DFF45>⛏  <color:#58D0FF>🌟   <gradient:#FF4B4B:#FF8B2D:#FFD031:#DCFF39:#6DFF45:#3BFFC7:#58D0FF:#5489FF><b><u>Stats.notamelon.com</u></b></gradient>   <color:#FF4B4B>🌟  <color:#6DFF45>⛏  <color:#58D0FF>🌟"
+	set the motd to "<b><gradient:#FF4B4B:#FF8B2D:#FFD031:#DCFF39:#6DFF45:#3BFFC7:#58D0FF:#5489FF>Minerush [26.1.2] ┊┊</gradient></b> <gradient:#00FFCC:#26FFB2:#4DFF99:#73FF80:#99FF66:#BFFF4D><b>🥇 </b>%{topPlayer::1}%: 💎%formatNumber({topPoints::1})%</gradient>          <color:#FF4B4B>🌟  <color:#6DFF45>⛏  <color:#58D0FF>🌟   <gradient:#FF4B4B:#FF8B2D:#FFD031:#DCFF39:#6DFF45:#3BFFC7:#58D0FF:#5489FF><b><u>Stats.notamelon.com</u></b></gradient>   <color:#FF4B4B>🌟  <color:#6DFF45>⛏  <color:#58D0FF>🌟"
